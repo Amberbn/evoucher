@@ -9,7 +9,7 @@ use DB;
 
 class ApiController extends BaseController
 {
-    use App\Http\Controllers\Contract\ResponseTrait;
+    use \App\Http\Controllers\Contract\ResponseTrait;
 
     const STATUS_ACTIVE = 'active';
 
