@@ -29,4 +29,9 @@ class Client extends Model
         'last_updated_by_user_name'
     ];
 
+    public function scopedByActive()
+    {
+        return $this->where('isactive','=',1);
+    }
+
 }

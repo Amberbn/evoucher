@@ -62,6 +62,16 @@ class ClientController extends ApiController
         }
     }
 
+    public function getClient($clientid)
+    {
+        $client = Client::where('client_code',$clientid)->first();
+        if(!$client) {
+             return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($client);
+    }
+
     private function validateStoreClient(Request $request)
     {
         $rules = [
@@ -81,7 +91,7 @@ class ClientController extends ApiController
 
     public function update($clientId)
     {
-        $client = Client::find($clientId);
+        $client = Client::where('client_code',$clientid)->first();
         if(!$client) {
             return $this->sendNotfound();
         }
