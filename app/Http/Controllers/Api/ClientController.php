@@ -12,7 +12,7 @@ class ClientController extends ApiController
 {
     public function getClients()
     {
-        $client = Client::all();
+        $client = Client::active()->get();
         if(!$client) {
             return $this->sendNotfound();
         }
@@ -64,7 +64,7 @@ class ClientController extends ApiController
 
     public function getClient($clientid)
     {
-        $client = Client::where('client_code',$clientid)->first();
+        $client = Client::active()->where('client_code',$clientid)->first();
         if(!$client) {
              return $this->sendNotfound();
         }
