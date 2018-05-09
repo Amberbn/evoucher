@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
     Route::get('/cekdb',['uses' => 'ApiController@index']);
     Route::get('/client',['uses' => 'ClientController@getClients']);
+    Route::post('/client/store',['uses' => 'ClientController@store']);
+    Route::post('/client/update',['uses' => 'ClientController@update']);
 });
