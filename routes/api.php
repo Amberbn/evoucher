@@ -13,10 +13,6 @@
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
     Route::get('/cekdb',['uses' => 'ApiController@index']);
     Route::post('/login', ['uses' => 'AuthController@login']);
