@@ -24,5 +24,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
         Route::post('/client/store',['uses' => 'ClientController@store']);
         Route::post('/client/update/{clientId}',['uses' => 'ClientController@update']);
         Route::post('/client/delete/{clientId}',['uses' => 'ClientController@delete']);
+
+        Route::get('/role',['uses' => 'RoleController@index']);
     });
 });
