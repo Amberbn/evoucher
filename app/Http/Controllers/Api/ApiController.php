@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Datatbase\Eloquent\Model;
 use Illuminate\Routing\Controller as BaseController;
+use JWTAuth;
+use JWTAuthException;
 use DB;
 
 class ApiController extends BaseController
@@ -24,5 +26,13 @@ class ApiController extends BaseController
     {
         dd(DB::table('bsn_client')->get());
         // echo phpinfo();
+    }
+
+    public function me(Request $request) {
+        $user = JWTAuth::toUser($request->token);  
+        if(!$user) {
+            return $this->sendNotfound();
+        }
+        return $user;
     }
 }

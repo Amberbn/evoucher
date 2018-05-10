@@ -23,4 +23,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
     Route::get('/clients/{clientId}',['uses' => 'ClientController@getClient']);
     Route::post('/client/store',['uses' => 'ClientController@store']);
     Route::post('/client/update',['uses' => 'ClientController@update']);
+
+    Route::post('/login', ['uses' => 'AuthController@login']);
+
+    Route::group(['middleware' => 'jwt.auth'], function () {
+        Route::get('/me',['uses' => 'AuthController@getAuthUser']);
+    });
 });
