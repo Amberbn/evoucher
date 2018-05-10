@@ -35,4 +35,14 @@ class ApiController extends BaseController
         }
         return $user;
     }
+
+    public function createdOrUpdatedByUsername($request)
+    {
+        $user = $this->me($request);
+        if($user) {
+            return $user->user_profile_name;
+        }
+
+        return null;
+    }
 }

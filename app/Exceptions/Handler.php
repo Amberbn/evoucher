@@ -73,6 +73,7 @@ class Handler extends ExceptionHandler
                     ], $exception->getStatusCode());
             }
         }   
+        
 
         return parent::render($request, $exception);
     }
