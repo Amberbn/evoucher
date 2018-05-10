@@ -16,4 +16,9 @@ class Role extends Model
         'isdelete',
         'created_by_user_name'
     ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('isactive','=',true);
+    }
 }
