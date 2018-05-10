@@ -49,6 +49,31 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
+            switch (get_class($exception->getPrevious())) {
+                case \Tymon\JWTAuth\Exceptions\TokenExpiredException::class:
+                    return response()->json([
+                        'status_code' => '401',
+                        'status_message' => 'Token has expired',
+                        'data' => []
+                    ], $exception->getStatusCode());
+                case \Tymon\JWTAuth\Exceptions\TokenInvalidException::class:
+                case \Tymon\JWTAuth\Exceptions\TokenBlacklistedException::class:
+                    return response()->json([
+                        'status_code' => '401',
+                        'status_message' => 'Token is invalid',
+                        'data' => []
+                    ], $exception->getStatusCode());
+                case \Tymon\JWTAuth\Exceptions\TokenInvalidException::class:
+                default:
+                    return response()->json([
+                        'status_code' => '401',
+                        'status_message' => 'Token is invalid',
+                        'data' => []
+                    ], $exception->getStatusCode());
+            }
+        }   
+
         return parent::render($request, $exception);
     }
 
