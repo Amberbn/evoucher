@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     protected $table = 'frm_roles';
+    public $timestamps = false;
 
     protected $fillable = [
         'roles_code',
