@@ -28,5 +28,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
         Route::get('/global-parameter/{parameters_id}',['uses' => 'GlobalParameterController@getGlobalParameter']);
 
         Route::get('/role',['uses' => 'RoleController@index']);
+        Route::post('/role/store',['uses' => 'RoleController@store']);
+        Route::put('/role/update/{roleCode}',['uses' => 'RoleController@update']);
+        Route::post('/role/delete/{roleCode}',['uses' => 'RoleController@delete']);
     });
 });
