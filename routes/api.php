@@ -20,10 +20,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::get('/me',['uses' => 'AuthController@getAuthUser']);
         Route::get('/client',['uses' => 'ClientController@getClients']);
-        Route::get('/clients/{clientId}',['uses' => 'ClientController@getClient']);
+        Route::get('/client/{clientId}',['uses' => 'ClientController@getClient']);
         Route::post('/client/store',['uses' => 'ClientController@store']);
         Route::post('/client/update/{clientId}',['uses' => 'ClientController@update']);
         Route::post('/client/delete/{clientId}',['uses' => 'ClientController@delete']);
+
+        Route::get('/global-parameter/{parameters_id}',['uses' => 'GlobalParameterController@getGlobalParameter']);
 
         Route::get('/role',['uses' => 'RoleController@index']);
     });

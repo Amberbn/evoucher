@@ -53,7 +53,20 @@ class GlobalParameterController extends ApiController
 
     public function getGlobalParameter($globalParameterId)
     {
-        $globalParameter = GlobalParameter::active()->where('parameters_id', $globalParameterId)->first();
+        $param = (int)$globalParameterId ? true : false;
+        $field = $param ? 'parameters_id' : 'parameters_code';
+        $globalParameter = GlobalParameter::active()
+          ->where($field,$globalParameterId)->first();
+          // ->where('parameters_id', $globalParameterId)
+          // ->orWhere('parameters_code', $parametersCode)
+
+          // if($param) {
+          //   $globalParameter->where('parameters_id', $globalParameterId);
+          // }else{
+          //   $globalParameter->where('parameters_code', $globalParameterId);
+          // }
+          // $globalParameter->first();
+
         if (!$globalParameter)
         {
             return $this->sendNotFound();
@@ -92,6 +105,5 @@ class GlobalParameterController extends ApiController
 
             return $this->sendBadRequest($e->getMessage());
         }
-
     }
 }

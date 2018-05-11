@@ -65,9 +65,9 @@ class ClientController extends ApiController
 
             DB::beginTransaction();
             $updateBy = $this->createdOrUpdatedByUsername($request);
-            $client = $this->repository->update($client,$updateBy);
+            $client = $this->repository->update($request,$client,$updateBy);
             DB::commit();
-            
+
             return $this->sendSuccess($client);
 
         } catch(\Exception $e) {
@@ -85,7 +85,7 @@ class ClientController extends ApiController
         }
 
         try{
-            
+
             DB::beginTransaction();
             $updateBy = $this->createdOrUpdatedByUsername($request);
             $client = $this->repository->delete($client,$updateBy);
@@ -96,6 +96,6 @@ class ClientController extends ApiController
             DB::rollBack();
             return $this->sendBadRequest($e->getMessage());
         }
-        
+
     }
 }

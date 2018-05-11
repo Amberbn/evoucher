@@ -21,4 +21,9 @@ class GlobalParameter extends Model
         'created_by_user_name',
         'last_updated_by_user_name',
     ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('isactive','=',true);
+    }
 }

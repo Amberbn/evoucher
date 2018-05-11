@@ -1,10 +1,10 @@
 <?php
 namespace App\Repository;
-use App\Client; 
+use App\Client;
 
-class ClientRepository 
+class ClientRepository
 {
-    
+
     public function store($request,$createdBy)
     {
         $client = new Client;
