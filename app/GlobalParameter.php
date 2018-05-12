@@ -11,7 +11,6 @@ class GlobalParameter extends Model
 
     protected $fillable = [
         'client_id',
-        'client_code',
         'parameters_type',
         'parameters_code',
         'parameters_value_datatype',
