@@ -24,12 +24,19 @@ class UserController extends ApiController
      */
     public function getUsers()
     {
-        $users = User::active()->get();
-        if (!$users) {
+        $users = $this->repository->getAllUser();
+         if (!$users) {
             return $this->sendNotfound();
         }
 
         return $this->sendSuccess($users);
+
+        // $users = User::active()->get();
+        // if (!$users) {
+        //     return $this->sendNotfound();
+        // }
+        //
+        // return $this->sendSuccess($users);
     }
 
     /**
