@@ -20,6 +20,7 @@ class ClientController extends ApiController
 
     public function getClients()
     {
+        //git get all
         $client = $this->repository->getClient()->get()->toArray();
         if (empty($client)) {
             return $this->sendNotfound();
