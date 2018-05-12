@@ -11,7 +11,7 @@ class GlobalParameterRepository
     public function saveGlobalParameter($request, $createdBy)
     {
         $globalParameter = new GlobalParameter;
-        $globalParameter->client_code = $request->client_code;
+        $globalParameter->client_id = $request->client_id;
         $globalParameter->parameters_type = $request->parameters_type;
         $globalParameter->parameters_code = $request->parameters_code;
         $globalParameter->parameters_value_datatype = $request->parameters_value_datatype;
@@ -28,7 +28,7 @@ class GlobalParameterRepository
 
     public function updateGlobalParameter($request, $globalParameter, $updateBy)
     {
-        $globalParameter->client_code = $request->client_code;
+        $globalParameter->client_id = $request->client_id;
         $globalParameter->parameters_type = $request->parameters_type;
         $globalParameter->parameters_code = $request->parameters_code;
         $globalParameter->parameters_value_datatype = $request->parameters_value_datatype;
@@ -39,5 +39,7 @@ class GlobalParameterRepository
         // $globalParameter->created_by_user_name = $updateBy;
         $globalParameter->last_updated_by_user_name = $updateBy;
         $globalParameter->save();
+
+        return $globalParameter;
     }
 }
