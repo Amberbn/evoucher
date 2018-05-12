@@ -87,7 +87,7 @@ class GlobalParameterController extends ApiController
     /**
      *FUNCTION FOR UPDATE GLOBAL PARAMETER
      */
-    public function update($request, $globalParameterId)
+    public function update(Request $request, $globalParameterId)
     {
         $globalParameter = GlobalParameter::active()->where('parameters_id', $globalParameterId)->first();
         if (!$globalParameter)
@@ -103,7 +103,7 @@ class GlobalParameterController extends ApiController
 
             DB::commit();
 
-            return $this->sendSuccess($client);
+            return $this->sendSuccess($globalParameter);
 
         } catch (\Exception $e) {
             DB::rollBack();
