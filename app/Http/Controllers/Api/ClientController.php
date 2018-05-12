@@ -20,10 +20,11 @@ class ClientController extends ApiController
 
     public function getClients()
     {
-        $client = $this->model::active()->get();
-        if (!$client) {
+        $client = $this->repository->getClient()->get()->toArray();
+        if (empty($client)) {
             return $this->sendNotfound();
         }
+
         return $this->sendSuccess($client);
     }
 
@@ -42,10 +43,10 @@ class ClientController extends ApiController
         }
     }
 
-    public function getClient($clientid)
+    public function getClient($clientId)
     {
-        $client = $this->model::active()->where('client_id', $clientid)->first();
-        if (!$client) {
+        $client = $this->repository->getClient($clientId)->get()->toArray();
+        if (empty($client)) {
             return $this->sendNotfound();
         }
 
