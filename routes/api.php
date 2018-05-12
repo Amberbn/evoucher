@@ -25,8 +25,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
         Route::post('/client/update/{clientId}',['uses' => 'ClientController@update']);
         Route::post('/client/delete/{clientId}',['uses' => 'ClientController@delete']);
 
+        //ROUTE FOR GLOBAL PARAMETER
+        Route::get('/global-parameter',['uses' => 'GlobalParameterController@getGlobalParameters']);
+        Route::post('/global-parameter/store',['uses' => 'GlobalParameterController@store']);
         Route::get('/global-parameter/{parameters_id}',['uses' => 'GlobalParameterController@getGlobalParameter']);
-
+        Route::post('/global-parameter/update/{parameters_id}',['uses' => 'GlobalParameterController@update']);
+        //END ROUTE FOR GLOBAL PARAMETER
+        
         Route::get('/role',['uses' => 'RoleController@index']);
         Route::post('/role/store',['uses' => 'RoleController@store']);
         Route::put('/role/update/{roleCode}',['uses' => 'RoleController@update']);

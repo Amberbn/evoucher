@@ -5,12 +5,25 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Support\Facades\Validator;
+use App\Repository\GlobalParameterRepository;
 use App\Http\Controllers\Controller;
 use App\GlobalParameter;
 use DB;
 
 class GlobalParameterController extends ApiController
 {
+    /**
+     *FUNCTION __construct FOR DEFINE MODEL AND REPOSITORY
+     */
+    public function __construct()
+    {
+        $this->model = new GlobalParameter;
+        $this->repository = new GlobalParameterRepository;
+    }
+
+    /**
+     *FUNCTION FOR GET ALL DATA GLOBAL PARAMETER
+     */
     public function getGlobalParameters()
     {
         $globalParameters = GlobalParameter::active()->get();
@@ -22,23 +35,16 @@ class GlobalParameterController extends ApiController
         return $this->sendSuccess($globalParameters);
     }
 
+    /**
+     *FUNCTION FOR INSERT GLOBAL PARAMETER
+     */
     public function store(Request $request)
     {
         DB::beginTransaction();
 
         try {
-            $globalParameter = new GlobalParameter;
-            $globalParameter->client_code = $request->client_code;
-            $globalParameter->parameters_type = $request->parameters_type;
-            $globalParameter->parameters_code = $request->parameters_code;
-            $globalParameter->parameters_value_datatype = $request->parameters_value_datatype;
-            $globalParameter->parameters_parent_id = $request->parameters_parent_id;
-            $globalParameter->data_sort = $request->data_sort;
-            $globalParameter->isactive = $request->isactive;
-            $globalParameter->isdelete = $request->isdelete;
-            $globalParameter->created_by_user_name = $request->created_by_user_name;
-            $globalParameter->last_updated_by_user_name = $request->last_updated_by_user_name;
-            $globalParameter->save();
+            $createdBy = $this->createdOrUpdatedByUsername($request);
+            $globalParameter = $this->repository->saveGlobalParameter($request,$createdBy);
 
             DB::commit();
 
@@ -51,6 +57,9 @@ class GlobalParameterController extends ApiController
         }
     }
 
+    /**
+     *FUNCTION FOR GET DATA GLOBAL PARAMETER BY GLOBAL PARAMETER ID
+     */
     public function getGlobalParameter($globalParameterId)
     {
         $param = (int)$globalParameterId ? true : false;
@@ -75,7 +84,10 @@ class GlobalParameterController extends ApiController
         return $this->sendSuccess($globalParameter);
     }
 
-    public function update($globalParameterId)
+    /**
+     *FUNCTION FOR UPDATE GLOBAL PARAMETER
+     */
+    public function update(Request $request, $globalParameterId)
     {
         $globalParameter = GlobalParameter::active()->where('parameters_id', $globalParameterId)->first();
         if (!$globalParameter)
@@ -86,19 +98,12 @@ class GlobalParameterController extends ApiController
         DB::beginTransaction();
 
         try {
-            $globalParameter->client_code = $request->client_code;
-            $globalParameter->parameters_type = $request->parameters_type;
-            $globalParameter->parameters_code = $request->parameters_code;
-            $globalParameter->parameters_value_datatype = $request->parameters_value_datatype;
-            $globalParameter->parameters_parent_id = $request->parameters_parent_id;
-            $globalParameter->data_sort = $request->data_sort;
-            $globalParameter->isactive = $request->isactive;
-            $globalParameter->isdelete = $request->isdelete;
-            $globalParameter->created_by_user_name = $request->created_by_user_name;
-            $globalParameter->last_updated_by_user_name = $request->last_updated_by_user_name;
-            $globalParameter->save();
+            $updateBy = $this->createdOrUpdatedByUsername($request);
+            $globalParameter = $this->repository->updateGlobalParameter($request,$globalParameter,$updateBy);
 
             DB::commit();
+
+            return $this->sendSuccess($globalParameter);
 
         } catch (\Exception $e) {
             DB::rollBack();

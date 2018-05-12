@@ -47,6 +47,11 @@ class User extends Authenticatable implements JWTSubject
         'password'
     ];
 
+    public function scopeActive($query)
+    {
+        return $query->where('isactive','=',true);
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
