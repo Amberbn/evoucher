@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     protected $table = 'bsn_client';
+    protected $primaryKey = 'client_id';
 
     protected $fillable = [
         'client_code',
