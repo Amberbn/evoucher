@@ -6,6 +6,65 @@ use App\Client;
 class ClientRepository
 {
 
+    public function getClient($clientId = null)
+    {
+        $table = (new Client)->getTable();
+        $client = (new Client)
+            ->join('frm_global_parameters as clcat', function ($join) use ($table) {
+                $join
+                    ->on('clcat.parameters_id', '=', $table . '.client_category_pid')
+                    ->where('clcat.parameters_type', '=', 'client_category');
+            })
+            ->join('frm_global_parameters as city', function ($join) use ($table) {
+                $join
+                    ->on('city.parameters_id', '=', $table . '.client_billing_address_city_pid')
+                    ->where('city.parameters_type', '=', 'address_city');
+            })
+            ->join('frm_global_parameters as ind', function ($join) use ($table) {
+                $join
+                    ->on('ind.parameters_id', '=', $table . '.client_industry_category_pid')
+                    ->where('ind.parameters_type', '=', 'industry_category');
+            })
+            ->join('frm_global_parameters as emp', function ($join) use ($table) {
+                $join
+                    ->on('emp.parameters_id', '=', $table . '.client_employee_size_category_pid')
+                    ->where('emp.parameters_type', '=', 'employee_size_category');
+            });
+
+        if ($clientId) {
+            $client->where($table . '.client_id', '=', $clientId);
+        }
+
+        $client->where($table . '.isactive', '=', true);
+        $client->select(
+            $table . '.client_code',
+            $table . '.client_category_pid',
+            'clcat.parameters_value as client_category_title',
+            $table . '.client_is_also_merchant',
+            $table . '.client_allow_postpaid',
+            $table . '.client_name',
+            $table . '.client_tax_no',
+            $table . '.client_billing_address_line_1',
+            $table . '.client_billing_address_line_2',
+            $table . '.client_billing_address_state_province_pid',
+            $table . '.client_billing_address_city_pid',
+            $table . '.client_billing_address_postal_code',
+            $table . '.client_industry_category_pid',
+            'ind.parameters_value as industry_category_title',
+            $table . '.client_employee_size_category_pid',
+            'emp.parameters_value as employee_size_category_title',
+            'city.parameters_value as client_billing_address_city_title',
+            $table . '.client_outstanding_limit',
+            $table . '.isactive',
+            $table . '.isdelete',
+            $table . '.created_at',
+            $table . '.created_by_user_name',
+            $table . '.updated_at',
+            $table . '.last_updated_by_user_name'
+        );
+
+        return $client;
+    }
     public function store($request, $createdBy)
     {
         $client = new Client;

@@ -40,9 +40,9 @@ class RoleController extends ApiController
         }
     }
 
-    public function update(Request $request, $roleCode)
+    public function update(Request $request, $roleid)
     {
-        $role = Role::active()->where('roles_code', $roleCode)->first();
+        $role = Role::active()->where('roles_id', $roleCode)->first();
 
         if (!$role) {
             return $this->sendNotfound();
@@ -60,9 +60,9 @@ class RoleController extends ApiController
         }
     }
 
-    public function delete($roleCode)
+    public function delete($roleId)
     {
-        $role = Role::active()->where('roles_code', $roleCode)->first();
+        $role = Role::active()->where('roles_id', $roleId)->first();
 
         if (!$role) {
             return $this->sendNotfound();

@@ -27,10 +27,6 @@ class AuthController extends ApiController
     public function getAuthUser(Request $request)
     {
         $user = $this->me($request);
-        $response = [
-            'email' => $user->user_name,
-            'client_code' => $user->client_code,
-        ];
-        return $this->sendSuccess($response);
+        return $this->sendSuccess($user);
     }
 }
