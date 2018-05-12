@@ -24,12 +24,19 @@ class UserController extends ApiController
      */
     public function getUsers()
     {
-        $users = User::active()->get();
-        if (!$users) {
+        $users = $this->repository->getAllUser();
+         if (!$users) {
             return $this->sendNotfound();
         }
 
         return $this->sendSuccess($users);
+
+        // $users = User::active()->get();
+        // if (!$users) {
+        //     return $this->sendNotfound();
+        // }
+        //
+        // return $this->sendSuccess($users);
     }
 
     /**
@@ -57,9 +64,9 @@ class UserController extends ApiController
     /**
      *FUNCTION FOR GET DATA USER BY USERNAME
      */
-    public function getUser($userName)
+    public function getUser($userId)
     {
-        $user = $this->model::active()->where('user_name', $userName)->first();
+        $user = $this->model::active()->where('user_id', $userId)->first();
         if (!$user) {
             return $this->sendNotfound();
         }
@@ -70,9 +77,9 @@ class UserController extends ApiController
     /**
      *FUNCTION FOR UPDATE GLOBAL PARAMETER
      */
-    public function update(Request $request, $userName)
+    public function update(Request $request, $userId)
     {
-        $user = GlobalParameter::active()->where('user_name', $userName)->first();
+        $user = User::active()->where('user_id', $userId)->first();
         if (!$user) {
             return $this->sendNotFound();
         }
