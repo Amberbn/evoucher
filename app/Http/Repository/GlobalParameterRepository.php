@@ -1,5 +1,6 @@
 <?php
 namespace App\Repository;
+
 use App\GlobalParameter;
 
 /**
@@ -25,7 +26,7 @@ class GlobalParameterRepository
         return $globalParameter;
     }
 
-    public function updateGlobalParameter($request,$globalParameter,$updateBy)
+    public function updateGlobalParameter($request, $globalParameter, $updateBy)
     {
         $globalParameter->client_code = $request->client_code;
         $globalParameter->parameters_type = $request->parameters_type;

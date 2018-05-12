@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Api\ApiController;
-use Illuminate\Support\Facades\Validator;
-use App\Repository\GlobalParameterRepository;
-use App\Http\Controllers\Controller;
 use App\GlobalParameter;
+use App\Http\Controllers\Api\ApiController;
+use App\Repository\GlobalParameterRepository;
 use DB;
+use Illuminate\Http\Request;
 
 class GlobalParameterController extends ApiController
 {
@@ -27,8 +25,7 @@ class GlobalParameterController extends ApiController
     public function getGlobalParameters()
     {
         $globalParameters = GlobalParameter::active()->get();
-        if ($globalParameters)
-        {
+        if ($globalParameters) {
             return $this->sendNotfound();
         }
 
@@ -44,7 +41,7 @@ class GlobalParameterController extends ApiController
 
         try {
             $createdBy = $this->createdOrUpdatedByUsername($request);
-            $globalParameter = $this->repository->saveGlobalParameter($request,$createdBy);
+            $globalParameter = $this->repository->saveGlobalParameter($request, $createdBy);
 
             DB::commit();
 
@@ -62,22 +59,21 @@ class GlobalParameterController extends ApiController
      */
     public function getGlobalParameter($globalParameterId)
     {
-        $param = (int)$globalParameterId ? true : false;
+        $param = (int) $globalParameterId ? true : false;
         $field = $param ? 'parameters_id' : 'parameters_code';
         $globalParameter = GlobalParameter::active()
-          ->where($field,$globalParameterId)->first();
-          // ->where('parameters_id', $globalParameterId)
-          // ->orWhere('parameters_code', $parametersCode)
+            ->where($field, $globalParameterId)->first();
+        // ->where('parameters_id', $globalParameterId)
+        // ->orWhere('parameters_code', $parametersCode)
 
-          // if($param) {
-          //   $globalParameter->where('parameters_id', $globalParameterId);
-          // }else{
-          //   $globalParameter->where('parameters_code', $globalParameterId);
-          // }
-          // $globalParameter->first();
+        // if($param) {
+        //   $globalParameter->where('parameters_id', $globalParameterId);
+        // }else{
+        //   $globalParameter->where('parameters_code', $globalParameterId);
+        // }
+        // $globalParameter->first();
 
-        if (!$globalParameter)
-        {
+        if (!$globalParameter) {
             return $this->sendNotFound();
         }
 
@@ -90,8 +86,7 @@ class GlobalParameterController extends ApiController
     public function update(Request $request, $globalParameterId)
     {
         $globalParameter = GlobalParameter::active()->where('parameters_id', $globalParameterId)->first();
-        if (!$globalParameter)
-        {
+        if (!$globalParameter) {
             return $this->sendNotFound();
         }
 
@@ -99,7 +94,7 @@ class GlobalParameterController extends ApiController
 
         try {
             $updateBy = $this->createdOrUpdatedByUsername($request);
-            $globalParameter = $this->repository->updateGlobalParameter($request,$globalParameter,$updateBy);
+            $globalParameter = $this->repository->updateGlobalParameter($request, $globalParameter, $updateBy);
 
             DB::commit();
 

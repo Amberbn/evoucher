@@ -1,11 +1,12 @@
 <?php
 namespace App\Repository;
+
 use App\Role;
 
-class RoleRepository 
+class RoleRepository
 {
 
-    public function store($request,$createBy)
+    public function store($request, $createBy)
     {
         $role = new Role;
         $role->roles_code = $request->roles_code;
@@ -20,7 +21,7 @@ class RoleRepository
         return $role;
     }
 
-    public function update($request,$role)
+    public function update($request, $role)
     {
         $role->roles_description = $request->roles_description;
         $role->data_sort = $request->data_sort;

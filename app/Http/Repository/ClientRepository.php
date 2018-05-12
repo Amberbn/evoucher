@@ -1,11 +1,12 @@
 <?php
 namespace App\Repository;
+
 use App\Client;
 
 class ClientRepository
 {
 
-    public function store($request,$createdBy)
+    public function store($request, $createdBy)
     {
         $client = new Client;
         $client->client_code = $request->client_code;
@@ -31,7 +32,7 @@ class ClientRepository
         return $client;
     }
 
-    public function update($request,$client,$updateBy)
+    public function update($request, $client, $updateBy)
     {
         $client->client_category_pid = $request->client_category_pid;
         $client->client_is_also_merchant = $request->client_is_also_merchant;
@@ -54,7 +55,7 @@ class ClientRepository
         return $client;
     }
 
-    public function delete($client,$updateBy)
+    public function delete($client, $updateBy)
     {
         $client->isdelete = true;
         $client->last_updated_by_user_name = $updateBy;

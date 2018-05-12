@@ -11,6 +11,6 @@ class UserRole extends Model
     protected $fillable = [
         'user_name',
         'roles_code',
-        'created_by_user_name'
+        'created_by_user_name',
     ];
 }

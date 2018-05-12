@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -34,7 +34,7 @@ class User extends Authenticatable implements JWTSubject
         'isactive',
         'isdelete',
         'created_by_user_name',
-        'last_updated_by_user_name'
+        'last_updated_by_user_name',
     ];
 
     /**
@@ -44,12 +44,12 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $hidden = [
         'user_password',
-        'password'
+        'password',
     ];
 
     public function scopeActive($query)
     {
-        return $query->where('isactive','=',true);
+        return $query->where('isactive', '=', true);
     }
 
     public function getJWTIdentifier()

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
-use Illuminate\Support\Facades\Validator;
 use App\Repository\UserRepository;
-use App\Http\Controllers\Controller;
 use App\User;
 use DB;
+use Illuminate\Http\Request;
 
 class UserController extends ApiController
 {
@@ -27,8 +25,7 @@ class UserController extends ApiController
     public function getUsers()
     {
         $users = User::active()->get();
-        if (!$users)
-        {
+        if (!$users) {
             return $this->sendNotfound();
         }
 
@@ -63,8 +60,8 @@ class UserController extends ApiController
     public function getUser($userName)
     {
         $user = $this->model::active()->where('user_name', $userName)->first();
-        if(!$user) {
-             return $this->sendNotfound();
+        if (!$user) {
+            return $this->sendNotfound();
         }
 
         return $this->sendSuccess($user);
@@ -76,8 +73,7 @@ class UserController extends ApiController
     public function update(Request $request, $userName)
     {
         $user = GlobalParameter::active()->where('user_name', $userName)->first();
-        if (!$user)
-        {
+        if (!$user) {
             return $this->sendNotFound();
         }
 
@@ -85,7 +81,7 @@ class UserController extends ApiController
 
         try {
             $updateBy = $this->createdOrUpdatedByUsername($request);
-            $user = $this->repository->updateUser($request,$user,$updateBy);
+            $user = $this->repository->updateUser($request, $user, $updateBy);
 
             DB::commit();
 
