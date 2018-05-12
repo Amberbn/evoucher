@@ -44,7 +44,7 @@ class ClientController extends ApiController
 
     public function getClient($clientid)
     {
-        $client = $this->model::active()->where('client_code', $clientid)->first();
+        $client = $this->model::active()->where('client_id', $clientid)->first();
         if (!$client) {
             return $this->sendNotfound();
         }
@@ -54,7 +54,7 @@ class ClientController extends ApiController
 
     public function update(UpdateClient $request, $clientId)
     {
-        $client = $this->model::where('client_code', $clientId)->first();
+        $client = $this->model::where('client_id', $clientId)->first();
 
         if (!$client) {
             return $this->sendNotfound();
@@ -77,7 +77,7 @@ class ClientController extends ApiController
 
     public function delete(Request $request, $clientId)
     {
-        $client = $this->model::where('client_code', $clientId)->first();
+        $client = $this->model::where('client_id', $clientId)->first();
 
         if (!$client) {
             return $this->sendNotfound();
