@@ -1,5 +1,6 @@
 <?php
 namespace App\Repository;
+
 use App\UserRole;
 
 /**
@@ -16,7 +17,7 @@ class UserRoleRepository
         $userRole->save();
     }
 
-    public function updateUserRole($request,$userRole)
+    public function updateUserRole($request, $userRole)
     {
         $userRole->user_name = $request->user_name;
         $userRole->roles_code = $request->roles_code;

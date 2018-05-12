@@ -15,11 +15,11 @@ class Role extends Model
         'data_sort',
         'isactive',
         'isdelete',
-        'created_by_user_name'
+        'created_by_user_name',
     ];
 
     public function scopeActive($query)
     {
-        return $query->where('isactive','=',true);
+        return $query->where('isactive', '=', true);
     }
 }

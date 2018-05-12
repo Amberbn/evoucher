@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\ValidationException;
 
 class StoreRole extends FormRequest
 {
@@ -29,7 +28,7 @@ class StoreRole extends FormRequest
     public function rules()
     {
         return [
-            'roles_code' => 'required|unique:frm_roles,roles_code|min:3'
+            'roles_code' => 'required|unique:frm_roles,roles_code|min:3',
         ];
     }
 

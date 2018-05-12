@@ -1,5 +1,6 @@
 <?php
 namespace App\Repository;
+
 use App\User;
 
 /**
@@ -29,7 +30,7 @@ class UserRepository
         $user->save();
     }
 
-    public function updateUser($request,$user,$updateBy)
+    public function updateUser($request, $user, $updateBy)
     {
         $user->user_name = $request->user_name;
         $user->client_code = $request->client_code;

@@ -14,6 +14,6 @@ class RoleResource extends Model
         'resources_reference',
         'resources_reference_id',
         'resource_operation',
-        'created_by_user_name'
+        'created_by_user_name',
     ];
 }

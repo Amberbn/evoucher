@@ -2,16 +2,14 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-
+use Illuminate\Validation\ValidationException;
 
 class StoreClient extends FormRequest
 {
-     use \App\Http\Controllers\Contract\ResponseTrait;
+    use \App\Http\Controllers\Contract\ResponseTrait;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -38,7 +36,7 @@ class StoreClient extends FormRequest
             'client_billing_address_city_pid' => 'required|numeric',
             'client_billing_address_postal_code' => 'required|numeric',
             'client_industry_category_pid' => 'required|numeric',
-            'client_employee_size_category_pid' => 'required|numeric'
+            'client_employee_size_category_pid' => 'required|numeric',
         ];
     }
 
