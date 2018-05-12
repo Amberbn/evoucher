@@ -8,6 +8,7 @@ class Role extends Model
 {
     protected $table = 'frm_roles';
     public $timestamps = false;
+    protected $primaryKey = 'roles_id';
 
     protected $fillable = [
         'roles_code',

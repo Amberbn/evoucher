@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class GlobalParameter extends Model
 {
     protected $table = 'frm_global_parameters';
+    protected $primaryKey = 'parameters_id';
 
     protected $fillable = [
+        'client_id',
         'client_code',
         'parameters_type',
         'parameters_code',
