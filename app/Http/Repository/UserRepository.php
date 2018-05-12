@@ -12,10 +12,11 @@ class UserRepository
     {
         $user = new User;
         $user->user_name = $request->user_name;
-        $user->client_code = $request->client_code;
+        $user->client_id = $request->client_id;
         $user->user_salutation_pid = $request->user_salutation_pid;
         $user->user_profile_name = $request->user_profile_name;
-        $user->user_password = $request->user_password;
+        $user->password = $request->password;
+        $user->user_phone = $request->user_phone;
         $user->user_token = $request->user_token;
         $user->user_password_force_expiration = $request->user_password_force_expiration;
         $user->user_password_expiration_days = $request->user_password_expiration_days;
@@ -28,15 +29,18 @@ class UserRepository
         $user->created_by_user_name = $createdBy;
         $user->last_updated_by_user_name = $createdBy;
         $user->save();
+
+        return $user;
     }
 
     public function updateUser($request, $user, $updateBy)
     {
         $user->user_name = $request->user_name;
-        $user->client_code = $request->client_code;
+        $user->client_id = $request->client_id;
         $user->user_salutation_pid = $request->user_salutation_pid;
         $user->user_profile_name = $request->user_profile_name;
-        $user->user_password = $request->user_password;
+        $user->password = $request->password;
+        $user->user_phone = $request->user_phone;
         $user->user_token = $request->user_token;
         $user->user_password_force_expiration = $request->user_password_force_expiration;
         $user->user_password_expiration_days = $request->user_password_expiration_days;
@@ -49,5 +53,7 @@ class UserRepository
         // $user->created_by_user_name = $createdBy;
         $user->last_updated_by_user_name = $updateBy;
         $user->save();
+
+        return $user;
     }
 }
