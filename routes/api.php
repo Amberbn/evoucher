@@ -14,7 +14,7 @@
 */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
-    Route::get('/cekdb',['uses' => 'ApiController@index']);
+    Route::get('/cekdb/',['uses' => 'ApiController@index']);
     Route::post('/login', ['uses' => 'AuthController@login']);
 
     Route::group(['middleware' => 'jwt.auth'], function () {
