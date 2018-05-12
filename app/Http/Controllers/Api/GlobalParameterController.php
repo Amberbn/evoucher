@@ -25,7 +25,7 @@ class GlobalParameterController extends ApiController
     public function getGlobalParameters()
     {
         $globalParameters = GlobalParameter::active()->get();
-        if ($globalParameters) {
+        if (!$globalParameters) {
             return $this->sendNotfound();
         }
 
