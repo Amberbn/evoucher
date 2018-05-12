@@ -31,7 +31,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
         Route::get('/global-parameter/{parameters_id}',['uses' => 'GlobalParameterController@getGlobalParameter']);
         Route::post('/global-parameter/update/{parameters_id}',['uses' => 'GlobalParameterController@update']);
         //END ROUTE FOR GLOBAL PARAMETER
-        
+
+        //ROUTE FOR USER
+        Route::get('/user',['uses' => 'UserController@getUsers']);
+        Route::post('/user/store',['uses' => 'UserController@store']);
+        Route::get('/user/{id}',['uses' => 'UserController@getUser']);
+        Route::post('/user/update/{id}',['uses' => 'UserController@update']);
+        //END ROUTE FOR USER
+
         Route::get('/role',['uses' => 'RoleController@index']);
         Route::post('/role/store',['uses' => 'RoleController@store']);
         Route::put('/role/update/{roleCode}',['uses' => 'RoleController@update']);
