@@ -14,7 +14,7 @@
 */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
-    Route::get('/cekdb',['uses' => 'ApiController@index']);
+    Route::get('/cekdb/',['uses' => 'ApiController@index']);
     Route::post('/login', ['uses' => 'AuthController@login']);
 
     Route::group(['middleware' => 'jwt.auth'], function () {
@@ -33,5 +33,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
         //END ROUTE FOR GLOBAL PARAMETER
         
         Route::get('/role',['uses' => 'RoleController@index']);
+        Route::post('/role/store',['uses' => 'RoleController@store']);
+        Route::put('/role/update/{roleCode}',['uses' => 'RoleController@update']);
+        Route::post('/role/delete/{roleCode}',['uses' => 'RoleController@delete']);
     });
 });
