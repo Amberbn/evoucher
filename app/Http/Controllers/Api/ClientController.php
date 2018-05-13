@@ -12,15 +12,21 @@ use Illuminate\Http\Request;
 
 class ClientController extends ApiController
 {
+    /**
+     *FUNCTION __construct FOR DEFINE MODEL AND REPOSITORY
+     */
     public function __construct()
     {
         $this->model = new Client;
         $this->repository = new ClientRepository;
     }
 
+    /**
+     *FUNCTION FOR GET ALL DATA CLIENT
+     *@return \Illuminate\Http\Response
+     */
     public function getClients()
     {
-        //git get all
         $client = $this->repository->getClient()->get()->toArray();
         if (empty($client)) {
             return $this->sendNotfound();
@@ -29,6 +35,11 @@ class ClientController extends ApiController
         return $this->sendSuccess($client);
     }
 
+    /**
+     *FUNCTION FOR STORE DATA CLIENT
+     *@param StoreClient $request
+     *@return \Illuminate\Http\Response
+     */
     public function store(StoreClient $request)
     {
         try {
@@ -44,6 +55,11 @@ class ClientController extends ApiController
         }
     }
 
+    /**
+     *FUNCTION FOR GET DETAIL CLIENT
+     *@param int $clientId
+     *@return \Illuminate\Http\Response
+     */
     public function getClient($clientId)
     {
         $client = $this->repository->getClient($clientId)->get()->toArray();
@@ -54,6 +70,12 @@ class ClientController extends ApiController
         return $this->sendSuccess($client);
     }
 
+    /**
+     *FUNCTION FOR UPDATE CLIENT
+     *@param UpdateClient $request
+     *@param int $clientId
+     *@return \Illuminate\Http\Response
+     */
     public function update(UpdateClient $request, $clientId)
     {
         $client = $this->model::where('client_id', $clientId)->first();
@@ -77,6 +99,12 @@ class ClientController extends ApiController
         }
     }
 
+    /**
+     *FUNCTION FOR DELETE CLIENT
+     *@param Request $request
+     *@param int $clientId
+     *@return \Illuminate\Http\Response
+     */
     public function delete(Request $request, $clientId)
     {
         $client = $this->model::where('client_id', $clientId)->first();

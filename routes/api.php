@@ -14,18 +14,23 @@
  */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
-    Route::get('/cekdb/', ['uses' => 'ApiController@index']);
+    Route::get('/cekdb', ['uses' => 'ApiController@index']);
     Route::post('/login', ['uses' => 'AuthController@login']);
 
     Route::group(['middleware' => 'jwt.auth'], function () {
+
+        //ROUTE PROFILE MANAGEMENT
         Route::get('/me', ['uses' => 'AuthController@getAuthUser']);
         Route::post('/me/change-password', ['uses' => 'AuthController@changePassword']);
+        //END ROUTE FOR PROFILE MANAGEMENT
 
+        //ROUTE FOR CLIENT MANAGEMENT
         Route::get('/client', ['uses' => 'ClientController@getClients']);
         Route::get('/client/{clientId}', ['uses' => 'ClientController@getClient']);
         Route::post('/client/store', ['uses' => 'ClientController@store']);
         Route::put('/client/update/{clientId}', ['uses' => 'ClientController@update']);
-        Route::post('/client/delete/{clientId}', ['uses' => 'ClientController@delete']);
+        Route::delete('/client/delete/{clientId}', ['uses' => 'ClientController@delete']);
+        //END ROUTE FOR CLIENT MANAGEMENT
 
         //ROUTE FOR GLOBAL PARAMETER
         Route::get('/global-parameter', ['uses' => 'GlobalParameterController@getGlobalParameters']);
@@ -41,9 +46,20 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::post('/user/update/{id}', ['uses' => 'UserController@update']);
         //END ROUTE FOR USER
 
+        //ROUTE FOR ROLE MANAGEMENT
         Route::get('/role', ['uses' => 'RoleController@index']);
         Route::post('/role/store', ['uses' => 'RoleController@store']);
         Route::put('/role/update/{roleId}', ['uses' => 'RoleController@update']);
-        Route::post('/role/delete/{roleId}', ['uses' => 'RoleController@delete']);
+        Route::delete('/role/delete/{roleId}', ['uses' => 'RoleController@delete']);
+        //END ROUTE FOR CLIENT MANAGEMENT
+
+        //ROUTE FOR OUTLET MANAGEMENT
+        Route::get('/outlets', ['uses' => 'OutletController@outlets']);
+        Route::get('/outlet/{outletId}', ['uses' => 'OutletController@outlet']);
+        Route::post('/outlet/store', ['uses' => 'OutletController@store']);
+        Route::put('/outlet/update/{outletId}', ['uses' => 'OutletController@update']);
+        Route::delete('/outlet/delete/{outletId}', ['uses' => 'OutletController@delete']);
+        //END ROUTE FOR CLIENT MANAGEMENT
+
     });
 });
