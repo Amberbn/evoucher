@@ -80,6 +80,7 @@ class ClientRepository
         $client->client_tax_no = $request->client_tax_no;
         $client->client_billing_address_line_1 = $request->client_billing_address_line_1;
         $client->client_billing_address_line_2 = $request->client_billing_address_line_2;
+        $client->client_billing_address_region_pid = $request->client_billing_address_region_pid;
         $client->client_billing_address_state_province_pid = $request->client_billing_address_state_province_pid;
         $client->client_billing_address_city_pid = $request->client_billing_address_city_pid;
         $client->client_billing_address_postal_code = $request->client_billing_address_postal_code;
@@ -104,6 +105,7 @@ class ClientRepository
         $client->client_tax_no = $request->client_tax_no;
         $client->client_billing_address_line_1 = $request->client_billing_address_line_1;
         $client->client_billing_address_line_2 = $request->client_billing_address_line_2;
+        $client->client_billing_address_region_pid = $request->client_billing_address_region_pid;
         $client->client_billing_address_state_province_pid = $request->client_billing_address_state_province_pid;
         $client->client_billing_address_city_pid = $request->client_billing_address_city_pid;
         $client->client_billing_address_postal_code = $request->client_billing_address_postal_code;
