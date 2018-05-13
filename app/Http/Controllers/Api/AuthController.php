@@ -11,12 +11,18 @@ use JWTAuthException;
 
 class AuthController extends ApiController
 {
+    /**
+     *FUNCTION LOGIN USER
+     *@return \Illuminate\Http\Response
+     */
     public function login(Request $request)
     {
+        //get oly username and password from request body
         $credentials = $request->only('user_name', 'password');
         $token = null;
 
         try {
+            //create jwt token from credential user
             if (!$token = JWTAuth::attempt($credentials)) {
                 return $this->sendNotFound('invalid email or password');
             }
@@ -27,22 +33,35 @@ class AuthController extends ApiController
         return $this->sendSuccess($token);
     }
 
+    /**
+     *FUNCTION FOR GET PROFILE USER
+     *@return \Illuminate\Http\Response
+     */
     public function getAuthUser(Request $request)
     {
+        //get credential from jwt token to get user login
         $user = $this->me($request);
         return $this->sendSuccess($user);
     }
 
+    /**
+     *FUNCTION FOR CHANGE PASSWORD
+     *@param Request $request
+     *@return \Illuminate\Http\Response
+     */
     public function changePassword(ChangePassword $request)
     {
+        //get credential from jwt token to get user login
         $me = $this->me($request);
         if (!$me) {
             return $this->sendNotfound();
         }
         try {
-            if (Hash::check($request->old_password, $me->password)) {
+            //check if old password diferent from password has
+            if (Hash::check($request->input('old_password'), $me->password)) {
+                //if true then get user from login user then cahange password
                 $user = User::where('user_id', $me->user_id)->first();
-                $user->password = Hash::make($request->password);
+                $user->password = Hash::make($request->input('password'));
                 $user->save();
                 return $this->sendSuccess('password has been change');
             }

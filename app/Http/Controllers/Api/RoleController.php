@@ -10,12 +10,19 @@ use Illuminate\Http\Request;
 
 class RoleController extends ApiController
 {
+    /**
+     *FUNCTION __construct FOR DEFINE MODEL AND REPOSITORY
+     */
     public function __construct()
     {
         $this->model = new Role;
         $this->repository = new RoleRepository;
     }
 
+    /**
+     *FUNCTION FOR GET ALL DATA ROLE
+     *@return \Illuminate\Http\Response
+     */
     public function index()
     {
         $role = $this->model::active()->get();
@@ -25,6 +32,11 @@ class RoleController extends ApiController
         return $this->sendSuccess($role);
     }
 
+    /**
+     *FUNCTION FOR STORE DATA ROLE
+     *@param StoreRole $request
+     *@return \Illuminate\Http\Response
+     */
     public function store(StoreRole $request)
     {
         try {
@@ -40,9 +52,15 @@ class RoleController extends ApiController
         }
     }
 
+    /**
+     *FUNCTION FOR UPDATE DATA ROLE
+     *@param Request $request
+     *@param int $roleid
+     *@return \Illuminate\Http\Response
+     */
     public function update(Request $request, $roleid)
     {
-        $role = Role::active()->where('roles_id', $roleCode)->first();
+        $role = Role::active()->where('roles_id', $roleid)->first();
 
         if (!$role) {
             return $this->sendNotfound();
@@ -60,6 +78,11 @@ class RoleController extends ApiController
         }
     }
 
+    /**
+     *FUNCTION FOR DELETE DATA ROLE
+     *@param int $roleid
+     *@return \Illuminate\Http\Response
+     */
     public function delete($roleId)
     {
         $role = Role::active()->where('roles_id', $roleId)->first();
