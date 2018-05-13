@@ -5,11 +5,15 @@ use App\Client;
 
 class ClientRepository
 {
+    public function __construct()
+    {
+        $this->model = new Client;
+    }
 
     public function getClient($clientId = null)
     {
-        $table = (new Client)->getTable();
-        $client = (new Client)
+        $table = $this->model->getTable();
+        $client = $this->model
             ->join('frm_global_parameters as clcat', function ($join) use ($table) {
                 $join
                     ->on('clcat.parameters_id', '=', $table . '.client_category_pid')
