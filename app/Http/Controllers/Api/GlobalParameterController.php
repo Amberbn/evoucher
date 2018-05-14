@@ -63,16 +63,7 @@ class GlobalParameterController extends ApiController
         $field = $param ? 'parameters_id' : 'parameters_code';
         $globalParameter = GlobalParameter::active()
             ->where($field, $globalParameterId)->first();
-        // ->where('parameters_id', $globalParameterId)
-        // ->orWhere('parameters_code', $parametersCode)
-
-        // if($param) {
-        //   $globalParameter->where('parameters_id', $globalParameterId);
-        // }else{
-        //   $globalParameter->where('parameters_code', $globalParameterId);
-        // }
-        // $globalParameter->first();
-
+            
         if (!$globalParameter) {
             return $this->sendNotFound();
         }
