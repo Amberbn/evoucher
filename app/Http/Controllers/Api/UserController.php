@@ -25,7 +25,7 @@ class UserController extends ApiController
     public function getUsers()
     {
         $users = $this->repository->getAllUser();
-         if (!$users) {
+        if (!$users) {
             return $this->sendNotfound();
         }
 
