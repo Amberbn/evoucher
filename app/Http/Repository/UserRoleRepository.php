@@ -16,7 +16,7 @@ class UserRoleRepository
         $userRole->created_by_user_name = $createdBy;
         $userRole->save();
 
-        return userRole;
+        return $userRole;
     }
 
     public function updateUserRole($request, $userRole)
