@@ -1,7 +1,4 @@
 <?php
-
-// use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +13,8 @@
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     Route::get('/cekdb', ['uses' => 'ApiController@index']);
     Route::post('/login', ['uses' => 'AuthController@login']);
+
+    //ROUTE GROUP BY REQUIRED LOGIN
 
     Route::group(['middleware' => 'jwt.auth'], function () {
 
@@ -62,4 +61,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         //END ROUTE FOR CLIENT MANAGEMENT
 
     });
+    //END ROUTE GROUP BY REQUIRED LOGIN
+
 });
