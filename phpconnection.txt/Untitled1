@@ -1,1 +1,3 @@
 sudo apt install php7.1-sybase
+php artisan jwt:secret
+composer require tymon/jwt-auth:dev-develop --prefer-source
