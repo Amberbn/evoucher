@@ -17,8 +17,8 @@ class GlobalParameterRepository
         $globalParameter->parameters_value_datatype = $request->input('parameters_value_datatype');
         $globalParameter->parameters_parent_id = $request->input('parameters_parent_id');
         $globalParameter->data_sort = $request->input('data_sort');
-        $globalParameter->isactive = $request->input('isactive') ? true;
-        $globalParameter->isdelete = $request->input('isdelete') ? false;
+        $globalParameter->isactive = $request->input('isactive') ?: true;
+        $globalParameter->isdelete = $request->input('isdelete') ?: false;
         $globalParameter->created_by_user_name = $createdBy;
         $globalParameter->last_updated_by_user_name = $createdBy;
         $globalParameter->save();
@@ -34,8 +34,8 @@ class GlobalParameterRepository
         $globalParameter->parameters_value_datatype = $request->input('parameters_value_datatype');
         $globalParameter->parameters_parent_id = $request->input('parameters_parent_id');
         $globalParameter->data_sort = $request->input('data_sort');
-        $globalParameter->isactive = $request->input('isactive') ? : true;
-        $globalParameter->isdelete = $request->input('isdelete') ? : false;
+        $globalParameter->isactive = $request->input('isactive') ?: true;
+        $globalParameter->isdelete = $request->input('isdelete') ?: false;
         $globalParameter->last_updated_by_user_name = $updateBy;
         $globalParameter->save();
 
