@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\UserRole;
+use App\Repository\UserRoleRepository;
 use DB;
 
 class UserRoleController extends ApiController
@@ -56,6 +57,7 @@ class UserRoleController extends ApiController
         DB::beginTransaction();
 
         try{
+            //$updateBy = $this->createdOrUpdatedByUsername($request);
             $userRole = $this->repository->updateUserRole($request, $createdBy);
 
             DB::commit();
