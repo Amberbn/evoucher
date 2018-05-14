@@ -52,6 +52,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::delete('/role/delete/{roleId}', ['uses' => 'RoleController@delete']);
         //END ROUTE FOR CLIENT MANAGEMENT
 
+        //ROUTE FOR USERROLE
+        Route::post('/user-role/store', ['uses' => 'UserRoleController@store']);
+        Route::put('/role-role/update/{userRoleId}', ['uses' => 'UserRoleController@update']);
+        //END ROUTE FOR USERROLE
+
         //ROUTE FOR OUTLET MANAGEMENT
         Route::get('/outlets', ['uses' => 'OutletController@outlets']);
         Route::get('/outlet/{outletId}', ['uses' => 'OutletController@outlet']);
