@@ -30,13 +30,6 @@ class UserController extends ApiController
         }
 
         return $this->sendSuccess($users);
-
-        // $users = User::active()->get();
-        // if (!$users) {
-        //     return $this->sendNotfound();
-        // }
-        //
-        // return $this->sendSuccess($users);
     }
 
     /**
