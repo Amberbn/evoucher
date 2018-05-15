@@ -58,7 +58,7 @@ class UserRoleController extends ApiController
 
         try{
             //$updateBy = $this->createdOrUpdatedByUsername($request);
-            $userRole = $this->repository->updateUserRole($request, $createdBy);
+            $userRole = $this->repository->updateUserRole($request, $userRole);
 
             DB::commit();
 
