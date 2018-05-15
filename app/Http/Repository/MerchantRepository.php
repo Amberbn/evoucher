@@ -27,6 +27,8 @@ class MerchantRepository
         $merchant->created_by_user_name = $createdBy;
         $merchant->last_updated_by_user_name = $createdBy;
         $merchant->save();
+
+        return $merchant;
     }
 
     public function updateMerchant($request, $merchant, $updateBy)
@@ -45,5 +47,7 @@ class MerchantRepository
         $merchant->user_password_is_intial = $request->input('user_password_is_intial');
         $merchant->last_updated_by_user_name = $updateBy;
         $merchant->save();
+
+        return $merchant;
     }
 }
