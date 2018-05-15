@@ -57,6 +57,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::put('/role-role/update/{userRoleId}', ['uses' => 'UserRoleController@update']);
         //END ROUTE FOR USERROLE
 
+        //ROUTE FOR MERCHANT
+        Route::post('/merchant/store', ['uses' => 'MerchantController@store']);
+        Route::put('/merchant/update/{merchantId}', ['uses' => 'MerchantController@update']);
+        //END ROUTE FOR MERCHANT 
+
         //ROUTE FOR OUTLET MANAGEMENT
         Route::get('/outlets', ['uses' => 'OutletController@outlets']);
         Route::get('/outlet/{outletId}', ['uses' => 'OutletController@outlet']);
