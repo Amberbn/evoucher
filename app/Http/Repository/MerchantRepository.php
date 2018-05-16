@@ -9,6 +9,36 @@ use DB;
  */
 class MerchantRepository
 {
+    public function getAllMerchants()
+    {
+        $merchants = DB::table('mch_merchant as mm')
+            ->join('bsn_client as bc', 'mm.client_id', '=', 'bc.client_id')
+            ->join('frm_global_parameters as bcat', 'mm.merchant_bussiness_category_pid', '=', 'bcat.parameters_id')
+            ->where('mm.isactive', '=', true)
+            ->select(
+                'mm.merchant_id',
+                'mm.merchant_code',
+                'mm.client_id',
+                'bc.client_code',
+                'bc.client_name',
+                'mm.merchant_title',
+                'mm.merchant_bussiness_category_pid',
+                'bcat.parameters_value as merchant_bussiness_category_title',
+                'mm.merchant_description',
+                'mm.merchant_tags',
+                'mm.data_sort',
+                'mm.isactive',
+                'mm.isdelete',
+                'mm.created_at',
+                'mm.create_by_user_name',
+                'mm.updated_at',
+                'mm.last_update_by_user_name'
+            )
+            ->get();
+        
+        return $merchants;
+    }
+
     public function saveMerchant($request, $createdBy)
     {
         $merchant = new Merchant;
