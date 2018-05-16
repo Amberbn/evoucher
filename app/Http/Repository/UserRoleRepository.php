@@ -2,12 +2,24 @@
 namespace App\Repository;
 
 use App\UserRole;
+use DB;
 
 /**
  *
  */
 class UserRoleRepository
 {
+    public function getAllUserRoles()
+    {
+        $userRoles = DB::table('frm_user_roles as ur')
+            ->join('frm_user as u', 'ur.user_roled_id', '=', 'u.user_id')
+            ->join('frm_roles as r', 'ur.user_roled_id', '=', 'r.roles_id')
+            ->select('u.user_name', 'r.roles_code')
+            ->get();
+
+        return $userRoles;
+
+    }
     public function saveUserRole($request, $createdBy)
     {
         $userRole = new UserRole;
