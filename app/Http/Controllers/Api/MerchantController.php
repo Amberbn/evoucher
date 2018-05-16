@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Repository\MerchantRepository;
+use App\Repository\MerchantRepository;
 use App\Merchant;
 use DB;
 class MerchantController extends ApiController
@@ -16,6 +16,16 @@ class MerchantController extends ApiController
     {
         $this->model = new Merchant;
         $this->repository = new MerchantRepository;
+    }
+
+    public function index()
+    {
+        $merchant = Merchant::active()->get();
+        if (!$merchant) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($merchant);
     }
 
     /**

@@ -58,6 +58,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         //END ROUTE FOR USERROLE
 
         //ROUTE FOR MERCHANT
+        Route::get('/merchant', ['uses' => 'MerchantController@index']);
         Route::post('/merchant/store', ['uses' => 'MerchantController@store']);
         Route::put('/merchant/update/{merchantId}', ['uses' => 'MerchantController@update']);
         //END ROUTE FOR MERCHANT 
