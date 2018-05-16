@@ -59,7 +59,23 @@ class UserRoleController extends ApiController
     }
 
     /**
-     *FUNCTION FOR DELETE CLIENT
+     *FUNCTION FOR DATA USERROLE BY ID
+     *@param Request $request
+     *@param int $userRoleId
+     *@return \Illuminate\Http\Response
+     */
+    public function show($userRoledId)
+    {
+        $userRole = $this->userRoleRepository->getUserRoleById($userRoledId);
+        if (empty($userRole)) {
+            return $this->sendNotfound();
+        }
+        
+        return $this->sendSuccess($userRole);
+    }
+
+    /**
+     *FUNCTION FOR UPDATE USERROLE
      *@param Request $request
      *@param int $userRoleId
      *@return \Illuminate\Http\Response

@@ -55,7 +55,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         //ROUTE FOR USERROLE
         Route::get('/user-role', ['uses' => 'UserRoleController@index']);
         Route::post('/user-role/store', ['uses' => 'UserRoleController@store']);
-        Route::put('/role-role/update/{userRoleId}', ['uses' => 'UserRoleController@update']);
+        
+        Route::get('/user-role/{userRoleId}', ['uses' => 'UserRoleController@show']);
+        Route::put('/user-role/update/{userRoleId}', ['uses' => 'UserRoleController@update']);
         //END ROUTE FOR USERROLE
 
         //ROUTE FOR MERCHANT
