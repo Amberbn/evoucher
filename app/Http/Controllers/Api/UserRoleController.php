@@ -10,6 +10,8 @@ use DB;
 
 class UserRoleController extends ApiController
 {
+    protected $userRoleRepository;
+
     public function __construct()
     {
         /**
@@ -17,6 +19,21 @@ class UserRoleController extends ApiController
         */
         $this->model = new UserRole;
         $this->repository = new UserRoleRepository;
+        $this->userRoleRepository = new UserRoleRepository;
+    }
+
+    /**
+     *FUNCTION FOR GET ALL DATA USER ROLE
+     *@param 
+     *@return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $userRoles = $this->userRoleRepository->getAllUserRoles();
+        if (empty($userRoles)) {
+            return $this->sendNotfound();
+        }
+        return $this->sendSuccess($userRoles);
     }
 
     /**

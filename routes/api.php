@@ -53,6 +53,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         //END ROUTE FOR CLIENT MANAGEMENT
 
         //ROUTE FOR USERROLE
+        Route::get('/user-role', ['uses' => 'UserRoleController@index']);
         Route::post('/user-role/store', ['uses' => 'UserRoleController@store']);
         Route::put('/role-role/update/{userRoleId}', ['uses' => 'UserRoleController@update']);
         //END ROUTE FOR USERROLE

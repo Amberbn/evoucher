@@ -55,7 +55,7 @@ class MerchantController extends ApiController
 
     /**
      *FUNCTION FOR STORE DATA MERCAHANT
-     *@param  $request
+     *@param  $request, $merchantId
      *@return \Illuminate\Http\Response
      */
     public function update(Request $request, $merchantId)
@@ -82,6 +82,11 @@ class MerchantController extends ApiController
         }
     }
 
+    /**
+     *FUNCTION FOR DETAIL DATA MERCAHANT
+     *@param  $merchantId
+     *@return \Illuminate\Http\Response
+     */
     public function show($merchantId)
     {
         $merchant = $this->merchantRepository->getMerchantById($merchantId);
