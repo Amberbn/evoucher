@@ -61,6 +61,13 @@ class MerchantRepository
         return $merchant;
     }
 
+    public function getMerchantById($merchantId)
+    {
+        $merchant = Merchant::find($merchantId);
+
+        return $merchant;
+    }
+
     public function updateMerchant($request, $merchant, $updateBy)
     {
         $merchant->merchant_code = $request->input('merchant_code');

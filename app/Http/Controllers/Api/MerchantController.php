@@ -9,6 +9,7 @@ use App\Merchant;
 use DB;
 class MerchantController extends ApiController
 {
+    protected $merchantRepository;
     /**
      *FUNCTION __construct FOR DEFINE MODEL AND REPOSITORY
      */
@@ -16,6 +17,7 @@ class MerchantController extends ApiController
     {
         $this->model = new Merchant;
         $this->repository = new MerchantRepository;
+        $this->merchantRepository = new MerchantRepository;
     }
 
     public function index()
@@ -80,4 +82,12 @@ class MerchantController extends ApiController
         }
     }
 
+    public function show($merchantId)
+    {
+        $merchant = $this->merchantRepository->getMerchantById($merchantId);
+        if (empty($merchant)) {
+            return $this->sendNotfound();
+        }
+        return $this->sendSuccess($merchant);
+    }
 }

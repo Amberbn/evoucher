@@ -60,6 +60,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         //ROUTE FOR MERCHANT
         Route::get('/merchant', ['uses' => 'MerchantController@index']);
         Route::post('/merchant/store', ['uses' => 'MerchantController@store']);
+        Route::get('/merchant/{merchantId}', ['uses' => 'MerchantController@show']);
         Route::put('/merchant/update/{merchantId}', ['uses' => 'MerchantController@update']);
         //END ROUTE FOR MERCHANT 
 
