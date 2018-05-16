@@ -33,14 +33,14 @@ class UserRoleRepository
 
     public function getUserRoleById($userRoledId)
     {
+        $userRole = UserRole::find($userRoledId);
         // $userRole = DB::table('frm_user_roles as ur')
         //     ->join('frm_user as u', 'ur.user_roled_id', '=', 'u.user_id')
         //     ->join('frm_roles as r', 'ur.user_roled_id', '=', 'r.roles_id')
         //     ->select('u.user_name', 'r.roles_code')
         //     ->where('ur.user_roled_id', $userRoledId)
         //     ->first();
-         $userRole = UserRole::find($userRoledId);
-
+         
         return $userRole;
     }
 

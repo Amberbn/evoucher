@@ -70,6 +70,7 @@ class UserRoleController extends ApiController
         if (empty($userRole)) {
             return $this->sendNotfound();
         }
+        
         return $this->sendSuccess($userRole);
     }
 
