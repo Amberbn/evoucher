@@ -50,6 +50,6 @@ class UserRoleRepository
         $userRole->roles_id = $request->input('roles_id');
         $userRole->save();
 
-        return userRole;
+        return $userRole;
     }
 }
