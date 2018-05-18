@@ -61,7 +61,7 @@ class MerchantController extends ApiController
     public function update(Request $request, $merchantId)
     {
         $merchant = $this->model::where('merchant_id', $merchantId)->first();
-
+        dd($merchant);
         if (!$merchant) {
             return $this->sendNotfound();
         }
