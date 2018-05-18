@@ -83,7 +83,7 @@ class MerchantRepository
         // $merchant->user_password_force_reset_on_login = $request->input('user_password_force_reset_on_login');
         // $merchant->user_password_is_intial = $request->input('user_password_is_intial');
         // $merchant->create_by_user_name = $createdBy;
-        $merchant->last_update_by_user_name = $createdBy;
+        $merchant->last_update_by_user_name = $updateBy;
         $merchant->save();
 
         return $merchant;

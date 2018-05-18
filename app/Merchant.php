@@ -22,8 +22,7 @@ class Merchant extends Model
         'create_by_user_name',
         'user_password_force_reset_on_login',
         'user_password_is_intial',
-        'created_by_user_name',
-        'last_updated_by_user_name',
+        'last_update_by_user_name',
     ];
 
     public function scopeActive($query)
