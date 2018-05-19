@@ -26,7 +26,7 @@ class OutletRepository
             })
             ->join('frm_global_parameters as region', function ($join) use ($table) {
                 $join
-                    ->on('region.parameters_id', '=', $table . '.client_billing_address_region_pid')
+                    ->on('region.parameters_id', '=', $table . '.outlets_address_region_pid')
                     ->where('region.parameters_type', '=', 'address_region');
             });
 
@@ -45,7 +45,7 @@ class OutletRepository
             $table . '.outlets_address_line',
             $table . '.outlets_address_province_pid',
             $table . '.outlets_address_city_pid',
-            $table . '.client_billing_address_region_pid',
+            $table . '.outlets_address_region_pid',
             $table . '.outlets_location_coordinates',
             $table . '.outlets_auth_code',
             $table . '.data_sort',
