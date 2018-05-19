@@ -10,8 +10,8 @@ class UserRole extends Model
     protected $primaryKey = 'user_roled_id';
 
     protected $fillable = [
-        'user_name',
-        'roles_code',
+        'user_id',
+        'roles_id',
         'created_by_user_name',
     ];
 }

@@ -52,6 +52,21 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::delete('/role/delete/{roleId}', ['uses' => 'RoleController@delete']);
         //END ROUTE FOR CLIENT MANAGEMENT
 
+        //ROUTE FOR USERROLE
+        Route::get('/user-role', ['uses' => 'UserRoleController@index']);
+        Route::post('/user-role/store', ['uses' => 'UserRoleController@store']);
+        
+        Route::get('/user-role/{userRoleId}', ['uses' => 'UserRoleController@show']);
+        Route::put('/user-role/update/{userRoleId}', ['uses' => 'UserRoleController@update']);
+        //END ROUTE FOR USERROLE
+
+        //ROUTE FOR MERCHANT
+        Route::get('/merchant', ['uses' => 'MerchantController@index']);
+        Route::post('/merchant/store', ['uses' => 'MerchantController@store']);
+        Route::get('/merchant/{merchantId}', ['uses' => 'MerchantController@show']);
+        Route::put('/merchant/update/{merchantId}', ['uses' => 'MerchantController@update']);
+        //END ROUTE FOR MERCHANT 
+
         //ROUTE FOR OUTLET MANAGEMENT
         Route::get('/outlets', ['uses' => 'OutletController@outlets']);
         Route::get('/outlet/{outletId}', ['uses' => 'OutletController@outlet']);
