@@ -26,7 +26,7 @@ class OutletRepository
             })
             ->join('frm_global_parameters as region', function ($join) use ($table) {
                 $join
-                    ->on('region.parameters_id', '=', $table . '.client_billing_address_region_pid')
+                    ->on('region.parameters_id', '=', $table . '.outlets_address_region_pid')
                     ->where('region.parameters_type', '=', 'address_region');
             });
 
@@ -45,7 +45,7 @@ class OutletRepository
             $table . '.outlets_address_line',
             $table . '.outlets_address_province_pid',
             $table . '.outlets_address_city_pid',
-            $table . '.client_billing_address_region_pid',
+            $table . '.outlets_address_region_pid',
             $table . '.outlets_location_coordinates',
             $table . '.outlets_auth_code',
             $table . '.data_sort',
@@ -57,7 +57,7 @@ class OutletRepository
             $table . '.last_updated_by_user_name',
             'province.parameters_value as outlets_address_province_title',
             'city.parameters_value as outlets_address_city_title',
-            'region.parameters_value as client_billing_address_region_title'
+            'region.parameters_value as outlets_address_region_title'
         );
 
         return $outlet;
@@ -77,7 +77,7 @@ class OutletRepository
         $outlet->outlets_address_line = $request->input('outlets_address_line');
         $outlet->outlets_address_province_pid = $request->input('outlets_address_province_pid');
         $outlet->outlets_address_city_pid = $request->input('outlets_address_city_pid');
-        $outlet->client_billing_address_region_pid = $request->input('client_billing_address_region_pid');
+        $outlet->outlets_address_region_pid = $request->input('outlets_address_region_pid');
         $outlet->outlets_location_coordinates = $request->input('outlets_location_coordinates');
         $outlet->outlets_auth_code = $request->input('outlets_auth_code');
         $outlet->data_sort = $request->input('data_sort') ?: 1000;
@@ -100,7 +100,7 @@ class OutletRepository
         $outlet->outlets_address_line = $request->input('outlets_address_line');
         $outlet->outlets_address_province_pid = $request->input('outlets_address_province_pid');
         $outlet->outlets_address_city_pid = $request->input('outlets_address_city_pid');
-        $outlet->client_billing_address_region_pid = $request->input('client_billing_address_region_pid');
+        $outlet->outlets_address_region_pid = $request->input('outlets_address_region_pid');
         $outlet->outlets_location_coordinates = $request->input('outlets_location_coordinates');
         $outlet->outlets_auth_code = $request->input('outlets_auth_code');
         $outlet->data_sort = $request->input('data_sort') ?: 1000;

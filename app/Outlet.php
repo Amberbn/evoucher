@@ -17,7 +17,7 @@ class Outlet extends Model
         'outlets_address_line',
         'outlets_address_province_pid',
         'outlets_address_city_pid',
-        'client_billing_address_region_pid',
+        'outlets_address_region_pid',
         'outlets_location_coordinates',
         'outlets_auth_code',
         'data_sort',
