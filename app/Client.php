@@ -15,6 +15,7 @@ class Client extends Model
         'client_is_also_merchant',
         'client_allow_postpaid',
         'client_name',
+        'client_legal_name',
         'client_tax_no',
         'client_billing_address_line_1',
         'client_billing_address_line_2',
