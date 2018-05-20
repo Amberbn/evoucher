@@ -47,6 +47,7 @@ class ClientRepository
             $table . '.client_is_also_merchant',
             $table . '.client_allow_postpaid',
             $table . '.client_name',
+            $table . '.client_legal_name',
             $table . '.client_tax_no',
             $table . '.client_billing_address_line_1',
             $table . '.client_billing_address_line_2',
@@ -77,6 +78,7 @@ class ClientRepository
         $client->client_is_also_merchant = $request->input('client_is_also_merchant');
         $client->client_allow_postpaid = $request->input('client_allow_postpaid');
         $client->client_name = $request->input('client_name');
+        $client->client_legal_name = $request->input('client_legal_name');
         $client->client_tax_no = $request->input('client_tax_no');
         $client->client_billing_address_line_1 = $request->input('client_billing_address_line_1');
         $client->client_billing_address_line_2 = $request->input('client_billing_address_line_2');
@@ -102,6 +104,7 @@ class ClientRepository
         $client->client_is_also_merchant = $request->input('client_is_also_merchant');
         $client->client_allow_postpaid = $request->input('client_allow_postpaid');
         $client->client_name = $request->input('client_name');
+        $client->client_legal_name = $request->input('client_legal_name');
         $client->client_tax_no = $request->input('client_tax_no');
         $client->client_billing_address_line_1 = $request->input('client_billing_address_line_1');
         $client->client_billing_address_line_2 = $request->input('client_billing_address_line_2');
