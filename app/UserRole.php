@@ -8,6 +8,7 @@ class UserRole extends Model
 {
     protected $table = 'frm_user_roles';
     protected $primaryKey = 'user_roled_id';
+    public $timestamps = false;
 
     protected $fillable = [
         'user_id',
