@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\ChangePassword;
 use App\User;
+use App\UserLog;
 use Hash;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -30,6 +31,10 @@ class AuthController extends ApiController
             return $this->sendBadRequest('failed to create token');
         }
         $token = ['token' => $token];
+        if ($token) {
+            $this->createLoginLog($request, $credentials);
+        }
+
         return $this->sendSuccess($token);
     }
 
@@ -71,5 +76,26 @@ class AuthController extends ApiController
             return $this->sendBadRequest($e->getMessage());
 
         }
+    }
+
+    /**
+     *FUNCTION FOR LOGGING USER LOGIN
+     *@param Request $request
+     *@param Array $credentials
+     *@return void
+     */
+    public function createLoginLog(Request $request, $credentials)
+    {
+        //logging user login
+        $user = User::where('user_name', $credentials['user_name'])->first();
+        $log = new UserLog;
+        $log->user_id = $user->user_id;
+        $log->user_name = $user->user_name;
+        $log->login_logs_ip_address = $request->ip();
+        $log->login_logs_agent = $request->header('User-Agent');
+        $log->login_logs_hostname = $request->getHttpHost();
+        $log->login_logs_timestamp = NOW();
+        $log->save();
+
     }
 }
