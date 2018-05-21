@@ -11,7 +11,8 @@ class Merchant extends Model
 
     protected $fillable = [
         'merchant_code',
-        'client_id',
+        'merchant_logo_image_url',
+        'merchant_client_id',
         'merchant_title',
         'merchant_bussiness_category_pid',
         'merchant_description',
@@ -19,10 +20,10 @@ class Merchant extends Model
         'data_sort',
         'isactive',
         'isdelete',
-        'create_by_user_name',
-        'user_password_force_reset_on_login',
-        'user_password_is_intial',
-        'last_update_by_user_name',
+        'created_by_user_name',
+        // 'user_password_force_reset_on_login',
+        // 'user_password_is_intial',
+        'last_updated_by_user_name',
     ];
 
     public function scopeActive($query)
