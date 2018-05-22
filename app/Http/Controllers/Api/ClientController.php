@@ -22,17 +22,36 @@ class ClientController extends ApiController
     }
 
     /**
+     *FUNCTION FOR SET FILTER CLIENT
+     *@return Array $filter
+     */
+    public function clientFilter()
+    {
+        $filter = [
+            'orderBy' => 'client_code',
+            'filter_1' => 'client_code',
+            'filter_2' => 'client_name',
+            'filter_3' => 'client_legal_name',
+        ];
+
+        return $filter;
+
+    }
+
+    /**
      *FUNCTION FOR GET ALL DATA CLIENT
      *@return \Illuminate\Http\Response
      */
     public function getClients()
     {
-        $client = $this->repository->getClient()->get()->toArray();
-        if (empty($client)) {
+        $client = $this->repository->getClient();
+
+        if (empty($client->get()->toarray())) {
             return $this->sendNotfound();
         }
+        $filter = $this->clientFilter();
 
-        return $this->sendSuccess($client);
+        return $this->dataTableResponseBuilder($client, $filter);
     }
 
     /**
@@ -44,7 +63,7 @@ class ClientController extends ApiController
     {
         try {
             DB::beginTransaction();
-            $createdBy = $this->createdOrUpdatedByUsername($request);
+            $createdBy = $this->createdOrUpdatedByUsername();
             $client = $this->repository->store($request, $createdBy);
             DB::commit();
             return $this->sendCreated($client);
@@ -87,7 +106,7 @@ class ClientController extends ApiController
         try {
 
             DB::beginTransaction();
-            $updateBy = $this->createdOrUpdatedByUsername($request);
+            $updateBy = $this->createdOrUpdatedByUsername();
             $client = $this->repository->update($request, $client, $updateBy);
             DB::commit();
 

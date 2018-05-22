@@ -5,6 +5,8 @@ use App\Client;
 
 class ClientRepository
 {
+    use \App\Http\Controllers\Contract\UserTrait;
+
     public function __construct()
     {
         $this->model = new Client;
@@ -37,6 +39,9 @@ class ClientRepository
 
         if ($clientId) {
             $client->where($table . '.client_id', '=', $clientId);
+        }
+        if (!$this->isGroupSprint()) {
+            $client->where($table . '.client_category_pid', '=', $this->me()->client->client_category_pid);
         }
 
         $client->where($table . '.isactive', '=', true);
