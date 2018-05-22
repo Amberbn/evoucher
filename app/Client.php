@@ -36,4 +36,10 @@ class Client extends Model
         return $query->where('isactive', '=', true);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'client_id', 'client_id');
+
+    }
+
 }
