@@ -5,6 +5,8 @@ use App\Outlet;
 
 class OutletRepository
 {
+    use \App\Http\Controllers\Contract\UserTrait;
+
     public function __construct()
     {
         $this->model = new Outlet;
@@ -28,16 +30,29 @@ class OutletRepository
                 $join
                     ->on('region.parameters_id', '=', $table . '.outlets_address_region_pid')
                     ->where('region.parameters_type', '=', 'address_region');
+            })
+            ->join('bsn_client as client', function ($join) use ($table) {
+                $join
+                    ->on('client.client_id', '=', $table . '.merchant_client_id');
+            })
+            ->join('mch_merchant as merchant', function ($join) use ($table) {
+                $join
+                    ->on('merchant.merchant_id', '=', $table . '.merchant_id');
             });
 
         if ($outletId) {
             $outlet->where($table . '.outlets_id', '=', $outletId);
         }
+
+        if (!$this->isGroupSprint()) {
+            $outlet->where('client.client_category_pid', '=', $this->me()->client->client_category_pid);
+        }
+
         $outlet->where($table . '.isactive', '=', true);
         $outlet->select(
             $table . '.outlets_code',
             $table . '.merchant_id',
-            $table . '.client_id',
+            $table . '.merchant_client_id',
             $table . '.outlets_title',
             $table . '.outlets_email',
             $table . '.outlets_phone',
@@ -57,7 +72,11 @@ class OutletRepository
             $table . '.last_updated_by_user_name',
             'province.parameters_value as outlets_address_province_title',
             'city.parameters_value as outlets_address_city_title',
-            'region.parameters_value as outlets_address_region_title'
+            'region.parameters_value as outlets_address_region_title',
+            'client.client_code',
+            'client.client_name',
+            'merchant.merchant_code',
+            'merchant.merchant_title'
         );
 
         return $outlet;
