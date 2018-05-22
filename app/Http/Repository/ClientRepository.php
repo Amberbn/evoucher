@@ -40,15 +40,17 @@ class ClientRepository
         if ($clientId) {
             $client->where($table . '.client_id', '=', $clientId);
         }
+
         if (!$this->isGroupSprint()) {
             $client->where($table . '.client_category_pid', '=', $this->me()->client->client_category_pid);
         }
 
         $client->where($table . '.isactive', '=', true);
+        $client->where($table . '.isdelete', '=', false);
+
         $client->select(
             $table . '.client_code',
             $table . '.client_category_pid',
-            'clcat.parameters_value as client_category_title',
             $table . '.client_is_also_merchant',
             $table . '.client_allow_postpaid',
             $table . '.client_name',
@@ -60,17 +62,18 @@ class ClientRepository
             $table . '.client_billing_address_city_pid',
             $table . '.client_billing_address_postal_code',
             $table . '.client_industry_category_pid',
-            'ind.parameters_value as industry_category_title',
             $table . '.client_employee_size_category_pid',
-            'emp.parameters_value as employee_size_category_title',
-            'city.parameters_value as client_billing_address_city_title',
             $table . '.client_outstanding_limit',
             $table . '.isactive',
             $table . '.isdelete',
             $table . '.created_at',
             $table . '.created_by_user_name',
             $table . '.updated_at',
-            $table . '.last_updated_by_user_name'
+            $table . '.last_updated_by_user_name',
+            'clcat.parameters_value as client_category_title',
+            'ind.parameters_value as industry_category_title',
+            'emp.parameters_value as employee_size_category_title',
+            'city.parameters_value as client_billing_address_city_title'
         );
 
         return $client;
