@@ -21,16 +21,35 @@ class OutletController extends ApiController
     }
 
     /**
+     *FUNCTION FOR SET FILTER OUTLET
+     *@return Array $filter
+     */
+    public function outletFilter()
+    {
+        $filter = [
+            'orderBy' => 'outlets_code',
+            'filter_1' => 'outlets_code',
+            'filter_2' => 'outlets_title',
+            'filter_3' => 'merchant_code',
+        ];
+
+        return $filter;
+
+    }
+
+    /**
      *FUNCTION FOR GET ALL DATA OTLET
      *@return \Illuminate\Http\Response
      */
     public function outlets()
     {
-        $outlet = $this->repository->getOutlet()->get()->toArray();
-        if (empty($outlet)) {
+        $outlet = $this->repository->getOutlet();
+        if (empty($outlet->get()->toArray())) {
             return $this->sendNotfound();
         }
-        return $this->sendSuccess($outlet);
+        $filter = $this->outletFilter();
+
+        return $this->dataTableResponseBuilder($outlet, $filter);
     }
 
     /**
