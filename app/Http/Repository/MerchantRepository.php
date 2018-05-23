@@ -18,7 +18,7 @@ class MerchantRepository
             ->join('frm_global_parameters as bcat', 'mm.merchant_bussiness_category_pid', '=', 'bcat.parameters_id')
             ->where('mm.isactive', '=', true);
         if (!$this->isGroupSprint()) {
-            $merchants->where('bc.client_category_pid', '=', $this->me()['client->client_category_pid']);
+            $merchants->where('bc.client_category_pid', '=', $this->me()['client_category_pid']);
         }
 
         $merchants->select(
