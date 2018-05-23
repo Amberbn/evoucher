@@ -74,6 +74,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::delete('/outlet/delete/{outletId}', ['uses' => 'OutletController@delete']);
         //END ROUTE FOR CLIENT MANAGEMENT
 
+        //ROUTE FOR VOUCHER CATALOG 
+        Route::get('/voucher-catalog', ['uses' => 'VoucherCatalogController@index']);
+        //END ROUTER FOR CATALOG
     });
     //END ROUTE GROUP BY REQUIRED LOGIN
 
