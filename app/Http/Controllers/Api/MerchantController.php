@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use App\Client;
 use App\Merchant;
 use App\Repository\MerchantRepository;
+use App\Repository\ClientRepository;
 use DB;
 use Illuminate\Http\Request;
 
@@ -20,14 +21,32 @@ class MerchantController extends ApiController
         $this->merchantRepository = new MerchantRepository;
     }
 
+     /**
+     *FUNCTION FOR SET FILTER CLIENT
+     *@return Array $filter
+     */
+    public function merchantFilter()
+    {
+        $filter = [
+            'orderBy' => 'merchant_code',
+            'filter_1' => 'merchant_title',
+            'filter_2' => 'merchant_description',
+            'filter_3' => 'client_legal_name',
+        ];
+
+        return $filter;
+
+    }
+
     public function index()
     {
         $merchant = $this->merchantRepository->getAllMerchants();
-        if (!$merchant) {
+        if (empty($merchant->get()->toArray())) {
             return $this->sendNotfound();
         }
+        $filter = $this->merchantFilter();
 
-        return $this->sendSuccess($merchant->get());
+        return $this->dataTableResponseBuilder($merchant, $filter);
     }
 
     /**
