@@ -48,6 +48,8 @@ class OutletRepository extends BaseRepository
         }
 
         $outlet->where($table . '.isactive', '=', true);
+        $outlet->where($table . '.isdelete', '=', false);
+
         $outlet->select(
             $table . '.outlets_code',
             $table . '.merchant_id',
