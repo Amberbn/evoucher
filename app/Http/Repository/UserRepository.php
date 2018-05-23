@@ -1,13 +1,14 @@
 <?php
 namespace App\Repository;
 
+use App\Repository\BaseRepository;
 use App\User;
 use DB;
 
 /**
  *
  */
-class UserRepository
+class UserRepository extends BaseRepository
 {
     public function getAllUser()
     {
@@ -38,7 +39,7 @@ class UserRepository
         return $users;
     }
 
-    public function saveUser($request, $createdBy)
+    public function saveUser($request)
     {
         $user = new User;
         $user->user_name = $request->input('user_name');
@@ -56,14 +57,14 @@ class UserRepository
         $user->data_sort = $request->input('data_sort');
         $user->isactive = $request->input('isactive') ?: true;
         $user->isdelete = $request->input('isdelete') ?: false;
-        $user->created_by_user_name = $createdBy;
-        $user->last_updated_by_user_name = $createdBy;
+        $user->created_by_user_name = $this->loginUsername();
+        $user->last_updated_by_user_name = $this->loginUsername();
         $user->save();
 
         return $user;
     }
 
-    public function updateUser($request, $user, $updateBy)
+    public function updateUser($request, $user)
     {
         $user->user_name = $request->input('user_name');
         $user->client_id = $request->input('client_id');
@@ -80,7 +81,7 @@ class UserRepository
         $user->data_sort = $request->input('data_sort');
         $user->isactive = $request->input('isactive') ?: true;
         $user->isdelete = $request->input('isdelete') ?: false;
-        $user->last_updated_by_user_name = $updateBy;
+        $user->last_updated_by_user_name = $this->loginUsername();
         $user->save();
 
         return $user;

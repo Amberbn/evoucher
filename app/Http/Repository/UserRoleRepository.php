@@ -1,13 +1,14 @@
 <?php
 namespace App\Repository;
 
+use App\Repository\BaseRepository;
 use App\UserRole;
 use DB;
 
 /**
  *
  */
-class UserRoleRepository
+class UserRoleRepository extends BaseRepository
 {
     public function getAllUserRoles()
     {
@@ -20,12 +21,12 @@ class UserRoleRepository
         return $userRoles;
 
     }
-    public function saveUserRole($request, $createdBy)
+    public function saveUserRole($request)
     {
         $userRole = new UserRole;
         $userRole->user_id = $request->input('user_id');
         $userRole->roles_id = $request->input('roles_id');
-        $userRole->created_by_user_name = $createdBy;
+        $userRole->created_by_user_name = $this->loginUsername();
         $userRole->save();
 
         return $userRole;
@@ -40,7 +41,7 @@ class UserRoleRepository
         //     ->select('u.user_name', 'r.roles_code')
         //     ->where('ur.user_roled_id', $userRoledId)
         //     ->first();
-         
+
         return $userRole;
     }
 

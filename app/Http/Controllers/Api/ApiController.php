@@ -67,7 +67,10 @@ class ApiController extends BaseController
         }
 
         //check if query string has per_page parameter then use it or skip when null
-        $perPage = request()->has('per_page') ? (int) request()->per_page : null;
+        $totalDataCount = $query->count();
+        //if request perpage not found then use default count all data from total data count
+        $perPage = $request->per_page > 0 ? (int) $request->per_page : $totalDataCount;
+        // $perPage = request()->has('per_page') ? (int) request()->per_page : $totalDataCount;
         $pagination = $query->paginate($perPage);
         //split up data from object return for split response
         $data = $pagination->toArray()['data'];

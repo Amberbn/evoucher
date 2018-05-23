@@ -2,15 +2,14 @@
 namespace App\Repository;
 
 use App\Merchant;
+use App\Repository\BaseRepository;
 use DB;
 
 /**
  *
  */
-class MerchantRepository
+class MerchantRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function getAllMerchants()
     {
         $merchants = DB::table('mch_merchant as mm')
@@ -18,7 +17,7 @@ class MerchantRepository
             ->join('frm_global_parameters as bcat', 'mm.merchant_bussiness_category_pid', '=', 'bcat.parameters_id')
             ->where('mm.isactive', '=', true);
         if (!$this->isGroupSprint()) {
-            $merchants->where('bc.client_category_pid', '=', $this->me()->client->client_category_pid);
+            $merchants->where('bc.client_category_pid', '=', $this->me()['client_category_pid']);
         }
 
         $merchants->select(
@@ -44,7 +43,7 @@ class MerchantRepository
         return $merchants;
     }
 
-    public function saveMerchant($request, $createdBy)
+    public function saveMerchant($request)
     {
         $merchant = new Merchant;
         $merchant->merchant_code = $request->input('merchant_code');
@@ -56,8 +55,8 @@ class MerchantRepository
         $merchant->data_sort = $request->input('data_sort') ?: 1000;
         $merchant->isactive = $request->input('isactive') ?: true;
         $merchant->isdelete = $request->input('isdelete') ?: false;
-        $merchant->created_by_user_name = $createdBy;
-        $merchant->last_updated_by_user_name = $createdBy;
+        $merchant->created_by_user_name = $this->loginUsername();
+        $merchant->last_updated_by_user_name = $this->loginUsername();
         $merchant->save();
 
         return $merchant;
@@ -70,7 +69,7 @@ class MerchantRepository
         return $merchant;
     }
 
-    public function updateMerchant($request, $merchant, $updateBy)
+    public function updateMerchant($request, $merchant)
     {
         $merchant->merchant_code = $request->input('merchant_code');
         $merchant->merchant_client_id = $request->input('merchant_client_id');
@@ -81,7 +80,7 @@ class MerchantRepository
         $merchant->data_sort = $request->input('data_sort') ?: 1000;
         $merchant->isactive = $request->input('isactive') ?: true;
         $merchant->isdelete = $request->input('isdelete') ?: false;
-        $merchant->last_updated_by_user_name = $updateBy;
+        $merchant->last_updated_by_user_name = $this->loginUsername();
         $merchant->save();
 
         return $merchant;

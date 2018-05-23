@@ -2,13 +2,14 @@
 namespace App\Repository;
 
 use App\GlobalParameter;
+use App\Repository\BaseRepository;
 
 /**
  *
  */
-class GlobalParameterRepository
+class GlobalParameterRepository extends BaseRepository
 {
-    public function saveGlobalParameter($request, $createdBy)
+    public function saveGlobalParameter($request)
     {
         $globalParameter = new GlobalParameter;
         $globalParameter->client_id = $request->input('client_id');
@@ -19,14 +20,14 @@ class GlobalParameterRepository
         $globalParameter->data_sort = $request->input('data_sort');
         $globalParameter->isactive = $request->input('isactive') ?: true;
         $globalParameter->isdelete = $request->input('isdelete') ?: false;
-        $globalParameter->created_by_user_name = $createdBy;
-        $globalParameter->last_updated_by_user_name = $createdBy;
+        $globalParameter->created_by_user_name = $this->loginUsername();
+        $globalParameter->last_updated_by_user_name = $this->loginUsername();
         $globalParameter->save();
 
         return $globalParameter;
     }
 
-    public function updateGlobalParameter($request, $globalParameter, $updateBy)
+    public function updateGlobalParameter($request, $globalParameter)
     {
         $globalParameter->client_id = $request->input('client_id');
         $globalParameter->parameters_type = $request->input('parameters_type');
@@ -36,7 +37,7 @@ class GlobalParameterRepository
         $globalParameter->data_sort = $request->input('data_sort');
         $globalParameter->isactive = $request->input('isactive') ?: true;
         $globalParameter->isdelete = $request->input('isdelete') ?: false;
-        $globalParameter->last_updated_by_user_name = $updateBy;
+        $globalParameter->last_updated_by_user_name = $this->loginUsername();
         $globalParameter->save();
 
         return $globalParameter;

@@ -21,6 +21,7 @@ class Role extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('isactive', '=', true);
+        return $query->where('isactive', '=', true)
+            ->where('isdelete', false);
     }
 }

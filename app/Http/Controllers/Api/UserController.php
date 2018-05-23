@@ -40,8 +40,7 @@ class UserController extends ApiController
         DB::beginTransaction();
 
         try {
-            $createdBy = $this->createdOrUpdatedByUsername($request);
-            $user = $this->repository->saveUser($request, $createdBy);
+            $user = $this->repository->saveUser($request);
 
             DB::commit();
 
@@ -80,8 +79,7 @@ class UserController extends ApiController
         DB::beginTransaction();
 
         try {
-            $updateBy = $this->createdOrUpdatedByUsername($request);
-            $user = $this->repository->updateUser($request, $user, $updateBy);
+            $user = $this->repository->updateUser($request, $user);
 
             DB::commit();
 

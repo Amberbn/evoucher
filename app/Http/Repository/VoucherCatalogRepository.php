@@ -1,13 +1,12 @@
 <?php
 namespace App\Http\Repository;
 
+use App\Repository\BaseRepository;
 use App\VoucherCatalog;
 use DB;
 
-class VoucherCatalogRepository
+class VoucherCatalogRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function __construct()
     {
         $this->model = new VoucherCatalog();
@@ -20,9 +19,9 @@ class VoucherCatalogRepository
             ->where('cat.isdelete', false);
 
         if (!$this->isGroupSprint()) {
-            $outlet->where('client.client_category_pid', '=', $this->me()->client->client_category_pid);
+            $outlet->where('client.client_category_pid', '=', $this->me()['client_category_pid']);
         }
-           
+
         $voucherCatalogs->select(
             'cat.voucher_catalog_id',
             'cat.voucher_catalog_revision_no',

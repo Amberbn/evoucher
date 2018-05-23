@@ -2,11 +2,10 @@
 namespace App\Http\Repository;
 
 use App\Outlet;
+use App\Repository\BaseRepository;
 
-class OutletRepository
+class OutletRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function __construct()
     {
         $this->model = new Outlet;
@@ -45,10 +44,12 @@ class OutletRepository
         }
 
         if (!$this->isGroupSprint()) {
-            $outlet->where('client.client_category_pid', '=', $this->me()->client->client_category_pid);
+            $outlet->where('client.client_category_pid', '=', $this->me()['client_category_pid']);
         }
 
         $outlet->where($table . '.isactive', '=', true);
+        $outlet->where($table . '.isdelete', '=', false);
+
         $outlet->select(
             $table . '.outlets_code',
             $table . '.merchant_id',
@@ -83,7 +84,7 @@ class OutletRepository
 
     }
 
-    public function store($request, $creatBy)
+    public function store($request)
     {
         $outlet = $this->model;
         $outlet->outlets_code = $request->input('outlets_code');
@@ -102,13 +103,13 @@ class OutletRepository
         $outlet->data_sort = $request->input('data_sort') ?: 1000;
         $outlet->isactive = $request->input('isactive') ?: true;
         $outlet->isdelete = $request->input('isdelete') ?: false;
-        $outlet->created_by_user_name = $creatBy;
+        $outlet->created_by_user_name = $this->loginUsername();
         $outlet->save();
 
         return $outlet;
     }
 
-    public function update($request, $outlet, $updateBy)
+    public function update($request, $outlet)
     {
         $outlet->merchant_id = $request->input('merchant_id');
         $outlet->client_id = $request->input('client_id');
@@ -125,16 +126,16 @@ class OutletRepository
         $outlet->data_sort = $request->input('data_sort') ?: 1000;
         $outlet->isactive = $request->input('isactive') ?: true;
         $outlet->isdelete = $request->input('isdelete') ?: false;
-        $outlet->last_updated_by_user_name = $updateBy;
+        $outlet->last_updated_by_user_name = $this->loginUsername();
         $outlet->save();
 
         return $outlet;
     }
 
-    public function delete($outlet, $updateBy)
+    public function delete($outlet)
     {
         $outlet->isdelete = true;
-        $outlet->last_updated_by_user_name = $updateBy;
+        $outlet->last_updated_by_user_name = $this->loginUsername();
         $outlet->save();
 
         return $outlet;

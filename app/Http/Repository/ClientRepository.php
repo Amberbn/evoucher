@@ -2,11 +2,10 @@
 namespace App\Repository;
 
 use App\Client;
+use App\Repository\BaseRepository;
 
-class ClientRepository
+class ClientRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function __construct()
     {
         $this->model = new Client;
@@ -42,7 +41,7 @@ class ClientRepository
         }
 
         if (!$this->isGroupSprint()) {
-            $client->where($table . '.client_category_pid', '=', $this->me()->client->client_category_pid);
+            $client->where($table . '.client_category_pid', '=', $this->me()['client_category_pid']);
         }
 
         $client->where($table . '.isactive', '=', true);
@@ -78,7 +77,7 @@ class ClientRepository
 
         return $client;
     }
-    public function store($request, $createdBy)
+    public function store($request)
     {
         $client = new Client;
         $client->client_code = $request->input('client_code');
@@ -99,14 +98,14 @@ class ClientRepository
         $client->client_outstanding_limit = $request->input('client_outstanding_limit');
         $client->isactive = $request->input('isactive') ?: true;
         $client->isdelete = $request->input('isdelete') ?: false;
-        $client->created_by_user_name = $createdBy;
-        $client->last_updated_by_user_name = $createdBy;
+        $client->created_by_user_name = $this->loginUsername();
+        $client->last_updated_by_user_name = $this->loginUsername();
         $client->save();
 
         return $client;
     }
 
-    public function update($request, $client, $updateBy)
+    public function update($request, $client)
     {
         $client->client_category_pid = $request->input('client_category_pid');
         $client->client_is_also_merchant = $request->input('client_is_also_merchant');
@@ -125,16 +124,16 @@ class ClientRepository
         $client->client_outstanding_limit = $request->input('client_outstanding_limit');
         $client->isactive = $request->input('isactive');
         $client->isdelete = $request->input('isdelete');
-        $client->last_updated_by_user_name = $updateBy;
+        $client->last_updated_by_user_name = $this->loginUsername();
         $client->save();
 
         return $client;
     }
 
-    public function delete($client, $updateBy)
+    public function delete($client)
     {
         $client->isdelete = true;
-        $client->last_updated_by_user_name = $updateBy;
+        $client->last_updated_by_user_name = $this->loginUsername();
         $client->save();
 
         return $client;
