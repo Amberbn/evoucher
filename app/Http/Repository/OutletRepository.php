@@ -2,11 +2,10 @@
 namespace App\Http\Repository;
 
 use App\Outlet;
+use App\Repository\BaseRepository;
 
-class OutletRepository
+class OutletRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function __construct()
     {
         $this->model = new Outlet;

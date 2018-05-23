@@ -1,13 +1,12 @@
 <?php
 namespace App\Http\Repository;
 
+use App\Repository\BaseRepository;
 use App\VoucherCatalog;
 use DB;
 
-class VoucherCatalogRepository
+class VoucherCatalogRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function __construct()
     {
         $this->model = new VoucherCatalog();

@@ -2,11 +2,12 @@
 namespace App\Repository;
 
 use App\GlobalParameter;
+use App\Repository\BaseRepository;
 
 /**
  *
  */
-class GlobalParameterRepository
+class GlobalParameterRepository extends BaseRepository
 {
     public function saveGlobalParameter($request)
     {

@@ -4,11 +4,10 @@ namespace App\Repository;
 use App\Campaign;
 use App\CampaignRecipient;
 use App\Campaignvoucher;
+use App\Repository\BaseRepository;
 
-class CampaignRepository
+class CampaignRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function __construct()
     {
         $this->model = new Campaign;

@@ -2,11 +2,10 @@
 namespace App\Repository;
 
 use App\Client;
+use App\Repository\BaseRepository;
 
-class ClientRepository
+class ClientRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function __construct()
     {
         $this->model = new Client;

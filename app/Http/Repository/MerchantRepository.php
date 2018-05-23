@@ -2,15 +2,14 @@
 namespace App\Repository;
 
 use App\Merchant;
+use App\Repository\BaseRepository;
 use DB;
 
 /**
  *
  */
-class MerchantRepository
+class MerchantRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function getAllMerchants()
     {
         $merchants = DB::table('mch_merchant as mm')
