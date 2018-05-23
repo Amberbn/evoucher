@@ -9,6 +9,8 @@ use DB;
  */
 class UserRoleRepository
 {
+    use \App\Http\Controllers\Contract\UserTrait;
+
     public function getAllUserRoles()
     {
         $userRoles = DB::table('frm_user_roles as ur')
@@ -20,12 +22,12 @@ class UserRoleRepository
         return $userRoles;
 
     }
-    public function saveUserRole($request, $createdBy)
+    public function saveUserRole($request)
     {
         $userRole = new UserRole;
         $userRole->user_id = $request->input('user_id');
         $userRole->roles_id = $request->input('roles_id');
-        $userRole->created_by_user_name = $createdBy;
+        $userRole->created_by_user_name = $this->loginUsername();
         $userRole->save();
 
         return $userRole;
@@ -40,7 +42,7 @@ class UserRoleRepository
         //     ->select('u.user_name', 'r.roles_code')
         //     ->where('ur.user_roled_id', $userRoledId)
         //     ->first();
-         
+
         return $userRole;
     }
 

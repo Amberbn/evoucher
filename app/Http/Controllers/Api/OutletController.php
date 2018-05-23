@@ -75,8 +75,7 @@ class OutletController extends ApiController
     {
         try {
             DB::beginTransaction();
-            $createdBy = $this->createdOrUpdatedByUsername($request);
-            $outlet = $this->repository->store($request, $createdBy);
+            $outlet = $this->repository->store($request);
             DB::commit();
             return $this->sendCreated($outlet);
 
@@ -103,8 +102,7 @@ class OutletController extends ApiController
         try {
 
             DB::beginTransaction();
-            $updateBy = $this->createdOrUpdatedByUsername($request);
-            $outlet = $this->repository->update($request, $outlet, $updateBy);
+            $outlet = $this->repository->update($request, $outlet);
             DB::commit();
 
             return $this->sendSuccess($outlet);
@@ -132,8 +130,7 @@ class OutletController extends ApiController
         try {
 
             DB::beginTransaction();
-            $updateBy = $this->createdOrUpdatedByUsername($request);
-            $outlet = $this->repository->delete($outlet, $updateBy);
+            $outlet = $this->repository->delete($outlet);
             DB::commit();
 
             return $this->sendSuccess($outlet);

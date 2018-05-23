@@ -40,8 +40,7 @@ class GlobalParameterController extends ApiController
         DB::beginTransaction();
 
         try {
-            $createdBy = $this->createdOrUpdatedByUsername($request);
-            $globalParameter = $this->repository->saveGlobalParameter($request, $createdBy);
+            $globalParameter = $this->repository->saveGlobalParameter($request);
 
             DB::commit();
 
@@ -84,8 +83,7 @@ class GlobalParameterController extends ApiController
         DB::beginTransaction();
 
         try {
-            $updateBy = $this->createdOrUpdatedByUsername($request);
-            $globalParameter = $this->repository->updateGlobalParameter($request, $globalParameter, $updateBy);
+            $globalParameter = $this->repository->updateGlobalParameter($request, $globalParameter);
 
             DB::commit();
 
