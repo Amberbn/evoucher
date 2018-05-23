@@ -1,16 +1,15 @@
 <?php
 namespace App\Repository;
 
+use App\Repository\BaseRepository;
 use App\User;
 use DB;
 
 /**
  *
  */
-class UserRepository
+class UserRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function getAllUser()
     {
         $users = DB::table('frm_user as us')

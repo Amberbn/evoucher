@@ -1,12 +1,11 @@
 <?php
 namespace App\Repository;
 
+use App\Repository\BaseRepository;
 use App\Role;
 
-class RoleRepository
+class RoleRepository extends BaseRepository
 {
-    use \App\Http\Controllers\Contract\UserTrait;
-
     public function __construct()
     {
         $this->model = new Role;
