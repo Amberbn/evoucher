@@ -20,9 +20,9 @@ class VoucherCatalogRepository
             ->where('cat.isdelete', false);
 
         if (!$this->isGroupSprint()) {
-            $outlet->where('client.client_category_pid', '=', $this->me()->client->client_category_pid);
+            $outlet->where('client.client_category_pid', '=', $this->me()['client_category_pid']);
         }
-           
+
         $voucherCatalogs->select(
             'cat.voucher_catalog_id',
             'cat.voucher_catalog_revision_no',

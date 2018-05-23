@@ -63,8 +63,7 @@ class ClientController extends ApiController
     {
         try {
             DB::beginTransaction();
-            $createdBy = $this->createdOrUpdatedByUsername();
-            $client = $this->repository->store($request, $createdBy);
+            $client = $this->repository->store($request);
             DB::commit();
             return $this->sendCreated($client);
 
@@ -106,8 +105,7 @@ class ClientController extends ApiController
         try {
 
             DB::beginTransaction();
-            $updateBy = $this->createdOrUpdatedByUsername();
-            $client = $this->repository->update($request, $client, $updateBy);
+            $client = $this->repository->update($request, $client);
             DB::commit();
 
             return $this->sendSuccess($client);
@@ -135,8 +133,7 @@ class ClientController extends ApiController
         try {
 
             DB::beginTransaction();
-            $updateBy = $this->createdOrUpdatedByUsername($request);
-            $client = $this->repository->delete($client, $updateBy);
+            $client = $this->repository->delete($client);
             DB::commit();
 
             return $this->sendSuccess($client);

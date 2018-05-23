@@ -41,8 +41,7 @@ class RoleController extends ApiController
     {
         try {
             DB::beginTransaction();
-            $createdBy = $this->createdOrUpdatedByUsername($request);
-            $role = $this->repository->store($request, $createdBy);
+            $role = $this->repository->store($request);
             DB::commit();
             return $this->sendCreated($role);
 

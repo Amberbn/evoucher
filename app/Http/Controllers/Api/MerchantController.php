@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Client;
 use App\Merchant;
 use App\Repository\MerchantRepository;
-use App\Repository\ClientRepository;
 use DB;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class MerchantController extends ApiController
         $this->merchantRepository = new MerchantRepository;
     }
 
-     /**
+    /**
      *FUNCTION FOR SET FILTER CLIENT
      *@return Array $filter
      */
@@ -59,8 +59,7 @@ class MerchantController extends ApiController
         DB::beginTransaction();
 
         try {
-            $createdBy = $this->createdOrUpdatedByUsername($request);
-            $merchant = $this->repository->saveMerchant($request, $createdBy);
+            $merchant = $this->repository->saveMerchant($request);
 
             DB::commit();
 
@@ -88,8 +87,7 @@ class MerchantController extends ApiController
         DB::beginTransaction();
 
         try {
-            $updateBy = $this->createdOrUpdatedByUsername($request);
-            $merchant = $this->repository->updateMerchant($request, $merchant, $updateBy);
+            $merchant = $this->repository->updateMerchant($request, $merchant);
 
             DB::commit();
 

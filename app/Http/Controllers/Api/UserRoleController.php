@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Http\Controllers\Api\ApiController;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\UserRole;
 use App\Repository\UserRoleRepository;
+use App\UserRole;
 use DB;
+use Illuminate\Http\Request;
 
 class UserRoleController extends ApiController
 {
@@ -15,8 +15,8 @@ class UserRoleController extends ApiController
     public function __construct()
     {
         /**
-        *FUNCTION __construct FOR DEFINE MODEL AND REPOSITORY
-        */
+         *FUNCTION __construct FOR DEFINE MODEL AND REPOSITORY
+         */
         $this->model = new UserRole;
         $this->repository = new UserRoleRepository;
         $this->userRoleRepository = new UserRoleRepository;
@@ -24,7 +24,7 @@ class UserRoleController extends ApiController
 
     /**
      *FUNCTION FOR GET ALL DATA USER ROLE
-     *@param 
+     *@param
      *@return \Illuminate\Http\Response
      */
     public function index()
@@ -45,14 +45,13 @@ class UserRoleController extends ApiController
     {
         DB::beginTransaction();
 
-        try{
-            $createdBy = $this->createdOrUpdatedByUsername($request);
-            $userRole = $this->repository->saveUserRole($request, $createdBy);
+        try {
+            $userRole = $this->repository->saveUserRole($request);
 
             DB::commit();
 
             return $this->sendCreated($userRole);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return $this->sendBadRequest($e->getMessage());
         }
@@ -70,7 +69,7 @@ class UserRoleController extends ApiController
         if (empty($userRole)) {
             return $this->sendNotfound();
         }
-        
+
         return $this->sendSuccess($userRole);
     }
 
@@ -89,14 +88,13 @@ class UserRoleController extends ApiController
 
         DB::beginTransaction();
 
-        try{
-            //$updateBy = $this->createdOrUpdatedByUsername($request);
+        try {
             $userRole = $this->repository->updateUserRole($request, $userRole);
 
             DB::commit();
 
             return $this->sendCreated($userRole);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return $this->sendBadRequest($e->getMessage());
         }
