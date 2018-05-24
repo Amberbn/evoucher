@@ -19,7 +19,7 @@ class CampaignRepository extends BaseRepository
     {
         $campaign = $this->campaign;
         $campaign->campaign_code = $request->input('campaign_code');
-        $campaign->client_id = $request->input('client_id');
+        $campaign->client_id = $this->me()['client_id'];
         $campaign->campaign_category_pid = $request->input('campaign_category_pid');
         $campaign->campaign_wizzard_current_step = $request->input('campaign_wizzard_current_step');
         $campaign->campaign_pay_using_point = $request->input('campaign_pay_using_point') ?: false;
