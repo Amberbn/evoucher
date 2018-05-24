@@ -38,4 +38,9 @@ class VoucherCatalogController extends ApiController
 
         return $this->dataTableResponseBuilder($voucherCatalogs, $filter);
     }
+
+    public function store(Request $request)
+    {
+        $voucherCatalog = $this->merchantRepository->saveVoucherCatalog();
+    }
 }

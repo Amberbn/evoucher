@@ -76,6 +76,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
 
         //ROUTE FOR VOUCHER CATALOG
         Route::get('/voucher-catalog', ['uses' => 'VoucherCatalogController@index']);
+        Route::get('/voucher-catalog/store', ['uses' => 'VoucherCatalogController@store']);
         //END ROUTER FOR CATALOG
     });
     //END ROUTE GROUP BY REQUIRED LOGIN
