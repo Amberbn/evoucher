@@ -78,8 +78,8 @@ class VoucherCatalogRepository extends BaseRepository
         $voucherCatalog->data_sort = $request->input('data_sort') ? : 1000;
         $voucherCatalog->isactive = $request->input('isactive') ? : true;
         $voucherCatalog->isdelete = $request->input('isdelete') ? : false;
-        $voucherCatalog->created_by_user_name = $request->input('created_by_user_name');
-        $voucherCatalog->last_updated_by_user_name = $request->input('last_updated_by_user_name');
+        $voucherCatalog->created_by_user_name = $this->loginUsername();
+        $voucherCatalog->last_updated_by_user_name = $this->loginUsername();
         $voucherCatalog->save();
 
         return $voucherCatalog;
