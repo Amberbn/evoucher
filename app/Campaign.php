@@ -24,8 +24,8 @@ class Campaign extends Model
         'campaign_period_end_date',
         'campaign_distribute_by_email',
         'campaign_distribute_by_sms',
-        'campaign_total_sms_charge_amount',
-        'campaign_total_sms_charge_point',
+        'campaign_sms_charge_amount_grandtotal',
+        'campaign_sms_charge_point_grandtotal',
         'campaign_voucher_unit_quantity_grandtotal',
         'campaign_voucher_value_amount_grandtotal',
         'campaign_voucher_value_point_grandtotal',
@@ -38,5 +38,11 @@ class Campaign extends Model
         'created_by_user_name',
         'last_updated_by_user_name',
     ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('isactive', '=', true)
+            ->where('isdelete', false);
+    }
 
 }

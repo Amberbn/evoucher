@@ -12,6 +12,7 @@
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     Route::get('/cekdb', ['uses' => 'ApiController@index']);
     Route::post('/login', ['uses' => 'AuthController@login']);
+    Route::get('campaign-csv', ['uses' => 'CampaignController@csv']);
 
     //ROUTE GROUP BY REQUIRED LOGIN
 
@@ -78,6 +79,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::get('/voucher-catalog', ['uses' => 'VoucherCatalogController@index']);
         Route::get('/voucher-catalog/store', ['uses' => 'VoucherCatalogController@store']);
         //END ROUTER FOR CATALOG
+
+        //ROUTE FOR VOUCHER CAMPAIGN
+        Route::get('/campaign', ['uses' => 'CampaignController@getCampaigns']);
+        Route::get('/campaign/{id}', ['uses' => 'CampaignController@getCampaign']);
+        Route::post('/campaign/create', ['uses' => 'CampaignController@createCampaign']);
+        //END ROUTER FOR CAMPAIGN
+
     });
     //END ROUTE GROUP BY REQUIRED LOGIN
 
