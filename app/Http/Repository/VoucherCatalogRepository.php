@@ -3,6 +3,8 @@ namespace App\Http\Repository;
 
 use App\Repository\BaseRepository;
 use App\VoucherCatalog;
+use App\VoucherCatalogOutlet;
+use App\StockTransaction;
 use DB;
 
 class VoucherCatalogRepository extends BaseRepository
@@ -55,11 +57,15 @@ class VoucherCatalogRepository extends BaseRepository
 
     public function saveVoucherCatalog($request)
     {
+        $unixCode = generateRandomString();
+
+        $voucherCatalogValueAmount = $request->input('voucher_catalog_value_amount');
+
         $voucherCatalog = new VoucherCatalog;
         $voucherCatalog->voucher_catalog_revision_no = 0;
         $voucherCatalog->merchant_client_id = $request->input('merchant_client_id');
         $voucherCatalog->client_name = $request->input('client_name');
-        $voucherCatalog->voucher_catalog_sku_code = $request->input('voucher_catalog_sku_code');
+        $voucherCatalog->voucher_catalog_sku_code =  $unixCode;
         $voucherCatalog->voucher_catalog_title = $request->input('voucher_catalog_title');
         $voucherCatalog->voucher_catalog_main_image_url = $request->input('voucher_catalog_main_image_url');
         $voucherCatalog->voucher_catalog_information = $request->input('voucher_catalog_information');
@@ -69,7 +75,7 @@ class VoucherCatalogRepository extends BaseRepository
         $voucherCatalog->voucher_catalog_valid_start_date = $request->input('voucher_catalog_valid_start_date');
         $voucherCatalog->voucher_catalog_valid_end_date = $request->input('voucher_catalog_valid_end_date');
         $voucherCatalog->voucher_catalog_tags = $request->input('voucher_catalog_tags');
-        $voucherCatalog->voucher_catalog_value_amount = $request->input('voucher_catalog_value_amount');
+        $voucherCatalog->voucher_catalog_value_amount = $voucherCatalogValueAmount;
         $voucherCatalog->voucher_catalog_value_point = $request->input('voucher_catalog_value_point');
         $voucherCatalog->voucher_catalog_unit_price_amount = $request->input('voucher_catalog_unit_price_amount');
         $voucherCatalog->voucher_catalog_unit_price_point = $request->input('voucher_catalog_unit_price_point');
@@ -83,5 +89,36 @@ class VoucherCatalogRepository extends BaseRepository
         $voucherCatalog->save();
 
         return $voucherCatalog;
+       
+        $stockTransacyion = new StockTransaction;
+        $stockTransacyion->voucher_catalog_id = $request->input('voucher_catalog_id');
+        $stockTransacyion->stock_transaction_adjustment_type = $request->input('stock_transaction_adjustment_type');
+        $stockTransacyion->campaign_id = $request->input('campaign_id') ? : null;
+        $stockTransacyion->stock_transaction_adjustment_value = $voucherCatalogValueAmount;
+        $stockTransacyion->stock_transaction_initial_stock_level = $request->input('stock_transaction_adjustment_value') ? : 0;
+        $stockTransacyion->stock_transaction_adjusted_stock_level = $request->input('stock_transaction_adjustment_value') ? : 0;
+        $stockTransacyion->created_by_user_name = $this->loginUsername();
+        $stockTransacyion->save();
+    }
+
+    //Generate unix code for voucher_catalog_sku_code
+    private function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    private function stockTransaction()
+    {
+        // $stockTransactionAdjustmentValue = $request['voucher_catalog_value_amount'];
+        $voucherCatalogValueAmount = 0;
+
+        $voucherCatalogValueAmount1 = $request['voucher_catalog_value_amount'];
+
+        $stockTransactionAdjustmentValue = $voucherCatalogValueAmount + $voucherCatalogValueAmount1;
     }
 }
