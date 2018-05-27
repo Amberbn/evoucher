@@ -85,6 +85,121 @@ class CampaignRepository extends BaseRepository
 
     }
 
+    public function getCampaignVoucher($campaignVoucherId = null)
+    {
+        $table = $this->campaignVoucher->getTable();
+        $campaign = $this->campaignVoucher
+            ->join('bsn_client as client', function ($join) use ($table) {
+                $join
+                    ->on('client.client_id', '=', $table . '.client_id');
+            })
+            ->join('bsn_campaign as campaign', function ($join) use ($table) {
+                $join
+                    ->on('campaign.campaign_id', '=', $table . '.campaign_id');
+            })
+            ->leftJoin('frm_global_parameters as gp', function ($join) use ($table) {
+                $join
+                    ->on('gp.parameters_id', '=', 'campaign.campaign_category_pid')
+                    ->where('gp.parameters_type', '=', 'campaign_category');
+            });
+
+        if ($campaignVoucherId) {
+            $campaign->where($table . '.campaign_voucher_id', '=', $campaignVoucherId);
+        }
+
+        if (!$this->isGroupSprint()) {
+            $campaign->where('client.client_category_pid', '=', $this->me()['client_category_pid']);
+        }
+
+        $campaign->where('campaign.isactive', '=', true);
+        $campaign->where('campaign.isdelete', '=', false);
+
+        $campaign->select(
+            $table . '.campaign_voucher_id',
+            $table . '.voucher_catalog_id',
+            $table . '.campaign_id',
+            $table . '.client_id',
+            $table . '.voucher_catalog_revision_no',
+            $table . '.merchant_client_id',
+            $table . '.campaign_voucher_sku_code',
+            $table . '.campaign_voucher_title',
+            $table . '.campaign_voucher_main_image_url',
+            $table . '.campaign_voucher_information',
+            $table . '.campaign_voucher_terms_and_condition',
+            $table . '.campaign_voucher_instruction_customer',
+            $table . '.campaign_voucher_instruction_outlet',
+            $table . '.campaign_voucher_valid_start_date',
+            $table . '.campaign_voucher_valid_end_date',
+            $table . '.campaign_voucher_tags',
+            $table . '.campaign_voucher_unit_quantity',
+            $table . '.campaign_voucher_unit_cogs_amount',
+            $table . '.campaign_voucher_value_amount',
+            $table . '.campaign_voucher_value_point',
+            $table . '.campaign_voucher_unit_price_amount',
+            $table . '.campaign_voucher_unit_price_point',
+            $table . '.campaign_sms_charge_amount_subtotal',
+            $table . '.campaign_sms_charge_point_subtotal',
+            $table . '.campaign_voucher_value_amount_subtotal',
+            $table . '.campaign_voucher_value_point_subtotal',
+            $table . '.campaign_voucher_unit_price_amount_subtotal',
+            $table . '.campaign_voucher_unit_price_point_subtotal',
+            $table . '.data_sort',
+            $table . '.created_at',
+            $table . '.created_by_user_name',
+            'campaign.campaign_title',
+            'campaign.campaign_code',
+            'campaign.campaign_status'
+        );
+        return $campaign;
+
+    }
+
+    public function getCampaignRecipient($campaignRecipientId = null)
+    {
+        $table = $this->campaignRecipient->getTable();
+        $recipient = $this->campaignRecipient
+            ->join('bsn_client as client', function ($join) use ($table) {
+                $join
+                    ->on('client.client_id', '=', $table . '.client_id');
+            })
+            ->join('bsn_campaign as campaign', function ($join) use ($table) {
+                $join
+                    ->on('campaign.campaign_id', '=', $table . '.campaign_id');
+            })
+            ->leftJoin('frm_global_parameters as gp', function ($join) use ($table) {
+                $join
+                    ->on('gp.parameters_id', '=', 'campaign.campaign_category_pid')
+                    ->where('gp.parameters_type', '=', 'campaign_category');
+            });
+
+        if ($campaignRecipientId) {
+            $recipient->where($table . '.campaign_recipient_id', '=', $campaignRecipientId);
+        }
+
+        if (!$this->isGroupSprint()) {
+            $recipient->where('client.client_category_pid', '=', $this->me()['client_category_pid']);
+        }
+
+        $recipient->where('campaign.isactive', '=', true);
+        $recipient->where('campaign.isdelete', '=', false);
+
+        $recipient->select(
+            $table . '.campaign_recipient_id',
+            $table . '.campaign_voucher_id',
+            $table . '.campaign_id',
+            $table . '.client_id',
+            $table . '.campaign_recipient_salutation',
+            $table . '.campaign_recipient_name',
+            $table . '.campaign_recipient_phone',
+            $table . '.campaign_recipient_email',
+            'campaign.campaign_title',
+            'campaign.campaign_code',
+            'campaign.campaign_status'
+        );
+        return $recipient;
+
+    }
+
     public function checkValidStep($stepId)
     {
         return in_array($stepId,$this->step);
