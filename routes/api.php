@@ -85,6 +85,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::get('/campaign/{id}', ['uses' => 'CampaignController@getCampaign']);
         Route::post('/campaign/create', ['uses' => 'CampaignController@createCampaign']);
         Route::post('/campaign/recipient', ['uses' => 'CampaignController@createRecipient']);
+        Route::get('/campaign-voucher', ['uses' => 'CampaignController@getCampaignVouchers']);
+        Route::get('/campaign-voucher/{id}', ['uses' => 'CampaignController@getCampaignVoucher']);
+        Route::get('/campaign-recipient', ['uses' => 'CampaignController@getCampaignRecipients']);
+        Route::get('/campaign-recipient/{id}', ['uses' => 'CampaignController@getCampaignRecipient']);
         //END ROUTER FOR CAMPAIGN
 
     });

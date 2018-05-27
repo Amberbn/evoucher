@@ -80,6 +80,72 @@ class CampaignController extends ApiController
         return $this->sendSuccess($campaign);
     }
 
+    /**
+     *FUNCTION FOR GET CAMPAIGN VOUCHER
+     *@param int $clientId
+     *@return \Illuminate\Http\Response
+     */
+    public function getCampaignVouchers()
+    {
+        $campaign = $this->repository->getCampaignVoucher();
+        if (empty($campaign->get()->toarray())) {
+            return $this->sendNotfound();
+        }
+        $filter = $this->campaignFilter();
+
+        return $this->dataTableResponseBuilder($campaign, $filter);
+    }
+
+    /**
+     *FUNCTION FOR GET DETAIL CAMPAIGN VOUCHER
+     *@param int $clientId
+     *@return \Illuminate\Http\Response
+     */
+    public function getCampaignVoucher($campaignVoucherId)
+    {
+        $campaign = $this->repository->getCampaignVoucher($campaignVoucherId)->get()->toArray();
+        if (empty($campaign)) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($campaign);
+    }
+
+    /**
+     *FUNCTION FOR GET DETAIL CAMPAIGN RECIPIENT
+     *@return \Illuminate\Http\Response
+     */
+    public function getCampaignRecipients()
+    {
+        $recipient = $this->repository->getCampaignRecipient();
+        if (empty($recipient->get()->toarray())) {
+            return $this->sendNotfound();
+        }
+        $filter = $this->campaignFilter();
+
+        return $this->dataTableResponseBuilder($recipient, $filter);
+    }
+
+    /**
+     *FUNCTION FOR GET DETAIL CAMPAIGN VOUCHER
+     *@param int $clientId
+     *@return \Illuminate\Http\Response
+     */
+    public function getCampaignRecipient($campaignVoucherId)
+    {
+        $campaign = $this->repository->getCampaignRecipient($campaignVoucherId)->get()->toArray();
+        if (empty($campaign)) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($campaign);
+    }
+
+    /**
+     *FUNCTION FOR CREATE CAMPAIGN VOUCHER
+     *@param int $clientId
+     *@return \Illuminate\Http\Response
+     */
     public function createCampaign(Request $request)
     {
         try {
