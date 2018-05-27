@@ -84,6 +84,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::get('/campaign', ['uses' => 'CampaignController@getCampaigns']);
         Route::get('/campaign/{id}', ['uses' => 'CampaignController@getCampaign']);
         Route::post('/campaign/create', ['uses' => 'CampaignController@createCampaign']);
+        Route::post('/campaign/recipient', ['uses' => 'CampaignController@createRecipient']);
         //END ROUTER FOR CAMPAIGN
 
     });

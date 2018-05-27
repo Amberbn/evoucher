@@ -20,6 +20,13 @@ class CampaignController extends ApiController
         $this->repository = new CampaignRepository;
     }
 
+    public function campaignMessage()
+    {
+        return [
+            'create_recipient' => 'Request data not found or quantity is not enough',
+        ];
+    }
+
     /**
      *FUNCTION FOR SET FILTER CLIENT
      *@return Array $filter
@@ -86,7 +93,26 @@ class CampaignController extends ApiController
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->sendBadRequest($e->getMessage());
+            return $this->throwErrorException($e);
+        }
+    }
+
+    public function createRecipient(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $campaign = $this->repository->storeStepFour($request);
+            DB::commit();
+
+            if (!$campaign) {
+                return $this->sendBadRequest($this->campaignMessage()['create_recipient']);
+            }
+
+            return $this->sendCreated($campaign);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
         }
     }
 

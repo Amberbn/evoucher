@@ -2,8 +2,10 @@
 namespace App\Repository;
 
 use App\Campaign;
-use App\CampaignRecipient;
 use App\Campaignvoucher;
+use App\CampaignRecipient;
+use App\VoucherCatalogOutlet;
+use App\CampaignVoucherOutlet;
 use App\Repository\BaseRepository;
 
 class CampaignRepository extends BaseRepository
@@ -15,6 +17,8 @@ class CampaignRepository extends BaseRepository
         $this->model = new Campaign;
         $this->campaignVoucher = new CampaignVoucher;
         $this->campaignRecipient = new CampaignRecipient;
+        $this->voucherCatalogOutlet = new VoucherCatalogOutlet;        
+        $this->campaignVoucherOutlet = new CampaignVoucherOutlet;
     }
 
     public function getCampaign($campaignid = null)
@@ -117,10 +121,10 @@ class CampaignRepository extends BaseRepository
     public function storeStepOne($request)
     {
         //step 1 campaign profile
-        $clientId = $this->me()['client_id'];
+        $clientId = $request->input('client_id');
 
         if (!$this->isGroupSprint()) {
-            $clientId = $request->input('client_id');
+            $clientId = $this->me()['client_id'];        
         }
 
         $campaign = $this->model;
@@ -171,7 +175,8 @@ class CampaignRepository extends BaseRepository
         foreach ($request->voucher as $voucherRequest) {
 
             //get value from voucher catalog
-            $voucherCatalog = $this->campaignVoucher::where('voucher_catalog_id', $voucherRequest['voucher_catalog_id'])
+            $voucherCatalog = $this->campaignVoucher
+                ->where('voucher_catalog_id', $voucherRequest['voucher_catalog_id'])
                 ->first();
 
             //set alias because to long code
@@ -188,6 +193,8 @@ class CampaignRepository extends BaseRepository
             $voucher->voucher_catalog_revision_no = $revisionNumber;
             $voucher->campaign_id = $campaign->campaign_id;
             $voucher->client_id = $campaign->client_id;
+
+            //copy data from voucher catalog
             $voucher->voucher_catalog_revision_no = $voucherCatalog->voucher_catalog_revision_no;
             $voucher->merchant_client_id = $voucherCatalog->merchant_client_id;
             $voucher->campaign_voucher_sku_code = $voucherCatalog->campaign_voucher_sku_code;
@@ -198,11 +205,13 @@ class CampaignRepository extends BaseRepository
             $voucher->campaign_voucher_instruction_customer = $voucherCatalog->campaign_voucher_instruction_customer;
             $voucher->campaign_voucher_instruction_outlet = $voucherCatalog->campaign_voucher_instruction_outlet;
             $voucher->campaign_voucher_valid_start_date = $voucherCatalog->campaign_voucher_valid_start_date;
-            $voucher->campaign_voucher_valid_end_date = $voucher->campaign_voucher_valid_end_date;
-            $voucher->campaign_voucher_tags = $voucher->campaign_voucher_tags;
+            $voucher->campaign_voucher_valid_end_date = $voucherCatalog->campaign_voucher_valid_end_date;
+            $voucher->campaign_voucher_tags = $voucherCatalog->campaign_voucher_tags;
             $voucher->campaign_voucher_unit_quantity = $voucherCatalog->campaign_voucher_unit_quantity;
             $voucher->campaign_voucher_unit_cogs_amount = $voucherCatalog->campaign_voucher_unit_cogs_amount;
             $voucher->data_sort = $voucherCatalog->data_sort;
+
+            //calculate per voucher
             $voucher->campaign_voucher_unit_quantity = $unitQuantity;
             $voucher->campaign_voucher_value_amount = $valueAmount;
             $voucher->campaign_voucher_value_point = $valuePoint;
@@ -243,8 +252,72 @@ class CampaignRepository extends BaseRepository
         return true;
     }
 
-    public function storeStepFour($campaign)
+    public function storeStepFour($request)
     {
         //add recipient to voucher
+        $unitQuantity = 0;
+        $recipients = $request->input('recipient');
+        $campaignVoucherId = $request->input('campaign_voucher_id'); 
+
+        //check campaign voucher
+        $campaignVoucher = $this->campaignVoucher
+            ->where('campaign_voucher_id',$campaignVoucherId)
+            ->first();
+        //check recipient saved
+        $campaignRecipientRecord = $this->campaignRecipient
+            ->where('campaign_voucher_id', $campaignVoucherId)
+            ->count();        
+        
+        //if data not found
+        if(!$campaignVoucher) {
+            return false;
+        }
+        //set alias
+        $unitQuantity = $campaignVoucher->campaign_voucher_unit_quantity;
+       
+        //check if saved record recipient in db > or = quantity
+        if ($campaignRecipientRecord >= $unitQuantity) {
+            return false;
+        }
+
+        //check if unit quantity < recipient request
+        if ($unitQuantity < count($recipients)) {
+            return false;
+        }
+ 
+        //save recipient
+        foreach ($recipients as $recipient) {
+            $campaignRecipient = new CampaignRecipient;
+            $campaignRecipient->campaign_voucher_id = $campaignVoucher->campaign_voucher_id;
+            $campaignRecipient->campaign_id = $campaignVoucher->campaign_id;
+            $campaignRecipient->client_id = $campaignVoucher->client_id;
+            $campaignRecipient->campaign_recipient_salutation = $recipient['salutation'] ?: null;
+            $campaignRecipient->campaign_recipient_name = $recipient['name'] ?: null;
+            $campaignRecipient->campaign_recipient_phone = $recipient['phone'] ?: null;
+            $campaignRecipient->campaign_recipient_email = $recipient['email'] ?: null;
+            $campaignRecipient->save();
+        }
+
+        $voucherCatalogOutlets = $this->voucherCatalogOutlet
+            ->where('voucher_catalog_id',$campaignVoucher->voucher_catalog_id)
+            ->get();
+        
+        if(!$voucherCatalogOutlets){
+            return false;
+        }
+
+        foreach($voucherCatalogOutlets as $voucherCatalogOutlet) {
+            $campaignVoucherOutlet = new CampaignVoucherOutlet;
+            $campaignVoucherOutlet->campaign_voucher_id = $campaignVoucher->campaign_voucher_id;
+            $campaignVoucherOutlet->voucher_catalog_id = $campaignVoucher->voucher_catalog_id;
+            $campaignVoucherOutlet->campaign_id = $campaignVoucher->campaign_id;
+            $campaignVoucherOutlet->outlets_id = $voucherCatalogOutlet->outlets_id;
+            $campaignVoucherOutlet->merchant_id = $voucherCatalogOutlet->merchant_id;
+            $campaignVoucherOutlet->created_at = $voucherCatalogOutlet->created_at;
+            $campaignVoucherOutlet->created_by_user_name = $voucherCatalogOutlet->created_by_user_name;
+            $campaignVoucherOutlet->save();
+        }
+
+        return true;
     }
 }
