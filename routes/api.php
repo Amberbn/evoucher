@@ -76,8 +76,16 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
 
         //ROUTE FOR VOUCHER CATALOG
         Route::get('/voucher-catalog', ['uses' => 'VoucherCatalogController@index']);
-        Route::get('/voucher-catalog/store', ['uses' => 'VoucherCatalogController@store']);
+        Route::post('/voucher-catalog/store', ['uses' => 'VoucherCatalogController@store']);
+        Route::put('/voucher-catalog/update/{voucheCatalogId}', ['uses' => 'VoucherCatalogController@update']);
         //END ROUTER FOR CATALOG
+
+        //ROUTE FOR VOUCHER CATALOG
+        Route::get('/voucher-catalog-outlet', ['uses' => 'VoucherCatalogOutletController@index']);
+        Route::post('/voucher-catalog-outlet/store', ['uses' => 'VoucherCatalogOutletController@store']);
+        Route::put('/voucher-catalog-outlet/update/{voucheCatalogId}', ['uses' => 'VoucherCatalogOutletController@update']);
+        //END ROUTER FOR CATALOG
+
     });
     //END ROUTE GROUP BY REQUIRED LOGIN
 

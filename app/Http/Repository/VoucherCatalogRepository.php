@@ -21,7 +21,7 @@ class VoucherCatalogRepository extends BaseRepository
             ->where('cat.isdelete', false);
 
         if (!$this->isGroupSprint()) {
-            $outlet->where('client.client_category_pid', '=', $this->me()['client_category_pid']);
+            $voucherCatalogs->where('bc.client_category_pid', '=', $this->me()['client_category_pid']);
         }
 
         $voucherCatalogs->select(
@@ -57,10 +57,14 @@ class VoucherCatalogRepository extends BaseRepository
 
     public function saveVoucherCatalog($request)
     {
+        $stockTransactionInitialStockLevel = 0;
+        $voucherCatalogStockLevel = request('voucher_catalog_stock_level');
+        $stockTransactionInitialStockLevel = $voucherCatalogStockLevel;
+
         $unixCode = generateRandomString();
+        // $transaction = stockTransaction();
 
-        $voucherCatalogValueAmount = $request->input('voucher_catalog_value_amount');
-
+        
         $voucherCatalog = new VoucherCatalog;
         $voucherCatalog->voucher_catalog_revision_no = 0;
         $voucherCatalog->merchant_client_id = $request->input('merchant_client_id');
@@ -75,7 +79,8 @@ class VoucherCatalogRepository extends BaseRepository
         $voucherCatalog->voucher_catalog_valid_start_date = $request->input('voucher_catalog_valid_start_date');
         $voucherCatalog->voucher_catalog_valid_end_date = $request->input('voucher_catalog_valid_end_date');
         $voucherCatalog->voucher_catalog_tags = $request->input('voucher_catalog_tags');
-        $voucherCatalog->voucher_catalog_value_amount = $voucherCatalogValueAmount;
+        $voucherCatalog->voucher_catalog_unit_cogs_amount = $request->input('voucher_catalog_unit_cogs_amount');
+        $voucherCatalog->voucher_catalog_value_amount = $request->input('voucher_catalog_value_amount');
         $voucherCatalog->voucher_catalog_value_point = $request->input('voucher_catalog_value_point');
         $voucherCatalog->voucher_catalog_unit_price_amount = $request->input('voucher_catalog_unit_price_amount');
         $voucherCatalog->voucher_catalog_unit_price_point = $request->input('voucher_catalog_unit_price_point');
@@ -88,17 +93,80 @@ class VoucherCatalogRepository extends BaseRepository
         $voucherCatalog->last_updated_by_user_name = $this->loginUsername();
         $voucherCatalog->save();
 
-        return $voucherCatalog;
+        if($voucherCatalog->save())
+        {
+            $stockTransaction = new StockTransaction;
+            $stockTransaction->voucher_catalog_id = $request->input('voucher_catalog_id');
+            $stockTransaction->stock_transaction_adjustment_type = $request->input('stock_transaction_adjustment_type');
+            $stockTransaction->campaign_id = $request->input('campaign_id') ? : null;
+            $stockTransaction->stock_transaction_initial_stock_level = $stockTransactionInitialStockLevel;
+            $stockTransaction->stock_transaction_adjustment_value = $stockTransactionInitialStockLevel; 
+            $stockTransaction->stock_transaction_adjusted_stock_level = 0;
+            $stockTransaction->created_by_user_name = $this->loginUsername();
+            $stockTransaction->save();
+
+            return $stockTransacyion;
+        }
        
-        $stockTransacyion = new StockTransaction;
-        $stockTransacyion->voucher_catalog_id = $request->input('voucher_catalog_id');
-        $stockTransacyion->stock_transaction_adjustment_type = $request->input('stock_transaction_adjustment_type');
-        $stockTransacyion->campaign_id = $request->input('campaign_id') ? : null;
-        $stockTransacyion->stock_transaction_adjustment_value = $voucherCatalogValueAmount;
-        $stockTransacyion->stock_transaction_initial_stock_level = $request->input('stock_transaction_adjustment_value') ? : 0;
-        $stockTransacyion->stock_transaction_adjusted_stock_level = $request->input('stock_transaction_adjustment_value') ? : 0;
-        $stockTransacyion->created_by_user_name = $this->loginUsername();
-        $stockTransacyion->save();
+        return $voucherCatalog;
+    }
+
+    public function update($id)
+    {
+        $voucherCatalog = VoucherCatalogOutlet::find($id);
+
+        $stockTransactionInitialStockLevel = 0;
+        $stockTransactionAdjustmentValue = 0;
+        $stockTransactionAdjustedStockLevel = 0;
+
+        //hitung stockTransactionAdjustmentValue
+        $voucherCatalogStockLevel = request('voucher_catalog_stock_level');
+        $stockTransactionAdjustedStockLevel = $voucherCatalogStockLevel;
+        $stockTransactionInitialStockLevel = $voucherCatalogStockLevel;
+        $stockTransactionAdjustmentValue = $stockTransactionAdjustedStockLevel - $stockTransactionInitialStockLevel;
+        
+        $voucherCatalog->voucher_catalog_revision_no = 0;
+        $voucherCatalog->merchant_client_id = $request->input('merchant_client_id');
+        $voucherCatalog->client_name = $request->input('client_name');
+        $voucherCatalog->voucher_catalog_title = $request->input('voucher_catalog_title');
+        $voucherCatalog->voucher_catalog_main_image_url = $request->input('voucher_catalog_main_image_url');
+        $voucherCatalog->voucher_catalog_information = $request->input('voucher_catalog_information');
+        $voucherCatalog->voucher_catalog_terms_and_condition = $request->input('voucher_catalog_terms_and_condition');
+        $voucherCatalog->voucher_catalog_instruction_customer = $request->input('voucher_catalog_instruction_customer');
+        $voucherCatalog->voucher_catalog_instruction_outlet = $request->input('voucher_catalog_instruction_outlet');
+        $voucherCatalog->voucher_catalog_valid_start_date = $request->input('voucher_catalog_valid_start_date');
+        $voucherCatalog->voucher_catalog_valid_end_date = $request->input('voucher_catalog_valid_end_date');
+        $voucherCatalog->voucher_catalog_tags = $request->input('voucher_catalog_tags');
+        $voucherCatalog->voucher_catalog_unit_cogs_amount = $request->input('voucher_catalog_unit_cogs_amount');
+        $voucherCatalog->voucher_catalog_value_amount = $request->input('voucher_catalog_value_amount');
+        $voucherCatalog->voucher_catalog_value_point = $request->input('voucher_catalog_value_point');
+        $voucherCatalog->voucher_catalog_unit_price_amount = $request->input('voucher_catalog_unit_price_amount');
+        $voucherCatalog->voucher_catalog_unit_price_point = $request->input('voucher_catalog_unit_price_point');
+        $voucherCatalog->voucher_catalog_stock_level = $request->input('voucher_catalog_stock_level');
+        $voucherCatalog->voucher_status = 'DRAFT';
+        $voucherCatalog->data_sort = $request->input('data_sort') ? : 1000;
+        $voucherCatalog->isactive = $request->input('isactive') ? : true;
+        $voucherCatalog->isdelete = $request->input('isdelete') ? : false;
+        $voucherCatalog->created_by_user_name = $this->loginUsername();
+        $voucherCatalog->last_updated_by_user_name = $this->loginUsername();
+        $voucherCatalog->update();
+
+        if($voucherCatalog->update())
+        {
+            $stockTransaction = new StockTransaction;
+            $stockTransaction->voucher_catalog_id = $request->input('voucher_catalog_id');
+            $stockTransaction->stock_transaction_adjustment_type = $request->input('stock_transaction_adjustment_type');
+            $stockTransaction->campaign_id = $request->input('campaign_id') ? : null;
+            $stockTransaction->stock_transaction_initial_stock_level = $stockTransactionInitialStockLevel;
+            $stockTransaction->stock_transaction_adjustment_value = $stockTransactionAdjustedStockLevel; 
+            $stockTransaction->stock_transaction_adjusted_stock_level = $stockTransactionAdjustmentValue;
+            $stockTransaction->created_by_user_name = $this->loginUsername();
+            $stockTransaction->save();
+
+            return $stockTransacyion;
+        }
+       
+        return $voucherCatalog;
     }
 
     //Generate unix code for voucher_catalog_sku_code
@@ -112,13 +180,18 @@ class VoucherCatalogRepository extends BaseRepository
         return $randomString;
     }
 
-    private function stockTransaction()
+    private function stockTransaction($voucherCatalog, $campaign)
     {
-        // $stockTransactionAdjustmentValue = $request['voucher_catalog_value_amount'];
-        $voucherCatalogValueAmount = 0;
+        $stockTransactionInitialStockLevel = 0;
+        $stockTransactionAdjustmentValue = 0;
+        $stockTransactionAdjustedStockLevel = 0;
 
-        $voucherCatalogValueAmount1 = $request['voucher_catalog_value_amount'];
+        $voucherCatalogStockLevel = request('voucher_catalog_stock_level');
 
-        $stockTransactionAdjustmentValue = $voucherCatalogValueAmount + $voucherCatalogValueAmount1;
+        $stockTransactionInitialStockLevel = $voucherCatalogStockLevel;
+
+        $stockTransactionAdjustmentValue = $stockTransactionAdjustedStockLevel - $stockTransactionInitialStockLevel;
+
+        return $stockTransactionAdjustmentValue;
     }
 }

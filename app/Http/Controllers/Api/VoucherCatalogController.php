@@ -30,7 +30,7 @@ class VoucherCatalogController extends ApiController
 
     public function index()
     {
-        $voucherCatalogs = $this->merchantRepository->getAllMerchants();
+        $voucherCatalogs = $this->voucherCatalogRepository->getAllVoucherCatalog();
         if (empty($voucherCatalogs->get()->toArray())) {
             return $this->sendNotfound();
         }
