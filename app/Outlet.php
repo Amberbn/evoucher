@@ -9,7 +9,7 @@ class Outlet extends Model
     protected $primaryKey = "merchant_id";
 
     protected $fillable = [
-        'client_id',
+        'merchant_client_id',
         'outlets_title',
         'outlets_email',
         'outlets_phone',

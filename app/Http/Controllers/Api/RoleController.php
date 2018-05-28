@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\StoreRole;
 use App\Repository\RoleRepository;
 use App\Role;
-use DB;
 use Illuminate\Http\Request;
 
 class RoleController extends ApiController
@@ -25,11 +24,7 @@ class RoleController extends ApiController
      */
     public function index()
     {
-        $role = $this->model::active()->get();
-        if (!$role) {
-            return $this->sendNotfound();
-        }
-        return $this->sendSuccess($role);
+        return $this->repository->getRole();
     }
 
     /**
@@ -39,16 +34,7 @@ class RoleController extends ApiController
      */
     public function store(StoreRole $request)
     {
-        try {
-            DB::beginTransaction();
-            $role = $this->repository->store($request);
-            DB::commit();
-            return $this->sendCreated($role);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->sendBadRequest($e->getMessage());
-        }
+        return $this->repository->store($request);
     }
 
     /**
@@ -59,22 +45,7 @@ class RoleController extends ApiController
      */
     public function update(Request $request, $roleid)
     {
-        $role = Role::active()->where('roles_id', $roleid)->first();
-
-        if (!$role) {
-            return $this->sendNotfound();
-        }
-
-        try {
-            DB::beginTransaction();
-            $role = $this->repository->update($request, $role);
-            DB::commit();
-            return $this->sendCreated($role);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->sendBadRequest($e->getMessage());
-        }
+        return $this->repository->update($request, $roleid);
     }
 
     /**
@@ -84,21 +55,6 @@ class RoleController extends ApiController
      */
     public function delete($roleId)
     {
-        $role = Role::active()->where('roles_id', $roleId)->first();
-
-        if (!$role) {
-            return $this->sendNotfound();
-        }
-
-        try {
-            DB::beginTransaction();
-            $role = $this->repository->delete($role);
-            DB::commit();
-            return $this->sendCreated($role);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->sendBadRequest($e->getMessage());
-        }
+        return $this->repository->delete($roleId);
     }
 }
