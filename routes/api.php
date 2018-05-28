@@ -12,6 +12,7 @@
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     Route::get('/cekdb', ['uses' => 'ApiController@index']);
     Route::post('/login', ['uses' => 'AuthController@login']);
+    Route::get('campaign-csv', ['uses' => 'CampaignController@csv']);
 
     //ROUTE GROUP BY REQUIRED LOGIN
 
@@ -80,11 +81,16 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::put('/voucher-catalog/update/{voucheCatalogId}', ['uses' => 'VoucherCatalogController@update']);
         //END ROUTER FOR CATALOG
 
-        //ROUTE FOR VOUCHER CATALOG
-        Route::get('/voucher-catalog-outlet', ['uses' => 'VoucherCatalogOutletController@index']);
-        Route::post('/voucher-catalog-outlet/store', ['uses' => 'VoucherCatalogOutletController@store']);
-        Route::put('/voucher-catalog-outlet/update/{voucheCatalogId}', ['uses' => 'VoucherCatalogOutletController@update']);
-        //END ROUTER FOR CATALOG
+        //ROUTE FOR VOUCHER CAMPAIGN
+        Route::get('/campaign', ['uses' => 'CampaignController@getCampaigns']);
+        Route::get('/campaign/{id}', ['uses' => 'CampaignController@getCampaign']);
+        Route::post('/campaign/create', ['uses' => 'CampaignController@createCampaign']);
+        Route::post('/campaign/recipient', ['uses' => 'CampaignController@createRecipient']);
+        Route::get('/campaign-voucher', ['uses' => 'CampaignController@getCampaignVouchers']);
+        Route::get('/campaign-voucher/{id}', ['uses' => 'CampaignController@getCampaignVoucher']);
+        Route::get('/campaign-recipient', ['uses' => 'CampaignController@getCampaignRecipients']);
+        Route::get('/campaign-recipient/{id}', ['uses' => 'CampaignController@getCampaignRecipient']);
+        //END ROUTER FOR CAMPAIGN
 
     });
     //END ROUTE GROUP BY REQUIRED LOGIN
