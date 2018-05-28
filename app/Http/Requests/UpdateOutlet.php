@@ -30,11 +30,11 @@ class UpdateOutlet extends FormRequest
     {
         return [
             'merchant_id' => 'required|numeric',
-            'client_id' => 'required|numeric',
+            'merchant_client_id' => 'required|numeric',
             'outlets_title' => 'required|min:3',
             'outlets_address_province_pid' => 'required|numeric',
             'outlets_address_city_pid' => 'required|numeric',
-            'client_billing_address_region_pid' => 'required|numeric',
+            'outlets_address_region_pid' => 'required|numeric',
             'outlets_auth_code' => 'required',
         ];
     }

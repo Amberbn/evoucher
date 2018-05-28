@@ -3,12 +3,27 @@ namespace App\Repository;
 
 use App\Client;
 use App\Repository\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class ClientRepository extends BaseRepository
 {
     public function __construct()
     {
         $this->model = new Client;
+    }
+
+    /**
+     *FUNCTION FOR SET FILTER CLIENT
+     *@return Array $filter
+     */
+    public function clientFilter()
+    {
+        return [
+            'orderBy' => 'client_code',
+            'filter_1' => 'client_code',
+            'filter_2' => 'client_name',
+            'filter_3' => 'client_legal_name',
+        ];
     }
 
     public function getClient($clientId = null)
@@ -75,67 +90,108 @@ class ClientRepository extends BaseRepository
             'city.parameters_value as client_billing_address_city_title'
         );
 
-        return $client;
+        if (empty($client->get()->toarray())) {
+            return $this->sendNotfound();
+        }
+
+        return $this->dataTableResponseBuilder($client, $this->clientFilter());
+
     }
     public function store($request)
     {
-        $client = new Client;
-        $client->client_code = $request->input('client_code');
-        $client->client_category_pid = $request->input('client_category_pid');
-        $client->client_is_also_merchant = $request->input('client_is_also_merchant');
-        $client->client_allow_postpaid = $request->input('client_allow_postpaid');
-        $client->client_name = $request->input('client_name');
-        $client->client_legal_name = $request->input('client_legal_name');
-        $client->client_tax_no = $request->input('client_tax_no');
-        $client->client_billing_address_line_1 = $request->input('client_billing_address_line_1');
-        $client->client_billing_address_line_2 = $request->input('client_billing_address_line_2');
-        $client->client_billing_address_region_pid = $request->input('client_billing_address_region_pid');
-        $client->client_billing_address_state_province_pid = $request->input('client_billing_address_state_province_pid');
-        $client->client_billing_address_city_pid = $request->input('client_billing_address_city_pid');
-        $client->client_billing_address_postal_code = $request->input('client_billing_address_postal_code');
-        $client->client_industry_category_pid = $request->input('client_industry_category_pid');
-        $client->client_employee_size_category_pid = $request->input('client_employee_size_category_pid');
-        $client->client_outstanding_limit = $request->input('client_outstanding_limit');
-        $client->isactive = $request->input('isactive') ?: true;
-        $client->isdelete = $request->input('isdelete') ?: false;
-        $client->created_by_user_name = $this->loginUsername();
-        $client->last_updated_by_user_name = $this->loginUsername();
-        $client->save();
+        try {
+            DB::beginTransaction();
 
-        return $client;
+            $client = new Client;
+            $client->client_code = $request->input('client_code');
+            $client->client_category_pid = $request->input('client_category_pid');
+            $client->client_is_also_merchant = $request->input('client_is_also_merchant');
+            $client->client_allow_postpaid = $request->input('client_allow_postpaid');
+            $client->client_name = $request->input('client_name');
+            $client->client_legal_name = $request->input('client_legal_name');
+            $client->client_tax_no = $request->input('client_tax_no');
+            $client->client_billing_address_line_1 = $request->input('client_billing_address_line_1');
+            $client->client_billing_address_line_2 = $request->input('client_billing_address_line_2');
+            $client->client_billing_address_region_pid = $request->input('client_billing_address_region_pid');
+            $client->client_billing_address_state_province_pid = $request->input('client_billing_address_state_province_pid');
+            $client->client_billing_address_city_pid = $request->input('client_billing_address_city_pid');
+            $client->client_billing_address_postal_code = $request->input('client_billing_address_postal_code');
+            $client->client_industry_category_pid = $request->input('client_industry_category_pid');
+            $client->client_employee_size_category_pid = $request->input('client_employee_size_category_pid');
+            $client->client_outstanding_limit = $request->input('client_outstanding_limit');
+            $client->isactive = $request->input('isactive') ?: true;
+            $client->isdelete = $request->input('isdelete') ?: false;
+            $client->created_by_user_name = $this->loginUsername();
+            $client->last_updated_by_user_name = $this->loginUsername();
+            $client->save();
+
+            DB::commit();
+
+            return $this->sendCreated($client);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
+        }
     }
 
-    public function update($request, $client)
+    public function update($request, $clientId)
     {
-        $client->client_category_pid = $request->input('client_category_pid');
-        $client->client_is_also_merchant = $request->input('client_is_also_merchant');
-        $client->client_allow_postpaid = $request->input('client_allow_postpaid');
-        $client->client_name = $request->input('client_name');
-        $client->client_legal_name = $request->input('client_legal_name');
-        $client->client_tax_no = $request->input('client_tax_no');
-        $client->client_billing_address_line_1 = $request->input('client_billing_address_line_1');
-        $client->client_billing_address_line_2 = $request->input('client_billing_address_line_2');
-        $client->client_billing_address_region_pid = $request->input('client_billing_address_region_pid');
-        $client->client_billing_address_state_province_pid = $request->input('client_billing_address_state_province_pid');
-        $client->client_billing_address_city_pid = $request->input('client_billing_address_city_pid');
-        $client->client_billing_address_postal_code = $request->input('client_billing_address_postal_code');
-        $client->client_industry_category_pid = $request->input('client_industry_category_pid');
-        $client->client_employee_size_category_pid = $request->input('client_employee_size_category_pid');
-        $client->client_outstanding_limit = $request->input('client_outstanding_limit');
-        $client->isactive = $request->input('isactive');
-        $client->isdelete = $request->input('isdelete');
-        $client->last_updated_by_user_name = $this->loginUsername();
-        $client->save();
+        $client = $this->model::where('client_id', $clientId)->first();
+        if (!$client) {
+            return $this->sendNotfound();
+        }
 
-        return $client;
+        try {
+            DB::beginTransaction();
+
+            $client->client_category_pid = $request->input('client_category_pid');
+            $client->client_is_also_merchant = $request->input('client_is_also_merchant');
+            $client->client_allow_postpaid = $request->input('client_allow_postpaid');
+            $client->client_name = $request->input('client_name');
+            $client->client_legal_name = $request->input('client_legal_name');
+            $client->client_tax_no = $request->input('client_tax_no');
+            $client->client_billing_address_line_1 = $request->input('client_billing_address_line_1');
+            $client->client_billing_address_line_2 = $request->input('client_billing_address_line_2');
+            $client->client_billing_address_region_pid = $request->input('client_billing_address_region_pid');
+            $client->client_billing_address_state_province_pid = $request->input('client_billing_address_state_province_pid');
+            $client->client_billing_address_city_pid = $request->input('client_billing_address_city_pid');
+            $client->client_billing_address_postal_code = $request->input('client_billing_address_postal_code');
+            $client->client_industry_category_pid = $request->input('client_industry_category_pid');
+            $client->client_employee_size_category_pid = $request->input('client_employee_size_category_pid');
+            $client->client_outstanding_limit = $request->input('client_outstanding_limit');
+            $client->isactive = $request->input('isactive');
+            $client->isdelete = $request->input('isdelete');
+            $client->last_updated_by_user_name = $this->loginUsername();
+            $client->save();
+
+            DB::commit();
+
+            return $this->sendSuccess($client);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
+        }
     }
 
-    public function delete($client)
+    public function delete($clientId)
     {
-        $client->isdelete = true;
-        $client->last_updated_by_user_name = $this->loginUsername();
-        $client->save();
+        $client = $this->model::where('client_id', $clientId)->first();
 
-        return $client;
+        if (!$client) {
+            return $this->sendNotfound();
+        }
+
+        try {
+            DB::beginTransaction();
+            $client->isdelete = true;
+            $client->last_updated_by_user_name = $this->loginUsername();
+            $client->save();
+            DB::commit();
+
+            return $this->sendSuccess($client);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
+        }
     }
 }
