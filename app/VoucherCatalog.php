@@ -22,6 +22,7 @@ class VoucherCatalog extends Model
         'voucher_catalog_valid_start_date',
         'voucher_catalog_valid_end_date',
         'voucher_catalog_tags',
+        'voucher_catalog_unit_cogs_amount',
         'voucher_catalog_value_amount',
         'voucher_catalog_value_point',
         'voucher_catalog_unit_price_amount',
