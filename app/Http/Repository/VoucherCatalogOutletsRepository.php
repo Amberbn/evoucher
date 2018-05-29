@@ -25,12 +25,12 @@ class VoucherCatalogOutletRepository extends BaseRepository
     public function getAllVoucherCatalogOutlets()
     {   
         $voucherCatalogOutlets = DB::table('vou_voucher_catalog_outlets as vo')
+            ->join('vou_voucher_catalog as vc', 'vo.voucher_catalog_id', '=', 'vc.voucher_catalog_id')
             ->join('mch_outlets as mo', 'vo.outlets_id', '=', 'mo.outlets_id')
             ->join('mch_merchant as mm', 'vo.merchant_id', '=', 'mm.merchant_id')
-            ->join('bsn_client as bc', 'mm.merchant_client_id', '=', 'bc.client_id')
-            ->where('vo.voucher_catalog_id', '=', 'vo.voucher_catalog_id');
-
-            if (!$this->isGroupSprint()) {
+            ->join('bsn_client as bc', 'mm.merchant_client_id', '=', 'bc.client_id');
+            // ->where('vo.voucher_catalog_id', '==', 'vc.voucher_catalog_id');
+             if (!$this->isGroupSprint()) {
                 $voucherCatalogOutlets->where('bc.client_category_pid', '=', $this->me()['client_category_pid']);
             }
 
