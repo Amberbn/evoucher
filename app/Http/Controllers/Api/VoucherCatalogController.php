@@ -29,4 +29,11 @@ class VoucherCatalogController extends ApiController
 
         return $voucherCatalog;
     }
+
+    public function update(Request $request, $id)
+    {
+        $voucherCatalog = $this->voucherCatalogRepository->updateVoucherCatalog($request, $id);
+
+        return $voucherCatalog;
+    }
 }
