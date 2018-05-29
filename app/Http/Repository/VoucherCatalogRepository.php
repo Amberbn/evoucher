@@ -133,21 +133,10 @@ class VoucherCatalogRepository extends BaseRepository
 
     public function updateVoucherCatalog($request, $id)
     {
-        // dd($request->All());
         $voucherCatalog = VoucherCatalog::find($id);
-        // dd($voucherCatalog->voucher_catalog_id);
-        // $stockTransactionInitialStockLevel = 0;
-        // $stockTransactionAdjustmentValue = 0;
-        // $stockTransactionAdjustedStockLevel = 0;
 
         $version = $voucherCatalog->voucher_catalog_revision_no += 1;
 
-        //hitung stockTransactionAdjustmentValue
-        // $voucherCatalogStockLevel = request('voucher_catalog_stock_level');
-        // $stockTransactionAdjustedStockLevel = $voucherCatalogStockLevel;
-        // $stockTransactionInitialStockLevel = $voucherCatalogStockLevel;
-        // $stockTransactionAdjustmentValue = $stockTransactionAdjustedStockLevel - $stockTransactionInitialStockLevel;
-        
         DB::beginTransaction();
         try {
             $voucherCatalog->voucher_catalog_revision_no = $version;
@@ -176,8 +165,7 @@ class VoucherCatalogRepository extends BaseRepository
             $voucherCatalog->update();
         
             $transaction = $this->stockTransaction($voucherCatalog->voucher_catalog_id);
-           
-            // dd($voucherCatalog, $transaction);
+ 
             DB::commit();
 
             return $this->sendCreated($voucherCatalog);
@@ -188,6 +176,7 @@ class VoucherCatalogRepository extends BaseRepository
         }        
     }
 
+    //function for transaction
     public function stockTransaction($catalogId, $from='EDIT', $campaignID=null)
     {
         $stockTransactionInitialStockLevel = 0;

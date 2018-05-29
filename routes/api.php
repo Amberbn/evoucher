@@ -81,6 +81,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::put('/voucher-catalog/update/{voucheCatalogId}', ['uses' => 'VoucherCatalogController@update']);
         //END ROUTER FOR CATALOG
 
+        //ROUTE FOR VOUCHER CATALOG OUTLET
+        Route::get('/voucher-catalog-outlet', ['uses' => 'VoucherCatalogOutletController@index']);
+        Route::post('/voucher-catalog-outlet/store', ['uses' => 'VoucherCatalogOutletController@store']);
+        //END ROUTE FOR VOUCHER CATALOG OUTLET
+
         //ROUTE FOR VOUCHER CAMPAIGN
         Route::get('/campaign', ['uses' => 'CampaignController@getCampaigns']);
         Route::get('/campaign/{id}', ['uses' => 'CampaignController@getCampaign']);
