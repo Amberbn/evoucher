@@ -16,31 +16,17 @@ class VoucherCatalogController extends ApiController
         $this->voucherCatalogRepository = new VoucherCatalogRepository;
     }
 
-    public function voucherCatalogFilter()
-    {
-        $filter = [
-            'orderBy' => 'voucher_catalog_sku_code',
-            'filter_1' => 'voucher_catalog_title',
-            'filter_2' => 'voucher_catalog_instruction_customer',
-            'filter_3' => 'voucher_catalog_information',
-        ];
-
-        return $filter;
-    }
-
     public function index()
     {
         $voucherCatalogs = $this->voucherCatalogRepository->getAllVoucherCatalog();
-        if (empty($voucherCatalogs->get()->toArray())) {
-            return $this->sendNotfound();
-        }
-        $filter = $this->voucherCatalogFilter();
 
-        return $this->dataTableResponseBuilder($voucherCatalogs, $filter);
+        return $voucherCatalogs;
     }
 
     public function store(Request $request)
     {
-        $voucherCatalog = $this->merchantRepository->saveVoucherCatalog();
+        $voucherCatalog = $this->voucherCatalogRepository->saveVoucherCatalog($request);
+
+        return $voucherCatalog;
     }
 }
