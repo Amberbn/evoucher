@@ -97,6 +97,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::get('/campaign-recipient/{id}', ['uses' => 'CampaignController@getCampaignRecipient']);
         //END ROUTER FOR CAMPAIGN
 
+        Route::get('/resource', ['uses' => 'ResourceController@index']);
+
     });
     //END ROUTE GROUP BY REQUIRED LOGIN
 
