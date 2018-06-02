@@ -134,7 +134,7 @@ class VoucherCatalogRepository extends BaseRepository
     public function updateVoucherCatalog($request, $id)
     {
         $voucherCatalog = VoucherCatalog::find($id);
-
+// dd($voucherCatalog);
         $version = $voucherCatalog->voucher_catalog_revision_no += 1;
 
         DB::beginTransaction();
@@ -165,7 +165,7 @@ class VoucherCatalogRepository extends BaseRepository
             $voucherCatalog->update();
         
             $transaction = $this->stockTransaction($voucherCatalog->voucher_catalog_id);
- 
+            // dd("Testssss");
             DB::commit();
 
             return $this->sendCreated($voucherCatalog);
@@ -179,6 +179,7 @@ class VoucherCatalogRepository extends BaseRepository
     //function for transaction
     public function stockTransaction($catalogId, $from='EDIT', $campaignID=null, $addjestedStock = 0)
     {
+        // dd($catalogId);
         $stockTransactionInitialStockLevel = 0;
         $stockTransactionAdjustmentValue = 0;
         // $stockTransactionAdjustedStockLevel = 0;
@@ -186,25 +187,72 @@ class VoucherCatalogRepository extends BaseRepository
         $query = DB::table('vou_stock_transaction as st')
             ->join('vou_voucher_catalog as vc', 'st.voucher_catalog_id', 'vc.voucher_catalog_id')
             ->where('vc.voucher_catalog_id', $catalogId)
-            ->first();
-        
+            ->select(
+                'st.stock_transaction_id',
+                'st.stock_transaction_initial_stock_level',
+                'st.voucher_catalog_id',
+                'st.stock_transaction_adjustment_type',
+                'st.campaign_id',
+                'st.stock_transaction_adjustment_value',
+                'st.stock_transaction_initial_stock_level',
+                'st.stock_transaction_adjusted_stock_level',
+                'st.created_by_user_name'
+            )
+            ->get();
+        // $query = StockTransaction::find($catalogId);
+        //  dd($query);
         $query->stock_transaction_adjustment_type =  $from;
-        $stockTransactionInitialStockLevel = $query->stock_transaction_initial_stock_level;
-        $addjestedStock = $query->stock_transaction_adjusted_stock_level + $stockTransactionInitialStockLevel;
+        // $stockTransactionInitialStockLevel = $query->stock_transaction_initial_stock_level;
+        // $addjestedStock = $query->stock_transaction_adjusted_stock_level + $stockTransactionInitialStockLevel;
+        foreach($query as $value){
+            $stockTransactionInitialStockLevel = $value->stock_transaction_initial_stock_level;
+            $addjestedStock = $value->stock_transaction_adjusted_stock_level;
+            $total = $stockTransactionInitialStockLevel + $addjestedStock;
+            $stockTransactionAdjustmentValue = $total - $stockTransactionInitialStockLevel;
 
-        $stockTransactionAdjustmentValue = $stockTransactionAdjustedStockLevel - $stockTransactionInitialStockLevel;
-
-        $stockTransaction = new StockTransaction;
-        $stockTransaction->voucher_catalog_id = $query->voucher_catalog_id;
-        $stockTransaction->stock_transaction_adjustment_type =  $query->stock_transaction_adjustment_type;
-        $stockTransaction->campaign_id = $campaignID;
-        $stockTransaction->stock_transaction_initial_stock_level = $stockTransactionInitialStockLevel;
-        $stockTransaction->stock_transaction_adjustment_value = $stockTransactionAdjustmentValue; 
-        $stockTransaction->stock_transaction_adjusted_stock_level = $stockTransactionAdjustedStockLevel;
-        $stockTransaction->created_at = NOW();
-        $stockTransaction->created_by_user_name = $this->loginUsername();
-        $stockTransaction->save();
+            $stockTransaction = new StockTransaction;
+            $stockTransaction->voucher_catalog_id = $value->voucher_catalog_id;
+            $stockTransaction->stock_transaction_adjustment_type =  $value->stock_transaction_adjustment_type;
+            $stockTransaction->campaign_id = $campaignID;
+            $stockTransaction->stock_transaction_initial_stock_level = $stockTransactionInitialStockLevel;
+            $stockTransaction->stock_transaction_adjustment_value = $stockTransactionAdjustmentValue; 
+            $stockTransaction->stock_transaction_adjusted_stock_level = $total;
+            $stockTransaction->created_at = NOW();
+            $stockTransaction->created_by_user_name = $this->loginUsername();
+            $stockTransaction->save();
+            // dd($stockTransaction);
+        }
+       
         
+//  dd($stockTransactionAdjustmentValue);
+       
+        // dd($stockTransactionAdjustmentValue);
+
+        // foreach($query as $data){
+        //     // dd($data);
+        //     $stockTransaction = new StockTransaction;
+        //     $stockTransaction->voucher_catalog_id = $data->voucher_catalog_id;
+        //     $stockTransaction->stock_transaction_adjustment_type =  $data->stock_transaction_adjustment_type;
+        //     $stockTransaction->campaign_id = $campaignID;
+        //     $stockTransaction->stock_transaction_initial_stock_level = $stockTransactionInitialStockLevel;
+        //     $stockTransaction->stock_transaction_adjustment_value = $stockTransactionAdjustmentValue; 
+        //     $stockTransaction->stock_transaction_adjusted_stock_level = $stockTransactionAdjustedStockLevel;
+        //     $stockTransaction->created_at = NOW();
+        //     $stockTransaction->created_by_user_name = $this->loginUsername();
+        //     $stockTransaction->save();
+        // }
+        // $stockTransaction = new StockTransaction;
+        // $stockTransaction->voucher_catalog_id = $query->voucher_catalog_id;
+        // $stockTransaction->stock_transaction_adjustment_type =  $query->stock_transaction_adjustment_type;
+        // $stockTransaction->campaign_id = $campaignID;
+        // $stockTransaction->stock_transaction_initial_stock_level = $stockTransactionInitialStockLevel;
+        // $stockTransaction->stock_transaction_adjustment_value = $stockTransactionAdjustmentValue; 
+        // $stockTransaction->stock_transaction_adjusted_stock_level = $stockTransactionAdjustedStockLevel;
+        // $stockTransaction->created_at = NOW();
+        // $stockTransaction->created_by_user_name = $this->loginUsername();
+        // $stockTransaction->save();
+        // dd($stockTransaction);
         return $stockTransaction;
     }
 }
+ 
