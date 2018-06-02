@@ -177,11 +177,11 @@ class VoucherCatalogRepository extends BaseRepository
     }
 
     //function for transaction
-    public function stockTransaction($catalogId, $from='EDIT', $campaignID=null)
+    public function stockTransaction($catalogId, $from='EDIT', $campaignID=null, $addjestedStock = 0)
     {
         $stockTransactionInitialStockLevel = 0;
         $stockTransactionAdjustmentValue = 0;
-        $stockTransactionAdjustedStockLevel = 0;
+        // $stockTransactionAdjustedStockLevel = 0;
         
         $query = DB::table('vou_stock_transaction as st')
             ->join('vou_voucher_catalog as vc', 'st.voucher_catalog_id', 'vc.voucher_catalog_id')
@@ -190,7 +190,7 @@ class VoucherCatalogRepository extends BaseRepository
         
         $query->stock_transaction_adjustment_type =  $from;
         $stockTransactionInitialStockLevel = $query->stock_transaction_initial_stock_level;
-        $stockTransactionAdjustedStockLevel = $query->stock_transaction_adjusted_stock_level + $stockTransactionInitialStockLevel;
+        $addjestedStock = $query->stock_transaction_adjusted_stock_level + $stockTransactionInitialStockLevel;
 
         $stockTransactionAdjustmentValue = $stockTransactionAdjustedStockLevel - $stockTransactionInitialStockLevel;
 
