@@ -8,6 +8,7 @@ use App\VoucherCatalogOutlet;
 use App\CampaignVoucherOutlet;
 use App\Repository\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use App\Http\Repository\VoucherCatalogRepository;
 
 class CampaignRepository extends BaseRepository
 {
@@ -20,6 +21,7 @@ class CampaignRepository extends BaseRepository
         $this->campaignRecipient = new CampaignRecipient;
         $this->voucherCatalogOutlet = new VoucherCatalogOutlet;        
         $this->campaignVoucherOutlet = new CampaignVoucherOutlet;
+        $this->voucherCatalogRepository = new VoucherCatalogRepository;
     }
 
     public function campaignMessage()
@@ -374,12 +376,14 @@ class CampaignRepository extends BaseRepository
                 $unitPriceAmount = $voucherCatalog->campaign_voucher_unit_price_amount;
                 $unitPricePoint = $voucherCatalog->campaign_voucher_unit_price_point;
                 $revisionNumber = $voucherCatalog->voucher_catalog_revision_no;
+                $catalogId = $voucherCatalog->voucher_catalog_id;
+                $campaignId = $campaign->campaign_id;
 
                 //assign value to table campaign voucher
                 $voucher = new Campaignvoucher;
-                $voucher->voucher_catalog_id = $voucherCatalog->voucher_catalog_id;
+                $voucher->voucher_catalog_id = $catalogId;
                 $voucher->voucher_catalog_revision_no = $revisionNumber;
-                $voucher->campaign_id = $campaign->campaign_id;
+                $voucher->campaign_id = $campaignId;
                 $voucher->client_id = $campaign->client_id;
 
                 //copy data from voucher catalog
@@ -412,6 +416,10 @@ class CampaignRepository extends BaseRepository
                 $voucher->created_by_user_name = $this->loginUsername();
                 $voucher->created_at = NOW();
                 $voucher->save();
+
+                //update decrement stock catalog
+                $stock = new VoucherCatalogRepository;
+                $stock->stockTransaction($catalogId, 'CAMPAIGN', $campaignId, $unitQuantity);
 
                 //set increment for grand total used
                 $unitQuantityGrandtotal += $unitQuantity;
