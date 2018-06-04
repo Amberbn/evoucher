@@ -37,20 +37,9 @@ class GlobalParameterController extends ApiController
      */
     public function store(Request $request)
     {
-        DB::beginTransaction();
+        $globalParameter = $this->repository->saveGlobalParameter($request);
 
-        try {
-            $globalParameter = $this->repository->saveGlobalParameter($request);
-
-            DB::commit();
-
-            return $this->sendCreated($globalParameter);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return $this->sendBadRequest($e->getMessage());
-        }
+        return $globalParameter;
     }
 
     /**
@@ -58,16 +47,9 @@ class GlobalParameterController extends ApiController
      */
     public function getGlobalParameter($globalParameterId)
     {
-        $param = (int) $globalParameterId ? true : false;
-        $field = $param ? 'parameters_id' : 'parameters_code';
-        $globalParameter = GlobalParameter::active()
-            ->where($field, $globalParameterId)->first();
+        $globalParameter = $this->repository->getGlobalParameterById($globalParameterId);
 
-        if (!$globalParameter) {
-            return $this->sendNotFound();
-        }
-
-        return $this->sendSuccess($globalParameter);
+        return $globalParameter;
     }
 
     /**
@@ -75,24 +57,8 @@ class GlobalParameterController extends ApiController
      */
     public function update(Request $request, $globalParameterId)
     {
-        $globalParameter = GlobalParameter::active()->where('parameters_id', $globalParameterId)->first();
-        if (!$globalParameter) {
-            return $this->sendNotFound();
-        }
+        $globalParameter = $this->repository->updateGlobalParameter($request, $globalParameterId);
 
-        DB::beginTransaction();
-
-        try {
-            $globalParameter = $this->repository->updateGlobalParameter($request, $globalParameter);
-
-            DB::commit();
-
-            return $this->sendSuccess($globalParameter);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return $this->sendBadRequest($e->getMessage());
-        }
+        return $globalParameter;
     }
 }

@@ -18,39 +18,63 @@ class UserRoleRepository extends BaseRepository
             ->select('u.user_name', 'r.roles_code')
             ->get();
 
-        return $userRoles;
-
+            if (empty($userRoles)) {
+                return $this->sendNotfound();
+            }
+            return $this->sendSuccess($userRoles);
     }
+
     public function saveUserRole($request)
     {
-        $userRole = new UserRole;
-        $userRole->user_id = $request->input('user_id');
-        $userRole->roles_id = $request->input('roles_id');
-        $userRole->created_by_user_name = $this->loginUsername();
-        $userRole->save();
+        DB::beginTransaction();
 
-        return $userRole;
+        try {
+            $userRole = new UserRole;
+            $userRole->user_id = $request->input('user_id');
+            $userRole->roles_id = $request->input('roles_id');
+            $userRole->created_by_user_name = $this->loginUsername();
+            $userRole->save();
+
+            DB::commit();
+
+            return $this->sendCreated($userRole);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $this->sendBadRequest($e->getMessage());
+        }
     }
 
     public function getUserRoleById($userRoledId)
     {
         $userRole = UserRole::find($userRoledId);
-        // $userRole = DB::table('frm_user_roles as ur')
-        //     ->join('frm_user as u', 'ur.user_roled_id', '=', 'u.user_id')
-        //     ->join('frm_roles as r', 'ur.user_roled_id', '=', 'r.roles_id')
-        //     ->select('u.user_name', 'r.roles_code')
-        //     ->where('ur.user_roled_id', $userRoledId)
-        //     ->first();
 
-        return $userRole;
+        if (empty($userRole)) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($userRole);
     }
 
-    public function updateUserRole($request, $userRole)
+    public function updateUserRole($request, $userRoleId)
     {
-        $userRole->user_id = $request->input('user_id');
-        $userRole->roles_id = $request->input('roles_id');
-        $userRole->save();
+        $userRole = $this->model::where('user_roled_id', $userRoleId)->first();
+        if (!$userRole) {
+            return $this->sendNotfound();
+        }
 
-        return $userRole;
+        DB::beginTransaction();
+
+        try {
+            $userRole->user_id = $request->input('user_id');
+            $userRole->roles_id = $request->input('roles_id');
+            $userRole->save();
+
+            DB::commit();
+
+            return $this->sendCreated($userRole);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $this->sendBadRequest($e->getMessage());
+        }
     }
 }

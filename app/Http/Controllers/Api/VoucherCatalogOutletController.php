@@ -16,9 +16,9 @@ class VoucherCatalogOutletController extends ApiController
         $this->voucherCatalogOutletRepository = new VoucherCatalogOutletRepository;
     }
 
-    public function index()
+    public function index(Request $request, $id)
     {
-        $voucherCatalogOutlets = $this->voucherCatalogOutletRepository->getAllVoucherCatalogOutlets();
+        $voucherCatalogOutlets = $this->voucherCatalogOutletRepository->getAllVoucherCatalogOutlets($id);
         
         return $voucherCatalogOutlets;
     }

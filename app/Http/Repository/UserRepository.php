@@ -35,55 +35,96 @@ class UserRepository extends BaseRepository
                 'us.updated_at',
                 'us.last_updated_by_user_name')
             ->get();
-
-        return $users;
+        
+            if (!$users) {
+                return $this->sendNotfound();
+            }
+    
+            return $this->sendSuccess($users);
     }
 
     public function saveUser($request)
     {
-        $user = new User;
-        $user->user_name = $request->input('user_name');
-        $user->client_id = $request->input('client_id');
-        $user->user_salutation_pid = $request->input('user_salutation_pid');
-        $user->user_profile_name = $request->input('user_profile_name');
-        $user->password = $request->input('password');
-        $user->user_phone = $request->input('user_phone');
-        $user->user_token = $request->input('user_token');
-        $user->user_password_force_expiration = $request->input('user_password_force_expiration');
-        $user->user_password_expiration_days = $request->input('user_password_expiration_days');
-        $user->user_password_next_expiration_date = $request->input('user_password_next_expiration_date');
-        $user->user_password_force_reset_on_login = $request->input('user_password_force_reset_on_login');
-        $user->user_password_is_intial = $request->input('user_password_is_intial');
-        $user->data_sort = $request->input('data_sort');
-        $user->isactive = $request->input('isactive') ?: true;
-        $user->isdelete = $request->input('isdelete') ?: false;
-        $user->created_by_user_name = $this->loginUsername();
-        $user->last_updated_by_user_name = $this->loginUsername();
-        $user->save();
+        DB::beginTransaction();
 
-        return $user;
+        try {
+            $user = new User;
+            $user->user_name = $request->input('user_name');
+            $user->client_id = $request->input('client_id');
+            $user->user_salutation_pid = $request->input('user_salutation_pid');
+            $user->user_profile_name = $request->input('user_profile_name');
+            $user->password = $request->input('password');
+            $user->user_phone = $request->input('user_phone');
+            $user->user_token = $request->input('user_token');
+            $user->user_password_force_expiration = $request->input('user_password_force_expiration');
+            $user->user_password_expiration_days = $request->input('user_password_expiration_days');
+            $user->user_password_next_expiration_date = $request->input('user_password_next_expiration_date');
+            $user->user_password_force_reset_on_login = $request->input('user_password_force_reset_on_login');
+            $user->user_password_is_intial = $request->input('user_password_is_intial');
+            $user->data_sort = $request->input('data_sort');
+            $user->isactive = $request->input('isactive') ?: true;
+            $user->isdelete = $request->input('isdelete') ?: false;
+            $user->created_by_user_name = $this->loginUsername();
+            $user->last_updated_by_user_name = $this->loginUsername();
+            $user->save();
+
+            DB::commit();
+
+            return $this->sendCreated($user);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return $this->sendBadRequest($e->getMessage());
+        }
     }
 
-    public function updateUser($request, $user)
+    public function getUserById($userId)
     {
-        $user->user_name = $request->input('user_name');
-        $user->client_id = $request->input('client_id');
-        $user->user_salutation_pid = $request->input('user_salutation_pid');
-        $user->user_profile_name = $request->input('user_profile_name');
-        $user->password = $request->input('password');
-        $user->user_phone = $request->input('user_phone');
-        $user->user_token = $request->input('user_token');
-        $user->user_password_force_expiration = $request->input('user_password_force_expiration');
-        $user->user_password_expiration_days = $request->input('user_password_expiration_days');
-        $user->user_password_next_expiration_date = $request->input('user_password_next_expiration_date');
-        $user->user_password_force_reset_on_login = $request->input('user_password_force_reset_on_login');
-        $user->user_password_is_intial = $request->input('user_password_is_intial');
-        $user->data_sort = $request->input('data_sort');
-        $user->isactive = $request->input('isactive') ?: true;
-        $user->isdelete = $request->input('isdelete') ?: false;
-        $user->last_updated_by_user_name = $this->loginUsername();
-        $user->save();
+        $user = $this->model::active()->where('user_id', $userId)->first();
+        if (!$user) {
+            return $this->sendNotfound();
+        }
 
-        return $user;
+        return $this->sendSuccess($user);
+    }
+
+    public function updateUser($request, $userId)
+    {
+        $user = User::active()->where('user_id', $userId)->first();
+        if (!$user) {
+            return $this->sendNotFound();
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $user->user_name = $request->input('user_name');
+            $user->client_id = $request->input('client_id');
+            $user->user_salutation_pid = $request->input('user_salutation_pid');
+            $user->user_profile_name = $request->input('user_profile_name');
+            $user->password = $request->input('password');
+            $user->user_phone = $request->input('user_phone');
+            $user->user_token = $request->input('user_token');
+            $user->user_password_force_expiration = $request->input('user_password_force_expiration');
+            $user->user_password_expiration_days = $request->input('user_password_expiration_days');
+            $user->user_password_next_expiration_date = $request->input('user_password_next_expiration_date');
+            $user->user_password_force_reset_on_login = $request->input('user_password_force_reset_on_login');
+            $user->user_password_is_intial = $request->input('user_password_is_intial');
+            $user->data_sort = $request->input('data_sort');
+            $user->isactive = $request->input('isactive') ?: true;
+            $user->isdelete = $request->input('isdelete') ?: false;
+            $user->last_updated_by_user_name = $this->loginUsername();
+            $user->save();
+
+            DB::commit();
+
+            return $this->sendSuccess($user);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return $this->sendBadRequest($e->getMessage());
+        }
     }
 }

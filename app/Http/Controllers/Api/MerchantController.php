@@ -21,32 +21,11 @@ class MerchantController extends ApiController
         $this->merchantRepository = new MerchantRepository;
     }
 
-    /**
-     *FUNCTION FOR SET FILTER CLIENT
-     *@return Array $filter
-     */
-    public function merchantFilter()
-    {
-        $filter = [
-            'orderBy' => 'merchant_code',
-            'filter_1' => 'merchant_title',
-            'filter_2' => 'merchant_description',
-            'filter_3' => 'client_legal_name',
-        ];
-
-        return $filter;
-
-    }
-
     public function index()
     {
         $merchant = $this->merchantRepository->getAllMerchants();
-        if (empty($merchant->get()->toArray())) {
-            return $this->sendNotfound();
-        }
-        $filter = $this->merchantFilter();
 
-        return $this->dataTableResponseBuilder($merchant, $filter);
+        return $merchant;
     }
 
     /**
@@ -56,19 +35,9 @@ class MerchantController extends ApiController
      */
     public function store(Request $request)
     {
-        DB::beginTransaction();
+        $merchant = $this->repository->saveMerchant($request);
 
-        try {
-            $merchant = $this->repository->saveMerchant($request);
-
-            DB::commit();
-
-            return $this->sendCreated($merchant);
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return $this->sendBadRequest($e->getMessage());
-        }
+        return $merchant;
     }
 
     /**
@@ -78,25 +47,9 @@ class MerchantController extends ApiController
      */
     public function update(Request $request, $merchantId)
     {
-        $merchant = $this->model::where('merchant_id', $merchantId)->first();
+        $merchant = $this->repository->updateMerchant($request, $merchant);
 
-        if (!$merchant) {
-            return $this->sendNotfound();
-        }
-
-        DB::beginTransaction();
-
-        try {
-            $merchant = $this->repository->updateMerchant($request, $merchant);
-
-            DB::commit();
-
-            return $this->sendSuccess($merchant);
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return $this->sendBadRequest($e->getMessage());
-        }
+        return $merchant;
     }
 
     /**
@@ -107,9 +60,7 @@ class MerchantController extends ApiController
     public function show($merchantId)
     {
         $merchant = $this->merchantRepository->getMerchantById($merchantId);
-        if (empty($merchant)) {
-            return $this->sendNotfound();
-        }
-        return $this->sendSuccess($merchant);
+
+        return $merchant;
     }
 }

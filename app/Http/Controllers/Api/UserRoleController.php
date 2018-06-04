@@ -30,10 +30,8 @@ class UserRoleController extends ApiController
     public function index()
     {
         $userRoles = $this->userRoleRepository->getAllUserRoles();
-        if (empty($userRoles)) {
-            return $this->sendNotfound();
-        }
-        return $this->sendSuccess($userRoles);
+        
+        return $userRoles;
     }
 
     /**
@@ -43,18 +41,10 @@ class UserRoleController extends ApiController
      */
     public function store(Request $request)
     {
-        DB::beginTransaction();
-
-        try {
+        
             $userRole = $this->repository->saveUserRole($request);
 
-            DB::commit();
-
-            return $this->sendCreated($userRole);
-        } catch (\Exception $e) {
-            DB::rollback();
-            return $this->sendBadRequest($e->getMessage());
-        }
+            
     }
 
     /**
@@ -66,11 +56,8 @@ class UserRoleController extends ApiController
     public function show($userRoledId)
     {
         $userRole = $this->userRoleRepository->getUserRoleById($userRoledId);
-        if (empty($userRole)) {
-            return $this->sendNotfound();
-        }
-
-        return $this->sendSuccess($userRole);
+        
+        return $userRole;
     }
 
     /**
@@ -81,22 +68,8 @@ class UserRoleController extends ApiController
      */
     public function update(Request $request, $userRoleId)
     {
-        $userRole = $this->model::where('user_roled_id', $userRoleId)->first();
-        if (!$userRole) {
-            return $this->sendNotfound();
-        }
+        $userRole = $this->repository->updateUserRole($request, $userRoleId);
 
-        DB::beginTransaction();
-
-        try {
-            $userRole = $this->repository->updateUserRole($request, $userRole);
-
-            DB::commit();
-
-            return $this->sendCreated($userRole);
-        } catch (\Exception $e) {
-            DB::rollback();
-            return $this->sendBadRequest($e->getMessage());
-        }
+        return $userRole;
     }
 }
