@@ -90,6 +90,11 @@ class CampaignController extends ApiController
         return $this->repository->storeStepFour($request);
     }
 
+    public function openCampaign(Request $request)
+    {
+        return $this->repository->openCampaign($request);
+    }
+
     public function csv()
     {
         $path = public_path() . '/csv/recipient.csv';
