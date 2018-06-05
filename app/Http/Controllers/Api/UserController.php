@@ -25,11 +25,6 @@ class UserController extends ApiController
     public function getUsers()
     {
         $users = $this->repository->getAllUser();
-        if (!$users) {
-            return $this->sendNotfound();
-        }
-
-        return $this->sendSuccess($users);
     }
 
     /**
@@ -37,20 +32,7 @@ class UserController extends ApiController
      */
     public function store(Request $request)
     {
-        DB::beginTransaction();
-
-        try {
-            $user = $this->repository->saveUser($request);
-
-            DB::commit();
-
-            return $this->sendCreated($user);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return $this->sendBadRequest($e->getMessage());
-        }
+        $user = $this->repository->saveUser($request);
     }
 
     /**
@@ -58,12 +40,9 @@ class UserController extends ApiController
      */
     public function getUser($userId)
     {
-        $user = $this->model::active()->where('user_id', $userId)->first();
-        if (!$user) {
-            return $this->sendNotfound();
-        }
+        $user = $this->repository->updateUser($userId);
 
-        return $this->sendSuccess($user);
+        return $user;
     }
 
     /**
@@ -71,24 +50,6 @@ class UserController extends ApiController
      */
     public function update(Request $request, $userId)
     {
-        $user = User::active()->where('user_id', $userId)->first();
-        if (!$user) {
-            return $this->sendNotFound();
-        }
-
-        DB::beginTransaction();
-
-        try {
-            $user = $this->repository->updateUser($request, $user);
-
-            DB::commit();
-
-            return $this->sendSuccess($user);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return $this->sendBadRequest($e->getMessage());
-        }
+        $user = $this->repository->updateUser($request,$userId);
     }
 }

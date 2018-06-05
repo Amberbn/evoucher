@@ -82,7 +82,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         //END ROUTER FOR CATALOG
 
         //ROUTE FOR VOUCHER CATALOG OUTLET
-        Route::get('/voucher-catalog-outlet', ['uses' => 'VoucherCatalogOutletController@index']);
+        Route::get('/voucher-catalog-outlet/{nomorVoucher}', ['uses' => 'VoucherCatalogOutletController@index']);
         Route::post('/voucher-catalog-outlet/store', ['uses' => 'VoucherCatalogOutletController@store']);
         //END ROUTE FOR VOUCHER CATALOG OUTLET
 
