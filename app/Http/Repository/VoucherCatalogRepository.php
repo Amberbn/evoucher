@@ -177,7 +177,7 @@ class VoucherCatalogRepository extends BaseRepository
     }
 
     //function for transaction
-    public function stockTransaction($catalogId, $from, $campaignID=null, $adjustedStock = 0)
+    public function stockTransaction($catalogId, $from, $campaignID=null, $adjustedStock = 0, $approvalStatus=1)
     {
         $stockTransactionInitialStockLevel = 0;
         $stockTransactionAdjustmentValue = 0;
@@ -186,6 +186,8 @@ class VoucherCatalogRepository extends BaseRepository
         $query = VoucherCatalog::find($catalogId);
  
         $stockTransactionInitialStockLevel = $query->voucher_catalog_stock_level;
+
+
        
         if($stockTransactionInitialStockLevel > $adjustedStock) {
             $stockTransactionAdjustmentValue = $adjustedStock - $stockTransactionInitialStockLevel;
@@ -196,6 +198,10 @@ class VoucherCatalogRepository extends BaseRepository
         if($stockTransactionInitialStockLevel < $adjustedStock) {
             $stockTransactionAdjustmentValue = $adjustedStock + $stockTransactionInitialStockLevel;
             $difference = ($adjustedStock - $stockTransactionInitialStockLevel);
+        }
+
+        if($approvalStatus){
+            $difference = -1 * abs($difference);
         }
 
         if($stockTransactionInitialStockLevel != $adjustedStock) {
@@ -209,11 +215,12 @@ class VoucherCatalogRepository extends BaseRepository
             $stockTransaction->created_at = NOW();
             $stockTransaction->created_by_user_name = $this->loginUsername();
             $stockTransaction->save();
-        
+
+            $query->voucher_catalog_stock_level = $query->voucher_catalog_stock_level + $difference;
+            $query->save();
+
             return $stockTransaction;
         }
-        
-        
     }
 }
  
