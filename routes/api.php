@@ -95,9 +95,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::get('/campaign-voucher/{id}', ['uses' => 'CampaignController@getCampaignVoucher']);
         Route::get('/campaign-recipient', ['uses' => 'CampaignController@getCampaignRecipients']);
         Route::get('/campaign-recipient/{id}', ['uses' => 'CampaignController@getCampaignRecipient']);
+        Route::post('/open-campaign', ['uses' => 'CampaignController@openCampaign']);
         //END ROUTER FOR CAMPAIGN
 
         Route::get('/resource', ['uses' => 'ResourceController@index']);
+
+        //ROUTE FOR GENERATED VOUCHER
+        Route::get('/generate-voucher/{id}', ['uses' => 'VoucherGeneratedController@generatedVoucher']);
+        //END ROUTER FOR GENERATED VOUCHER
 
     });
     //END ROUTE GROUP BY REQUIRED LOGIN
