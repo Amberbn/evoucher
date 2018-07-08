@@ -1,0 +1,139 @@
+/*
+# Campaign History
+-----------------------------------------*/
+.campaign-history {
+
+  &__heading {
+
+    margin-bottom: 20px;
+
+    h3 {
+      color: #000000;
+      display: inline;
+      font-size: 20px;
+      line-height: 40px;
+      font-weight: 900;
+    }
+
+    .btn {
+      float: right;
+      width: 226px;
+    }
+
+  }
+
+}
+
+.campaign-list-table {
+
+  font-size: 14px;
+  line-height: 18px;
+
+  td,
+  thead th {
+    border: none;
+  }
+
+  tr {
+    // background: #fff000;
+  }
+
+  td,th {
+    padding: 10px;
+  }
+
+  thead {
+    th.campaign-period {
+      width: 230px;
+    }
+    th.campaign-amount {
+      width: 100px;
+    }
+    th.redeem-rate {
+      width: 132px;
+    }
+    th i {
+      margin-left: 3px;
+    }
+    th.first-col {
+      position: relative;
+    }
+    th.header {
+      cursor: pointer;
+    }
+  }
+
+  tbody {
+    tr {
+      &:hover td {
+        background-color: $pz-red-light-1;
+      }
+      // border-bottom: 10px solid #ccc;
+    }
+
+    td {
+      // border: solid 1px #ccc;
+      background-color: #fff;
+    }
+
+    tr:hover td {
+      border-color: $pz-red-light-1;
+    }
+
+    tr td.first {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    tr td.last {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    // tr td:first-child { border-bottom-left-radius: 10px; }
+    // tr td:last-child { border-bottom-right-radius: 10px; }
+
+    tr.spacer td {
+      padding: 0 0 10px 0;
+      background-color: transparent;
+    }
+
+  }
+
+  td a {
+    color: $pz-black-3;
+    text-decoration: none;
+  }
+
+  a.voucher-name {
+    display: inline-block;
+    padding: 5px 7px;
+    margin-right: 5px;
+    margin-bottom: 7px;
+    background-color: $pz-blue-1;
+    color: #fff;
+    border-radius: 4px;
+  }
+
+  span.status-suspended {
+    color: $pz-primary-color;
+  }
+  span.status-running {
+    color: $pz-green-1;
+  }
+  span.status-finished {
+    color: $pz-blue-2;
+  }
+
+}
+
+// Sorting table Hack
+
+.campaign-history tbody tr.spacer,
+.campaign-history tbody tr.spacer + tr.spacer {
+  display: none;
+}
+
+.campaign-history tbody > tr + tr.spacer {
+  display: block;
+  border: none;
+}

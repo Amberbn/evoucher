@@ -1,0 +1,449 @@
+/*
+# Admin Top Bar
+-----------------------------------------*/
+#admin-top-bar {
+  height: 74px;
+  background-color: #fff;
+  border-top: 1px solid $pz-border-color;
+  border-bottom: 1px solid $pz-border-color;
+
+  .admin-bar__main-menu {
+    display: none;
+  }
+
+}
+
+.admin-bar {
+  // border-left: 1px solid $pz-border-color;
+  &__main-menu {
+    border-right: 1px solid $pz-border-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    .btn {
+      width: 78px;
+      height: 74px;
+      padding: 0;
+      border-radius: 0;
+      line-height: 1;
+      background-color: transparent;
+      @include transition(background-color,0.3s,ease-in-out);
+      text-align: center;
+      background-image: url('../img/prezent-logo-minimal.png');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: 32px;
+    }
+
+    .lines-menu {
+      position: relative;
+      display: inline-block;
+      height: 14px;
+      width: 17px;
+      margin-top: 10px;
+      opacity: 0;
+    }
+
+    .lines-menu:after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 0;
+      width: 17px;
+      height: 7px;
+      border-top: 2px solid $pz-gray-1;
+      border-bottom: 2px solid $pz-gray-1;
+    }
+
+    .lines-menu:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 12px;
+      border-top: 2px solid $pz-gray-1;
+    }
+
+    .lines-menu:before,
+    .lines-menu:after {
+      @include transition(border-color,0.3s,ease-in-out);
+    }
+
+    .btn:hover {
+      // background-color: $pz-primary-color;
+      background-color: lighten($pz-gray-2, 22%);
+      .lines-menu:before,
+      .lines-menu:after {
+        border-color: #fff;
+      }
+    }
+
+  }
+}
+
+.admin-bar {
+  margin-left: 77px;
+  position: relative;
+  @extend %clearfix;
+
+  > div {
+    display: inline-block;
+  }
+
+  &__context {
+    // margin-left: 78px;
+    padding-left: 40px;
+
+    @include screen(med) {
+      overflow: hidden;
+      width: calc(50% - 80px);
+      width: -moz-calc(50% - 80px);
+      width: -webkit-calc(50% - 80px);
+      max-width: 100%;
+
+      .inner {
+        width: 1000px;
+      }
+
+    }
+
+  }
+
+  &__context-title {
+    margin: 0;
+    font-size: 20px;
+    line-height: 73px;
+  }
+
+  &__nav {
+    float: right;
+  }
+
+  &__nav > ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    @extend %clearfix;
+
+    > li {
+      line-height: 1;
+      float: left;
+      position: relative;
+
+      &.active > a {
+        background-color: $pz-primary-color;
+        color: #fff !important;
+        span[class^="icon-ic_"] {
+          color: #fff;
+        }
+        .notification-counter {
+          background-color: #fff;
+          color: $pz-primary-color;
+        }
+      }
+
+    }
+
+    > li > a {
+      display: inline-block;
+      height: 72px;
+      line-height: 72px;
+      padding-left: 19px;
+      padding-right: 19px;
+      background-color: #fff;
+      border-left: 1px solid $pz-border-color;
+      text-decoration: none;
+      @include transition(all,0.3s,ease-in-out);
+
+      &:hover {
+        background-color: $pz-primary-color;
+      }
+
+    }
+
+    > li.nav__support,
+    > li.nav__notification {
+      > a {
+        width: 77px;
+        padding-left: 28px;
+        padding-right: 28px;
+        position: relative;
+        color: $pz-black-1;
+        @include transition(all,0.3s,ease-in-out);
+        &:hover {
+          color: #fff;
+        }
+
+        @include screen(s1024) {
+          width: 50px;
+          padding-left: 7px;
+          padding-right: 7px;
+        }
+
+      }
+      span[class^="icon-ic_"] {
+        font-size: 20px;
+        display: block;
+        @include center(both);
+      }
+    }
+
+    > li.user-menu {
+      > a {
+        position: relative;
+        padding-right: 67px;
+        padding-left: 89px;
+        color: $pz-black-2;
+        &:hover {
+          color: #fff;
+          .profile-menu-toggle {
+            color: #fff;
+          }
+        }
+
+        @include screen(s1024) {
+          padding-right: 57px;
+          padding-left: 67px;
+        }
+
+      }
+      .profile-menu-toggle {
+        color: $pz-black-1;
+        @include transition(color,0.3s,ease-in-out);
+        @include center(vertical);
+        right: 35px;
+      }
+      &.active .profile-menu-toggle {
+        color: #fff !important;
+      }
+      &.active .fa-angle-down:before {
+        content: "\f106";
+      }
+    }
+
+    > li.parent-menu .sub-menu {
+      display: none;
+    }
+
+    // Show submenu on mouseover
+    > li.parent-menu:hover {
+      .sub-menu {
+        // display: block;
+      }
+    }
+
+  }
+}
+
+// Submenu
+.admin-bar__nav {
+  ul.sub-menu {
+    padding: 10px 0;
+    margin: 7px 0 0 0;
+    list-style: none;
+    width: 280px;
+    display: none;
+    border-radius: 9px;
+    background-color: #fff;
+    @include box-shadow(0px, 0px, 9px, rgba(0, 0, 0, 0.2), false);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 10;
+
+    > li > a {
+      display: block;
+      font-size: 18px;
+      text-decoration: none;
+    }
+
+  }
+}
+
+// Submenu user
+.parent-menu.user-menu ul.sub-menu {
+  left: auto;
+  right: 0;
+
+  > li > a {
+    padding: 15px 35px;
+    color: $pz-black-2;
+    text-align: right;
+
+    &:hover {
+      color: $pz-primary-color;
+    }
+
+    &.sign-out {
+      color: $pz-primary-color;
+    }
+
+  }
+
+}
+
+.admin-bar {
+
+  &__shortcut {
+    width: 32px;
+    height: 32px;
+    @include center(both);
+    z-index: 9999;
+    // margin-left: -77px;
+
+    button {
+      color: #fff;
+      background-color: $pz-primary-color;
+      width: 32px;
+      height: 32px;
+      line-height: 1;
+      padding: 0;
+      border-radius: 32px;
+      text-align: center;
+
+      // @include transition(background-color,0.3s,ease-in-out);
+
+      // &:hover {
+      //  background-color: $pz-secondary-color;
+      // }
+
+    }
+
+  }
+
+}
+
+// Notification
+.nav__notification {
+
+  &.incoming-notification {
+    > a:before {
+      content: '';
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-radius: 7px;
+      background-color: $pz-red-1;
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      @include transition(background-color,0.3s,ease-in-out);
+    }
+    > a:hover:before {
+      background-color: #fff;
+    }
+  }
+
+  .notification-counter {
+    display: none;
+  }
+
+  &.has-notification {
+    > a:before {
+      display: none;
+    }
+    .notification-counter {
+      display: inline-block;
+      font-size: 11px;
+      line-height: 1;
+      position: absolute;
+      top: 20px;
+      right: 9px;
+      background-color: $pz-red-1;
+      color: #fff;
+      padding: 3px 4px;
+      border-radius: 10px;
+      @include transition(all,0.3s,ease-in-out);
+
+      @include screen(s1024) {
+        top: 12px;
+        right: -4px;
+        z-index: 9;
+      }
+
+    }
+    > a:hover .notification-counter {
+      color: $pz-red-1;
+      background-color: #fff;
+    }
+  }
+
+}
+
+// Profile
+.user-menu {
+  &__avatar {
+    display: inline-block;
+    width: 38px;
+    height: 39px;
+    border-radius: 4px;
+    background-color: $pz-gray-1;
+    background-image: url('../img/icon-profile.png');
+    background-repeat: no-repeat;
+    background-size: 27px;
+    background-position: center center;
+    @include center(vertical);
+    left: 19px;
+  }
+}
+
+
+// Responsive
+.mobile-nav-toggle {
+  display: none;
+  position: absolute;
+  width: 70px;
+  height: 73px;
+  line-height: 73px;
+  text-align: center;
+  background-color: #fff;
+  z-index: 100;
+  color: $pz-gray-1;
+  top: 0;
+  left: -75px;
+  cursor: pointer;
+}
+@include screen(med-small) {
+
+  .admin-bar__context {
+    width: calc(100% - 130px);
+    width: -moz-calc(100% - 130px);
+    width: -webkit-calc(100% - 130px);
+  }
+
+  .admin-bar__shortcut {
+    left: calc(100% - 97px);
+    left: -moz-calc(100% - 97px);
+    left: -webkit-calc(100% - 97px);
+  }
+  .admin-bar__nav {
+    position: relative;
+    .mobile-nav-toggle {
+      display: inline-block;
+    }
+  }
+  .admin-bar__nav > ul {
+    margin-right: -500px;
+  }
+  #admin-top-bar.show-nav {
+    .admin-bar__context {
+      width: calc(20%);
+      width: -moz-calc(20%);
+      width: -webkit-calc(20%);
+    }
+
+    @include hideBreadCrumb();
+
+    .admin-bar__shortcut {
+      left: auto;
+      right: 400px;
+    }
+    .mobile-nav-toggle {
+      left: auto;
+      right: 0;
+    }
+    .admin-bar__nav > ul {
+      margin-right: 60px;
+    }
+  }
+}

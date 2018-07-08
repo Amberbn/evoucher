@@ -1,0 +1,470 @@
+/*
+# Form
+-----------------------------------------*/
+.form-group {
+  margin-bottom: 25px;
+  font-size: 14px;
+  &__last-input {
+    margin-bottom: 60px;
+  }
+
+  label {
+    font-weight: 900;
+  }
+
+  .form-group__heading {
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  &__validity-period,
+  &__voucher {
+  //  margin-bottom: 40px;
+  }
+
+  .form-check label {
+    font-weight: 400;
+  }
+
+  .form-check h5 {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  @include screen(custom, min, 768) {
+    &.has-only-a-link {
+      @include center(vertical);
+      // a {
+      //  @include center(vertical);
+      // }
+    }
+  }
+
+}
+
+.has-show-hide-password {
+  position: relative;
+
+  .show-hide {
+    width: 70px;
+    padding: 7px 0;
+    @include center(vertical);
+    float: right;
+    right: 0;
+    color: $pz-gray-3;
+    cursor: pointer;
+  }
+
+}
+
+.form-section {
+
+  .heading {
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  &.last {
+    margin-bottom: 15px;
+  }
+}
+
+.input-group-append {
+  .btn{
+    &:hover {
+      background-color: $pz-primary-color;
+    }
+  }
+}
+
+.form-group {
+  // hack
+  select.custom-select {
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+  }
+  .select2-container--default {
+    width: 100% !important;
+  }
+  .select2-container--default .select2-selection--single,
+  .select2-container--default .select2-selection--multiple {
+    border-color: $pz-gray-8;
+    height: 38px;
+    font-size: 16px;
+    outline: none;
+  }
+  .select2-container--default .select2-selection--multiple {
+    min-height: 38px;
+    height: auto;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__rendered,
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    line-height: 38px;
+    // color: $pz-gray-4;
+    color: $pz-gray-1;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    line-height: 28px;
+    li.select2-selection__choice {
+      line-height: 24px;
+    }
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__arrow,
+  .select2-container--default .select2-selection--multiple .select2-selection__arrow {
+    height: 38px;
+
+    &:before {
+      // content: '...';
+    }
+
+    b {
+      border: none;
+      width: 13px;
+      height: 13px;
+      margin-left: -10px;
+      margin-top: -10px;
+      &:before {
+        font-family: 'Font Awesome 5 Free';
+        content: "\f107";
+        line-height: 1;
+        color: $pz-gray-2;
+      }
+    }
+
+  }
+
+  .select2-container--default .select2-selection--single[aria-expanded="true"],
+  .select2-container--default .select2-selection--multiple[aria-expanded="true"] {
+    b:before {
+      content: "\f106";
+    }
+  }
+
+  .select2-results {
+    font-size: 16px;
+  }
+  .select2-container--default .select2-search--dropdown .select2-search__field {
+    outline: none;
+  }
+}
+
+.form-check {
+  @extend %clearfix;
+
+  .form-check-input {
+    float: left;
+  }
+
+  .form-check-label {
+    margin-left: 8px;
+    margin-top: 3px;
+  }
+
+  .checkradios-checkbox,
+  .checkradios-radio {
+    width: 8px;
+    height: 8px;
+    padding: 3px;
+    font-size: 12px;
+    border: 1px solid $pz-gray-2;
+    color: $pz-primary-color;
+    box-shadow: unset;
+    text-align: center;
+    line-height: 14px;
+  }
+  .checkradios-checkbox {
+    width: 8px;
+    height: 8px;
+    font-size: 12px;
+    border-radius: 3px;
+    &:before {
+      display: block;
+      margin-top: -3px;
+      margin-left: -1px;
+    }
+  }
+  .checkradios-radio {
+    text-align: center;
+    line-height: 9px;
+  }
+  .checkradios-radio:before {
+    display: inline;
+    margin-top: 0;
+    margin-left: -1px;
+  }
+  .checkradios-radio.unchecked:before {
+    display: none;
+  }
+  .checkradios-radio.checked,
+  .checkradios-checkbox.checked {
+    border-color: $pz-primary-color;
+  }
+
+  .checkradios-checkbox.checked {
+    &.unchecked {
+      border-color: $pz-gray-2;
+    }
+  }
+
+  .checkradios-radio.checked {
+    color: $pz-primary-color;
+  }
+  .checkradios-checkbox.checked {
+    background-color: $pz-primary-color;
+    color: #fff;
+    &.unchecked {
+      background-color: #fff;
+    }
+  }
+}
+
+.form-input.invalid {
+  .form-control {
+    border: 1px solid $pz-primary-color !important;
+    background-color: $pz-red-2;
+
+    &:focus {
+      border-color: #434343 !important;
+      background-color: #fff;
+    }
+
+  }
+  .warning {
+    color: $pz-primary-color;
+  }
+}
+
+.input-group .add-clear-span {
+  display: block;
+  width: 100%;
+
+  > a {
+    @include center(vertical);
+    top: 50% !important;
+    right: 5px !important;
+    margin-top: -2px;
+  }
+
+}
+
+.voucher-filter-form {
+  .form-control,
+  .select2-container--default .select2-selection--multiple {
+    border: 1px solid #ccc;
+  }
+  .btn.dropdown-toggle {
+    position: relaive;
+    padding-right: 45px;
+    &::after {
+      content: '';
+      width: 18px;
+      height: 18px;
+      background: url('../img/icon-setting.png') center center no-repeat;
+      background-size: contain;
+      @include center(vertical);
+      margin-left: 13px;
+      border: none;
+    }
+  }
+}
+
+.btn-has-dropdown-menu {
+  .dropdown-toggle {
+    background-color: $pz-primary-color;
+    color: #fff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    &.create-new {
+      margin-top: 4px;
+
+      position: relaive;
+      padding-right: 50px;
+      &::after {
+        @include fontawesome("\f107");
+        margin-top: 5px;
+        margin-left: 13px;
+        border: none;
+        border-left: 1px solid #fff;
+        width: 25px;
+        height: 16px;
+        padding-left: 5px;
+        position: absolute;
+        right: 10px;
+        line-height: 18px;
+      }
+
+    }
+
+  }
+
+  .dropdown-expanded.create-new::after {
+    content: "\f106";
+  }
+
+}
+
+.filter-dropdown {
+
+  .form-group .exp-date {
+    table {
+      width: 100%;
+    }
+  }
+
+  .filter-location label,
+  .filter-area label {
+    margin-top: 9px;
+  }
+
+  .input-group .custom-range::-moz-range-track {
+    height: 2px;
+    border-radius: 2px;
+    background-color: $pz-gray-1;
+  }
+
+  .voucher-input-range {
+    padding-top: 10px;
+  }
+
+}
+
+/*
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  box-shadow: none;
+  background: $pz-gray-1;
+  border-radius: 2px;
+  border: none;
+}
+*/
+
+.voucher-input-range {
+  .range-output {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 11px;
+  }
+}
+
+.filter-dropdown__buttons {
+
+  border-top: 1px solid $pz-gray-8;
+  padding-top: 10px;
+
+  .btn {
+    display: inline;
+    padding: 0;
+    background-color: transparent !important;
+
+    &.cancel-filter {
+      color: $pz-gray-3;
+    }
+    &.apply-filter {
+      color: $pz-primary-color;
+      margin-left: 15px;
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+
+  }
+  .col-md-6:last-child {
+    text-align: right;
+  }
+}
+
+// Styled radio and checkbox
+.form-check .checkradios-radio {
+
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  font-size: 12px;
+  // border: 1px solid #B0B0B0;
+  border: none;
+  // color: #D7245B;
+  background-color: transparent;
+  box-shadow: unset;
+  text-align: center;
+  line-height: 14px;
+  position: relative;
+  overflow: visible;
+  margin-top: 8px;
+  margin-left: -17px;
+
+  &.checked {
+    background-color: $pz-primary-color;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 18px;
+    height: 18px;
+    border: 1px solid $pz-primary-color;
+    border-radius: 50%;
+    margin-top: -4px;
+    margin-left: -4px;
+    z-index: 2;
+  }
+
+  &:before {
+    display: none;
+  }
+
+  &.unchecked {
+
+  }
+
+  &.checked {
+
+  }
+
+}
+
+// Checkbox
+.form-check .checkradios-checkbox {
+
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  text-align: center;
+  line-height: 13px;
+
+  &:before {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    display: block;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+  }
+
+  &.unchecked {
+
+  }
+
+  &.checked {
+    &:before {
+      display: block;
+    }
+  }
+
+}
