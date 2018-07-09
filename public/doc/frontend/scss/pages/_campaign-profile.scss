@@ -1,0 +1,22 @@
+/*
+# Campaign Profile
+-----------------------------------------*/
+@include screen(custom, max, 1024) {
+
+  .expand-col-12 {
+    > .col-sm-12 {
+      width: 100% !important;
+      max-width: 100%;
+      flex: 0 0 100% !important;
+    }
+  }
+
+  #pick-date-period-start {
+    margin-bottom: 10px;
+  }
+
+  .form-group__voucher .col-md-6:first-child {
+    margin-bottom: 10px;
+  }
+
+}

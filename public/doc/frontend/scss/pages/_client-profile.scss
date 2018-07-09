@@ -1,0 +1,10 @@
+/*
+# Client Profile
+-----------------------------------------*/
+@include screen(custom, max, 600) {
+  #client-form {
+    .content-area__main {
+      padding: 25px 10px;
+    }
+  }
+}

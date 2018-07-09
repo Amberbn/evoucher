@@ -1,0 +1,70 @@
+/*
+# Client Menu
+-----------------------------------------*/
+.client-menu-outer {
+
+  margin-bottom: 25px;
+
+  .client-menu,
+  .button-group {
+    display: table;
+  }
+
+  .client-menu {
+    float: left;
+  }
+
+  .button-group {
+    float: right;
+  }
+
+}
+
+.client-menu {
+
+  li {
+    display: inline;
+    float: left;
+    margin-right: 56px;
+
+    @include screen(custom, max, 1024) {
+      margin-right: 15px;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    a {
+      display: block;
+      padding-bottom: 18px;
+      font-size: 18px;
+      line-height: 23px;
+      color: $pz-gray-2;
+      text-decoration: none;
+
+      &:hover,
+      &.active {
+        color: $pz-primary-color;
+        border-bottom: 2px solid $pz-primary-color;
+        @include transition(border,0.05s,ease-in-out);
+      }
+
+    }
+
+  }
+
+}
+
+.client-menu-buttons {
+  .btn {
+    width: 178px;
+    margin-left: 45px;
+    @include screen(custom, max, 1024) {
+      margin-left: 15px;
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}

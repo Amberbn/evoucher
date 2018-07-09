@@ -1,0 +1,66 @@
+/*
+# Breadcrumb
+-----------------------------------------*/
+.top-breadcrump {
+
+  .breadcrumb {
+    margin-bottom: 0;
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 600;
+    padding: 23px 0;
+    background-color: transparent;
+    color: $pz-black-2;
+
+    @include screen(med) {
+      font-size: 16px;
+    }
+
+    a {
+      color: $pz-black-2;
+      text-decoration: none;
+    }
+
+    img {
+      line-height: 1;
+      max-width: 80px;
+      height: auto;
+      margin-left: 19px;
+      margin-top: -4px;
+    }
+
+    .breadcrumb-item.active {
+      color: $pz-black-2;
+    }
+
+  }
+
+  .breadcrumb-item {
+
+    + .breadcrumb-item {
+      padding-left: 20px;
+      overflow: visible;
+
+      &::before {
+        font-family: 'Font Awesome 5 Free';
+        content: '\f105';
+        text-indent: -9999px;
+        color: $pz-black-2;
+        padding-right: 20px;
+        background: url('../img/icon-angle-right.png') center center no-repeat;
+        background-size: 5px;
+        margin-left: -10px;
+      }
+    }
+
+  }
+
+
+}
+
+
+// Responsive
+
+@include screen(s767) {
+  @include hideBreadCrumb();  
+}
