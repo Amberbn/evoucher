@@ -38,7 +38,7 @@ trait ResponseTrait
         return $this->sendResponse(400,'400', $message,[]);
     }
 
-    protected function sendResponse($httpCode = 200, $appCode, $messages, $data = [])
+    protected function sendResponse($httpCode = 200, $appCode, $message, $data = [])
     {
         $appCode = is_string($appCode) ? (string) $appCode : $appCode;
         $responseData = [

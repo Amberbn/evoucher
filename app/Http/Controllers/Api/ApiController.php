@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Illuminate\Datatbase\Eloquent\Model;
-use Illuminate\Routing\Controller as BaseController;
 use DB;
+use Illuminate\Datatbase\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
 
 class ApiController extends BaseController
 {
-    use App\Http\Controllers\Contract\ResponseTrait;
-
-    const STATUS_ACTIVE = 'active';
+    use \App\Http\Controllers\Contract\ResponseTrait;
+    use \App\Http\Controllers\Contract\UserTrait;
 
     /**
      * Get authenticated & autorisation user with Api Token
@@ -22,6 +21,7 @@ class ApiController extends BaseController
 
     public function index()
     {
+        //for test db connection only
         dd(DB::table('bsn_client')->get());
         // echo phpinfo();
     }
