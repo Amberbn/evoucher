@@ -1,0 +1,101 @@
+/*--------------------------------------------------------------
+# Custom Fonts
+--------------------------------------------------------------*/
+
+/**
+ * Icomoon
+ */
+
+@include font-face('icomoon', '../fonts/icomoon/icomoon');
+
+[class^="icon-ic_"], [class*=" icon-ic_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ic_campaign:before {
+  content: "\e900";
+}
+.icon-ic_client:before {
+  content: "\e901";
+}
+.icon-ic_coupon:before {
+  content: "\e902";
+}
+.icon-ic_dashboard:before {
+  content: "\e903";
+}
+.icon-ic_invoice:before {
+  content: "\e904";
+}
+.icon-ic_merchant:before {
+  content: "\e905";
+}
+.icon-ic_notif:before {
+  content: "\e906";
+}
+.icon-ic_support:before {
+  content: "\e907";
+}
+.icon-ic_user:before {
+  content: "\e908";
+}
+.icon-ic_deposit:before {
+  content: "\e909";
+}
+
+/**
+ * Fontello
+ */
+
+@include font-face('fontello', '../fonts/fontello/fontello');
+
+[class^="icon-ft_"]:before, [class*=" icon-ft_"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-ft_circle-new-entry:before { content: '\e800'; } /* '' */
+.icon-ft_circle-checked:before { content: '\e801'; } /* '' */
+.icon-ft_circle-clock:before { content: '\e802'; } /* '' */
+.icon-ft_calendar:before { content: '\e803'; } /* '' */

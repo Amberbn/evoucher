@@ -1,0 +1,130 @@
+/*
+# Form Progress
+-----------------------------------------*/
+.campaign-form-progress-outer {
+  // width: 784px;
+  max-width: 100%;
+  margin-top: 14px;
+  // padding-left: 30px;
+  // padding-right: 30px;
+
+  @include screen(med-small) {
+    &.col-md-8 {
+      width: 100%;
+      max-width: 100%;
+      flex: 0 0 100%;
+    }
+  }
+
+}
+
+.campaign-form-progress {
+  padding: 15px 0 40px 90px;
+  margin: 0;
+  list-style: none outside;
+  overflow: hidden;
+  width: calc(100% + 100px);
+  width: -moz-calc(100% + 100px);
+  width: -webkit-calc(100% + 100px);
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+
+  li {
+    width: 25%;
+    // width: 33.333333333333333%;
+    float: left;
+    padding: 24px 0 0.8em;
+    margin: 0;
+    text-align: left;
+    position: relative;
+    border-top: 5px solid $pz-gray-1;
+    line-height: 1.4em;
+
+    &:first-child,
+    &:last-child {
+    //  width: 0;
+    }
+
+    &:last-child {
+      width: 0;
+    }
+
+    span {
+      display: block;
+      white-space: nowrap;
+      @include center(horizontal);
+      left: 0;
+    }
+
+  }
+
+  li::before {
+    content: '';
+    border: 7px solid $pz-gray-1;
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: -19px;
+    left: 0;
+    margin-left: -16px;
+    margin-bottom: -8px;
+    background: $pz-gray-1;
+    z-index: 2;
+  }
+
+  li:nth-child(2) {
+    // border: 1px solid green;
+  }
+
+  li:nth-child(3) {
+    // border: 1px solid green;
+  }
+
+  li:nth-child(2)::before {
+    // left: 100%;
+  }
+
+  li:nth-child(3)::before {
+    // left: 0%;
+  }
+
+  li.active {
+    // border-color: #a16696;
+    // color: #a16696;
+    &::before {
+      background: $pz-primary-color;
+      border-color: $pz-primary-color-shade-1;
+    }
+  }
+
+  li.done {
+    border-color: $pz-primary-color;
+    // color: #a16696;
+    &::before {
+      border-color: $pz-primary-color;
+      background-color: $pz-primary-color;
+      background-image: url("../img/icons-circle-group.png");
+      background-size: 32px;
+      background-position: -7px -39px;
+    }
+  }
+
+}
+
+
+@include screen(s767) {
+
+  .campaign-form-progress {
+    overflow: visible;
+    margin-top: 20px;
+    margin-left: -40px;
+
+    li:nth-child(even) span {
+      top: -54px;
+    }
+
+  }
+
+}

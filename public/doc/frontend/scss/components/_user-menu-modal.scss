@@ -1,0 +1,231 @@
+/*
+# User Menu Modal
+-----------------------------------------*/
+.modal-open {
+  .site {
+    filter: blur(2px);
+  }
+}
+
+.modal-user-menu {
+
+  background-color: rgba(0, 0, 0, 0.75);
+
+  &__inner {
+    @include center(both);
+    top: 45%;
+  }
+
+  .user-menu-cards {
+    // width: 1120px;
+    display: table;
+    margin: 0 auto;
+    text-align: center;
+
+    @include screen(custom, max, 1199) {
+      // width: 100%;
+    }
+
+    &__heading {
+      color: #fff;
+      font-size: 40px;
+      margin-bottom: 48px;
+    }
+
+  }
+
+  .modal-user-menu__content {
+    display: inline;
+    float: left;
+    width: 250px;
+    max-width: 100%;
+    margin: 0 15px;
+    color: #000000;
+
+    @include screen(custom, max, 1199) {
+      width: 230px;
+    }
+
+    a {
+      color: #000000;
+      text-decoration: none;
+    }
+
+  }
+
+  .modal-body {
+    padding: 0;
+
+    &:hover > a {
+      transform: scale(1.1);
+      // background-color: #fff000;
+    }
+
+  }
+
+  .modal-footer {
+    border: none;
+    text-align: center;
+    justify-content: center;
+    margin-top: 40px;
+    position: relative;
+    -webkit-transition: opacity 2.8s ease-out; /* Safari */
+    transition: opacity 2.8s ease-out;
+    opacity: 0;
+    transform: translate(0, -95%);
+
+    .btn.btn-primary {
+      background-color: transparent;
+      border: none;
+      &:hover {
+        background-color: transparent;
+        color: $pz-light-1;
+      }
+    }
+
+  }
+
+  .modal-content {
+    position: relative;
+    height: 318px;
+    background-color: transparent;
+
+    .modal-body__inner {
+      width: 100%;
+      height: 318px;
+      padding: 43px;
+      // @include center(vertical);
+    }
+
+    .modal-body > a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      background-color: $pz-light-1;
+      position: relative;
+
+      &:hover {
+        background-color: #fff;
+        // transform: scale(1.12);
+        // transform: scale(1, 1.2);
+        // padding-top: 24px;
+        // padding-bottom: 24px;
+        // height: calc(100% + 48px);
+        // height: -moz-calc(100% + 48px);
+        // height: -webkit-calc(100% + 48px);
+        // width: calc(100% + 30px);
+        // width: -moz-calc(100% + 30px);
+        // width: -webkit-calc(100% + 30px);
+        // margin-top: -24px;
+        // margin-left: -15px;
+
+        // .cards-icon {
+        //  width: 130px;
+        //  height: 130px;
+        // }
+
+      }
+
+    }
+
+    h3 {
+      font-size: 20px;
+      width: 160px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+  }
+
+  .cards-icon {
+    display: block;
+    width: 117px;
+    height: 117px;
+    border-radius: 130px;
+    background-color: $pz-gray-1;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+  }
+
+  &.fade {
+    .modal-footer {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+
+
+}
+
+
+// Responsive
+
+@include screen(custom, max, 1024) {
+  .modal-user-menu {
+    &__inner {
+      width: calc(100% - 30px);
+      width: -moz-calc(100% - 30px);
+      width: -webkit-calc(100% - 30px);
+    }
+
+    &__content {
+      width: 21% !important;
+    }
+
+    .modal-content {
+      .modal-body__inner {
+        padding: 20px 15px;
+      }
+    }
+
+  }
+  .user-menu-cards {
+    width: 100% !important;
+  }
+}
+
+@media only screen and (min-width:961px) and (max-width:1024px) {
+
+  .modal-user-menu {
+    .user-menu-cards {
+      max-width: 931px;
+    }
+    &__content {
+      height: 300px !important;
+    }
+  }
+
+}
+
+@media only screen and (max-width:961px) {
+
+  .modal-user-menu {
+
+    .modal-user-menu__inner {
+      -webkit-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+      transform: translate(-50%, 0);
+      top: 0;
+    }
+
+    &__content,
+    .modal-content,
+    .modal-content .modal-body__inner {
+      height: auto !important;
+    }
+
+    .modal-content h3 {
+      font-size: 16px;
+      width: auto;
+    }
+
+    .modal-user-menu__content {
+      width: 170px !important;
+      margin-bottom: 20px;
+    }
+
+  }
+
+}

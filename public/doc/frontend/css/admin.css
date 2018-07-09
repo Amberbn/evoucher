@@ -1,0 +1,176 @@
+/* User Management */
+
+h2.user-menu-cards__heading{
+    font-size: 40px;
+}
+
+.modal-body__inner h3{
+    margin-top:30px;
+    font-weight: bold;
+    position: absolute; 
+    bottom: 30px;
+}
+
+.modal-body__inner p{
+    line-height: 1.2em;
+    font-size: 14px;
+}
+
+#notifUserModal h4, #notifUserModal p{
+    text-align: center;
+    margin:40px auto;
+}
+
+#notifUserModal h4{
+    font-weight: bold;
+}
+
+.buttonGroup{
+    margin:40px auto 30px auto;
+}
+
+/* Client Company Information */
+.list3 li{
+    width: 33.4%;
+}
+
+#company-form h2.heading-desc-0{
+    margin-bottom:30px !important;
+    font-size: 20px;
+    font-weight: 800;
+}
+#companyLogo, #merchantLogo{
+    padding-left:0;
+}
+
+#companyLogo li, #merchantLogo li{
+    margin-bottom:10px;
+}
+
+#companyLogo label, #merchantLogo label{
+    margin-left:20px;
+}
+
+#companyLogo a:last-child, #merchantLogo a:last-child{
+    margin-left:10px;
+}
+
+.companyLogo-a{
+    padding-top:10px;
+}
+
+.companyLogo-a a{
+    color:#C4C4C4;
+    display:inline;
+}
+
+#dragDrop{
+    background: rgba(196, 196, 196, 0.1);
+    border:1px dashed #D7245B;
+    border-radius:3px;
+    padding:40px;
+    margin-top:20px;
+}
+
+/* Voucher Form */
+.card-form{
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.card-form .card-header{
+    background:#fff !important;
+}
+
+.card-form h5.card-title{
+    font-size: 16px !important;
+    color:#2B2B2B;
+    font-weight: bold;
+}
+
+.card-form h5.card-subtitle{
+    font-size: 14px !important;
+    color:#2B2B2B;
+    font-weight: bold;
+}
+
+.card-form h5, .card-form .card-text{
+    color:#C4C4C4;
+    font-size:14px;
+}
+
+.card-form .card-body{
+    background: #F5F6FA;
+    min-height: 214px;
+    padding:0 !important;
+}
+
+.card-form .card-footer{
+    background: #fff;
+}
+
+.card-form .card-text{
+    margin-top:15%;
+}
+
+/* Merchant & Outlet */
+.merchant-btn button.btn{
+    margin-right:20px;
+}
+
+/* Inline radio button */
+.radio-inline{
+    margin-right:20px;
+}
+
+/* Button */
+.btn.btn-green{
+    background:#C6CC07;
+    color:#fff;
+}
+
+.btn.btn-green:hover{
+    background:#b9bc00;
+}
+
+.btn.btn-form-wizard {
+    width: 178px;
+    height: 42px;
+    float:left;
+}
+
+.btn-submit{
+    margin:30px 0;
+}
+
+.btn-submit button:first-child{
+    margin-right:20px;
+}
+
+.font13{
+    font-size:13px;
+}
+
+/* Margin */
+.bottom-20{
+    margin-bottom:20px;
+}
+
+.bottom-30{
+    margin-bottom:30px;
+}
+
+.vcr-btn{
+    margin-left:20px;
+    margin-top:0 !important;
+    padding-top:7px !important;
+    padding-bottom:7px !important;
+}
+
+/* Table checkbox */
+.table.campaign-list-table td .form-check{
+    margin-top:-4px !important;
+}
+
+.table.campaign-list-table a.voucher-name{
+    margin-bottom:0 !important;
+}

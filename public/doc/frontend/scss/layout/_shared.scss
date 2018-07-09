@@ -1,0 +1,88 @@
+/*--------------------------------------------------------------
+# Shared
+--------------------------------------------------------------*/
+
+body {
+  font-family: 'Muli', sans-serif;
+
+  overflow-x: hidden;
+
+  &.member-area {
+    background-color: #FFF;
+  }
+
+  .site,
+  #main-content {
+    background-color: $pz-body-bg;
+  }
+
+}
+
+a,
+a:hover,
+a:focus {
+  @include transition(all,0.3s,ease-in-out);
+}
+
+a:hover {
+  color: $pz-secondary-color;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+#main-content {
+  // padding-top: 40px;
+  padding-top: 26px;
+}
+
+#side-menu {
+  position: fixed;
+  width: 78px;
+  height: 100%;
+  left: 0;
+  float: left;
+}
+
+#main-content {
+  width: calc(100% - 78px);
+  width: -moz-calc(100% - 78px);
+  width: -webkit-calc(100% - 78px);
+  padding-left: 15px;
+  // padding-right: 80px;
+  padding-right: 30px;
+  float: left;
+  margin-left: 78px;
+
+  .content-area {
+
+    // width: 784px;
+    // max-width: 100%;
+    float: left;
+    // padding-left: 30px;
+    padding-right: 30px;
+    margin-bottom: 50px;
+
+
+    &__main{
+      padding: 32px 51px;
+      margin-bottom: 90px;
+      background-color: #fff;
+      @include box-shadow(0px, 0px, 4px, rgba(0, 0, 0, 0.2), inset);
+      border-radius: 4px;
+    }
+
+    &.content-area__client-detail {
+      padding-left: 25px;
+      padding-right: 0;
+    }
+
+  }
+
+  .sidebar-area {
+    // margin-left: 784px;
+  }
+
+}

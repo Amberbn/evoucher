@@ -1,0 +1,23 @@
+@import "variables/variable-base";
+@import "mixins/mixins-base";
+
+/* 30 Juni 2018 - Ahus Jalaludin */
+/* Login Page */
+body.login .logo-main {
+    text-align: center;
+
+    .img-logo {
+        max-width: 300px;
+    }
+}
+
+a {
+    color: #004d9a;
+    text-decoration: none;
+
+    &:hover,
+    &:active {
+        text-decoration: underline;
+        color: #004d9a;
+    }
+}

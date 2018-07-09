@@ -1,0 +1,44 @@
+/*
+# Campaign Template
+-----------------------------------------*/
+.campaign-template {
+  width: 375px;
+  max-width: 100%;
+  height: 667px;
+  padding: 77px 14px 28px 14px;
+  background-color: $pz-gray-3;
+  background-image: url('../img/safari-browser-bar.png');
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 100%;
+  color: #fff;
+
+  a {
+    color: #fff;
+  }
+
+  &__heading {
+    font-size: 25px;
+    line-height: 31px;
+  }
+
+  &__message {
+    font-weight: 300;
+  }
+
+  &__inner {
+    width: 100%;
+    height: 463px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    border: 3px dashed #fff;
+    position: relative;
+  }
+
+  &__btn-wrapper {
+    width: 100%;
+    text-align: center;
+    @include center(vertical);
+  }
+
+}

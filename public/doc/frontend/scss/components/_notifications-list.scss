@@ -1,0 +1,162 @@
+/*
+# Notifications List
+-----------------------------------------*/
+.admin-bar__nav .sub-menu.notification__dropdown {
+  width: 582px;
+  left: auto;
+  right: 0;
+  // display: block !important; // hack
+}
+
+.sub-menu.notification__dropdown {
+
+  .new-notif-count {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1;
+    background-color: $pz-primary-color;
+    color: #fff;
+    padding: 3px 5px;
+    border-radius: 10px;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  li[class^="notif__status-"] {
+    a {
+      padding: 5px 33px 0 70px;
+      color: $pz-black-2;
+      font-size: 16px;
+      line-height: 26px;
+      position: relative;
+      &:hover {
+        background-color: $pz-primary-color;
+        color: #fff;
+      }
+
+      &:before {
+        content: '';
+        display: block;
+        width: 24px;
+        height: 24px;
+        @include center(vertical);
+        margin-left: -36px;
+        font-family: "fontello";
+        line-height: 19px;
+        background-size: 24px;
+        background-repeat: no-repeat;
+        // @include transition(background-color,0.3s,ease-in-out);
+      }
+
+    }
+
+    .notif__inner {
+      padding-bottom: 5px;
+      position: relative;
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        height: 1px;
+        background-color: $pz-border-color;
+        // border-bottom: 1px solid $pz-border-color;
+      }
+    }
+
+    a:hover .notif__inner:after {
+      opacity: 0;
+    }
+
+  }
+
+  .notif__campaign-date {
+    color: $pz-primary-color;
+  }
+
+  .notif__campaign-created {
+    font-weight: 300;
+
+    span {
+      display: none;
+      width: 10px;
+      height: 10px;
+      background-color: $pz-primary-color;
+      border-radius: 50%;
+      @include transition(background-color,0.3s,ease-in-out);
+    }
+
+  }
+
+  li[class^="notif__status-"].unread .notif__campaign-created span {
+    display: inline-block;
+  }
+
+  li[class^="notif__status-"] a:hover {
+    .notif__campaign-created span {
+      background-color: #fff;
+    }
+  }
+
+  li.notif__head {
+    border-bottom: 1px solid $pz-border-color;
+    padding: 12px 33px;
+    font-weight: 600;
+  }
+
+  li.notif__footer {
+    text-align: center;
+    border-top: 1px solid $pz-border-color;
+    padding: 12px 33px;
+    font-weight: 600;
+  }
+
+}
+
+// Notification icons
+
+// Pending
+.sub-menu.notification__dropdown li.notif__status-pending a{
+  &:before {
+    content: "";
+    color: $pz-secondary-color;
+    background-image: url('../img/icons-circle-group.png');
+    background-position: 0 -49px;
+  }
+  &:hover:before {
+    color: #fff;
+    background-position: 0 -73px;
+  }
+}
+
+// Paid
+.sub-menu.notification__dropdown li.notif__status-paid a{
+  &:before {
+    content: "";
+    color: $pz-primary-color;
+    background-image: url('../img/icons-circle-group.png');
+    background-position: 0 -24px;
+  }
+  &:hover:before {
+    color: #fff;
+    background-position: 0 0;
+  }
+}
+
+// New
+.sub-menu.notification__dropdown li.notif__status-new a{
+  &:before {
+    content: "";
+    color: $pz-green-1;
+    background-image: url('../img/icons-circle-group.png');
+    background-position: 0 -99px;
+  }
+  &:hover:before {
+    color: #fff;
+    background-position: 0 -125px;
+  }
+}

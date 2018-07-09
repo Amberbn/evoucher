@@ -1,0 +1,51 @@
+.popover-menu-btn {
+  &.active {
+    img {
+      -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+      filter: grayscale(100%);
+      opacity: 0.5;
+      transform: rotate(45deg);
+      @include transition(transform, 0.1s, ease-out);
+    }
+  }
+}
+
+.popover-menu-content {
+  width: 197px;
+  display: none;
+  border-radius: 9px;
+  background-color: #fff;
+  @include box-shadow(0px, 0px, 9px, rgba(0, 0, 0, 0.2), false);
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 40px;
+  margin-top: 11px;
+
+  &.show {
+    display: block;
+  }
+
+  ul {
+    margin-top: 9px;
+  }
+
+  li,
+  li a {
+    display: block;
+    width: 100%;
+    color: $pz-black-3;
+  }
+
+  li a {
+    padding: 15px 25px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $pz-primary-color;
+      color: #fff;
+    }
+
+  }
+
+}
