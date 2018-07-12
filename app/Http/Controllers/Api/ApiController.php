@@ -22,7 +22,9 @@ class ApiController extends BaseController
     public function index()
     {
         //for test db connection only
-        dd(DB::table('bsn_client')->get());
+        // dd(DB::table('bsn_client')->get());
         // echo phpinfo();
+        $res = DB::table('bsn_client')->get();
+        return response()->json($res);
     }
 }

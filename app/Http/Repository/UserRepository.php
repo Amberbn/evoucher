@@ -35,12 +35,12 @@ class UserRepository extends BaseRepository
                 'us.updated_at',
                 'us.last_updated_by_user_name')
             ->get();
-        
-            if (!$users) {
-                return $this->sendNotfound();
-            }
-    
-            return $this->sendSuccess($users);
+
+        if (!$users) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($users);
     }
 
     public function saveUser($request)
