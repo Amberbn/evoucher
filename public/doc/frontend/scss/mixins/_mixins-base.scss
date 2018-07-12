@@ -1,0 +1,234 @@
+// Clearfix
+%clearfix {
+  *zoom: 1;
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// Default font size
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+// Vertical greadient
+@mixin gradient-vertical($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Opera 12
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down
+}
+
+// Media query
+// Define the breakpoints
+$breakpoint-small: 600px;
+$breakpoint-med-small: 960px;
+$breakpoint-med: 1175px;
+$breakpoint-1024: 1024px;
+$breakpoint-767: 767px;
+
+@mixin screen($size, $type: max, $pixels: $breakpoint-small) {
+  @if $size == 'small' {
+    @media screen and ($type + -width: $breakpoint-small) {
+        @content;
+    }
+  }
+  @else if $size == 's767' {
+    @media screen and ($type + -width: $breakpoint-767) {
+        @content;
+    }
+  }  
+  @else if $size == 'med-small' {
+    @media screen and ($type + -width: $breakpoint-med-small) {
+        @content;
+    }
+  }
+  @else if $size == 's1024' {
+    @media screen and ($type + -width: $breakpoint-1024) {
+        @content;
+    }
+  }
+  @else if $size == 'med' {
+    @media screen and ($type + -width: $breakpoint-med) {
+        @content;
+    }
+  }
+ @else if $size == 'large' {
+    @media screen and ($type + -width: $breakpoint-med) {
+        @content;
+    }
+  }
+  @else if $size == 'custom' {
+    @media screen and ($type + -width: $pixels + px) {
+     @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}
+
+// Centering elements
+// Define vertical, horizontal, or both position
+@mixin center($position) {
+  position: absolute;
+
+  @if $position == 'vertical' {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  @else if $position == 'horizontal' {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translate(-50%);
+  }
+  @else if $position == 'both' {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+// External font
+@mixin font-face($font-name, $file-name, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: quote($font-name);
+    src: url($file-name + '.eot');
+    src: url($file-name + '.eot?#iefix')  format('embedded-opentype'),
+         url($file-name + '.woff') format('woff'),
+         url($file-name + '.ttf')  format('truetype'),
+         url($file-name + '.svg##{$font-name}')  format('svg');
+    font-weight: $weight;
+    font-style: $style;
+  }
+ }
+
+// Box shadow
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+
+// Text shadow
+@mixin text-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4)) {
+    text-shadow: $x $y $blur $color;
+}
+
+// Transition
+
+@mixin transition($what: all, $time: 0.2s, $how: ease-in-out) {
+    -webkit-transition: $what $time $how;
+    -moz-transition:    $what $time $how;
+    -ms-transition:     $what $time $how;
+    -o-transition:      $what $time $how;
+    transition:         $what $time $how;
+}
+
+
+// Flexbox
+// https://gist.github.com/richardtorres314/26b18e12958ba418bb37993fdcbfc1bd
+
+// Flexbox display
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+// Flex
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+     -moz-box-flex: $values;
+      -webkit-flex: $values;
+  	  -ms-flex: $values;
+  	      flex: $values;
+}
+
+// Axis Alignment
+// - applies to: flex containers
+// flex-start | flex-end | center | space-between | space-around
+@mixin justify-content($justify) {
+  -webkit-justify-content: $justify;
+     -moz-justify-content: $justify;
+      -ms-justify-content: $justify;
+          justify-content: $justify;
+            -ms-flex-pack: $justify;
+}
+
+// flex-start | flex-end | center | space-between | space-around | stretch
+@mixin align-content($align) {
+  -webkit-align-content: $align;
+     -moz-align-content: $align;
+      -ms-align-content: $align;
+          align-content: $align;
+}
+
+// Flex grow
+@mixin flex-grow($grow) {
+  -webkit-flex-grow: $grow;
+     -moz-flex-grow: $grow;
+      -ms-flex-grow: $grow;
+          flex-grow: $grow;
+}
+
+// Font Awesome
+@mixin fontawesome($icon) {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  content: $icon;
+}
+
+// Custom mixins for Prezent specific design purpose
+@mixin hideBreadCrumb() {
+  .top-breadcrump .breadcrumb-item {
+    .span {
+      display: none;
+    }
+    + .breadcrumb-item {
+      padding-left: 0;
+      &::before {
+        display: none;
+      }
+    }
+
+    img {
+      margin-left: 0;
+    }
+
+  }
+}

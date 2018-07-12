@@ -1,0 +1,19 @@
+/* 30 Juni 2018 - Ahus Jalaludin */
+/* Login Page */
+body.login .logo-main {
+  text-align: center;
+}
+body.login .logo-main .img-logo {
+  max-width: 300px;
+}
+
+a {
+  color: #004d9a;
+  text-decoration: none;
+}
+a:hover, a:active {
+  text-decoration: underline;
+  color: #004d9a;
+}
+
+/*# sourceMappingURL=custom.css.map */
