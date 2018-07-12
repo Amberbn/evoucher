@@ -217,6 +217,16 @@
 
     }
 
+    var uploadFile = function(){
+      $("#companyLogo").change(function(e){
+        if(e.target.files.length !== 0){
+          var txtFile = e.target.files[0].name;
+          $('#uploadText').val(txtFile);
+          $('#uploadBox').show();
+        }
+      });
+    }
+    uploadFile();
   }
 
 
@@ -457,6 +467,19 @@
 
   }
 
+  var selectVoucher = function() {
+    $('body').on('click', '.voucher-item-v2 .voucher-item-v2__title', function(e) {
+      var parentDiv = $(this).closest('.voucher-item-v2');
+      console.log(parentDiv);
+
+      if (parentDiv.hasClass('selected')) {
+        parentDiv.removeClass('selected');
+      } else {
+        parentDiv.addClass('selected');
+      }
+    });
+  }
+
   // Dom Ready
   $(function() {
     loginPage();
@@ -470,6 +493,7 @@
     submitNewPasswordButton();
     sortEntryTable();
     userMenuModal();
+    selectVoucher();
   });
 
 })(jQuery);

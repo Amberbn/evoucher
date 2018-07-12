@@ -112,9 +112,39 @@ h2.user-menu-cards__heading{
     margin-top:15%;
 }
 
+/* Voucher Tabs */
+.voucher-tab{
+    margin-bottom:10px;
+}
+
+.voucher-tab .nav-tabs a.nav-link{
+    color:#C4C4C4;
+    width:33.3%;
+    text-align: center;
+}
+
+.voucher-tab .nav-tabs a.nav-link.active{
+    border-bottom:3px #C4C4C4 solid !important;
+    border-top:none !important;
+    border-left:none !important;
+    border-right:none !important;
+    color:#C4C4C4;
+}
+
+.voucher-tab .nav-tabs a.nav-link:hover{
+    border-top:none !important;
+    border-left:none !important;
+    border-right:none !important;
+}
+
 /* Merchant & Outlet */
 .merchant-btn button.btn{
     margin-right:20px;
+}
+
+/* Client company information */
+.content-area__main.client-area-form{
+    margin-bottom:40px !important;
 }
 
 /* Inline radio button */
@@ -173,4 +203,55 @@ h2.user-menu-cards__heading{
 
 .table.campaign-list-table a.voucher-name{
     margin-bottom:0 !important;
+}
+
+#uploadBox{
+    display: none;
+}
+
+#uploadText{
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.25rem 0.75rem;
+    font-size: 16px;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    color: #333333 !important;
+    background-color: transparent;
+    background-image: none;
+    border-color: #434343;
+    width: 90%;
+}
+
+#uploadText a{
+    float:right;
+}
+
+#upload_button {
+    display: inline-block;
+    width:100%;
+}
+
+#upload_button label{
+    padding:4px 0;
+    width:100% !important;
+}
+
+#upload_button input[type=file] {
+    display:none;
+}
+
+#upload_button span{
+    font-weight:bold;
+}
+
+#upload_button p{
+    color:#004D9A;
 }
