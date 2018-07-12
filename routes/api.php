@@ -10,7 +10,7 @@
 |
  */
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
-    Route::get('/cekdb', ['uses' => 'ApiController@index']);
+    Route::get('/cekdb', ['uses' => 'ApiController@checkDB']);
     Route::post('/login', ['uses' => 'AuthController@login']);
     Route::get('campaign-csv', ['uses' => 'CampaignController@csv']);
 
