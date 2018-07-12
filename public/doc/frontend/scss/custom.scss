@@ -14,10 +14,344 @@ body.login .logo-main {
 a {
     color: #004d9a;
     text-decoration: none;
+    transition: .3s ease-in-out;
 
     &:hover,
     &:active {
         text-decoration: underline;
         color: #004d9a;
+    }
+}
+
+/* Voucher list Update */
+.vouchers .voucher-item {
+    position: relative;
+}
+.vouchers .voucher-item:after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    z-index: 1;
+    display: block;
+    width: calc(100% + 8px);
+    width: -moz-calc(100% + 8px);
+    width: -webkit-calc(100% + 8px);
+    height: calc(100% + 8px);
+    height: -moz-calc(100% + 8px);
+    height: -webkit-calc(100% + 8px);
+    border: 4px solid transparent;
+    border-radius: 4px;
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+.vouchers .voucher-item:hover:after {
+    opacity: 1;
+    border-color: #004D9A;
+}
+
+// Selected
+.vouchers .voucher-item.selected:after {
+    opacity: 1;
+}
+
+/* Voucher List v2 */
+.voucher-list-v2-wrapper {
+    @include flexbox();
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+/* Item */
+.voucher-item-v2 {
+    $p : &;
+
+    @include flex(0 0 20%);
+    max-width: 20%;
+    padding: 10px;
+
+    &__inner {
+        position: relative;
+        height: 100%;
+        @include flexbox();
+        flex-direction: column;
+        border-radius: 7px;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.22);
+        background-color: #fff;
+        transition: all .3s ease-in-out;
+
+        .voucher-item-v2.selected &,
+        &:hover {
+            box-shadow: 0px 0px 0px 3px #004D9A;
+        }
+
+        .voucher-item-v2.selected &:before {
+            content: "\f00c";
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -14px;
+            left: -14px;
+            z-index: 10;
+            width: 32px;
+            height: 32px;
+            border-radius: 32px;
+            line-height: 32px;
+            background-color: #004D9A;
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+        }
+    }
+
+    // Top
+    &__top {
+        position: relative;
+
+        &:hover {
+            .voucher-item-v2__desc {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    // Desc
+    &__desc {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255,255,255,.81);
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.22);
+        font-size: 13px;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        padding: 10px;
+        transition: all .3s ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+
+        a {
+            font-weight: 700;
+            color: #004D9A;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    // Thumbnail
+    &__thumbnail {
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        margin-bottom: 0;
+
+        img {
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    // Title
+    &__title {
+        font-size: 16px;
+        font-weight: 800;
+        line-height: normal;
+        color: #2B2B2B;
+        padding: 10px;
+        margin-bottom: 0;
+        min-height: 60px;
+        overflow: hidden;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        cursor: pointer;
+        transition: all .3s ease;
+
+        &:hover {
+            color: #004D9A;
+            text-decoration: underline;
+        }
+    }
+
+    // Middle
+    &__middle {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        @include flexbox();
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+
+        &-left,
+        &-right {
+            @include flex(0 0 50%);
+            max-width: 50%;
+            height: 100%;
+            @include flexbox();
+            justify-content: center;
+            align-items: center;
+        }
+
+        &-left {
+            border-right: 1px solid #ccc;
+        }
+    }
+
+    // Point
+    &__point {
+        font-size: 14px;
+        color: #828282;
+
+        span {
+            color: #004D9A;
+            font-weight: 800;
+        }
+    }
+
+    // Options
+    &__option {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        > li {
+            padding: 5px 10px;
+        }
+
+        li {
+            list-style: none;
+            transition: all .3s ease;
+            line-height: normal;
+            font-size: 13px;
+        }
+
+        > li.has-children {
+            display: block;
+            position: relative;
+            height: 40px;
+            color: #4F4F4F;
+            cursor: pointer;
+
+            &:after {
+                content: "\f107";
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
+                display: inline-block;
+                font-style: normal;
+                font-variant: normal;
+                text-rendering: auto;
+                line-height: 1;
+                font-family: 'Font Awesome 5 Free';
+                font-weight: 900;
+                position: absolute;
+                top: 15px;
+                right: 5px;
+            }
+
+            &:hover {
+                background-color: #004D9A;
+
+                span,
+                &:after {
+                    color: #fff;
+                }
+
+                .option-sub-menu {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+
+        .option-value {
+            font-size: 13px;
+            display: block;
+        }
+
+        .text-others {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .option-sub-menu {
+            opacity: 0;
+            visibility: hidden;
+            transition: all .3s ease-in-out;
+            width: 100%;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            background-color: #fff;
+            padding: 0;
+            padding-top: 10px;
+            margin: 0;
+            border-radius: 3px;
+            box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.2);
+            z-index: 11;
+
+            li {
+                padding: 0 10px;
+                font-size: 13px;
+                margin-bottom: 7px;
+            }
+        }
+    }
+
+    // Footer
+    &__footer {
+        @include flexbox();
+        justify-content: space-between;
+        align-items: center;
+
+        &-item {
+            @include flex(0 0 33.3333%);
+            max-width: 33.3333%;
+            text-align: center;
+            line-height: normal;
+            padding: 10px;
+            font-size: 12px;
+            color: #828282;
+
+            span {
+                color: #004D9A;
+                font-weight: 800;
+                display: block;
+            }
+        }
+    }
+
+    @media screen and (min-width:961px) and (max-width:1024px) {
+        @include flex(0 0 25%);
+        max-width: 25%;
+    }
+    @include screen(custom, max, 1199) {
+        @include flex(0 0 33.33333%);
+        max-width: 33.33333%;
+    }
+    @include screen(s767) {
+        @include flex(0 0 50%);
+        max-width: 50%;
+    }
+    @include screen(custom, max, 600) {
+        @include flex(0 0 100%);
+        max-width: 100%;
     }
 }

@@ -1492,7 +1492,8 @@ input[type=range]::-webkit-slider-runnable-track {
   position: relative;
 }
 .document-resize .sub-menu.notification__dropdown li[class^="notif__status-"] a {
-  padding: 5px 33px 0 56px;
+  /* padding: 5px 33px 0 56px; */
+  padding: 5px 33px 0 33px;
   font-size: 15px;
   line-height: 24px;
 }
@@ -1533,13 +1534,20 @@ input[type=range]::-webkit-slider-runnable-track {
   opacity: 0;
 }
 .sub-menu.notification__dropdown .notif__campaign-date {
-  color: #D7245B;
+  color: #2B2B2B;
 }
+
+.sub-menu.notification__dropdown a:hover span.notif__campaign-date {
+  color: #ffffff;
+}
+
 .sub-menu.notification__dropdown .notif__campaign-created {
   font-weight: 300;
+  font-size: 13px;
 }
 .sub-menu.notification__dropdown .notif__campaign-created span {
   display: none;
+  margin-left:20px;
   width: 10px;
   height: 10px;
   background-color: #C6CC07;
@@ -1575,6 +1583,13 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 .document-resize .sub-menu.notification__dropdown li.notif__footer a {
   font-size: 16px;
+}
+
+.sub-menu.notification__dropdown li.notif__status-item a:before {
+  content: "";
+}
+.sub-menu.notification__dropdown li.notif__status-item a:hover:before {
+  color: #fff;
 }
 
 .sub-menu.notification__dropdown li.notif__status-pending a:before {
@@ -1614,9 +1629,9 @@ input[type=range]::-webkit-slider-runnable-track {
   font-weight: bold;
 }
 
-.as-read span{
+.as-read span, .as-read p.notif__campaign-created{
   color: #919191;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 /*
