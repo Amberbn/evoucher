@@ -19,11 +19,9 @@ class ApiController extends BaseController
      * @param \Iluminate\Database\Eloquent\Model
      */
 
-    public function index()
+    public function checkDB()
     {
         //for test db connection only
-        // dd(DB::table('bsn_client')->get());
-        // echo phpinfo();
         $res = DB::table('bsn_client')->get();
         return response()->json($res);
     }
