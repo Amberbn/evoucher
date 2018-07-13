@@ -205,6 +205,26 @@ h2.user-menu-cards__heading{
     margin-bottom:0 !important;
 }
 
+/* Datatable */
+.campaign-list-table.dataTable thead th {
+   border-bottom: 0;
+}
+.campaign-list-table.dataTable tfoot th {
+    border-top: 0;
+}
+
+.campaign-list-table.dataTable td {
+    border-bottom: 9px #F5F6FA solid;
+}
+
+.campaign-list-table.dataTable.no-footer {
+    border-bottom: 0;
+}
+
+.dataTables_length, .dataTables_filter{
+    display: none;
+}
+
 #uploadBox{
     display: none;
 }
