@@ -217,6 +217,23 @@
 
     }
 
+    var uploadFile = function(){
+      $("#uploadInput").change(function(e){
+        if(e.target.files.length !== 0){
+          var txtFile = e.target.files[0].name;
+          $('#uploadText').val(txtFile);
+          $('#uploadBox').show();
+        }
+      });
+
+      $('.clearFile').click(function(event){
+        event.preventDefault();
+        $('#uploadInput').val(null);
+        $('#uploadText').val('');
+        $('#uploadBox').fadeOut();
+      });
+    }
+    uploadFile();
   }
 
 
@@ -450,11 +467,54 @@
       //total cards
       var cardN = $('.modal-user-menu__content').length;
       // var cW = (cardW*4)+120;
-      var cW = (cardW*cardN)+120;
+      
+      if(cardN == 2){
+        var cW = (cardW*cardN)+60;
+      }else{
+        var cW = (cardW*cardN)+120;
+      }
       $('.user-menu-cards').width(cW)
 
     }
 
+  }
+
+  var selectVoucher = function() {
+    $('body').on('click', '.voucher-item-v2 .voucher-item-v2__title', function(e) {
+      var parentDiv = $(this).closest('.voucher-item-v2');
+      console.log(parentDiv);
+
+      if (parentDiv.hasClass('selected')) {
+        parentDiv.removeClass('selected');
+      } else {
+        parentDiv.addClass('selected');
+      }
+    });
+  }
+
+  var slideButton = function(){
+    $(".two").hover(function(){
+      $('.one').css("color", "#C6CC07");
+    }, function(){
+        $('.one').css("color", "#fff");
+    });
+
+    $(".two-b").hover(function(){
+      $('.one-b').css("color", "#C6CC07");
+    }, function(){
+        $('.one-b').css("color", "#fff");
+    });
+  }
+
+  var toolTip = function(){
+      $('[data-toggle="tooltip"]').tooltip()
+  }
+
+  var RedeemPINModal = function(){
+    $('#requestPIN').click(function(event){
+      event.preventDefault();
+      $('#requestPINModal').modal('show');
+    });
   }
 
   // Dom Ready
@@ -470,6 +530,10 @@
     submitNewPasswordButton();
     sortEntryTable();
     userMenuModal();
+    selectVoucher();
+    slideButton();
+    toolTip();
+    RedeemPINModal();
   });
 
 })(jQuery);
