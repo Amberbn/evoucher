@@ -40,6 +40,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
 
         //ROUTE FOR USER
         Route::get('/user', ['uses' => 'UserController@getUsers']);
+        Route::get('/user-datatable', ['uses' => 'UserController@getUsersDatatable'])->name('users.datatable');
         Route::post('/user/store', ['uses' => 'UserController@store']);
         Route::get('/user/{id}', ['uses' => 'UserController@getUser']);
         Route::put('/user/update/{id}', ['uses' => 'UserController@update']);

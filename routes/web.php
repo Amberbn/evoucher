@@ -20,5 +20,6 @@ Route::middleware(['login-session'])->group(function () {
     Route::get('/logout', 'web\AuthController@logout')->name('auth.logout');
     Route::resource('/user', 'web\UserController');
     Route::get('/client', 'web\ClientController@index')->name('client');
+    Route::get('/users', 'web\UserController@indexDatatable')->name('user.list.datatable');
 });
 Route::get("/email", 'web\ClientController@sendEmail')->name('send.mail');

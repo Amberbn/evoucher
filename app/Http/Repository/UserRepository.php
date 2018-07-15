@@ -43,6 +43,50 @@ class UserRepository extends BaseRepository
         return $this->sendSuccess($users);
     }
 
+    public function userIndexDatatable()
+    {
+        $table = (new User)->getTable();
+        $users = (new User)
+            ->join('bsn_client as client', function ($join) use ($table) {
+                $join
+                    ->on('client.client_id', '=', $table . '.client_id');
+            })
+            ->join('frm_global_parameters as company', function ($join) use ($table) {
+                $join
+                    ->on('company.parameters_id', '=', 'client.client_category_pid')
+                    ->where('company.parameters_type', '=', 'client_category');
+            })
+            ->leftJoin('frm_user_roles as user_roles', function ($join) use ($table) {
+                $join
+                    ->on('user_roles.user_id', '=', $table . '.user_id');
+            })
+            ->leftJoin('frm_roles as roles', function ($join) use ($table) {
+                $join
+                    ->on('roles.roles_id', '=', 'user_roles.roles_id');
+            });
+        // ->leftJoin('frm_login_logs as login_logs', function ($join) use ($table) {
+        //     $join
+        //         ->on('login_logs.user_id', '=', $table . '.user_id')
+        //         ->orderBy('login_logs.login_logs_timestamp')
+        //         ->take(1);
+        // })->groupBy('login_logs.user_id');
+        if (!$this->isGroupSprint()) {
+            $users->where($table . '.client_category_pid', '=', $this->me()['client_category_pid']);
+        }
+
+        $users->where($table . '.isactive', '=', true);
+        $users->where($table . '.isdelete', '=', false);
+
+        $users->select(
+            $table . '.user_id',
+            $table . '.user_profile_name',
+            $table . '.user_phone',
+            'company.parameters_value as company',
+            'roles.roles_description as user_roles'
+        );
+        return $users->get();
+    }
+
     public function saveUser($request)
     {
         DB::beginTransaction();

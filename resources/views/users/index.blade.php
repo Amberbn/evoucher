@@ -11,54 +11,54 @@
                                 <div class="voucher-filter-form">
                                     <form action="" method="GET">
                                         <div class="form-section row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div class="form-input">
-                                                        <label for="filter-by-tags">Tags</label>
-                                                        <select name="by-tags" class="custom-select select2-input-tags" id="filter-by-tags" multiple="multiple">
-                                                            <option value="food-beverages">Food & Beverages</option>
-                                                            <option value="retails">Retails</option>
-                                                            <option value="entertainment">Entertainment</option>
-                                                            <option value="beauty">Beauty</option>
-                                                            <option value="hotels">Hotels</option>
-                                                            <option value="holiday-packages">Holiday Packages</option>
-                                                            <option value="relaxations">Relaxations</option>
-                                                            <option value="others">Others</option>
-                                                        </select>
-                                                    </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-input">
+                                                    <label for="filter-by-tags">Tags</label>
+                                                    <select name="by-tags" class="custom-select select2-input-tags" id="filter-by-tags" multiple="multiple">
+                                                        <option value="food-beverages">Food & Beverages</option>
+                                                        <option value="retails">Retails</option>
+                                                        <option value="entertainment">Entertainment</option>
+                                                        <option value="beauty">Beauty</option>
+                                                        <option value="hotels">Hotels</option>
+                                                        <option value="holiday-packages">Holiday Packages</option>
+                                                        <option value="relaxations">Relaxations</option>
+                                                        <option value="others">Others</option>
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <!-- /.col-md-6 -->
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="filter-by-keyword">Search</label>
-                                                    <div class="input-group">
-                                                        <input id="filter-by-keyword" name="s" type="text" class="form-control" placeholder="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /.col-md-6 -->
                                         </div>
-                                        <!-- /.form-section.row -->
+                                        <!-- /.col-md-6 -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="filter-by-keyword">Search</label>
+                                                <div class="input-group">
+                                                    <input id="filter-by-keyword" name="s" type="text" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.col-md-6 -->
+                                        </div>
+                                    <!-- /.form-section.row -->
                                     </form>
                                 </div>
-                                <!-- /.voucher-filter-form -->
+                    <!-- /.voucher-filter-form -->
                             </div>
                             <div class="col-md-4">
                                 <div class="voucher-list-menu row">
                                     <div class="col-md-5 offset-md-6">
-                                        <button class="btn btn-primary btn-add-client" type="button">Add User</button>
+                                        <button class="btn btn-primary btn-add-client"  data-toggle="modal" data-target="#userMenuModal">Add User</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table campaign-list-table datatable" data-sort="table">
+                            <table id="userMGTTable" class="table campaign-list-table" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="first-col">
+                                        <th>
                                             <a class="popover-menu-btn" href="#">
-                                                <img src="{{ asset('assets/img/icon-plus-blue.png') }}" alt="+" />
+                                            <img src="{{ asset('assets/img/icon-plus-blue.png') }}" alt="+" />
                                             </a>
                                             <div class="popover-menu-content">
                                                 <ul class="list-unstyled">
@@ -68,15 +68,15 @@
                                                 </ul>
                                             </div>
                                         </th>
-                                        <th>Full Name <i class="fa fa-caret-down"></i></th>
-                                        <th>Phone Number <i class="fa fa-caret-down"></i></th>
-                                        <th>Company <i class="fa fa-caret-down"></i></th>
-                                        <th>User Type <i class="fa fa-caret-down"></i></th>
-                                        <th>User Role <i class="fa fa-caret-down"></i></th>
-                                        <th>Last Login <i class="fa fa-caret-down"></i></th>
+                                        <th>Full Name</th>
+                                        <th>Phone Number</th>
+                                        <th>Company</th>
+                                        <th>User Type</th>
+                                        <th>User Role</th>
+                                        {{-- <th>Last Login</th> --}}
                                     </tr>
                                 </thead>
-                                <tbody>
+                                {{-- <tbody>
                                     <tr>
                                         <td class="first">
                                             <div class="form-check">
@@ -90,42 +90,11 @@
                                         <td>Manager</td>
                                         <td class="last">Yesterday - 13.35</td>
                                     </tr>
-                                    <tr class="spacer">
-                                        <td></td>
-                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
                                     <tr>
                                         <td class="first">
-                                            <div class="form-check">
-                                                <input type="checkbox" value="campaign-1" class="form-check-input" nice-checkbox-radio />
-                                            </div>
-                                        </td>
-                                        <td>sefriandsz anang</td>
-                                        <td>08562605588</td>
-                                        <td>PT Cloud corporation</td>
-                                        <td>cloud User</td>
-                                        <td>developer</td>
-                                        <td class="last">Yesterday - 13.35</td>
-                                    </tr>
-                                    <tr class="spacer">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    {{-- <tr>
-                                        <td class="first">
-                                            <div class="form-check">
-                                                <input type="checkbox" value="campaign-2" class="form-check-input" nice-checkbox-radio />
-                                            </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" value="campaign-2" class="form-check-input" nice-checkbox-radio />
+                                        </div>
                                         </td>
                                         <td>James Kurnia Wijaya</td>
                                         <td>0818 7890 5421</td>
@@ -134,45 +103,37 @@
                                         <td>Campaign Builder</td>
                                         <td class="last">20 Feb 2018</td>
                                     </tr>
-                                    <tr class="spacer">
-                                        <td></td>
-                                    </tr>
                                     <tr>
                                         <td class="first">
-                                            <div class="form-check">
-                                                <input type="checkbox" value="campaign-3" class="form-check-input" nice-checkbox-radio />
-                                            </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" value="campaign-3" class="form-check-input" nice-checkbox-radio />
+                                        </div>
                                         </td>
                                         <td>Rio Nainggolan</td>
                                         <td>0812 9942 1025</td>
                                         <td>PT Sprint Asia Technology</td>
                                         <td>Prezent User</td>
                                         <td>Manager</td>
-                                        <td class="last">Today - 16.45</td>
-                                    </tr> --}}
-                                </tbody>
+                                        <td class="last">Today - 16.25</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="first">
+                                        <div class="form-check">
+                                            <input type="checkbox" value="campaign-3" class="form-check-input" nice-checkbox-radio />
+                                        </div>
+                                        </td>
+                                        <td>Dede Hermana</td>
+                                        <td>0812 0540 6465</td>
+                                        <td>PT Sprint Asia Technology</td>
+                                        <td>Prezent User</td>
+                                        <td>Manager</td>
+                                        <td class="last">Today - 18.45</td>
+                                    </tr>
+                                </tbody> --}}
                             </table>
                         </div>
                     </form>
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination float-right">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                    
                 </div>
                 <!-- /.campaign-history -->
             </div>
@@ -182,3 +143,46 @@
     <!-- /.main-content__body -->
 </div>
 @endsection
+@push('footer_scripts')
+<script>
+    $(document).ready( function () {
+        var table = $('.campaign-list-table').DataTable(
+            {
+            "ajax": "{{ route('user.list.datatable') }}",
+            "processing": true,
+            "serverSide": true,
+            "autoWidth": false,
+            "lengthChange" : false,
+            "pageLength": 10,
+            "columns": [
+                { "data": "action",className : 'p-20',searchable: false },
+                { "data": "user_profile_name",name:'user_profile_name', className : 'p-20', searchable: true },
+                { "data": "user_phone",name:'user_phone', className : 'p-20', searchable: true},
+                { "data": "company", name:'company', className : 'p-20', searchable: true},
+                { "data": "company", name:'company', className : 'p-20', searchable: true},
+                { "data": "user_roles", name:'user_roles', className : 'p-20', searchable: true, regex:true}
+            ],
+            "columnDefs": [ {"targets": 0, "orderable": false} ],
+            "pagingType": "full_numbers",
+            "language": {
+                "paginate": {
+                "first": '&laquo',
+                "last": '&raquo',
+                "next": '&rsaquo;',
+                "previous": '&lsaquo;'
+                }
+            }
+            }
+        );
+
+        // #myInput is a <input type="text"> element
+        $('#filter-by-keyword').on( 'keyup', function () {
+            table.search( this.value ).draw();
+            //var table = $('.campaign-list-table').DataTable();
+            //var selectedValue = $(this).val();
+            //console.log(selectedValue);
+            //table.search(selectedValue).draw();
+        } );
+    } );
+</script>
+@endpush

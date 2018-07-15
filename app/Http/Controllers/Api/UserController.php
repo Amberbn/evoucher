@@ -28,6 +28,15 @@ class UserController extends ApiController
     }
 
     /**
+     *FUNCTION FOR GET ALL DATA USER
+     */
+    public function getUsersDatatable()
+    {
+        $users = $this->repository->userIndexDatatable();
+        return $users;
+    }
+
+    /**
      *FUNCTION FOR INSERT USER
      */
     public function store(Request $request)

@@ -11,7 +11,7 @@ class WebController extends BaseController
 
     public function apiUrl()
     {
-        return getEnv('API_URL');
+        return 'http://evoucher.test:8090/api/v1/';
     }
 
     public function guzzleRequest($param, $body = null)
@@ -21,9 +21,17 @@ class WebController extends BaseController
 
     public function guzzleGet($param)
     {
+        $request = null;
         try {
             $client = new \GuzzleHttp\Client();
-            $request = $client->request('GET', $this->apiUrl() . $param);
+            $token = $this->getSessionToken();
+            $headers = [
+                'Authorization' => 'Bearer ' . $token,
+                'Accept' => 'application/json',
+            ];
+            $request = $client->request('GET', $this->apiUrl() . $param, [
+                'headers' => $headers,
+            ]);
             $response = $request->getBody()->getContents();
             $response = json_decode($response, $this->isAssoc);
             return $response;
@@ -49,9 +57,12 @@ class WebController extends BaseController
     public function getErrorResponse($e)
     {
         $response = $e->getResponse();
-        $jsonBody = (string) $response->getBody();
-        $decode = json_decode($jsonBody, $this->isAssoc);
-        return $decode;
+        if ($response) {
+            $jsonBody = (string) $response->getBody();
+            $decode = json_decode($jsonBody, $this->isAssoc);
+            return $decode;
+        }
+        dd($e);
     }
 
     public function isNullOrEmptyString($str)
