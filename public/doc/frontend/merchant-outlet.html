@@ -167,6 +167,18 @@
             </div>
             <!-- /#side-menu -->
             <div id="main-content">
+                <div class="container-fluid">
+                    <div class="row justify-content-md-center">
+                        <div class="campaign-form-progress-outer col-md-8">
+                            <ol class="campaign-form-progress list2">
+                                <li class="done"><span>Merchant Information</span></li>
+                                <li class="active"><span>Outlet Detail</span></li>
+                            </ol>
+                            <!-- /.campaign-form-progress --> 
+                        </div>
+                        <!-- /.campaign-form-progress-outer -->
+                    </div>
+                </div>
                 <div class="main-content__body container-fluid">
                     <div class="row justify-content-md-center">
                         <div class="content-area col-md-9">
@@ -177,16 +189,33 @@
                                         <p>Lorem ipsum dolor sit amet, at has augue moderatius appellantur, per ut summo quando latine. Ea cum solet detraxit splendide, enim wisi qui ex, quidam dignissim ne nam.</p>
                                     </div>
                                     <div class="form-section bottom-30">
-                                        <div class="form-group">
-                                            <div class="form-input">
-                                                <label for="outlet-name">Outlet Name</label>
-                                                <input name="outlet-name" type="text" class="form-control" id="outlet-name" placeholder="">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <div class="form-input">
+                                                        <label for="outlet-name">Outlet Name</label>
+                                                        <input name="outlet-name" type="text" class="form-control" id="outlet-name" placeholder="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <div class="form-input row">
+                                                        <label for="outlet-code">Redeem PIN</label>
+                                                        <div class="col-10" id="requestInput">
+                                                            <input name="outlet-code" type="number" class="form-control" id="outlet-code" placeholder="98449848" disabled>
+                                                        </div>
+                                                        <div class="col-2" id="requestBtn">
+                                                            <a href="#" id="requestPIN" data-toggle="tooltip" data-placement="bottom" title="Change PIN"><img src="img/img-refresh.svg" alt=""></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-input">
-                                                <label for="outlet-code">Outlet Code</label>
-                                                <input name="outlet-code" type="text" class="form-control" id="outlet-code" placeholder="">
+                                                <label for="outlet-description">Outlet Description</label>
+                                                <textarea class="form-control" name="outlet-description" id="" cols="30" rows="3"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -234,7 +263,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="phone-number">Phone Number</label>
-                                                    <input name="phone-number" type="text" class="form-control" id="phone-number" placeholder="">
+                                                    <input name="phone-number" type="number" class="form-control" id="phone-number" placeholder="">
                                                 </div>
                                             </div>
                                         </div>
@@ -245,51 +274,19 @@
                                                     <input name="email" type="email" class="form-control" id="email" placeholder="">
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-section">
-                                        <h2 class="heading-desc-0">Location</h2>
-                                    </div>
-                                    <div class="form-section">
-                                        <div class="form-group">
-                                            <label for="coordinate">Outlet Coordinate Location</label>
-                                            <input name="coordinate" type="text" class="form-control" id="coordinate" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="form-section">
-                                        <h2 class="heading-desc-0">Upload Pic Outlet</h2>
-                                    </div>
-                                    <div class="form-section row">
-                                        <div class="col-md-7">
-                                            <ul id="merchantLogo" class="form-group">
-                                                <li class="row">
-                                                    <div class="col-md-8">
-                                                        <button class="btn btn-primary btn-sm"><i class="fa fa-file"></i></button>
-                                                        <label>img_123.png</label>
-                                                    </div>
-                                                    <div class="col-md-4 companyLogo-a">
-                                                        <a href="#">Edit</a>
-                                                        <a href="#">Remove</a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <button type="button" class="btn btn-wide-block btn-primary btn-add-campaign border-0">+ Add files</button>
-                                        </div>
-                                    </div>
-                                    <div class="form-section row">
-                                        <div class="col-md-12">
-                                            <div id="dragDrop" class="form-group" align="center">
-                                                <img src="img/img-upload.svg" alt="">
-                                                You can also drop your files here
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                        <label for="coordinate">Outlet Coordinate Location</label>
+                                                        <input name="coordinate" type="text" class="form-control" id="coordinate" placeholder="">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <!-- /.form-section.row -->
                                     <div class="form-section clearfix btn-submit" align="center">
-                                        <button type="button" class="btn font13 btn-green btn-add-client border-0" >Save To Merchant Details</button>
-                                        <button type="button" class="btn font13 btn-green btn-add-client border-0" >Save &amp; Add New Outlet</button>
+                                        <button type="submit" class="btn font13 btn-green btn-add-client border-0" >Save</button>
+                                        <button type="button" class="btn font13 btn-green btn-add-client border-0" >Add New Outlet</button>
                                     </div>
                                 </div>
                                 <!-- /.content-area__main -->
@@ -384,8 +381,29 @@
                 </div>
             </div>
         </div>
+
+        <div id="requestPINModal" class="modal fade post-reset-password-form-submission-modal" aria-labelledby="requestPINLabel" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                <div class="modal-body">
+                    <img src="img/img-warning.svg" alt="Change the redeem PIN" />
+                    <h2>Heads Up</h2>
+                    <div>Are you sure you want to change the redeem PIN?</div>
+                </div>
+                <div class="modal-footer">
+                    <div class="slide-group-b">
+                        <a href="#" class="one-b" data-dismiss="modal">Cancel</a>
+                        <a href="#" class="two-b"><span class="slideBtn-b">Change PIN</span><div class="bg-b"></div></a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- jQuery Version 3.3.1 -->
         <script src="js/jquery-3.3.1.min.js"></script>
+        <!-- Popper JavaScript -->
+        <script src="vendor/popper/popper.min.js"></script>
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

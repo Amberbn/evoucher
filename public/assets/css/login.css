@@ -1,0 +1,77 @@
+.welcome-img{
+    padding:20px;
+}
+
+.welcome-txt{
+    padding:10rem 6rem 20px 20px;
+}
+
+.welcome-txt h2{
+    font-size: 35px;
+    font-weight: 900;
+    margin-bottom:20px;
+}
+
+.welcome-txt button{
+    margin-top:30px;
+}
+
+.terms-condition-outer h4, .terms-condition-outer h5:first-child{
+    color:#D7245B;
+}
+
+.terms-condition-outer h4{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.terms-condition-outer h5:first-child{
+    margin-top: 0;
+}
+
+.terms-condition-outer h5{
+    font-size: 18px;
+    font-weight: bold;
+    color:#2B2B2B;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.terms-condition-outer p{
+    font-size: 14px;
+}
+
+.terms-condition-inner{
+    padding:0 20px;
+    margin-top:30px;
+    height:400px;
+    overflow-y: auto;
+}
+
+/* width */
+.terms-condition-inner::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+.terms-condition-inner::-webkit-scrollbar-track {
+    
+    border-radius: 3px;
+    background:#F3F3F3;
+}
+ 
+/* Handle */
+.terms-condition-inner::-webkit-scrollbar-thumb {
+    background: #D7245B; 
+    border-radius: 3px;
+}
+
+/* Handle on hover */
+.terms-condition-inner::-webkit-scrollbar-thumb:hover {
+    background: #F3F3F3; 
+}
+
+.terms-condition-inner.terms-condition-inner button{
+    margin-top:40px;
+}

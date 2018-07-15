@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\ApiController;
 use App\Repository\UserRepository;
 use App\User;
-use DB;
 use Illuminate\Http\Request;
 
 class UserController extends ApiController
@@ -25,6 +24,16 @@ class UserController extends ApiController
     public function getUsers()
     {
         $users = $this->repository->getAllUser();
+        return $users;
+    }
+
+    /**
+     *FUNCTION FOR GET ALL DATA USER
+     */
+    public function getUsersDatatable()
+    {
+        $users = $this->repository->userIndexDatatable();
+        return $users;
     }
 
     /**
@@ -33,6 +42,7 @@ class UserController extends ApiController
     public function store(Request $request)
     {
         $user = $this->repository->saveUser($request);
+        return $user;
     }
 
     /**
@@ -50,6 +60,7 @@ class UserController extends ApiController
      */
     public function update(Request $request, $userId)
     {
-        $user = $this->repository->updateUser($request,$userId);
+        $user = $this->repository->updateUser($request, $userId);
+        return $user;
     }
 }

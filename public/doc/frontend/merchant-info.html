@@ -167,6 +167,18 @@
          </div>
          <!-- /#side-menu -->
          <div id="main-content">
+            <div class="container-fluid">
+                <div class="row justify-content-md-center">
+                    <div class="campaign-form-progress-outer col-md-8">
+                        <ol class="campaign-form-progress list2">
+                            <li class="active"><span>Merchant Information</span></li>
+                            <li><span>Outlet Details</span></li>
+                        </ol>
+                        <!-- /.campaign-form-progress --> 
+                    </div>
+                    <!-- /.campaign-form-progress-outer -->
+                </div>
+            </div>
             <div class="main-content__body container-fluid">
                <div class="row justify-content-md-center">
                   <div class="content-area col-md-9">
@@ -178,10 +190,30 @@
                            </div>
                            <div class="form-section bottom-30">
                               <div class="form-group">
-                                 <div class="form-input">
+                                <div class="form-input">
                                     <label for="brand-name">Brand Name</label>
                                     <input name="brand-name" type="text" class="form-control" id="brand-name" placeholder="">
-                                 </div>
+                                </div>
+                            </div>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <div class="form-input">
+                                      <label for="choose-client">Client</label>
+                                      <select name="choose-client" class="custom-select dropdown-select2" id="choose-client">
+                                        <option selected>Choose...</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group has-only-a-link">
+                                    <a href="#" class="align-middle">Client is not registered yet? Click here to add new client</a>
+                                  </div>
+                                </div>
                               </div>
                               <div class="form-group">
                                  <div class="form-input">
@@ -203,13 +235,14 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label for="tags">Tags</label>
-                                       <select name="tags" class="custom-select dropdown-select2" id="tags">
-                                          <option selected>Choose...</option>
-                                          <option value="1">One</option>
-                                          <option value="2">Two</option>
-                                          <option value="3">Three</option>
-                                       </select>
+                                        <div class="form-input">
+                                            <label for="campaign-tags">Tags</label>
+                                            <select name="campaign-tags" class="custom-select select2-input-tags" id="campaign-tags" multiple="multiple">
+                                            <option value="1">Tag One</option>
+                                            <option value="2">Tag Two</option>
+                                            <option value="3">Tag Three</option>
+                                            </select>
+                                        </div>
                                     </div>
                                  </div>
                               </div>
@@ -265,46 +298,28 @@
                            <div class="form-section">
                               <h2 class="heading-desc-0">Upload Logo Merchant</h2>
                            </div>
-                           <div class="form-section row">
-                              <div class="col-md-7">
-                                 <ul id="merchantLogo" class="form-group">
-                                    <li class="row">
-                                       <div class="col-md-8">
-                                          <button for="uploadLogo" class="btn btn-primary btn-sm"><i class="fa fa-file"></i></button>
-                                          <label>img_123.png</label>
-                                       </div>
-                                       <div class="col-md-4 companyLogo-a">
-                                          <a href="#">Edit</a>
-                                          <a href="#">Remove</a>
-                                       </div>
-                                    </li>
-                                    <li class="row">
-                                       <div class="col-md-8">
-                                          <button for="uploadLogo" class="btn btn-primary btn-sm"><i class="fa fa-file"></i></button>
-                                          <label>img_124.png</label>
-                                       </div>
-                                       <div class="col-md-4 companyLogo-a">
-                                          <a href="#">Edit</a>
-                                          <a href="#">Remove</a>
-                                       </div>
-                                    </li>
-                                 </ul>
-                              </div>
-                              <div class="col-md-5">
-                                 <button type="button" class="btn btn-wide-block btn-primary btn-add-campaign border-0">+ Add files</button>
-                              </div>
-                           </div>
-                           <div class="form-section row">
-                              <div class="col-md-12">
-                                 <div id="dragDrop" class="form-group" align="center">
-                                    <img src="img/img-upload.svg" alt="">
-                                    You can also drop your files here
-                                 </div>
-                              </div>
-                           </div>
+                           <div class="row">
+                                <div class="col-6">
+                                  <div id="upload_button">
+                                      <label>
+                                        <input id="uploadInput" type="file" name="logo-file" accept="image/*">
+                                        <span class="btn btn-outline-primary btn-block">Upload Logo Merchant</span>
+                                      </label>
+                                      <p>Min. image 50 x 50 px</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                  <div id="uploadBox">
+                                      <input type="text" name="logo-name" id="uploadText" readonly>
+                                      <a href="#" class="clearFile"><img src="img/icon-times.svg" alt=""></a>
+                                  </div>
+                                </div>
+                            </div>
+                              
+                              <!-- /.form-section.row -->
                            <!-- /.form-section.row -->
                            <div class="form-section clearfix">
-                              <button type="button" class="btn btn-wide-block btn-green btn-add-campaign border-0" data-toggle="modal" data-target="#notifUserModal">Create Merchant</button>
+                                <button type="submit" class="btn btn-wide-block btn-primary btn-add-client border-0" data-toggle="modal" data-target="#notifUserModal">Create Merchant</button>
                            </div>
                         </div>
                         <!-- /.content-area__main -->

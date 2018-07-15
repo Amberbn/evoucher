@@ -185,7 +185,7 @@
           <div class="row justify-content-md-center">
             <div class="content-area col-md-9">
               <form id="company-form" action="" method="POST">
-                <div class="content-area__main">
+                <div class="content-area__main client-area-form">
                   <div class="form-section">
                     <h2 class="heading-desc-0">Company Information</h2>
                   </div>
@@ -203,10 +203,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="form-input">
-                          <label for="user-in-charge">User In Charge</label>
-                          <input name="user-in-charge" type="text" class="form-control" id="user-in-charge" placeholder="">
-                        </div>
+                      <div class="form-input">
+                        <label for="user-in-charge">User In Charge</label>
+                        <select name="user-in-charge" class="custom-select dropdown-select2" id="user-in-charge">
+                          <option selected>Choose...</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <div class="form-section">
@@ -232,14 +237,21 @@
                             <div class="form-input form-check">
                               <input class="form-check-input" type="radio" name="company-size" id="company-size-1" value="company-size-1" checked nice-checkbox-radio>
                               <label class="form-check-label" for="company-size-1">
-                                <h5>&#62; 10.000 Employees</h5>
+                                <h5>&#60; 1.000 Employees</h5>
                                 <p>Lorem ipsum dolor sit amet, at has augue moderatius appellantur</p>
                               </label>
                             </div>
                             <div class="form-input form-check">
                               <input class="form-check-input" type="radio" name="company-size" id="company-size-2" value="company-size-2" nice-checkbox-radio>
                               <label class="form-check-label" for="company-size-2">
-                                <h5>&#60; 10.000 Employees</h5>
+                                <h5>&#62; 1.000 Employees</h5>
+                                <p>Lorem ipsum dolor sit amet, at has augue moderatius appellantur</p>
+                              </label>
+                            </div>
+                            <div class="form-input form-check">
+                              <input class="form-check-input" type="radio" name="company-size" id="company-size-3" value="company-size-3" nice-checkbox-radio>
+                              <label class="form-check-label" for="company-size-3">
+                                <h5>&#62; 10.000 Employees</h5>
                                 <p>Lorem ipsum dolor sit amet, at has augue moderatius appellantur</p>
                               </label>
                             </div>
@@ -248,52 +260,31 @@
                     </div>
                     <!-- /.col-md-6 -->
                   </div>
-                  <div class="form-section">
-                    <h2 class="heading-desc-0">Upload Logo Company</h2>
-                  </div>
-                  <div class="form-section row">
-                    <div class="col-md-7">
-                      <ul id="companyLogo" class="form-group">
-                          <li class="row">
-                            <div class="col-md-8">
-                                <button for="uploadLogo" class="btn btn-primary btn-sm"><i class="fa fa-file"></i></button>
-                                <label>img_123.png</label>
-                            </div>
-                            <div class="col-md-4 companyLogo-a">
-                                <a href="#">Edit</a>
-                                <a href="#">Remove</a>
-                            </div>
-                          </li>
-                          <li class="row">
-                            <div class="col-md-8">
-                                <button for="uploadLogo" class="btn btn-primary btn-sm"><i class="fa fa-file"></i></button>
-                                <label>img_124.png</label>
-                            </div>
-                            <div class="col-md-4 companyLogo-a">
-                                <a href="#">Edit</a>
-                                <a href="#">Remove</a>
-                            </div>
-                        </li>
-                      </ul>
+                  <div class="row">
+                    <div class="col-6">
+                      <div id="upload_button">
+                          <label>
+                            <input id="uploadInput" type="file" name="logo-file" accept="image/*">
+                            <span class="btn btn-outline-primary btn-block">Upload Company Logo</span>
+                          </label>
+                          <p>Min. image 50 x 50 px</p>
+                        </div>
                     </div>
-                    <div class="col-md-5">
-                        <button type="button" class="btn btn-wide-block btn-primary btn-add-campaign border-0">+ Add files</button>
-                    </div>
-                  </div>
-                  <div class="form-section row">
-                    <div class="col-md-12">
-                      <div id="dragDrop" class="form-group" align="center">
-                          <img src="img/img-upload.svg" alt="">
-                        You can also drop your files here
+                    <div class="col-6">
+                      <div id="uploadBox">
+                          <input type="text" name="logo-name" id="uploadText" readonly>
+                          <a href="#" class="clearFile"><img src="img/icon-times.svg" alt=""></a>
                       </div>
                     </div>
                   </div>
+                  
                   <!-- /.form-section.row -->
-                  <div class="form-section clearfix">
-                    <button type="submit" class="btn btn-wide-block btn-green btn-add-campaign border-0">Save &amp; Next</button>
-                  </div>
+                  
                 </div>
                 <!-- /.content-area__main -->
+                <div class="form-section clearfix">
+                  <button type="submit" class="btn btn-wide-block btn-primary btn-add-client border-0">Save &amp; Next</button>
+                </div>
               </form>
               <!-- /#campign-form -->
             </div>
