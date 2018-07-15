@@ -16,14 +16,8 @@
                                                 <div class="form-input">
                                                     <label for="filter-by-tags">Tags</label>
                                                     <select name="by-tags" class="custom-select select2-input-tags" id="filter-by-tags" multiple="multiple">
-                                                        <option value="food-beverages">Food & Beverages</option>
-                                                        <option value="retails">Retails</option>
-                                                        <option value="entertainment">Entertainment</option>
-                                                        <option value="beauty">Beauty</option>
-                                                        <option value="hotels">Hotels</option>
-                                                        <option value="holiday-packages">Holiday Packages</option>
-                                                        <option value="relaxations">Relaxations</option>
-                                                        <option value="others">Others</option>
+                                                        {{-- <option value="sprint">Sprint</option>
+                                                        <option value="company">Company</option> --}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -171,9 +165,32 @@
                 "next": '&rsaquo;',
                 "previous": '&lsaquo;'
                 }
+            },
+            initComplete: function () {
+                this.api().columns([3]).every( function () {
+                    var column = this;
+                    console.log(column);
+                    var select = $("#filter-by-tags"); 
+                    column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                } );
             }
             }
         );
+
+        $('#filter-by-tags').on('change', function(){
+            var search = [];
+
+            $.each($('#filter-by-tags option:selected'), function(){
+                    search.push($(this).val());
+                    console.log($(this).val());
+            });
+
+            search = search.join('|');
+            table.column(3).search(search, true, false).draw();  
+        });
+
 
         // #myInput is a <input type="text"> element
         $('#filter-by-keyword').on( 'keyup', function () {
@@ -183,6 +200,9 @@
             //console.log(selectedValue);
             //table.search(selectedValue).draw();
         } );
+        $('.filter-by-tags').change(function(){
+            table.fnFilter($('select option:selected').text(),colNum); 
+        });
     } );
 </script>
 @endpush
