@@ -18,8 +18,10 @@
     <link href="{{ asset('assets/css/fontawesome-all.min.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/admin.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/select2/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/checkradios/jquery.checkradios.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/datatable/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
