@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ProcessEmail;
+use App\User;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -81,5 +83,22 @@ class ClientController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function sendEmail()
+    {
+        $users = User::all();
+        foreach ($users as $user) {
+            $data = [
+                'email' => $user->user_name,
+                'send_to' => "testprep",
+                'fullname' => $user->user_profile_name,
+                'message' => 'testing job',
+            ];
+
+            $jobs = (new ProcessEmail($data))->onQueue('email');
+            dispatch($jobs);
+        }
+
     }
 }

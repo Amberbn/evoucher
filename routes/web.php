@@ -21,3 +21,4 @@ Route::middleware(['login-session'])->group(function () {
     Route::resource('/user', 'web\UserController');
     Route::get('/client', 'web\ClientController@index')->name('client');
 });
+Route::get("/email", 'web\ClientController@sendEmail')->name('send.mail');
