@@ -34,6 +34,14 @@ h2.user-menu-cards__heading{
     width: 33.4%;
 }
 
+.list2{
+    padding: 15px 0 40px 200px !important;
+}
+
+.list2 li{
+    width: 50%;
+}
+
 #company-form h2.heading-desc-0{
     margin-bottom:30px !important;
     font-size: 20px;
@@ -152,6 +160,10 @@ h2.user-menu-cards__heading{
     margin-right:20px;
 }
 
+.radio-width-3{
+    width:25%;
+}
+
 /* Button */
 .btn.btn-green{
     background:#C6CC07;
@@ -174,6 +186,107 @@ h2.user-menu-cards__heading{
 
 .btn-submit button:first-child{
     margin-right:20px;
+}
+
+/* Sliding button */
+.slide-group, .slide-group-b {
+    width: 230px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+}
+.one {
+    float: right;
+    line-height: 40px;
+    color: white;
+    text-decoration: none !important;
+    transition: 1.0s;
+
+}
+.two {
+    float: left;
+    text-decoration: none !important;
+    line-height: 40px;
+    color: #C6CC07;
+}
+.bg {
+    background-color: #C6CC07;
+    height: 42px;
+    width: 180px;
+    position: absolute;
+    top: 0;
+    margin-left: 125px;
+    z-index: -1;
+    transition: 1.0s;
+    border-radius: 5px;
+    
+}
+span.slideBtn:hover + .bg {
+    width: 200px;
+    margin-left: -90px;
+    background: #C6CC07;
+}
+.two > span.slideBtn:hover {
+    color: white;
+}
+.one:hover{
+   color:#fff;
+}
+.two > span.slideBtn:hover ~ .one {
+    color:#C6CC07;
+}
+span.slideBtn, span.slideBtn-b {
+    padding: 10px 0;
+    transition: 1.0s;
+}
+
+/* Sliding button reverse*/
+.one-b {
+    float: left;
+    line-height: 40px;
+    color: white;
+    text-decoration: none !important;
+    transition: 1.0s;
+
+}
+.two-b {
+    float: right;
+    text-decoration: none !important;
+    line-height: 40px;
+    color: #C6CC07;
+}
+.bg-b {
+    background-color: #C6CC07;
+    height: 42px;
+    width: 180px;
+    position: absolute;
+    top: 0;
+    margin-left: -220px;
+    z-index: -1;
+    transition: 1.0s;
+    border-radius: 5px;
+    
+}
+
+span.slideBtn-b:hover + .bg-b {
+    width: 200px;
+    margin-left: -60px;
+    background: #C6CC07;
+}
+
+.two-b > span.slideBtn-b:hover {
+    color: white;
+}
+
+.two-b:hover ~ .one-b {
+    color:#C6CC07 !important;
+}
+span.slideBtn-b {
+    padding: 10px 0;
+    transition: 1.0s;
 }
 
 .font13{
@@ -230,7 +343,7 @@ h2.user-menu-cards__heading{
 }
 
 #uploadText{
-    text-align: center;
+    /* text-align: center; */
     white-space: nowrap;
     vertical-align: middle;
     -webkit-user-select: none;
@@ -238,7 +351,7 @@ h2.user-menu-cards__heading{
     -ms-user-select: none;
     user-select: none;
     border: 1px solid transparent;
-    padding: 0.25rem 0.75rem;
+    padding: 0.22rem 0.75rem;
     font-size: 16px;
     line-height: 1.5;
     border-radius: 0.3rem;
@@ -247,7 +360,7 @@ h2.user-menu-cards__heading{
     background-color: transparent;
     background-image: none;
     border-color: #434343;
-    width: 90%;
+    width: 80%;
 }
 
 #uploadText a{
@@ -274,4 +387,17 @@ h2.user-menu-cards__heading{
 
 #upload_button p{
     color:#004D9A;
+}
+
+.textUpper{
+    text-transform:uppercase;
+}
+
+/* Redeem PIN */
+#requestInput{
+    padding-left:0 !important
+}
+#requestBtn{
+    padding-left:0;
+    padding-top:3px !important;
 }
