@@ -34,6 +34,14 @@ h2.user-menu-cards__heading{
     width: 33.4%;
 }
 
+.list2{
+    padding: 15px 0 40px 200px !important;
+}
+
+.list2 li{
+    width: 50%;
+}
+
 #company-form h2.heading-desc-0{
     margin-bottom:30px !important;
     font-size: 20px;
@@ -112,14 +120,48 @@ h2.user-menu-cards__heading{
     margin-top:15%;
 }
 
+/* Voucher Tabs */
+.voucher-tab{
+    margin-bottom:10px;
+}
+
+.voucher-tab .nav-tabs a.nav-link{
+    color:#C4C4C4;
+    width:33.3%;
+    text-align: center;
+}
+
+.voucher-tab .nav-tabs a.nav-link.active{
+    border-bottom:3px #C4C4C4 solid !important;
+    border-top:none !important;
+    border-left:none !important;
+    border-right:none !important;
+    color:#C4C4C4;
+}
+
+.voucher-tab .nav-tabs a.nav-link:hover{
+    border-top:none !important;
+    border-left:none !important;
+    border-right:none !important;
+}
+
 /* Merchant & Outlet */
 .merchant-btn button.btn{
     margin-right:20px;
 }
 
+/* Client company information */
+.content-area__main.client-area-form{
+    margin-bottom:40px !important;
+}
+
 /* Inline radio button */
 .radio-inline{
     margin-right:20px;
+}
+
+.radio-width-3{
+    width:25%;
 }
 
 /* Button */
@@ -144,6 +186,107 @@ h2.user-menu-cards__heading{
 
 .btn-submit button:first-child{
     margin-right:20px;
+}
+
+/* Sliding button */
+.slide-group, .slide-group-b {
+    width: 230px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+}
+.one {
+    float: right;
+    line-height: 40px;
+    color: white;
+    text-decoration: none !important;
+    transition: 1.0s;
+
+}
+.two {
+    float: left;
+    text-decoration: none !important;
+    line-height: 40px;
+    color: #C6CC07;
+}
+.bg {
+    background-color: #C6CC07;
+    height: 42px;
+    width: 180px;
+    position: absolute;
+    top: 0;
+    margin-left: 125px;
+    z-index: -1;
+    transition: 1.0s;
+    border-radius: 5px;
+    
+}
+span.slideBtn:hover + .bg {
+    width: 200px;
+    margin-left: -90px;
+    background: #C6CC07;
+}
+.two > span.slideBtn:hover {
+    color: white;
+}
+.one:hover{
+   color:#fff;
+}
+.two > span.slideBtn:hover ~ .one {
+    color:#C6CC07;
+}
+span.slideBtn, span.slideBtn-b {
+    padding: 10px 0;
+    transition: 1.0s;
+}
+
+/* Sliding button reverse*/
+.one-b {
+    float: left;
+    line-height: 40px;
+    color: white;
+    text-decoration: none !important;
+    transition: 1.0s;
+
+}
+.two-b {
+    float: right;
+    text-decoration: none !important;
+    line-height: 40px;
+    color: #C6CC07;
+}
+.bg-b {
+    background-color: #C6CC07;
+    height: 42px;
+    width: 180px;
+    position: absolute;
+    top: 0;
+    margin-left: -220px;
+    z-index: -1;
+    transition: 1.0s;
+    border-radius: 5px;
+    
+}
+
+span.slideBtn-b:hover + .bg-b {
+    width: 200px;
+    margin-left: -60px;
+    background: #C6CC07;
+}
+
+.two-b > span.slideBtn-b:hover {
+    color: white;
+}
+
+.two-b:hover ~ .one-b {
+    color:#C6CC07 !important;
+}
+span.slideBtn-b {
+    padding: 10px 0;
+    transition: 1.0s;
 }
 
 .font13{
@@ -173,4 +316,88 @@ h2.user-menu-cards__heading{
 
 .table.campaign-list-table a.voucher-name{
     margin-bottom:0 !important;
+}
+
+/* Datatable */
+.campaign-list-table.dataTable thead th {
+   border-bottom: 0;
+}
+.campaign-list-table.dataTable tfoot th {
+    border-top: 0;
+}
+
+.campaign-list-table.dataTable td {
+    border-bottom: 9px #F5F6FA solid;
+}
+
+.campaign-list-table.dataTable.no-footer {
+    border-bottom: 0;
+}
+
+.dataTables_length, .dataTables_filter{
+    display: none;
+}
+
+#uploadBox{
+    display: none;
+}
+
+#uploadText{
+    /* text-align: center; */
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.22rem 0.75rem;
+    font-size: 16px;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    color: #333333 !important;
+    background-color: transparent;
+    background-image: none;
+    border-color: #434343;
+    width: 80%;
+}
+
+#uploadText a{
+    float:right;
+}
+
+#upload_button {
+    display: inline-block;
+    width:100%;
+}
+
+#upload_button label{
+    padding:4px 0;
+    width:100% !important;
+}
+
+#upload_button input[type=file] {
+    display:none;
+}
+
+#upload_button span{
+    font-weight:bold;
+}
+
+#upload_button p{
+    color:#004D9A;
+}
+
+.textUpper{
+    text-transform:uppercase;
+}
+
+/* Redeem PIN */
+#requestInput{
+    padding-left:0 !important
+}
+#requestBtn{
+    padding-left:0;
+    padding-top:3px !important;
 }
