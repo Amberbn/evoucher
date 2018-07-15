@@ -38,7 +38,7 @@
           </div>
           <div class="admin-bar__context">
             <div class="inner">
-              <h1 class="admin-bar__context-title">Add Client</h1>
+              <h1 class="admin-bar__context-title">Add Client User</h1>
             </div>
           </div>
           <div class="admin-bar__nav">
@@ -176,14 +176,37 @@
                     <h2 class="heading">Client Profile</h2>
                     <p>Lorem ipsum dolor sit amet, at has augue moderatius appellantur, per ut summo quando latine. Ea cum solet detraxit splendide, enim wisi qui ex, quidam dignissim ne nam.</p>
                   </div>
-                  <div class="form-section">
-                    <div class="form-group">
-                      <div class="form-input">
-                        <label for="client-name">Full Name</label>
-                        <input name="client-name" type="text" class="form-control" id="client-name" placeholder="">
+                  <div class="form-section row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <div class="form-input">
+                            <label for="salutation">Salutation</label>
+                            <div class="input-group">
+                                <div class="form-input form-check radio-inline radio-width-3">
+                                  <input class="form-check-input" type="radio" name="salutation" value="mr" checked nice-checkbox-radio>
+                                  <label class="form-check-label" for="salutation-mr">Mr.</label>
+                                </div>
+                                <div class="form-input form-check radio-inline radio-width-3">
+                                  <input class="form-check-input" type="radio" name="salutation" value="ms" nice-checkbox-radio>
+                                  <label class="form-check-label" for="salutation-ms">Ms.</label>
+                                </div>
+                                <div class="form-input form-check radio-inline radio-width-3">
+                                  <input class="form-check-input" type="radio" name="salutation" value="mrs" nice-checkbox-radio>
+                                  <label class="form-check-label" for="salutation-mrs">Mrs.</label>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <div class="form-input">
+                            <label for="client-name">Full Name</label>
+                          <input name="client-name" type="text" class="form-control" id="client-name" placeholder="">
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
                   <!-- /.form-section -->
                   <div class="form-section row">
                     <div class="col-md-6">
@@ -239,6 +262,25 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="form-section row">
+                      <div class="col-6">
+                        <div id="upload_button">
+                            <label>
+                              <input id="uploadInput" type="file" name="logo-file" accept="image/*">
+                              <span class="btn btn-outline-primary btn-block">Upload Profile Picture</span>
+                            </label>
+                            <p>Min. image 50 x 50 px</p>
+                          </div>
+                      </div>
+                      <div class="col-6">
+                        <div id="uploadBox">
+                            <input type="text" name="logo-name" id="uploadText" readonly>
+                            <a href="#" class="clearFile"><img src="img/icon-times.svg" alt=""></a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.form-section.row -->
                   <!-- /.form-section.row -->
                   <div class="form-section clearfix">
                     <button type="button" class="btn btn-wide-block btn-primary btn-add-client border-0" data-toggle="modal" data-target="#notifUserModal">Add User</button>
