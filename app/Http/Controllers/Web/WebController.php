@@ -40,7 +40,6 @@ class WebController extends BaseController
             ]);
             $response = $request->getBody()->getContents();
             $response = json_decode($response, $this->isAssoc);
-            dd($response);
             return $response;
         } catch (\Exception $e) {
             return $this->getErrorResponse($e);
