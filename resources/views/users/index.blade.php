@@ -16,8 +16,8 @@
                                                 <div class="form-input">
                                                     <label for="filter-by-tags">Tags</label>
                                                     <select name="by-tags" class="custom-select select2-input-tags" id="filter-by-tags" multiple="multiple">
-                                                        {{-- <option value="sprint">Sprint</option>
-                                                        <option value="company">Company</option> --}}
+                                                        <option value="sprint">Sprint</option>
+                                                        <option value="company">Company</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -170,10 +170,10 @@
                 this.api().columns([3]).every( function () {
                     var column = this;
                     console.log(column);
-                    var select = $("#filter-by-tags"); 
-                    column.data().unique().sort().each( function ( d, j ) {
-                    select.append( '<option value="'+d+'">'+d+'</option>' )
-                    } );
+                    //var select = $("#filter-by-tags"); 
+                    //column.data().unique().sort().each( function ( d, j ) {
+                    //select.append( '<option value="'+d+'">'+d+'</option>' )
+                    //} );
                 } );
             }
             }
