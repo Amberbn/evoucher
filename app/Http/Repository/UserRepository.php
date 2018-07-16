@@ -84,7 +84,7 @@ class UserRepository extends BaseRepository
             'company.parameters_value as company',
             'roles.roles_description as user_roles'
         );
-        return $users->get();
+        return $this->sendSuccess($users->get());
     }
 
     public function saveUser($request)

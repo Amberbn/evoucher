@@ -19,6 +19,12 @@ class WebController extends BaseController
 
     }
 
+    public function getMe()
+    {
+        return $this->guzzleGet('me');
+
+    }
+
     public function guzzleGet($param)
     {
         $request = null;
@@ -43,8 +49,23 @@ class WebController extends BaseController
     public function guzzlePost($param, $body)
     {
         try {
+            $request = null;
             $client = new \GuzzleHttp\Client();
-            $request = $client->request('POST', $this->apiUrl() . $param, ['form_params' => $body]);
+            if (!array_has($body, 'is_login_request')) {
+                $token = $this->getSessionToken();
+                $headers = [
+                    'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
+                ];
+                $request = $client->request('GET', $this->apiUrl() . $param, [
+                    'headers' => $headers,
+                    'form_params' => $body,
+                ]);
+            }
+            if (!$request) {
+                $request = $client->request('POST', $this->apiUrl() . $param,
+                    ['form_params' => $body]);
+            }
             $response = $request->getBody()->getContents();
             $response = json_decode($response, $this->isAssoc);
             return $response;
@@ -62,7 +83,7 @@ class WebController extends BaseController
             $decode = json_decode($jsonBody, $this->isAssoc);
             return $decode;
         }
-        dd($e);
+        return $response;
     }
 
     public function isNullOrEmptyString($str)
@@ -73,6 +94,15 @@ class WebController extends BaseController
     public function getSessionToken()
     {
         return session()->get('token');
+    }
+
+    public function isTokenValid($response)
+    {
+        if ($response['status_code'] == '401') {
+            session()->forget('token');
+            return true;
+        }
+        return false;
     }
 
 }
