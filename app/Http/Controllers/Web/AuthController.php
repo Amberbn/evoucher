@@ -13,10 +13,11 @@ class AuthController extends WebController
      */
     public function index(Request $request)
     {
-        $sessionLogin = $this->getSessionToken();
-        if ($sessionLogin) {
+        $me = $this->getMe();
+        if ($me['status_code'] != '401') {
             return view('home');
         }
+
         return view('layouts.auth');
     }
 
@@ -30,6 +31,7 @@ class AuthController extends WebController
         $body = [
             'user_name' => $request->input('user_name'),
             'password' => $request->input('password'),
+            'is_login_request' => true,
         ];
         $response = $this->guzzlePost('login', $body);
         if ($response['status_code'] == 200) {

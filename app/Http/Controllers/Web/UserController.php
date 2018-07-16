@@ -21,7 +21,11 @@ class UserController extends WebController
     public function indexDatatable()
     {
         $data = $this->guzzleGet('user-datatable');
-        $users = new Collection($data);
+        if ($me['status_code'] == '401') {
+            return null;
+        }
+
+        $users = new Collection($data['data']);
         return Datatables::of($users)
             ->addIndexColumn()
             ->addColumn('action', function ($user) {
