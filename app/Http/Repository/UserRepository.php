@@ -71,7 +71,7 @@ class UserRepository extends BaseRepository
         //         ->take(1);
         // })->groupBy('login_logs.user_id');
         if (!$this->isGroupSprint()) {
-            $users->where($table . '.client_category_pid', '=', $this->me()['client_category_pid']);
+            $users->where('client.client_category_pid', '=', $this->me()['client_category_pid']);
         }
 
         $users->where($table . '.isactive', '=', true);

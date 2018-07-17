@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers;
 
-use Datatables;
+use App\Repository\GeneralSettingRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 
-class UserController extends WebController
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,32 +14,9 @@ class UserController extends WebController
      */
     public function index()
     {
-        return view('users.index');
-    }
-
-    public function indexDatatable()
-    {
-        $data = $this->guzzleGet('user-datatable');
-        if ($me['status_code'] == '401') {
-            return null;
-        }
-
-        $users = new Collection($data['data']);
-        return Datatables::of($users)
-            ->addIndexColumn()
-            ->addColumn('action', function ($user) {
-                return '<td class="first">' .
-                    '<div class="form-check">' .
-                    '<input type="checkbox" value="user_id_' . $user['user_id'] . '" class="form-check-input" nice-checkbox-radio />' .
-                    '</div>' .
-                    '</td>';
-            })
-            ->editColumn('user_roles', function ($userRoles) {
-                $role = $userRoles['user_roles'] ?: 'Ngawur';
-                return $role;
-            })
-            ->make(true);
-
+        $industries = (new GeneralSettingRepository())
+            ->getSetting('industry_category')->getData()->data;
+        return view('client.index', compact('industries'));
     }
 
     /**
