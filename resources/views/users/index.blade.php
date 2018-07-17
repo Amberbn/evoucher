@@ -185,8 +185,8 @@
  
         $('.campaign-list-table')
             .on( 'error.dt', function ( e, settings, techNote, message ) {
-                alert('sory data is not ready or u need to relogin')
-                window.location = 'http://evoucher.test:8090/';
+                {{--  alert('sory data is not ready or u need to relogin')  --}}
+                {{--  window.location = 'http://evoucher.test:8090/';  --}}
             } )
         .DataTable();
 

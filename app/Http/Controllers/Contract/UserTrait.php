@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Contract;
 use App\GlobalParameter;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use JWTAuth;
 
 trait UserTrait
@@ -16,9 +17,13 @@ trait UserTrait
      */
     public function me()
     {
+        $user = null;
         //claim auth trough jwt to get user
-        $user = JWTAuth::toUser(request()->token);
-        if (!$user) {
+        if (!Auth::user()) {
+            $user = JWTAuth::toUser(request()->token);
+        } elseif (Auth::user()) {
+            $user = Auth::user();
+        } elseif (!$user) {
             return $this->sendNotfound();
         }
         //get return id for user and eagerload with client object

@@ -41,7 +41,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-link-user" href="#">
+            <a class="nav-link nav-link-user" href="{{ route('user.index') }}">
               <span class="nav-link__icon icon-ic_user"><span class="nav-link__text">User</span></span>
             </a>
           </li>
