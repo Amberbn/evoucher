@@ -105,8 +105,8 @@ class ClientRepository extends BaseRepository
             $client = new Client;
             $client->client_code = $request->input('client_code');
             $client->client_category_pid = $request->input('client_category_pid');
-            $client->client_is_also_merchant = $request->input('client_is_also_merchant');
-            $client->client_allow_postpaid = $request->input('client_allow_postpaid');
+            $client->client_is_also_merchant = $request->input('client_is_also_merchant') ?: false;
+            $client->client_allow_postpaid = $request->input('client_allow_postpaid') ?: false;
             $client->client_name = $request->input('client_name');
             $client->client_legal_name = $request->input('client_legal_name');
             $client->client_tax_no = $request->input('client_tax_no');
@@ -118,7 +118,9 @@ class ClientRepository extends BaseRepository
             $client->client_billing_address_postal_code = $request->input('client_billing_address_postal_code');
             $client->client_industry_category_pid = $request->input('client_industry_category_pid');
             $client->client_employee_size_category_pid = $request->input('client_employee_size_category_pid');
-            $client->client_outstanding_limit = $request->input('client_outstanding_limit');
+            $client->client_outstanding_limit = $request->input('client_outstanding_limit') ?: 0;
+            $client->client_in_charge_user_id = $request->input('client_in_charge_user_id');
+            $client->client_logo_image_url = $request->input('client_logo_image_url');
             $client->isactive = $request->input('isactive') ?: true;
             $client->isdelete = $request->input('isdelete') ?: false;
             $client->created_by_user_name = $this->loginUsername();

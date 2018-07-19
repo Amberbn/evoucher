@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\ClientRepository;
 use App\Repository\GeneralSettingRepository;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->repository = new ClientRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,19 @@ class ClientController extends Controller
     {
         $industries = (new GeneralSettingRepository())
             ->getSetting('industry_category')->getData()->data;
-        return view('client.index', compact('industries'));
+
+        $employeeSize = (new GeneralSettingRepository())
+            ->getSetting('employee_size_category')->getData()->data;
+
+        $provinces = (new GeneralSettingRepository())
+            ->getSetting('address_state_province')->getData()->data;
+
+        $users = (new UserRepository)
+            ->getListUsername()->getData()->data;
+
+        // dd($employeeSize);
+
+        return view('client.index', compact('industries', 'users', 'employeeSize', 'provinces'));
     }
 
     /**
@@ -24,9 +42,9 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
@@ -37,7 +55,8 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->repository->store($request);
+
     }
 
     /**

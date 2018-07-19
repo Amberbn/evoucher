@@ -171,4 +171,14 @@ class UserRepository extends BaseRepository
             return $this->sendBadRequest($e->getMessage());
         }
     }
+
+    public function getListUsername()
+    {
+        $user = User::select('user_id', 'user_name')->get();
+        if (!$user) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($user);
+    }
 }
