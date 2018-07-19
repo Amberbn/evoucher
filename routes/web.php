@@ -17,4 +17,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('/user', 'UserController');
     Route::get('/users', 'UserController@indexDatatable')->name('user.list.datatable');
     Route::resource('/client', 'ClientController');
+    Route::get('/general-setting/{param}/{parent?}', 'GeneralSettingController@index')->name('chain.dropdown');
 });
