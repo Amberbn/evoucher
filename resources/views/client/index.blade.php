@@ -59,7 +59,7 @@
                       <label for="industry">Industry</label>
                       <select name="client_industry_category_pid" class="custom-select dropdown-select2" id="industry" required>
                         <option value="" selected disabled hidden>Choose...</option>
-                        @foreach ($industries as $industry)
+                        @foreach ($settings->industryCategory as $industry)
                           <option value="{{ $industry->parameters_id }}">{{ $industry->parameters_value }}</option>    
                         @endforeach
                       </select>
@@ -71,7 +71,7 @@
                         <h4 class="form-group__heading">Company Size</h4>
                         <div class="input-group">
                           @php $i = 0; @endphp
-                          @foreach ($employeeSize as $size)                            
+                          @foreach ($settings->employeeSizeCategory as $size)                            
                             <div class="form-input form-check">
                               <input class="form-check-input" type="radio" name="client_employee_size_category_pid" id="company-size-1" value="{{ $size->parameters_id }}" {{ $i==0 ? 'checked' : '' }} nice-checkbox-radio required>
                               <label class="form-check-label" for="company-size-1">
@@ -103,7 +103,6 @@
                     </div>
                   </div>
                 </div>
-                
                 <!-- /.form-section.row -->
                 
               </div>
@@ -142,7 +141,7 @@
                             <label for="province">Province</label>
                             <select name="client_billing_address_state_province_pid" class="custom-select dropdown-select2" id="province" data="address_city">
                               <option value="" selected disabled hidden>Choose...</option>
-                              @foreach ($provinces as $province)
+                              @foreach ($settings->addressStateProvince as $province)
                                   <option value="{{ $province->parameters_id }}">{{ $province->parameters_value }}</option>   
                               @endforeach
                             </select>
