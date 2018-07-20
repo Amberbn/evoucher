@@ -15,4 +15,9 @@ class GeneralSetting extends Controller
     {
         return $this->repository->getSetting($parameterType);
     }
+
+    public function getAllSettings()
+    {
+        return $this->repository->getAllSettings();
+    }
 }

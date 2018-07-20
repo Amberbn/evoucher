@@ -12,6 +12,7 @@ class ClientController extends Controller
     public function __construct()
     {
         $this->repository = new ClientRepository;
+        $this->settings = new GeneralSettingRepository;
     }
     /**
      * Display a listing of the resource.
@@ -20,21 +21,22 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $industries = (new GeneralSettingRepository())
-            ->getSetting('industry_category')->getData()->data;
+        $filters = [
+            'address_city',
+            'address_region',
+            'salutation',
+            'client_category',
+            'campaign_category',
+        ];
 
-        $employeeSize = (new GeneralSettingRepository())
-            ->getSetting('employee_size_category')->getData()->data;
-
-        $provinces = (new GeneralSettingRepository())
-            ->getSetting('address_state_province')->getData()->data;
+        $settings = $this->settings
+            ->getAllSettings($filters, true)
+            ->getData()->data;
 
         $users = (new UserRepository)
             ->getListUsername()->getData()->data;
 
-        // dd($employeeSize);
-
-        return view('client.index', compact('industries', 'users', 'employeeSize', 'provinces'));
+        return view('client.index', compact('users', 'settings'));
     }
 
     /**

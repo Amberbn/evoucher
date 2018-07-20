@@ -107,6 +107,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
 
         //ROUTE FOR GENERAL SETTINGS
         Route::get('/general-setting/{parameter}', ['uses' => 'GeneralSetting@getSetting']);
+        Route::get('/all-setting', ['uses' => 'GeneralSetting@getAllSettings']);
         //END ROUTER FOR GENERAL SETTINGS
 
     });
