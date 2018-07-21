@@ -3,7 +3,10 @@ namespace App\Repository;
 
 use App\Repository\BaseRepository;
 use App\User;
+use App\UserRole;
+use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Hash;
 
 /**
  *
@@ -71,7 +74,7 @@ class UserRepository extends BaseRepository
         //         ->take(1);
         // })->groupBy('login_logs.user_id');
         if (!$this->isGroupSprint()) {
-            $users->where($table . '.client_category_pid', '=', $this->me()['client_category_pid']);
+            $users->where('client.client_category_pid', '=', $this->me()['client_category_pid']);
         }
 
         $users->where($table . '.isactive', '=', true);
@@ -84,7 +87,7 @@ class UserRepository extends BaseRepository
             'company.parameters_value as company',
             'roles.roles_description as user_roles'
         );
-        return $users->get();
+        return $this->sendSuccess($users->get());
     }
 
     public function saveUser($request)
@@ -92,25 +95,39 @@ class UserRepository extends BaseRepository
         DB::beginTransaction();
 
         try {
+
+            $settingExpirationDays = 7;
+            $current = Carbon::now();
+            // add 7 days to the current time
+            $expiratonDays = $current->addDays($settingExpirationDays);
+
             $user = new User;
             $user->user_name = $request->input('user_name');
             $user->client_id = $request->input('client_id');
             $user->user_salutation_pid = $request->input('user_salutation_pid');
             $user->user_profile_name = $request->input('user_profile_name');
-            $user->password = $request->input('password');
+            $user->password = $request->input('password') ?: Hash::make('Passw0rd1');
             $user->user_phone = $request->input('user_phone');
             $user->user_token = $request->input('user_token');
-            $user->user_password_force_expiration = $request->input('user_password_force_expiration');
-            $user->user_password_expiration_days = $request->input('user_password_expiration_days');
-            $user->user_password_next_expiration_date = $request->input('user_password_next_expiration_date');
-            $user->user_password_force_reset_on_login = $request->input('user_password_force_reset_on_login');
-            $user->user_password_is_intial = $request->input('user_password_is_intial');
+            $user->user_password_force_expiration = $request->input('user_password_force_expiration') ?: true;
+            $user->user_password_expiration_days = $settingExpirationDays;
+            $user->user_password_next_expiration_date = $expiratonDays;
+            $user->user_password_force_reset_on_login = $request->input('user_password_force_reset_on_login') ?: true;
+            $user->user_password_is_intial = true;
             $user->data_sort = $request->input('data_sort');
             $user->isactive = $request->input('isactive') ?: true;
             $user->isdelete = $request->input('isdelete') ?: false;
             $user->created_by_user_name = $this->loginUsername();
             $user->last_updated_by_user_name = $this->loginUsername();
             $user->save();
+
+            if ($user) {
+                $userRole = new UserRole;
+                $userRole->user_id = 2;
+                $userRole->roles_id = $request->input('roles_id');
+                $userRole->created_by_user_name = $this->loginUsername();
+                $userRole->save();
+            }
 
             DB::commit();
 
@@ -170,5 +187,15 @@ class UserRepository extends BaseRepository
 
             return $this->sendBadRequest($e->getMessage());
         }
+    }
+
+    public function getListUsername()
+    {
+        $user = User::select('user_id', 'user_name')->get();
+        if (!$user) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($user);
     }
 }

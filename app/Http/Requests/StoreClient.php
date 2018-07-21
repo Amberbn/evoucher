@@ -28,13 +28,9 @@ class StoreClient extends FormRequest
     public function rules()
     {
         return [
-            'client_code' => 'required|unique:bsn_client,client_code|min:3',
-            'client_category_pid' => 'required|numeric',
             'client_name' => 'required|min:3',
-            'client_billing_address_line_1' => 'required|min:3',
-            'client_billing_address_state_province_pid' => 'required|numeric',
-            'client_billing_address_city_pid' => 'required|numeric',
-            'client_billing_address_postal_code' => 'required|numeric',
+            'client_legal_name' => 'required|min:3',
+            'client_in_charge_user_id' => 'required|numeric',
             'client_industry_category_pid' => 'required|numeric',
             'client_employee_size_category_pid' => 'required|numeric',
         ];

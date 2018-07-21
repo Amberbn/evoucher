@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\web;
+namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
-use App\Jobs\ProcessEmail;
-use App\User;
+use App\Repository\ClientRepository;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class ClientController extends BaseControllerWeb
 {
+    public function __construct()
+    {
+        $this->repository = new ClientRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +19,20 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('client.index');
+        $filters = [
+            'address_city',
+            'address_region',
+            'salutation',
+            'client_category',
+            'campaign_category',
+        ];
+
+        $settings = $this->getSettings($filters, true);
+
+        $users = (new UserRepository)
+            ->getListUsername()->getData()->data;
+
+        return view('client.index', compact('users', 'settings'));
     }
 
     /**
@@ -24,9 +40,9 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
@@ -37,7 +53,8 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->repository->store($request);
+
     }
 
     /**
@@ -83,22 +100,5 @@ class ClientController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function sendEmail()
-    {
-        $users = User::all();
-        foreach ($users as $user) {
-            $data = [
-                'email' => $user->user_name,
-                'send_to' => "testprep",
-                'fullname' => $user->user_profile_name,
-                'message' => 'testing job',
-            ];
-
-            $jobs = (new ProcessEmail($data))->onQueue('email');
-            dispatch($jobs);
-        }
-
     }
 }

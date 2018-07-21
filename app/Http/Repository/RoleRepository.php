@@ -12,9 +12,15 @@ class RoleRepository extends BaseRepository
         $this->model = new Role;
     }
 
-    public function getRole()
+    public function getRole($select = null)
     {
-        $role = $this->model::active()->get();
+        $role = $this->model::active();
+
+        if ($select) {
+            $role = $role->select($select);
+        }
+
+        $role = $role->get();
 
         if (!$role) {
             return $this->sendNotfound();

@@ -10,16 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/', 'web\AuthController@index')->name('auth.form');
-Route::post('/', 'web\AuthController@login')->name('auth.login');
-Route::middleware(['login-session'])->group(function () {
-    Route::get('/logout', 'web\AuthController@logout')->name('auth.logout');
-    Route::resource('/user', 'web\UserController');
-    Route::get('/client', 'web\ClientController@index')->name('client');
-    Route::get('/users', 'web\UserController@indexDatatable')->name('user.list.datatable');
+Auth::routes();
+Route::get('/', 'Web\HomeController@index');
+Route::middleware('auth')->group(function () {
+    Route::get('/home', 'Web\HomeController@index')->name('home');
+    Route::resource('/user', 'Web\UserController');
+    Route::get('/users', 'Web\UserController@indexDatatable')->name('user.list.datatable');
+    Route::resource('/client', 'Web\ClientController');
+    Route::get('/general-setting/{param}/{parent?}', 'Web\GeneralSettingController@index')->name('chain.dropdown');
 });
-Route::get("/email", 'web\ClientController@sendEmail')->name('send.mail');

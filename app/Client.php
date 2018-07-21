@@ -29,6 +29,8 @@ class Client extends Model
         'isdelete',
         'created_by_user_name',
         'last_updated_by_user_name',
+        'client_in_charge_user_id',
+        'client_logo_image_url',
     ];
 
     public function scopeActive($query)

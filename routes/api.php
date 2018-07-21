@@ -105,6 +105,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
         Route::get('/generate-voucher/{id}', ['uses' => 'VoucherGeneratedController@generatedVoucher']);
         //END ROUTER FOR GENERATED VOUCHER
 
+        //ROUTE FOR GENERAL SETTINGS
+        Route::get('/general-setting/{parameter}', ['uses' => 'GeneralSetting@getSetting']);
+        Route::get('/all-setting', ['uses' => 'GeneralSetting@getAllSettings']);
+        //END ROUTER FOR GENERAL SETTINGS
+
     });
     //END ROUTE GROUP BY REQUIRED LOGIN
 
