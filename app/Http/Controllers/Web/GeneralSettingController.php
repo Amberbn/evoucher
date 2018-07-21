@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\Repository\GeneralSettingRepository;
 
-class GeneralSettingController extends Controller
+class GeneralSettingController extends BaseControllerWeb
 {
     public function __construct()
     {

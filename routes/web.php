@@ -10,12 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-Route::get('/', 'HomeController@index');
 Auth::routes();
+Route::get('/', 'Web\HomeController@index');
 Route::middleware('auth')->group(function () {
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::resource('/user', 'UserController');
-    Route::get('/users', 'UserController@indexDatatable')->name('user.list.datatable');
-    Route::resource('/client', 'ClientController');
-    Route::get('/general-setting/{param}/{parent?}', 'GeneralSettingController@index')->name('chain.dropdown');
+    Route::get('/home', 'Web\HomeController@index')->name('home');
+    Route::resource('/user', 'Web\UserController');
+    Route::get('/users', 'Web\UserController@indexDatatable')->name('user.list.datatable');
+    Route::resource('/client', 'Web\ClientController');
+    Route::get('/general-setting/{param}/{parent?}', 'Web\GeneralSettingController@index')->name('chain.dropdown');
 });

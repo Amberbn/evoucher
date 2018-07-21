@@ -3,7 +3,9 @@ namespace App\Repository;
 
 use App\Repository\BaseRepository;
 use App\User;
+use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Hash;
 
 /**
  *
@@ -92,19 +94,24 @@ class UserRepository extends BaseRepository
         DB::beginTransaction();
 
         try {
+            $current = Carbon::now();
+
+            // add 7 days to the current time
+            $expiratonDays = $current->addDays(7);
+
             $user = new User;
             $user->user_name = $request->input('user_name');
             $user->client_id = $request->input('client_id');
             $user->user_salutation_pid = $request->input('user_salutation_pid');
             $user->user_profile_name = $request->input('user_profile_name');
-            $user->password = $request->input('password');
+            $user->password = $request->input('password') ?: Hash::make('Passw0rd1');
             $user->user_phone = $request->input('user_phone');
             $user->user_token = $request->input('user_token');
-            $user->user_password_force_expiration = $request->input('user_password_force_expiration');
-            $user->user_password_expiration_days = $request->input('user_password_expiration_days');
-            $user->user_password_next_expiration_date = $request->input('user_password_next_expiration_date');
-            $user->user_password_force_reset_on_login = $request->input('user_password_force_reset_on_login');
-            $user->user_password_is_intial = $request->input('user_password_is_intial');
+            $user->user_password_force_expiration = $request->input('user_password_force_expiration') ?: true;
+            $user->user_password_expiration_days = 7;
+            $user->user_password_next_expiration_date = $expiratonDays;
+            $user->user_password_force_reset_on_login = $request->input('user_password_force_reset_on_login') ?: true;
+            $user->user_password_is_intial = true;
             $user->data_sort = $request->input('data_sort');
             $user->isactive = $request->input('isactive') ?: true;
             $user->isdelete = $request->input('isdelete') ?: false;

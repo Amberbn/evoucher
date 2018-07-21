@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Web\BaseControllerWeb;
+use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\User;
 use Datatables;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class UserController extends BaseControllerWeb
 {
     /**
      *FUNCTION __construct FOR DEFINE MODEL AND REPOSITORY
@@ -34,12 +35,8 @@ class UserController extends Controller
     public function indexDatatable()
     {
         $users = $this->repository->userIndexDatatable();
-        // $users = Collect($users->getData()->data);
-        $users = new Collection($users->getData()->data);
-        // dd($users);
+        $users = $this->getDataFromJson($users);
 
-        // dd($users);
-        // $users = $this->repository->getAllUser()->getData();
         return Datatables::of($users)
             ->addIndexColumn()
             ->addColumn('action', function ($user) {
@@ -64,7 +61,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $settings = $this->getSettings(['salutation']);
+        $roles = $this->getDataFromJson((new RoleRepository)
+                ->getRole([
+                    'roles_id',
+                    'roles_description',
+                ]));
+        return view('users.create', compact('settings', 'roles'));
     }
 
     /**
@@ -75,7 +78,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users = $this->repository->saveUser($request);
+        return $user;
     }
 
     /**
