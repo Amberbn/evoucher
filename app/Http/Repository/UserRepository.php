@@ -3,6 +3,7 @@ namespace App\Repository;
 
 use App\Repository\BaseRepository;
 use App\User;
+use App\UserRole;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Hash;
@@ -94,10 +95,11 @@ class UserRepository extends BaseRepository
         DB::beginTransaction();
 
         try {
-            $current = Carbon::now();
 
+            $settingExpirationDays = 7;
+            $current = Carbon::now();
             // add 7 days to the current time
-            $expiratonDays = $current->addDays(7);
+            $expiratonDays = $current->addDays($settingExpirationDays);
 
             $user = new User;
             $user->user_name = $request->input('user_name');
@@ -108,7 +110,7 @@ class UserRepository extends BaseRepository
             $user->user_phone = $request->input('user_phone');
             $user->user_token = $request->input('user_token');
             $user->user_password_force_expiration = $request->input('user_password_force_expiration') ?: true;
-            $user->user_password_expiration_days = 7;
+            $user->user_password_expiration_days = $settingExpirationDays;
             $user->user_password_next_expiration_date = $expiratonDays;
             $user->user_password_force_reset_on_login = $request->input('user_password_force_reset_on_login') ?: true;
             $user->user_password_is_intial = true;
@@ -118,6 +120,14 @@ class UserRepository extends BaseRepository
             $user->created_by_user_name = $this->loginUsername();
             $user->last_updated_by_user_name = $this->loginUsername();
             $user->save();
+
+            if ($user) {
+                $userRole = new UserRole;
+                $userRole->user_id = 2;
+                $userRole->roles_id = $request->input('roles_id');
+                $userRole->created_by_user_name = $this->loginUsername();
+                $userRole->save();
+            }
 
             DB::commit();
 
