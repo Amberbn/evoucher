@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
 use App\Repository\ClientRepository;
-use App\Repository\GeneralSettingRepository;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class ClientController extends BaseControllerWeb
 {
     public function __construct()
     {
         $this->repository = new ClientRepository;
-        $this->settings = new GeneralSettingRepository;
     }
     /**
      * Display a listing of the resource.
@@ -29,9 +27,7 @@ class ClientController extends Controller
             'campaign_category',
         ];
 
-        $settings = $this->settings
-            ->getAllSettings($filters, true)
-            ->getData()->data;
+        $settings = $this->getSettings($filters, true);
 
         $users = (new UserRepository)
             ->getListUsername()->getData()->data;

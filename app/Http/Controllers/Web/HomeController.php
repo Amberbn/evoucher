@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
-class HomeController extends Controller
+class HomeController extends BaseControllerWeb
 {
     /**
      * Create a new controller instance.
