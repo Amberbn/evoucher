@@ -67,12 +67,11 @@ class UserRepository extends BaseRepository
                 $join
                     ->on('roles.roles_id', '=', 'user_roles.roles_id');
             });
-        // ->leftJoin('frm_login_logs as login_logs', function ($join) use ($table) {
-        //     $join
-        //         ->on('login_logs.user_id', '=', $table . '.user_id')
-        //         ->orderBy('login_logs.login_logs_timestamp')
-        //         ->take(1);
-        // })->groupBy('login_logs.user_id');
+        $users->leftJoin('vw_user_login_last_logs as login_logs', function ($join) use ($table) {
+            $join
+                ->on('login_logs.user_id', '=', $table . '.user_id')
+                ->orderBy('login_logs.login_logs_timestamp');
+        });
         if (!$this->isGroupSprint()) {
             $users->where('client.client_category_pid', '=', $this->me()['client_category_pid']);
         }
@@ -83,6 +82,7 @@ class UserRepository extends BaseRepository
         $users->select(
             $table . '.user_id',
             $table . '.user_profile_name',
+            'login_logs.login_logs_timestamp',
             $table . '.user_phone',
             'company.parameters_value as company',
             'roles.roles_description as user_roles'

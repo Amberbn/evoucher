@@ -67,7 +67,7 @@
                                         <th>Company</th>
                                         <th>User Type</th>
                                         <th>User Role</th>
-                                        {{-- <th>Last Login</th> --}}
+                                        <th>Last Login</th>
                                     </tr>
                                 </thead>
                                 {{-- <tbody>
@@ -154,7 +154,8 @@
                 { "data": "user_phone",name:'user_phone', className : 'p-20', searchable: true},
                 { "data": "company", name:'company', className : 'p-20', searchable: true},
                 { "data": "company", name:'company', className : 'p-20', searchable: true},
-                { "data": "user_roles", name:'user_roles', className : 'p-20', searchable: true, regex:true}
+                { "data": "user_roles", name:'user_roles', className : 'p-20', searchable: true, regex:true},
+                { "data": "login_logs_timestamp", name:'login_logs_timestamp', className : 'p-20', searchable: true, regex:true}
             ],
             "error" : function (xhr, error, thrown) {
                 alert( 'You are not logged in' );
