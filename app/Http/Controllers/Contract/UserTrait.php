@@ -47,6 +47,20 @@ trait UserTrait
         return $sprint;
     }
 
+    /**
+     *FUNCTION GET COMPANY IDENTIFIER
+     *@return \Illuminate\Http\Response
+     */
+    public function companyParamId($code)
+    {
+        //get object spt=rint from global parameter
+        $company = GlobalParameter::where('parameters_type', '=', 'client_category')
+            ->where('parameters_code', '=', $code)
+            ->select('parameters_id', 'parameters_code', 'parameters_type')
+            ->first();
+        return $company;
+    }
+
     public function isGroupSprint()
     {
         $userClientPid = $this->me()['client_category_pid'];

@@ -29,10 +29,12 @@ class ClientController extends BaseControllerWeb
 
         $settings = $this->getSettings($filters, true);
 
+        $edit = false;
+
         $users = (new UserRepository)
             ->getListUsername()->getData()->data;
 
-        return view('client.index', compact('users', 'settings'));
+        return view('client.index', compact('users', 'settings', 'edit'));
     }
 
     /**
@@ -53,7 +55,12 @@ class ClientController extends BaseControllerWeb
      */
     public function store(Request $request)
     {
-        return $this->repository->store($request);
+        $response = $this->repository->store($request);
+        $responseCode = $this->getResponseCodeFromJson($response);
+        if ($responseCode != 201) {
+
+        }
+        return redirect()->route('client.index');
 
     }
 
@@ -76,7 +83,28 @@ class ClientController extends BaseControllerWeb
      */
     public function edit($id)
     {
-        //
+        $filters = [
+            'salutation',
+            'client_category',
+            'campaign_category',
+        ];
+
+        $edit = true;
+
+        $settings = $this->getSettings($filters, true);
+
+        $users = (new UserRepository)
+            ->getListUsername()->getData()->data;
+
+        $client = $this->getDataFromJson((new ClientRepository)
+                ->getClient($id))->first();
+
+        if (!$client) {
+            return $this->pageNotFound();
+        }
+
+        return view('client.index', compact('users', 'settings', 'edit', 'client'));
+
     }
 
     /**
@@ -88,7 +116,12 @@ class ClientController extends BaseControllerWeb
      */
     public function update(Request $request, $id)
     {
-        //
+        $upddate = $this->repository->update($request, $id);
+        $responseCode = $this->getResponseCodeFromJson($upddate);
+        if ($responseCode != 200) {
+
+        }
+        return redirect()->route('client.index');
     }
 
     /**
