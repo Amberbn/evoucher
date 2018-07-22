@@ -20,4 +20,16 @@ class BaseControllerWeb extends Controller
         $data = new Collection($response->getData()->data);
         return $data;
     }
+
+    public function getResponseCodeFromJson($response)
+    {
+        $data = new Collection($response->getData()->status_code);
+        return $data->first();
+    }
+
+    public function pageNotFound()
+    {
+        return abort(404);
+
+    }
 }
