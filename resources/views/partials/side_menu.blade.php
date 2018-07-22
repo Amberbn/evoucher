@@ -6,12 +6,12 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-link-dashboard active" href="#">
+            <a class="nav-link nav-link-dashboard active" href="{{ route('home') }}">
               <span class="nav-link__icon icon-ic_dashboard"><span class="nav-link__text">Dashboard</span></span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-link-client" href="#">
+            <a class="nav-link nav-link-client" href="{{ route('client.index') }}">
               <span class="nav-link__icon icon-ic_client"><span class="nav-link__text">Client</span></span>
             </a>
           </li>

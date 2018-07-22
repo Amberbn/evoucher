@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Repository\ClientRepository;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class ClientController extends BaseControllerWeb
 {
@@ -18,6 +19,34 @@ class ClientController extends BaseControllerWeb
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        return view('client.index');
+    }
+
+    public function indexDatatable()
+    {
+        $clients = $this->repository->getClient();
+        $clients = $this->getDataFromJson($clients);
+
+        return Datatables::of($clients)
+            ->addIndexColumn()
+            ->addColumn('action', function ($client) {
+                return '<td class="first">' .
+                '<div class="form-check">' .
+                '<input type="checkbox" value="user_id_' . $client->client_id . '" class="form-check-input" nice-checkbox-radio />' .
+                    '</div>' .
+                    '</td>';
+            })
+            ->make(true);
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
     {
         $filters = [
             'address_city',
@@ -34,16 +63,7 @@ class ClientController extends BaseControllerWeb
         $users = (new UserRepository)
             ->getListUsername()->getData()->data;
 
-        return view('client.index', compact('users', 'settings', 'edit'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
+        return view('client.client_form', compact('users', 'settings', 'edit'));
 
     }
 
