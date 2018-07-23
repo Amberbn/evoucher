@@ -9,7 +9,7 @@
         <div class="col-6 welcome-txt">
             <h2>Welcome To Prezent</h2>
             <p>You will now be required to change your password as it is your first time logging in. You can choose any password you like. Your password must be minimum 8 characters long, include a Capital and a number. </p>
-            <button type="submit" class="btn btn-primary border-0">Change Password</button>
+            <button type="submit" class="btn btn-primary border-0">Login</button>
         </div>
     </div>
 </div>

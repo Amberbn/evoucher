@@ -41,7 +41,7 @@
                             <div class="col-md-4">
                                 <div class="voucher-list-menu row">
                                     <div class="col-md-5 offset-md-6">
-                                        <button class="btn btn-primary btn-add-client"  data-toggle="modal" data-target="#userMenuModal">Add User</button>
+                                        <button type="button" class="btn btn-primary btn-add-client"  data-toggle="modal" data-target="#userMenuModalUserAdd">Add User</button>
                                     </div>
                                 </div>
                             </div>
@@ -137,6 +137,9 @@
     <!-- /.main-content__body -->
 </div>
 @endsection
+@push('modal')
+    {{--  @include('partials/modal_user_add')  --}}
+@endpush
 @push('footer_scripts')
 <script>
     $(document).ready( function () {

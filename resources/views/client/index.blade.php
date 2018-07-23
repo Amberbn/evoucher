@@ -159,8 +159,8 @@
             "columns": [
                 { "data": "action",className : 'p-20',searchable: false },
                 { "data": "client_name",name:'client_name', className : 'p-20', searchable: true },
-                { "data": "client_legal_name",name:'client_legal_name', className : 'p-20', searchable: true},
-                { "data": "client_tax_no", name:'client_tax_no', className : 'p-20', searchable: true},
+                { "data": "user_profile_name",name:'user_profile_name', className : 'p-20', searchable: true},
+                { "data": "user_phone", name:'user_phone', className : 'p-20', searchable: true},
                 { "data": "industry_category_title", name:'industry_category_title', className : 'p-20', searchable: true}
             ],
             "error" : function (xhr, error, thrown) {

@@ -1,6 +1,8 @@
 <?php
 namespace App\Repository;
 
+use DB;
+
 class BaseRepository
 {
     use \App\Http\Controllers\Contract\UserTrait;
@@ -94,5 +96,13 @@ class BaseRepository
         } else {
             return $this->sendBadRequest($defaultErrorMessage);
         }
+    }
+
+    public function getConfig($filters)
+    {
+        $config = DB::table('frm_config')
+            ->where('config_name', $filters)
+            ->first()->config_value;
+        return $config;
     }
 }

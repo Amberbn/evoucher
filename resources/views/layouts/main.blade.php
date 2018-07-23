@@ -6,6 +6,7 @@
 
   @yield('content')
 </div>
+@stack('modal')
 @include('partials/footer')
 @stack('footer_scripts')
 </body>
