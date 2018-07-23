@@ -15,6 +15,13 @@ class BaseControllerWeb extends Controller
             ->getData()->data;
     }
 
+    public function getConfig($filters)
+    {
+        return (new GeneralSettingRepository)
+            ->getConfig($filters)
+            ->getData()->data;
+    }
+
     public function getDataFromJson($response)
     {
         $data = new Collection($response->getData()->data);

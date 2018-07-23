@@ -123,7 +123,7 @@ class ClientController extends BaseControllerWeb
             return $this->pageNotFound();
         }
 
-        return view('client.index', compact('users', 'settings', 'edit', 'client'));
+        return view('client.client_form', compact('users', 'settings', 'edit', 'client'));
 
     }
 

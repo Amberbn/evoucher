@@ -49,11 +49,15 @@ class ClientRepository extends BaseRepository
                 $join
                     ->on('emp.parameters_id', '=', $table . '.client_employee_size_category_pid')
                     ->where('emp.parameters_type', '=', 'employee_size_category');
+            })
+            ->leftJoin('frm_user as user', function ($join) use ($table) {
+                $join
+                    ->on('user.client_id', '=', $table . '.client_id');
+            })
+            ->leftJoin('frm_user as PIC', function ($join) use ($table) {
+            $join
+                ->on('PIC.user_id', '=', $table . '.client_in_charge_user_id');
             });
-            // ->join('frm_user as user', function ($join) use ($table) {
-            //     $join
-            //         ->on('user.client_id', '=', $table . '.client_id');
-            // });
 
         if ($clientId) {
             $client->where($table . '.client_id', '=', $clientId);
@@ -94,8 +98,9 @@ class ClientRepository extends BaseRepository
             'clcat.parameters_value as client_category_title',
             'ind.parameters_value as industry_category_title',
             'emp.parameters_value as employee_size_category_title',
-            'city.parameters_value as client_billing_address_city_title'
-            // 'user.user_phone'
+            'city.parameters_value as client_billing_address_city_title',
+            'user.user_phone',
+            'PIC.user_profile_name'
         );
 
         if (empty($client->get()->toarray())) {

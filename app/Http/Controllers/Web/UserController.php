@@ -62,12 +62,13 @@ class UserController extends BaseControllerWeb
     public function create()
     {
         $settings = $this->getSettings(['salutation']);
+        $edit = false;
         $roles = $this->getDataFromJson((new RoleRepository)
                 ->getRole([
                     'roles_id',
                     'roles_description',
                 ]));
-        return view('users.create', compact('settings', 'roles'));
+        return view('users.user_form', compact('settings', 'roles', 'edit'));
     }
 
     /**
@@ -78,8 +79,13 @@ class UserController extends BaseControllerWeb
      */
     public function store(Request $request)
     {
-        $users = $this->repository->saveUser($request);
-        return $user;
+        $user = $this->repository->saveUser($request);
+        $responseCode = $this->getResponseCodeFromJson($user);
+        if ($responseCode != 200) {
+
+        }
+        return redirect()->route('user.index');
+
     }
 
     /**
@@ -101,7 +107,19 @@ class UserController extends BaseControllerWeb
      */
     public function edit($id)
     {
-        //
+        $settings = $this->getSettings(['salutation']);
+        $edit = true;
+        $roles = $this->getDataFromJson((new RoleRepository)
+                ->getRole([
+                    'roles_id',
+                    'roles_description',
+                ]));
+        $user = $this->getDataFromJson($this->repository->getAllUser($id))->first();
+        if (!$user) {
+            return $this->pageNotFound();
+        }
+
+        return view('users.user_form', compact('settings', 'roles', 'edit', 'user'));
     }
 
     /**
@@ -113,7 +131,13 @@ class UserController extends BaseControllerWeb
      */
     public function update(Request $request, $id)
     {
-        //
+        $upddate = $this->repository->updateUser($request, $id);
+        $responseCode = $this->getResponseCodeFromJson($upddate);
+        if ($responseCode != 200) {
+
+        }
+        return redirect()->route('user.index');
+
     }
 
     /**
