@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Web\BaseControllerWeb;
+use App\Repository\ClientRepository;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\User;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseControllerWeb
 {
+    private $type = ['prezent', 'client'];
+
     /**
      *FUNCTION __construct FOR DEFINE MODEL AND REPOSITORY
      */
@@ -19,6 +22,7 @@ class UserController extends BaseControllerWeb
     {
         $this->model = new User;
         $this->repository = new UserRepository;
+        $this->client = new ClientRepository;
     }
 
     /**
@@ -59,16 +63,36 @@ class UserController extends BaseControllerWeb
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $type = $request->type == 'prezent' ? 'prezent' : 'client';
         $settings = $this->getSettings(['salutation']);
+        $filter = [
+            'client_id',
+            'client_name',
+            'client_legal_name',
+        ];
+        $clients = $this->getDropDownClient($this->client->getClient(), $filter);
+        $sprintClient = $type == 'prezent';
         $edit = false;
-        $roles = $this->getDataFromJson((new RoleRepository)
+        $roles = $this->getDataFromJson(
+            (new RoleRepository)
                 ->getRole([
                     'roles_id',
                     'roles_description',
-                ]));
-        return view('users.user_form', compact('settings', 'roles', 'edit'));
+                ])
+        );
+
+        $data = compact(
+            'settings',
+            'roles',
+            'edit',
+            'type',
+            'clients',
+            'sprintClient'
+        );
+
+        return view('users.user_form', $data);
     }
 
     /**
@@ -105,21 +129,48 @@ class UserController extends BaseControllerWeb
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+        $type = $request->type == 'prezent' ? 'prezent' : 'client';
+
         $settings = $this->getSettings(['salutation']);
         $edit = true;
-        $roles = $this->getDataFromJson((new RoleRepository)
+        $roles = $this->getDataFromJson(
+            (new RoleRepository)
                 ->getRole([
                     'roles_id',
                     'roles_description',
-                ]));
-        $user = $this->getDataFromJson($this->repository->getAllUser($id))->first();
+                ])
+        );
+
+        $user = $this->getDataFromJson(
+            $this->repository->getAllUser($id)
+        )->first();
+
+        $filter = [
+            'client_id',
+            'client_name',
+            'client_legal_name',
+        ];
+        $clients = $this->getDropDownClient($this->client->getClient(), $filter);
+
         if (!$user) {
             return $this->pageNotFound();
         }
 
-        return view('users.user_form', compact('settings', 'roles', 'edit', 'user'));
+        $sprintClient = $this->isSprintClient($user->client_id);
+
+        $data = compact(
+            'settings',
+            'roles',
+            'edit',
+            'user',
+            'type',
+            'clients',
+            'sprintClient'
+        );
+
+        return view('users.user_form', $data);
     }
 
     /**
