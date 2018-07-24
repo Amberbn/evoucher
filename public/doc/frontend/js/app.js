@@ -478,6 +478,22 @@
 
     }
 
+    if( $('#addUserModal').length ) {
+      var cardContainer = $('#addUserModal').width();
+      var cardW = $('.modal-custom1__content').width();
+      //total cards
+      var cardN = $('.modal-custom1__content').length;
+      // var cW = (cardW*4)+120;
+      
+      if(cardN == 2){
+        var cW = (cardW*cardN)+60;
+      }else{
+        var cW = (cardW*cardN)+120;
+      }
+      $('.custom1-cards').width(cW)
+
+    }
+
   }
 
   var selectVoucher = function() {
