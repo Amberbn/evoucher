@@ -58,6 +58,7 @@ class UserRepository extends BaseRepository
 
         $users->select(
             $table . '.user_id',
+            $table . '.client_id',
             $table . '.user_name',
             $table . '.user_profile_name',
             $table . '.user_salutation_pid',
@@ -75,6 +76,7 @@ class UserRepository extends BaseRepository
             $table . '.created_by_user_name',
             $table . '.updated_at',
             $table .'.last_updated_by_user_name',
+            'client.client_category_pid',
             'salutation.parameters_value as user_salutation_title',
             'login_logs.login_logs_timestamp',
             'company.parameters_value as company',
@@ -207,6 +209,9 @@ class UserRepository extends BaseRepository
 
         try {
             $user->user_name = $request->input('user_name');
+            if($request->input('client_id')) {
+                $user->client_id = $request->input('client_id');
+            }
             $user->user_salutation_pid = $request->input('user_salutation_pid');
             $user->user_profile_name = $request->input('user_profile_name');
             $user->user_phone = $request->input('user_phone');

@@ -16,6 +16,7 @@ Route::get('/welcome', 'Web\WelcomeController@welcome');
 Route::get('/terms-and-condition', 'Web\WelcomeController@termsAndCondition');
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'Web\HomeController@index')->name('home');
+    Route::get('/chage-password', 'Web\AccountController@changePassword')->name('account.change.password');
     Route::resource('/user', 'Web\UserController');
     Route::get('/users', 'Web\UserController@indexDatatable')->name('user.list.datatable');
     Route::resource('/client', 'Web\ClientController');
