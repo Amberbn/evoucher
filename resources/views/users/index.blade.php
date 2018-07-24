@@ -41,7 +41,7 @@
                             <div class="col-md-4">
                                 <div class="voucher-list-menu row">
                                     <div class="col-md-5 offset-md-6">
-                                        <button class="btn btn-primary btn-add-client"  data-toggle="modal" data-target="#userMenuModal">Add User</button>
+                                        <button type="button" class="btn btn-primary btn-add-client"  data-toggle="modal" data-target="#userMenuModalUserAdd">Add User</button>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                         <th>Company</th>
                                         <th>User Type</th>
                                         <th>User Role</th>
-                                        {{-- <th>Last Login</th> --}}
+                                        <th>Last Login</th>
                                     </tr>
                                 </thead>
                                 {{-- <tbody>
@@ -137,6 +137,9 @@
     <!-- /.main-content__body -->
 </div>
 @endsection
+@push('modal')
+    {{--  @include('partials/modal_user_add')  --}}
+@endpush
 @push('footer_scripts')
 <script>
     $(document).ready( function () {
@@ -154,7 +157,8 @@
                 { "data": "user_phone",name:'user_phone', className : 'p-20', searchable: true},
                 { "data": "company", name:'company', className : 'p-20', searchable: true},
                 { "data": "company", name:'company', className : 'p-20', searchable: true},
-                { "data": "user_roles", name:'user_roles', className : 'p-20', searchable: true, regex:true}
+                { "data": "user_roles", name:'user_roles', className : 'p-20', searchable: true, regex:true},
+                { "data": "login_logs_timestamp", name:'login_logs_timestamp', className : 'p-20', searchable: true, regex:true}
             ],
             "error" : function (xhr, error, thrown) {
                 alert( 'You are not logged in' );

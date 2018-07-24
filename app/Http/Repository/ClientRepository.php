@@ -35,7 +35,7 @@ class ClientRepository extends BaseRepository
                     ->on('clcat.parameters_id', '=', $table . '.client_category_pid')
                     ->where('clcat.parameters_type', '=', 'client_category');
             })
-            ->join('frm_global_parameters as city', function ($join) use ($table) {
+            ->leftJoin('frm_global_parameters as city', function ($join) use ($table) {
                 $join
                     ->on('city.parameters_id', '=', $table . '.client_billing_address_city_pid')
                     ->where('city.parameters_type', '=', 'address_city');
@@ -49,6 +49,14 @@ class ClientRepository extends BaseRepository
                 $join
                     ->on('emp.parameters_id', '=', $table . '.client_employee_size_category_pid')
                     ->where('emp.parameters_type', '=', 'employee_size_category');
+            })
+            ->leftJoin('frm_user as user', function ($join) use ($table) {
+                $join
+                    ->on('user.client_id', '=', $table . '.client_id');
+            })
+            ->leftJoin('frm_user as PIC', function ($join) use ($table) {
+            $join
+                ->on('PIC.user_id', '=', $table . '.client_in_charge_user_id');
             });
 
         if ($clientId) {
@@ -63,6 +71,7 @@ class ClientRepository extends BaseRepository
         $client->where($table . '.isdelete', '=', false);
 
         $client->select(
+            $table . '.client_id',
             $table . '.client_code',
             $table . '.client_category_pid',
             $table . '.client_is_also_merchant',
@@ -84,10 +93,14 @@ class ClientRepository extends BaseRepository
             $table . '.created_by_user_name',
             $table . '.updated_at',
             $table . '.last_updated_by_user_name',
+            $table . '.client_in_charge_user_id',
+            $table . '.client_logo_image_url',
             'clcat.parameters_value as client_category_title',
             'ind.parameters_value as industry_category_title',
             'emp.parameters_value as employee_size_category_title',
-            'city.parameters_value as client_billing_address_city_title'
+            'city.parameters_value as client_billing_address_city_title',
+            'user.user_phone',
+            'PIC.user_profile_name'
         );
 
         if (empty($client->get()->toarray())) {
@@ -103,10 +116,11 @@ class ClientRepository extends BaseRepository
             DB::beginTransaction();
 
             $client_category_pid = $this->getClientByUserId($request->input('client_in_charge_user_id'));
+            $company = $this->companyParamId('CMP')->parameters_id;
 
             $client = new Client;
             $client->client_code = $request->input('client_code') ?: strtoupper(str_random(10));
-            $client->client_category_pid = $request->input('client_category_pid') ?: $client_category_pid->client_category_pid;
+            $client->client_category_pid = $request->input('client_category_pid') ?: $company;
             $client->client_is_also_merchant = $request->input('client_is_also_merchant') ?: false;
             $client->client_allow_postpaid = $request->input('client_allow_postpaid') ?: false;
             $client->client_name = $request->input('client_name');
@@ -161,11 +175,12 @@ class ClientRepository extends BaseRepository
         if (!$client) {
             return $this->sendNotfound();
         }
-
+        $sprint = $this->sprintParamId()->parameters_id;
+        $company = $this->companyParamId('CMP')->parameters_id;
         try {
             DB::beginTransaction();
 
-            $client->client_category_pid = $request->input('client_category_pid');
+            $client->client_category_pid = $request->input('client_category_pid') ?: $company;
             $client->client_is_also_merchant = $request->input('client_is_also_merchant');
             $client->client_allow_postpaid = $request->input('client_allow_postpaid');
             $client->client_name = $request->input('client_name');
@@ -180,8 +195,8 @@ class ClientRepository extends BaseRepository
             $client->client_industry_category_pid = $request->input('client_industry_category_pid');
             $client->client_employee_size_category_pid = $request->input('client_employee_size_category_pid');
             $client->client_outstanding_limit = $request->input('client_outstanding_limit');
-            $client->isactive = $request->input('isactive');
-            $client->isdelete = $request->input('isdelete');
+            $client->isactive = $request->input('isactive') ?: true;
+            $client->isdelete = $request->input('isdelete') ?: false;
             $client->last_updated_by_user_name = $this->loginUsername();
             $client->save();
 

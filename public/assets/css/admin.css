@@ -132,11 +132,12 @@ h2.user-menu-cards__heading{
 }
 
 .voucher-tab .nav-tabs a.nav-link.active{
-    border-bottom:3px #C4C4C4 solid !important;
+    border-bottom:3px #004D9A solid !important;
     border-top:none !important;
     border-left:none !important;
     border-right:none !important;
-    color:#C4C4C4;
+    color:#004D9A;
+    font-weight: bold;
 }
 
 .voucher-tab .nav-tabs a.nav-link:hover{
@@ -145,9 +146,23 @@ h2.user-menu-cards__heading{
     border-right:none !important;
 }
 
+pre.prvResult{
+    font-family: 'Muli', sans-serif !important;
+    color:#000;
+}
+
 /* Merchant & Outlet */
 .merchant-btn button.btn{
     margin-right:20px;
+}
+
+ul#accordion {
+    list-style-type: none;
+    padding: 0;
+}
+
+.btn-removelist{
+    background:none;
 }
 
 /* Client company information */
@@ -338,6 +353,25 @@ span.slideBtn-b {
     display: none;
 }
 
+.page-item.active .page-link {
+    z-index: 1;
+    color: #004D9A;
+    background-color: #fff;
+    border-color: #004D9A;
+}
+
+.tbl-data-min{
+    color:#d83d25;
+}
+
+.tbl-data-active{
+    color:#8ac652;
+}
+
+.tbl-data-time{
+    color:#ee4864;
+}
+
 #uploadBox{
     display: none;
 }
@@ -374,7 +408,6 @@ span.slideBtn-b {
 
 #upload_button label{
     padding:4px 0;
-    width:100% !important;
 }
 
 #upload_button input[type=file] {
@@ -389,6 +422,14 @@ span.slideBtn-b {
     color:#004D9A;
 }
 
+/* Upload voucher img */
+#prvRemoveBtn{
+    display: none;
+    /* background-color: rgba(130, 130, 130, 0.6); */
+    position: absolute;
+    width: 100%;
+    top:40%;
+}
 .textUpper{
     text-transform:uppercase;
 }
@@ -401,3 +442,5 @@ span.slideBtn-b {
     padding-left:0;
     padding-top:3px !important;
 }
+
+

@@ -584,6 +584,13 @@
     });
   }
 
+  var textPreview = function () {
+    $('.prvInput').keyup(function () {
+      var x = $(this).val();
+      $('.prvResult').html(x);
+    });
+  }
+
   // Dom Ready
   $(function () {
     loginPage();
@@ -601,6 +608,7 @@
     slideButton();
     toolTip();
     RedeemPINModal();
+    textPreview();
   });
 
 })(jQuery);

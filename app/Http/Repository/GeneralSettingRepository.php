@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository;
 
+use App\Config;
 use App\GlobalParameter;
 use App\Repository\BaseRepository;
 
@@ -9,6 +10,7 @@ class GeneralSettingRepository extends BaseRepository
     public function __construct()
     {
         $this->model = new GlobalParameter;
+        $this->config = new Config;
     }
 
     public function getSetting($parameterType, $parentId = null)
@@ -56,5 +58,22 @@ class GeneralSettingRepository extends BaseRepository
         }
 
         return $this->sendSuccess($arrayData);
+    }
+
+    public function getConfig($param)
+    {
+        $config = $this->config::select([
+            'config_name',
+            'config_group_name',
+            'config_value',
+        ]);
+        $config = $config->where('config_name', $param);
+        $config = $config->first();
+
+        if (empty($config->toArray())) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($config);
     }
 }

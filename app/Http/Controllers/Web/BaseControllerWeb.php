@@ -15,9 +15,28 @@ class BaseControllerWeb extends Controller
             ->getData()->data;
     }
 
+    public function getConfig($filters)
+    {
+        return (new GeneralSettingRepository)
+            ->getConfig($filters)
+            ->getData()->data;
+    }
+
     public function getDataFromJson($response)
     {
         $data = new Collection($response->getData()->data);
         return $data;
+    }
+
+    public function getResponseCodeFromJson($response)
+    {
+        $data = new Collection($response->getData()->status_code);
+        return $data->first();
+    }
+
+    public function pageNotFound()
+    {
+        return abort(404);
+
     }
 }
