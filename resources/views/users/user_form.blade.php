@@ -54,6 +54,33 @@
                 </div>
                 </div>
                 <!-- /.form-section -->
+                @if(!$sprintClient)
+                <!-- /.form-section -->
+                  <div class="form-section row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="form-input">
+                          <label for="choose-client">Client</label>
+                          <select name="client_id" class="custom-select dropdown-select2" id="choose-client">
+                            <option {{ !@$user->client_id ? 'selected' : '' }}>Choose...</option>
+                            @foreach ($clients as $client)
+                            @php
+                                $selected = @$user->client_id == $client['client_id'] ? 'selected' : '';
+                            @endphp
+                            <option value="{{ $client['client_id'] }}" {{ $selected }}>{{ $client['client_name'] }}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group has-only-a-link">
+                        <a href="{{ route('client.create') }}" class="align-middle">Client is not registered yet? Click here to add new client</a>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.form-section.row -->
+                @endif
                 
                 <div class="form-section last">
                 <div class="form-group">

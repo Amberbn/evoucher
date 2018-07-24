@@ -39,4 +39,34 @@ class BaseControllerWeb extends Controller
         return abort(404);
 
     }
+
+    public function getSpecificSelect($josonCollection, $filterSelect)
+    {
+        $collection = $this->getDataFromJson($josonCollection);
+        $response = $collection->map(function ($data) use ($filterSelect) {
+            return collect($data)
+                ->only($filterSelect)
+                ->all();
+        });
+
+        return $response;
+    }
+
+    public function getDropDownClient($josonCollection, $filterSelect)
+    {
+        $clientDopdownData = $this->getSpecificSelect($josonCollection, $filterSelect);
+        $sprintClientId = $this->getConfig('sprint_client_id')->config_value;
+
+        $collectionResponse = $clientDopdownData->unique()
+            ->where('client_id', '!=', $sprintClientId);
+        return $collectionResponse;
+
+    }
+
+    public function isSprintClient($clientId)
+    {
+        $isClientSprint = $this->getConfig('sprint_client_id')->config_value;
+        return $clientId == $isClientSprint;
+
+    }
 }
