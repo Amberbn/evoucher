@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/user', 'Web\UserController');
     Route::get('/users', 'Web\UserController@indexDatatable')->name('user.list.datatable');
     Route::resource('/client', 'Web\ClientController');
+    Route::put('/client-detete', 'Web\ClientController@destroyFromArray')->name('clients.delete');
     Route::get('/clients', 'Web\ClientController@indexDatatable')->name('client.list.datatable');
     Route::get('/general-setting/{param}/{parent?}', 'Web\GeneralSettingController@index')->name('chain.dropdown');
 });

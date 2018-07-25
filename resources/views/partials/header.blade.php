@@ -22,6 +22,8 @@
     <link href="{{ asset('assets/vendor/select2/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/checkradios/jquery.checkradios.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/datatable/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
