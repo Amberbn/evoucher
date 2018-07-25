@@ -33,7 +33,7 @@ class ClientController extends BaseControllerWeb
             ->addColumn('action', function ($client) {
                 return '<td class="first">' .
                 '<div class="form-check">' .
-                '<input type="checkbox" value="user_id_' . $client->client_id . '" class="form-check-input" nice-checkbox-radio />' .
+                '<input type="checkbox" id="' . $client->client_id . '" value="' . $client->client_id . '" class="form-check-input" nice-checkbox-radio />' .
                     '</div>' .
                     '</td>';
             })
@@ -153,5 +153,11 @@ class ClientController extends BaseControllerWeb
     public function destroy($id)
     {
         //
+    }
+
+    public function destroyFromArray(Request $request)
+    {
+        $multipleDelete = $this->repository->multipleDelete($request->data);
+        $responseCode = $this->getResponseCodeFromJson($multipleDelete);
     }
 }
