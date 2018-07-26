@@ -26,7 +26,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-link-merchant" href="#">
+            <a class="nav-link nav-link-merchant" href="{{ route('merchant.index') }}">
               <span class="nav-link__icon icon-ic_merchant"><span class="nav-link__text">Merchant</span></span>
             </a>
           </li>
