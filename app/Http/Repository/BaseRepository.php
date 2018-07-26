@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use DB;
+use Illuminate\Http\File;
 
 class BaseRepository
 {
@@ -104,5 +105,32 @@ class BaseRepository
             ->where('config_name', $filters)
             ->first()->config_value;
         return $config;
+    }
+
+    public function saveImage($request)
+    {
+        $file = $request->file('user_profile_image_url');
+        $imageFileName = 'photo_' . time() . '.' . $file->getClientOriginalExtension();
+        $storage = \Storage::disk('local');
+
+        //convert image
+        $image = \Image::make($file);
+        $image->widen(1024);
+
+        // upload storage
+        $filePath = 'profile/original/';
+        $save_path = 'profile/original/';
+        $storage->put($filePath . $imageFileName, (string) $image->encode() . $filePath);
+
+        $imageThumnail = \Image::make($file);
+        $imageThumnail->widen(300);
+
+        // upload storage
+        $filePathThumnail = 'profile/thumbnail/';
+        $save_path_thumbnail = 'profile/thumbnail/';
+        $storage->put($filePathThumnail . $imageFileName, (string) $imageThumnail->encode() . $filePathThumnail);
+
+        // return name
+        return $imageFileName;
     }
 }

@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Hash;
  */
 class UserRepository extends BaseRepository
 {
+
+    public function __construct()
+    {
+        $this->model = new User;
+    }
+
     public function getAllUser($userId = null)
     {
         $table = (new User)->getTable();
@@ -141,6 +147,11 @@ class UserRepository extends BaseRepository
 
         try {
 
+            $filename = null;
+            if ($request->user_profile_image_url) {
+                $filename = $this->saveImage($request);
+            }
+
             $settingExpirationDays = $this->getConfig('user_password_expiration_days') ?: 90;
             $current = Carbon::now();
             // add 90 days to the current time
@@ -153,6 +164,7 @@ class UserRepository extends BaseRepository
             $user->client_id = $request->input('client_id') ?: $sprintClientId;
             $user->user_salutation_pid = $request->input('user_salutation_pid');
             $user->user_profile_name = $request->input('user_profile_name');
+            $user->user_profile_image_url = $filename;
             $user->password = $request->input('password') ?: Hash::make('Passw0rd1');
             $user->user_phone = $request->input('user_phone');
             $user->user_token = $request->input('user_token');
@@ -251,5 +263,24 @@ class UserRepository extends BaseRepository
         }
 
         return $this->sendSuccess($user);
+    }
+
+    public function multipleDelete($arraysId)
+    {
+        try {
+            DB::beginTransaction();
+
+            foreach ($arraysId as $userId) {
+                $user = $this->model::where('user_id', $userId)->first();
+                $user->isdelete = true;
+                $user->last_updated_by_user_name = $this->loginUsername();
+                $user->save();
+                DB::commit();
+            }
+            return $this->sendSuccess(true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
+        }
     }
 }

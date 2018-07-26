@@ -46,7 +46,7 @@ class UserController extends BaseControllerWeb
             ->addColumn('action', function ($user) {
                 return '<td class="first">' .
                 '<div class="form-check">' .
-                '<input type="checkbox" value="user_id_' . $user->user_id . '" class="form-check-input" nice-checkbox-radio />' .
+                '<input type="checkbox" id="' . $user->user_id . '" value="' . $user->user_id . '" class="form-check-input" nice-checkbox-radio />' .
                     '</div>' .
                     '</td>';
             })
@@ -104,11 +104,13 @@ class UserController extends BaseControllerWeb
     public function store(Request $request)
     {
         $user = $this->repository->saveUser($request);
+
         $responseCode = $this->getResponseCodeFromJson($user);
+
         if ($responseCode != 200) {
 
         }
-        return redirect()->route('user.index');
+        // return redirect()->route('user.index');
 
     }
 
@@ -189,6 +191,12 @@ class UserController extends BaseControllerWeb
         }
         return redirect()->route('user.index');
 
+    }
+
+    public function destroyFromArray(Request $request)
+    {
+        $multipleDelete = $this->repository->multipleDelete($request->data);
+        $responseCode = $this->getResponseCodeFromJson($multipleDelete);
     }
 
     /**
