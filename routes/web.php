@@ -25,6 +25,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/general-setting/{param}/{parent?}', 'Web\GeneralSettingController@index')->name('chain.dropdown');
 
     Route::resource('/merchant', 'Web\MerchantController');
-    Route::get('/index', 'Web\MerchantController@index')->name('merchant.index');
-    Route::get('/create', 'Web\MerchantController@create')->name('merchant.create');
+    Route::get('/merchants', 'Web\MerchantController@indexDatatable')->name('merchant.list.datatable');
+    Route::get('/merchant/create', 'Web\MerchantController@create')->name('merchant.create');
 });
