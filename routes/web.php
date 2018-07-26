@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', 'Web\HomeController@index')->name('home');
     Route::get('/chage-password', 'Web\AccountController@changePassword')->name('account.change.password');
     Route::resource('/user', 'Web\UserController');
+    Route::put('/user-delete', 'Web\UserController@destroyFromArray')->name('users.delete');
     Route::get('/users', 'Web\UserController@indexDatatable')->name('user.list.datatable');
     Route::resource('/client', 'Web\ClientController');
     Route::put('/client-detete', 'Web\ClientController@destroyFromArray')->name('clients.delete');
