@@ -230,4 +230,23 @@ class ClientRepository extends BaseRepository
             return $this->throwErrorException($e);
         }
     }
+
+    public function multipleDelete($arraysId)
+    {
+        try {
+            DB::beginTransaction();
+            
+            foreach ($arraysId as $clientId) {
+                $client = $this->model::where('client_id', $clientId)->first();
+                $client->isdelete = true;
+                $client->last_updated_by_user_name = $this->loginUsername();
+                $client->save();
+                DB::commit();
+            }
+            return $this->sendSuccess(true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
+        }
+    }
 }
