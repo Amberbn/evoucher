@@ -118,6 +118,11 @@ class ClientRepository extends BaseRepository
             $client_category_pid = $this->getClientByUserId($request->input('client_in_charge_user_id'));
             $company = $this->companyParamId('CMP')->parameters_id;
 
+            $filename = null;
+            if ($request->client_logo_image_url) {
+                $filename = $this->saveImage($request, 'client_logo_image_url', 'client');
+            }
+
             $client = new Client;
             $client->client_code = $request->input('client_code') ?: strtoupper(str_random(10));
             $client->client_category_pid = $request->input('client_category_pid') ?: $company;
@@ -136,7 +141,7 @@ class ClientRepository extends BaseRepository
             $client->client_employee_size_category_pid = $request->input('client_employee_size_category_pid');
             $client->client_outstanding_limit = $request->input('client_outstanding_limit') ?: 0;
             $client->client_in_charge_user_id = $request->input('client_in_charge_user_id');
-            $client->client_logo_image_url = $request->input('client_logo_image_url');
+            $client->client_logo_image_url = $filename;
             $client->isactive = $request->input('isactive') ?: true;
             $client->isdelete = $request->input('isdelete') ?: false;
             $client->created_by_user_name = $this->loginUsername();
@@ -198,6 +203,12 @@ class ClientRepository extends BaseRepository
             $client->isactive = $request->input('isactive') ?: true;
             $client->isdelete = $request->input('isdelete') ?: false;
             $client->last_updated_by_user_name = $this->loginUsername();
+
+            if ($request->file('client_logo_image_url')) {
+                $filename = $this->saveImage($request, 'client_logo_image_url', 'client');
+                $client->client_logo_image_url = $filename;
+            }
+
             $client->save();
 
             DB::commit();

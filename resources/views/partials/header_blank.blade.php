@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
     <meta name="author" content="Kharis Sulistiyono">
-    <title>Login - Prezent</title>
+    <title>Prezent - @yield('title')</title>
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('assets/img/favicon.png') }}" type="image/png">
     <link rel="shortcut icon" href="img/favicon.png" type="image/png">

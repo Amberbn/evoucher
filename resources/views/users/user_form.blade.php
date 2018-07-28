@@ -1,4 +1,8 @@
 @extends('layouts/main')
+@php
+    $title = @$user ? 'Edit User' : 'Create New User'
+@endphp
+@section('title', $title)
 @section('content')
 <div id="main-content">
 <div class="main-content__body container-fluid">

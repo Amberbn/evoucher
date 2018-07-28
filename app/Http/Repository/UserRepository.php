@@ -149,7 +149,7 @@ class UserRepository extends BaseRepository
 
             $filename = null;
             if ($request->user_profile_image_url) {
-                $filename = $this->saveImage($request);
+                $filename = $this->saveImage($request, 'user_profile_image_url', 'profile');
             }
 
             $settingExpirationDays = $this->getConfig('user_password_expiration_days') ?: 90;
@@ -228,6 +228,12 @@ class UserRepository extends BaseRepository
             $user->user_profile_name = $request->input('user_profile_name');
             $user->user_phone = $request->input('user_phone');
             $user->last_updated_by_user_name = $this->loginUsername();
+
+            if ($request->file('user_profile_image_url')) {
+                $filename = $this->saveImage($request, 'user_profile_image_url', 'profile');
+                $user->user_profile_image_url = $filename;
+            }
+
             $user->save();
             $role = UserRole::where('user_id',$user->user_id)->first();
             
