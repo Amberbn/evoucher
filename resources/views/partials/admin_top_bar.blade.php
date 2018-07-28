@@ -64,12 +64,12 @@
         <li class="user-menu parent-menu">
         <a href="#">
             <span class="user-menu__avatar"></span>
-            <span class="user-menu__name">Annisa Kinanti</span>
+            <span class="user-menu__name">{{ Auth::user()->user_profile_name }}</span>
             <span class="profile-menu-toggle"><i class="fa fa-angle-down"></i></span>
         </a>
         <ul class="sub-menu">
-            <li><a href="#">Edit Profile</a></li>
-            <li><a href="#">Change Password</a></li>
+            <li><a href="{{ route('user.edit',['id' => Auth::user()->user_id]) }}">Edit Profile</a></li>
+            <li><a href="{{ route('account.change.password') }}">Change Password</a></li>
             <li>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">

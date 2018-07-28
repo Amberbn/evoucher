@@ -1,4 +1,5 @@
 @extends('layouts/main')
+@section('title', 'User List')
 @section('content')
 <div id="main-content">
     <div class="main-content__body container-fluid">

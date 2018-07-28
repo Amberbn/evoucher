@@ -1,4 +1,8 @@
 @extends('layouts/main')
+@php
+    $title = @$client ? 'Edit Client' : 'Create New Client'
+@endphp
+@section('title', $title)
 @section('content')
 <div id="main-content">
     <div class="container-fluid">

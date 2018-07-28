@@ -110,7 +110,7 @@ class UserController extends BaseControllerWeb
         if ($responseCode != 200) {
 
         }
-        // return redirect()->route('user.index');
+        return redirect()->route('user.index');
 
     }
 
