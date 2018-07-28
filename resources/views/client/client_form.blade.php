@@ -27,7 +27,7 @@
             $method = $clientId ? 'PUT' : 'POST';
             $route = $clientId ? route('client.update',['id' => $clientId]) : route('client.store');
           @endphp
-          <form id="company-form" action="{{ $route }}" method="POST">
+          <form id="company-form" action="{{ $route }}" method="POST" enctype="multipart/form-data">
              @csrf
             <input type="hidden" name="_method" value="{{ $method }}">
             <div id="company_information_form">
