@@ -63,7 +63,12 @@
         </li>
         <li class="user-menu parent-menu">
         <a href="#">
-            <span class="user-menu__avatar"></span>
+        @php
+            $folderPath = 'storage/profile/thumbnail/';
+            $profileImage = Auth::user()->user_profile_image_url;
+            $filePath = $folderPath.$profileImage;
+        @endphp
+            <span class="user-menu__avatar" style="background-image:url('{{ asset($filePath) }}')"></span>
             <span class="user-menu__name">{{ Auth::user()->user_profile_name }}</span>
             <span class="profile-menu-toggle"><i class="fa fa-angle-down"></i></span>
         </a>
