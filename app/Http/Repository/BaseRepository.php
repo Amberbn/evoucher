@@ -110,8 +110,8 @@ class BaseRepository
     public function saveImage($request, $requestType, $folderName)
     {
         $file = $request->file($requestType);
-        $imageFileName = 'photo_' . $folderName . '_' . time() . '.' . $file->getClientOriginalExtension();
-        $storage = \Storage::disk('local');
+        $imageFileName = strtolower(str_random(10)) . '.' . $file->getClientOriginalExtension();
+        $storage = \Storage::disk('public');
 
         //convert image
         $image = \Image::make($file);
@@ -121,15 +121,14 @@ class BaseRepository
         $filePath = $folderName . '/original/';
         $storage->put($filePath . $imageFileName, (string) $image->encode() . $filePath);
 
-        // $imageThumnail = \Image::make($file);
-        // $imageThumnail->widen(300);
+        $imageThumnail = \Image::make($file);
+        $imageThumnail->widen(300);
 
-        // upload storage
-        // $filePathThumnail = 'profile/thumbnail/';
-        // $save_path_thumbnail = 'profile/thumbnail/';
-        // $storage->put($filePathThumnail . $imageFileName, (string) $imageThumnail->encode() . $filePathThumnail);
+        //upload storage
+        $filePathThumnail = $folderName . '/thumbnail/';
+        $storage->put($filePathThumnail . $imageFileName, (string) $imageThumnail->encode() . $filePathThumnail);
 
         // return name
-        return $filePath . $imageFileName;
+        return $imageFileName;
     }
 }

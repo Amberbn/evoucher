@@ -19,7 +19,7 @@
             <div class="modal-dialog modal-custom1__content">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <a href="{{ route('user.create') }}?type=present">
+                        <a href="{{ route('user.create') }}?type=prezent">
                             <div class="modal-body__inner">
                                 <img src="{{ asset('assets/img/img-prezent-user.svg') }}" alt="">
                                 <h3>Prezent User</h3>
