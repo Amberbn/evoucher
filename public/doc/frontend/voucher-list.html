@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+    <meta name="author" content="Kharis Sulistiyono">
+    <title>Voucher List - Prezent</title>
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:200,300,400,700,800" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet">
+    <link href="vendor/checkradios/jquery.checkradios.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/app.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" type="text/css" href="vendor/datatable/css/dataTables.bootstrap4.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="member-area document-resize">
+    <div class="site clearfix">
+      <div id="admin-top-bar">
+        <div class="admin-bar">
+          <div class="admin-bar__main-menu">
+            <button class="btn"><span class="lines-menu"></span></button>
+          </div>
+          <div class="admin-bar__context">
+            <div class="inner">
+              <nav class="top-breadcrump" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a class="span" href="#">Voucher Management</a>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <div class="admin-bar__nav">
+            <span class="mobile-nav-toggle"><i class="fa fa-bars"></i></span>
+            <ul>
+              <li class="nav__support">
+                <a href="#"><span class="icon-ic_support"></span></a>
+              </li>
+              <li class="nav__notification parent-menu incoming-notification has-notification">
+                <a href="#">
+                  <span class="icon-ic_notif"></span>
+                  <span class="notification-counter">121</span>
+                </a>
+                <ul class="sub-menu notification__dropdown">
+                  <li class="notif__head">
+                    New Notification <span class="new-notif-count">2</span>
+                  </li>
+                  <li class="notif__status-pending unread">
+                    <a href="#">
+                      <div class="notif__inner">
+                        <span class="notif__campaign-name"><strong>Pending Invoice :</strong> Invoice No. D-0011</span>
+                        &ndash; <span class="notif__campaign-date">29 Aug 2018</span>
+                        <p class="notif__campaign-created">Today &ndash; 8.15 <span></span></p>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="notif__status-paid unread">
+                    <a href="#">
+                      <div class="notif__inner">
+                        <span class="notif__campaign-name"><strong>Invoice Paid :</strong> Invoice No. D-0006</span>
+                        <p class="notif__campaign-created">Today &ndash; 8.02 <span></span></p>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="notif__status-new">
+                    <a href="#" class="sign-out">
+                      <div class="notif__inner">
+                        <span class="notif__campaign-name"><strong>PT. Mitra Adhi Perkasa</strong> want to start a campaign.</span>
+                        <p class="notif__campaign-created">Yesterday &ndash; 9.12 <span></span></p>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="notif__status-paid">
+                    <a href="#">
+                      <div class="notif__inner">
+                        <span class="notif__campaign-name"><strong>Invoice Paid :</strong> Invoice No. D-0002</span>
+                        <p class="notif__campaign-created">8 May 2018 &ndash; 10.30 <span></span></p>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="notif__footer">
+                    <a href="#">Show more notifications</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="user-menu parent-menu">
+                <a href="#">
+                  <span class="user-menu__avatar"></span>
+                  <span class="user-menu__name">Annisa Kinanti</span>
+                  <span class="profile-menu-toggle"><i class="fa fa-angle-down"></i></span>
+                </a>
+                <ul class="sub-menu">
+                  <li><a href="#">Edit Profile</a></li>
+                  <li><a href="#">Change Password</a></li>
+                  <li><a href="#" class="sign-out">Sign Out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="admin-bar__shortcut">
+            <div class="btn-zoom-in-shadow">
+              <button class="btn shortcut border-0 plus" data-toggle="modal" data-target="#userMenuModal"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /#admin-top-bar -->
+      <div id="side-menu">
+        <ul class="nav flex-column">
+          <li class="nav-item first">
+            <div class="admin-bar__main-menu">
+              <button class="btn"><span class="lines-menu"></span></button>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-dashboard active" href="#">
+              <span class="nav-link__icon icon-ic_dashboard"><span class="nav-link__text">Dashboard</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-client" href="#">
+              <span class="nav-link__icon icon-ic_client"><span class="nav-link__text">Client</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-campaign" href="#">
+              <span class="nav-link__icon icon-ic_campaign"><span class="nav-link__text">Campaign</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-coupon" href="#">
+              <span class="nav-link__icon icon-ic_coupon"><span class="nav-link__text">Coupon</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-merchant" href="#">
+              <span class="nav-link__icon icon-ic_merchant"><span class="nav-link__text">Merchant</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-invoice" href="#">
+              <span class="nav-link__icon icon-ic_invoice"><span class="nav-link__text">Invoice</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-deposit" href="#">
+              <span class="nav-link__icon icon-ic_deposit"><span class="nav-link__text">Deposit</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-user" href="#">
+              <span class="nav-link__icon icon-ic_user"><span class="nav-link__text">User</span></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- /#side-menu -->
+      <div id="main-content">
+        <div class="main-content__body container-fluid">
+          <div class="row justify-content-md-center">
+            <div class="content-area content-area__client-detail col-md-12">
+              <div class="client-statistics-outer">
+                <div class="client-statistics clearfix">
+                  <div class="client-stats-item">
+                    <div class="client-stats-item__inner">
+                      <a href="#">
+                        <h5 class="client-stats-item__name">Most Redeemed Voucher</h5>
+                        <div class="client-stats-item__value">820 pcs</div>
+                        <div class="client-stats-item__compare">
+                          <span class="client-stats-item__compare-number stats-up">5% <i class="fa fa-caret-up"></i></span>
+                          <span class="client-stats-item__compare-time">This Week</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- /.client-stats-item -->
+                  <div class="client-stats-item">
+                    <div class="client-stats-item__inner">
+                      <a href="#">
+                        <h5 class="client-stats-item__name">Expired Vouchers</h5>
+                        <div class="client-stats-item__value">5500 pcs</div>
+                        <div class="client-stats-item__compare">
+                          <span class="client-stats-item__compare-number stats-down">12 <i class="fa fa-caret-down"></i></span>
+                          <span class="client-stats-item__compare-time">This Week</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- /.client-stats-item -->
+                  <div class="client-stats-item">
+                    <div class="client-stats-item__inner">
+                      <a href="#">
+                        <h5 class="client-stats-item__name">Total Campaigns</h5>
+                        <div class="client-stats-item__value">IDR 7,932.00</div>
+                        <div class="client-stats-item__compare">
+                          <span class="client-stats-item__compare-number stats-up">13 <i class="fa fa-caret-up"></i></span>
+                          <span class="client-stats-item__compare-time">This Week</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- /.client-stats-item -->
+                  <div class="client-stats-item">
+                    <div class="client-stats-item__inner">
+                      <a href="#">
+                        <h5 class="client-stats-item__name">Redeem Rate</h5>
+                        <div class="client-stats-item__value">74.25%</div>
+                        <div class="client-stats-item__compare">
+                          <span class="client-stats-item__compare-number stats-down">5% <i class="fa fa-caret-down"></i></span>
+                          <span class="client-stats-item__compare-time">This Week</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- /.client-stats-item -->
+                  <div class="client-stats-item">
+                    <div class="client-stats-item__inner">
+                      <a href="#">
+                        <h5 class="client-stats-item__name">Redeem Rate</h5>
+                        <div class="client-stats-item__value">690.400</div>
+                        <div class="client-stats-item__compare">
+                          <span class="client-stats-item__compare-number stats-up">5% <i class="fa fa-caret-up"></i></span>
+                          <span class="client-stats-item__compare-time">This Week</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- /.client-stats-item -->
+                </div>
+                <!-- /.client-statistics -->
+              </div>
+              <!-- /.client-statistics-outer -->
+              <div class="voucher-top-area row">
+                    <div class="col-md-8">
+                      <div class="voucher-filter-form">
+                        <form action="" method="GET">
+                          <div class="form-section row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="form-input">
+                                  <label for="filter-by-tags">Tags</label>
+                                  <select name="by-tags" class="custom-select select2-input-tags" id="filter-by-tags" multiple="multiple">
+                                    <option value="food-beverages">Food & Beverages</option>
+                                    <option value="retails">Retails</option>
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="beauty">Beauty</option>
+                                    <option value="hotels">Hotels</option>
+                                    <option value="holiday-packages">Holiday Packages</option>
+                                    <option value="relaxations">Relaxations</option>
+                                    <option value="others">Others</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.col-md-6 -->
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="filter-by-keyword">Search</label>
+                                <div class="input-group">
+                                  <input id="filter-by-keyword" name="s" type="text" class="form-control" placeholder="">
+                                  <div class="input-group-append btn-group btn-has-dropdown-menu">
+                                    <button class="btn dropdown-toggle" type="button">Filter</button>
+                                    <div class="dropdown-menu">
+                                      <div class="filter-dropdown">
+                                        <div class="form-group filter-location">
+                                          <div class="form-row">
+                                            <div class="col-md-4">
+                                              <label for="filter-location">Location</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <div class="input-group">
+                                                <input id="filter-location" name="location" type="text" class="form-control add-clear-input" placeholder="">
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group filter-area">
+                                          <div class="form-row">
+                                            <div class="col-md-4">
+                                              <label for="filter-area">Area</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <div class="input-group">
+                                                <input id="filter-area" name="area" type="text" class="form-control add-clear-input" placeholder="">
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group">
+                                          <div class="form-row exp-date">
+                                            <div class="col-md-4">
+                                              <label>Exp Data</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <div class="input-group form-check">
+                                                <table>
+                                                  <tbody>
+                                                    <tr>
+                                                      <td>
+                                                        <input class="form-check-input" type="radio" name="month" id="month-1" value="more than 1 month" checked nice-checkbox-radio>
+                                                        <label for="month-1" class="form-check-label">> 1 Month</label>
+                                                      </td>
+                                                      <td>
+                                                        <input class="form-check-input" type="radio" name="month" id="month-2" value="more than 2 month" checked nice-checkbox-radio>
+                                                        <label for="month-2" class="form-check-label">> 2 Months</label>
+                                                      </td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td>
+                                                        <input class="form-check-input" type="radio" name="month" id="month-3" value="more than 6 month" checked nice-checkbox-radio>
+                                                        <label for="month-1" class="form-check-label">> 6 Months</label>
+                                                      </td>
+                                                      <td>
+                                                        <input class="form-check-input" type="radio" name="month" id="month-4" value="more than 1 year" checked nice-checkbox-radio>
+                                                        <label for="month-1" class="form-check-label">> 1 Year</label>
+                                                      </td>
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group">
+                                          <div class="form-row">
+                                            <div class="col-md-4">
+                                              <label for="customRange1">Voucher Value</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                              <div class="input-group voucher-input-range">
+                                                <input type="range" class="voucher-range" min="10000" max="100000000" step="500" data-default-val="500000" value="500000" data-rangeslider>
+                                                <span class="range-output"><output class="output number-price"></output></span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="filter-dropdown__buttons">
+                                          <div class="form-row">
+                                            <div class="col-md-6">
+                                              <a href="#" class="btn clear-all-filter">Clear all filter</a>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <button class="btn cancel-filter">Cancel</button>
+                                              <button class="btn apply-filter">Apply</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- /.filter-dropdown -->
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.col-md-6 -->
+                          </div>
+                          <!-- /.form-section.row -->
+                        </form>
+                      </div>
+                      <!-- /.voucher-filter-form -->
+                    </div>
+                    <div class="col-md-4">
+                      <div class="voucher-list-menu row">
+                        <div class="col-md-3">
+                          <div class="layout-switcher-group">
+                            <button class="btn switch-loop-layout-list" data-id="#loop-layout"><i class="fa fa-list"></i></button>
+                            <button class="btn switch-loop-layout-grid active" data-id="#loop-layout"><i class="fa fa-th"></i></button>
+                          </div>
+                        </div>
+                        <div class="col-md-9">
+                          <div class="btn-group btn-has-dropdown-menu">
+                            <button class="btn btn-primary dropdown-toggle create-new" type="button">Create New Voucher</button>
+                            <div class="dropdown-menu text-right">
+                              <ul class="list-unstyled">
+                                <li><a href="#">Create a Commercial Voucher</a></li>
+                                <li><a href="#">Merchant's Customer Loyalty Voucher</a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              <div class="campaign-history">
+                <form id="campaigns" action="" method="">
+                  <div class="table-responsive">
+                    <table id="voucherListTable" class="table campaign-list-table" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th class="first-col">
+                            <a class="popover-menu-btn" href="#">
+                              <img src="img/icon-plus-blue.png" alt="+" />
+                            </a>
+                            <div class="popover-menu-content">
+                              <ul class="list-unstyled">
+                                <li><a href="#">Edit Checked Voucher</a></li>
+                                <li><a href="#">Delete Checked Voucher</a></li>
+                                <li><a href="#">Archive Checked</a></li>
+                              </ul>
+                            </div>
+                          </th>
+                          <th>Voucher Name</i></th>
+                          <th>Voucher Category</i></th>
+                          <th>Merchant</i></th>
+                          <th>Value</i></th>
+                          <th>Amount</i></th>
+                          <th>Validity Period</i></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="first">
+                            <div class="form-check">
+                              <input type="checkbox" value="campaign-1" class="form-check-input" nice-checkbox-radio />
+                            </div>
+                          </td>
+                          <td>CGV Buy 1 Get 1</td>
+                          <td>Entertainment</td>
+                          <td>CGV Cinemas</td>
+                          <td>100.000</td>
+                          <td>1.000</td>
+                          <td class="last">30 May -  30 Juni 2018</td>
+                        </tr>
+                        <tr>
+                          <td class="first">
+                            <div class="form-check">
+                              <input type="checkbox" value="campaign-2" class="form-check-input" nice-checkbox-radio />
+                            </div>
+                          </td>
+                          <td>Carrefour 100k Voucher</td>
+                          <td>Retail</td>
+                          <td>Carrefour</td>
+                          <td>100.000</td>
+                          <td>1.500</td>
+                          <td class="last">1 Jul -  30 Jul 2018</td>
+                        </tr>
+                        <tr>
+                          <td class="first">
+                            <div class="form-check">
+                              <input type="checkbox" value="campaign-3" class="form-check-input" nice-checkbox-radio />
+                            </div>
+                          </td>
+                          <td>Carrefour 100k Voucher</td>
+                          <td>Retail</td>
+                          <td>Carrefour</td>
+                          <td>100.000</td>
+                          <td>1.500</td>
+                          <td class="last">1 Jul -  30 Jul 2018</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </form>
+              </div>
+              <!-- /.campaign-history -->
+            </div>
+            <!-- /.content-area -->
+          </div>
+        </div>
+        <!-- /.main-content__body -->
+      </div>
+      <!-- /#main-content -->
+    </div>
+    <!-- /.site -->
+    <div class="modal modal-user-menu fade clarfix" id="userMenuModal" tabindex="-1" role="dialog" aria-labelledby="userMenuModalLabel" aria-hidden="true">
+      <div class="modal-user-menu__inner" role="document">
+        <div class="user-menu-cards clearfix">
+          <h2 class="modal-dialog user-menu-cards__heading">What do you want to do?</h2>
+          <div class="modal-dialog modal-user-menu__content">
+            <div class="modal-content">
+              <div class="modal-body">
+                <a href="#">
+                  <div class="modal-body__inner">
+                    <div class="cards-icon"></div>
+                    <h3>Create <br />
+                       New Campaign</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-dialog -->
+          <div class="modal-dialog modal-user-menu__content">
+            <div class="modal-content">
+              <div class="modal-body">
+                <a href="#">
+                  <div class="modal-body__inner">
+                    <div class="cards-icon"></div>
+                    <h3>Generate Vouchers</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-dialog -->
+          <div class="modal-dialog modal-user-menu__content">
+            <div class="modal-content">
+              <div class="modal-body">
+                <a href="#">
+                  <div class="modal-body__inner">
+                    <div class="cards-icon"></div>
+                    <h3>Create <br />
+                       New Vouchers</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-dialog -->
+          <div class="modal-dialog modal-user-menu__content">
+            <div class="modal-content">
+              <div class="modal-body">
+                <a href="#">
+                  <div class="modal-body__inner">
+                    <div class="cards-icon"></div>
+                    <h3>Create Invoice</h3>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-dialog -->
+          <div class="clearfix"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery Version 3.3.1 -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Moment Core JavaScript -->
+    <script src="vendor/moment/moment.min.js"></script>
+    <!-- Bootstrap Datetime Picker JavaScript -->
+    <script src="vendor/tempusdominus/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- GreenSock JavaScript -->
+    <script src="vendor/greensock/TweenMax.min.js"></script>
+    <!-- Session JavaSctipt -->
+    <script src="vendor/session/jquery.session.js"></script>
+    <!-- Select2 JavaScript -->
+    <script src="vendor/select2/select2.min.js"></script>
+    <!-- Add-Clear JavaScript -->
+    <script src="vendor/add-clear/add-clear.min.js"></script>
+    <!-- Rangeslider JavaScript -->
+    <script src="vendor/rangeslider/rangeslider.min.js"></script>
+    <!-- Checkradios JavaScript -->
+    <script src="vendor/checkradios/jquery.checkradios.min.js"></script>
+    <!-- Datatables JavaScript -->
+    <script type="text/javascript" charset="utf8" src="vendor/datatable/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="vendor/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            var table = $('.campaign-list-table').DataTable(
+              {
+                "columnDefs": [ {"targets": 0, "orderable": false} ],
+                "pagingType": "full_numbers",
+                "language": {
+                  "paginate": {
+                    "first": '&laquo',
+                    "last": '&raquo',
+                    "next": '&rsaquo;',
+                    "previous": '&lsaquo;'
+                  }
+                }
+              }
+            );
+        
+            // #myInput is a <input type="text"> element
+            $('#filter-by-keyword').on( 'keyup', function () {
+                table.search( this.value ).draw();
+            } );
+        } );
+        
+    </script>
+    <!-- <script src="vendor/tablesorter/jquery.tablesorter.min.js"></script> -->
+    <!-- Custom Theme JavaScript -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
