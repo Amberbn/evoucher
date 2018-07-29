@@ -14,7 +14,7 @@ Auth::routes();
 Route::get('/', 'Web\HomeController@index');
 Route::get('/welcome', 'Web\WelcomeController@welcome');
 Route::get('/terms-and-condition', 'Web\WelcomeController@termsAndCondition');
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'check-permission'])->group(function () {
     Route::get('/home', 'Web\HomeController@index')->name('home');
     Route::get('/chage-password', 'Web\AccountController@changePassword')->name('account.change.password');
     Route::resource('/user', 'Web\UserController');
