@@ -1,4 +1,8 @@
 @extends('layouts/main')
+@php
+    $title = @$user ? 'Edit User' : 'Create New User'
+@endphp
+@section('title', $title)
 @section('content')
 <div id="main-content">
 <div class="main-content__body container-fluid">
@@ -9,7 +13,7 @@
           $method = $userId ? 'PUT' : 'POST';
           $route = $userId ? route('user.update', ['id' => $userId]) : route('user.store');
         @endphp
-        <form id="user_form" action="{{ $route }}" method="POST">
+        <form id="user_form" action="{{ $route }}" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="{{ $method }}">
             @csrf
             <div class="content-area__main">
@@ -122,7 +126,7 @@
                 <div class="col-6">
                     <div id="upload_button">
                         <label>
-                        <input id="uploadInput" type="file" name="logo-file" accept="image/*">
+                        <input id="uploadInput" type="file" name="user_profile_image_url" accept="image/*">
                         <span class="btn btn-outline-primary btn-block">Upload Profile Picture</span>
                         </label>
                         <p>Min. image 50 x 50 px</p>
@@ -131,12 +135,12 @@
                 <div class="col-6">
                     @if(@$user->user_profile_image_url)
                         <div id="uploadBox" style="display:block">
-                        <input type="text" name="logo-name" id="uploadText" value="{{ @$user->user_profile_image_url }}" readonly>
+                        <input type="text" id="uploadText" value="{{ @$user->user_profile_image_url }}" readonly>
                         <a href="#" class="clearFile"><img src="{{ asset('assets/img/icon-times.svg') }}" alt=""></a>
                         </div>
                     @else
                         <div id="uploadBox" style="display:none">
-                            <input type="text" name="logo-name" id="uploadText" readonly>
+                            <input type="text" id="uploadText" readonly>
                             <a href="#" class="clearFile"><img src="{{ asset('assets/img/icon-times.svg') }}" alt=""></a>
                         </div>
                     @endif

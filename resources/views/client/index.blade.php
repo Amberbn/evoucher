@@ -1,4 +1,5 @@
 @extends('layouts/main')
+@section('title', 'Client List')
 @section('content')
 <div id="main-content">
     <div class="main-content__body container-fluid">
@@ -211,10 +212,10 @@
                 checkedValue.push($(this).val());
             })
             let countChecked = checkedValue.length;
+            console.log(countChecked);
 
-            if(countChecked < 0) {
+            if(countChecked <= 0) {
                 alert('sory you need cheked deleted item');
-                return false;
             }else{                
                 var formToken = $('input[name="_token"]').val();
                 var formMethod = $('input[name="_method"]').val();

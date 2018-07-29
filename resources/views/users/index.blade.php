@@ -1,4 +1,5 @@
 @extends('layouts/main')
+@section('title', 'User List')
 @section('content')
 <div id="main-content">
     <div class="main-content__body container-fluid">
@@ -56,9 +57,8 @@
                                             </a>
                                             <div class="popover-menu-content">
                                                 <ul class="list-unstyled">
-                                                    <li><a href="#">Edit Checked User</a></li>
-                                                    <li><a href="#">Delete Checked Users</a></li>
-                                                    <li><a href="#">Archive Checked</a></li>
+                                                    <li><a id="edit_checked_user">Edit Checked User</a></li>
+                                                    <li><a id="delete_checked_user">Delete Checked Users</a></li>
                                                 </ul>
                                             </div>
                                         </th>
@@ -136,6 +136,8 @@
     </div>
     <!-- /.main-content__body -->
 </div>
+{{ csrf_field() }}
+{{ method_field('PUT') }}
 @endsection
 @push('modal')
     @include('partials/modal_user_add')
@@ -219,8 +221,86 @@
             //console.log(selectedValue);
             //table.search(selectedValue).draw();
         } );
+
         $('.filter-by-tags').change(function(){
             table.fnFilter($('select option:selected').text(),colNum); 
+        });
+        $('#edit_checked_user').click(function(){
+            let checkedValue = [];
+            let checked = $('input:checked').val();
+            $('input:checked').each(function(){
+                checkedValue.push($(this).val());
+            })
+            let countChecked = checkedValue.length;
+
+            if(countChecked > 1) {
+                console.log(checkedValue);
+                alert('sory you need only one item to be edited');
+            }else if(countChecked == 1){
+                window.location =  'user/'+checkedValue[0]+'/edit';
+            }else{
+                alert('sory you need one checked');
+            }
+            
+        });
+
+        $('#delete_checked_user').click(function(){
+            let checkedValue = [];
+            let checked = $('input:checked').val();
+            $('input:checked').each(function(){
+                checkedValue.push($(this).val());
+            })
+            let countChecked = checkedValue.length;
+            console.log(countChecked);
+
+            if(countChecked <= 0) {
+                alert('sory you need cheked deleted item');
+            }else{                
+                var formToken = $('input[name="_token"]').val();
+                var formMethod = $('input[name="_method"]').val();
+                var parent=$(this).parent().parent();
+                
+                var confirmation_text_default = 'Do you want to delete this record?';                
+                
+                $.confirm({
+                    title: 'Confirmation Dialog',
+                    content: confirmation_text_default,
+                    buttons: {
+                        confirm: function () {
+                            $.ajax({
+                                url: '{{ route('users.delete') }}',
+                                type: 'PUT',
+                                data: {
+                                    _token:formToken,
+                                    _method:formMethod,
+                                    data : checkedValue
+                                },
+                                success: function( data, status, xhr ) {
+                                    if ( status === 'success' ) {
+                                        $(checkedValue).each(function(index, value){
+                                            $('#'+value).parent().parent().parent().slideUp(300, function () {
+                                            $(this).closest("tr").remove();
+                                            toastr.success( 'success deleted' );
+                                            console.log(checkedValue);
+                                            table.draw();
+                                        })
+                                        })
+                                    }
+                                },
+                                error: function( data ) {
+                                    if ( status === 422 ) {
+                                        toastr.error('Cannot delete this data');
+                                    }
+                                }
+                            });
+                        },
+                        cancel: function () {
+                        confirm = false;
+                        }
+                    }
+                });
+            }
+            
         });
     } );
 </script>
