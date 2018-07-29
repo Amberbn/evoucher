@@ -1,0 +1,162 @@
+body.landing,
+body.landing .site,
+body.landing #main-content {
+  background-color: #005FAF;
+}
+
+.landing-container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-heading,
+.footer-social,
+.footer-social a {
+  color: #fff;
+}
+
+.btn-redeem-voucher.btn-add-campaign {
+  width: 100%;
+  float: none;
+  margin-top: 10px;
+}
+
+.landing {
+
+  .nav-item.nav-link,
+  .nav-tabs .nav-link:hover,
+  .nav-tabs .nav-link:focus,
+  .nav-tabs .nav-link.active,
+  .nav-tabs .nav-item.show .nav-link {
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .card {
+    margin-bottom: 10px;
+
+    li {
+      margin-bottom: 1rem;
+    }
+
+  }
+
+  .card-extra {
+    margin-bottom: 10px;
+    &:first-child {
+      margin-top: 10px;
+    }
+    .card-header {
+      border-bottom: none;
+      padding-bottom: 1rem;
+    }
+    .card-title {
+      margin-bottom: 0;
+    }
+  }
+
+  .footer-social {
+
+    .col-md-4 {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @extend %clearfix;
+
+    margin: 20px 0 0 0;
+
+    ul {
+      display: flex;
+      align-items: stretch; /* Default */
+      justify-content: space-between;
+    }
+
+    li {
+      // float: left;
+      display: block;
+      flex: 0 1 auto; /* Default */
+      width: 33.3333333333%;
+      text-align: center;
+    }
+
+    a {
+      display: inline-block;
+      paddin-top: 10px;
+      padding-bottom: 10px;
+      font-size: 20px;
+    }
+
+  }
+
+}
+
+// Tab
+
+.landing {
+
+  .card-main {
+    border-bottom-left-radius: 0 ;
+    border-bottom-right-radius: 0;
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+
+    .card-footer {
+      background-color: #fff !important;
+      padding-top: 0;
+      margin-top: -1px;
+    }
+
+    .voucher-tab {
+      padding-top: 0.75rem;
+      margin-bottom: 0;
+      background-color: #fff;
+    }
+
+    .card-footer:last-child {
+      border-radius: 0;
+      background-color: transparent;
+    }
+
+    .tab-pane-content {
+      background-color: #fff;
+      border-bottom-left-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+      padding-top: 10px;
+      padding-bottom: 1.25rem;
+      margin-bottom: 20px;
+      margin-left: -1.25rem;
+      margin-right: -1.25rem;
+
+      .inner {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+    }
+
+  }
+
+  .voucher-tab {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .card-footer {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+  .tab-content {
+    > * {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+
+  .card .card {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+  }
+
+}
