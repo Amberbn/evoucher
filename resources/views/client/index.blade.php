@@ -103,7 +103,7 @@
                                 <div class="col-md-4">
                                     <div class="voucher-list-menu row">
                                         <div class="col-md-5 offset-md-6">
-                                            <button type="button" class="btn btn-primary btn-add-client" data-toggle="modal" data-target="#userMenuModal">Create Voucher</button>
+                                            <button type="button" id="add_client" link-url="{{ route('client.create') }}" class="btn btn-primary btn-add-client">Create Client</button>
                                         </div>
                                     </div>
                                 </div>
@@ -185,6 +185,10 @@
         $('#filter-by-keyword').on( 'keyup', function () {
             table.search( this.value ).draw();
         } );
+
+        $('#add_client').click(function(){
+            window.location = $(this).attr('link-url');
+        });
 
         $('#edit_checked_user').click(function(){
             let checkedValue = [];
