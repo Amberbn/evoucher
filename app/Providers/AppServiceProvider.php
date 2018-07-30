@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Blade::if('isPermitted', function ($contentType, $action) {
+            $resource = session()->get('resources');
+            return str_contains($resource[$contentType], $action);
+        });
     }
 
     /**
