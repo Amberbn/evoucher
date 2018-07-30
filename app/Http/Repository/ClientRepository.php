@@ -50,10 +50,6 @@ class ClientRepository extends BaseRepository
                     ->on('emp.parameters_id', '=', $table . '.client_employee_size_category_pid')
                     ->where('emp.parameters_type', '=', 'employee_size_category');
             })
-            ->leftJoin('frm_user as user', function ($join) use ($table) {
-                $join
-                    ->on('user.client_id', '=', $table . '.client_id');
-            })
             ->leftJoin('frm_user as PIC', function ($join) use ($table) {
             $join
                 ->on('PIC.user_id', '=', $table . '.client_in_charge_user_id');
@@ -99,7 +95,7 @@ class ClientRepository extends BaseRepository
             'ind.parameters_value as industry_category_title',
             'emp.parameters_value as employee_size_category_title',
             'city.parameters_value as client_billing_address_city_title',
-            'user.user_phone',
+            'PIC.user_phone',
             'PIC.user_profile_name'
         );
 

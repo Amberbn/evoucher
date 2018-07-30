@@ -1,6 +1,9 @@
 @extends('layouts/main')
 @section('title', 'Client List')
 @section('content')
+@php
+    $page = 'client';
+@endphp
 <div id="main-content">
     <div class="main-content__body container-fluid">
         <div class="row justify-content-md-center">
@@ -103,7 +106,9 @@
                                 <div class="col-md-4">
                                     <div class="voucher-list-menu row">
                                         <div class="col-md-5 offset-md-6">
-                                            <button type="button" class="btn btn-primary btn-add-client" data-toggle="modal" data-target="#userMenuModal">Create Voucher</button>
+                                             @isPermitted($page,'read')
+                                                <button type="button" id="add_client" link-url="{{ route('client.create') }}" class="btn btn-primary btn-add-client">Create Client</button>
+                                             @endisPermitted
                                         </div>
                                     </div>
                                 </div>
@@ -118,8 +123,13 @@
                                                 </a>
                                                 <div class="popover-menu-content">
                                                     <ul class="list-unstyled">
-                                                        <li><a id="edit_checked_user">Edit Checked User</a></li>
-                                                        <li><a id="delete_checked_user">Delete Checked Users</a></li>
+                                                        @isPermitted($page,'update')
+                                                            <li><a id="edit_checked_user">Edit Checked</a></li>
+                                                        @endisPermitted
+
+                                                        @isPermitted($page,'delete')
+                                                            <li><a id="delete_checked_user">Delete Checked</a></li>
+                                                        @endisPermitted
                                                     </ul>
                                                 </div>
                                             </th>
@@ -186,6 +196,10 @@
             table.search( this.value ).draw();
         } );
 
+        $('#add_client').click(function(){
+            window.location = $(this).attr('link-url');
+        });
+
         $('#edit_checked_user').click(function(){
             let checkedValue = [];
             let checked = $('input:checked').val();
@@ -196,11 +210,11 @@
 
             if(countChecked > 1) {
                 console.log(checkedValue);
-                alert('sory you need only one item to be edited');
+                toastr.error( 'Only one item can be edited' );
             }else if(countChecked == 1){
                 window.location =  'client/'+checkedValue[0]+'/edit';
             }else{
-                alert('sory you need one checked');
+                toastr.error('Please check item to be edited');
             }
             
         });
@@ -215,7 +229,7 @@
             console.log(countChecked);
 
             if(countChecked <= 0) {
-                alert('sory you need cheked deleted item');
+               toastr.error('Please check item to be deleted');
             }else{                
                 var formToken = $('input[name="_token"]').val();
                 var formMethod = $('input[name="_method"]').val();
