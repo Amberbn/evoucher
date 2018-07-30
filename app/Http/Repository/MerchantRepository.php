@@ -88,7 +88,7 @@ class MerchantRepository extends BaseRepository
             $merchant->isdelete = $request->input('isdelete') ?: false;
             $merchant->created_by_user_name = $this->loginUsername();
             $merchant->last_updated_by_user_name = $this->loginUsername();
-            $merchant->save();
+            $merchant->save(); 
             DB::commit();
 
             return $this->sendCreated($merchant);

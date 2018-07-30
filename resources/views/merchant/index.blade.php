@@ -133,65 +133,22 @@
                                                 </a>
                                                 <div class="popover-menu-content">
                                                     <ul class="list-unstyled">
-                                                        <li><a href="#">Edit Checked User</a></li>
+                                                        <li><a id="edit_checked_user">Edit Checked User</a></li>
                                                         <li><a href="#">Delete Checked Users</a></li>
                                                         <li><a href="#">Archive Checked</a></li>
                                                     </ul>
                                                 </div>
                                             </th>
-                                            <th></th>
+                                            <!-- <th></th> -->
                                             <th>Merchant Name</th>
                                             <th>Category</th>
-                                            <th>PIC</th>
-                                            <th>Outlets</th>
+                                            <!-- <th>PIC</th> -->
+                                           <!--  <th>Outlets</th>
                                             <th>Phone Number</th>
-                                            <th>Monthly Revenua</th>
+                                            <th>Monthly Revenua</th> -->
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="first">
-                                                <div class="form-check">
-                                                    <input type="checkbox" value="campaign-1" class="form-check-input" nice-checkbox-radio />
-                                                </div>
-                                            </td>
-                                            <td><img src="img/img-logo-carrefour.svg" alt=""></td>
-                                            <td>Carrefour</td>
-                                            <td>Retail</td>
-                                            <td>Bondan Prakoso</td>
-                                            <td>20</td>
-                                            <td>0812 3378 2323</td>
-                                            <td class="last">325.546.250</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="first">
-                                            <div class="form-check">
-                                                <input type="checkbox" value="campaign-2" class="form-check-input" nice-checkbox-radio />
-                                            </div>
-                                            </td>
-                                            <td><img src="img/img-logo-cgv.svg" alt=""></td>
-                                            <td>CGV Cinemas</td>
-                                            <td>Entertainment</td>
-                                            <td>Sukma Melati</td>
-                                            <td>15</td>
-                                            <td>0818 7890 5421</td>
-                                            <td class="last">245.607.800</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="first">
-                                            <div class="form-check">
-                                                <input type="checkbox" value="campaign-3" class="form-check-input" nice-checkbox-radio />
-                                            </div>
-                                            </td>
-                                            <td><img src="img/img-logo-goldgym.svg" alt=""></td>
-                                            <td>Gold's Gym</td>
-                                            <td>Activity</td>
-                                            <td>Barry Prima</td>
-                                            <td>35</td>
-                                            <td>0812 9942 1025</td>
-                                            <td class="last">234.988.500</td>
-                                        </tr>
-                                    </tbody>
+                               
                                 </table>
                             </div>
                         </form>
@@ -207,16 +164,16 @@
 @endsection
 
 @push('footer_scripts')
-<!-- <script">
+<script type="text/javascript">
     $(document).ready( function () {
         var table = $('.campaign-list-table').DataTable(
             {
-            "ajax": "{{ route('merchant.list.datatable') }}",
-            "processing": true,
-            "serverSide": true,
-            "autoWidth": false,
-            "lengthChange" : false,
-            "pageLength": 10,
+            ajax: "{{ route('merchant.list.datatable') }}",
+            processing: true,
+            serverSide: true,
+            autoWidth: false,
+            lengthChange : false,
+            pageLength: 10,
             "columns": [
                 { "data": "action",className : 'p-20',searchable: false },
                 { "data": "merchant_title",name:'merchant_title', className : 'p-20', searchable: true },
@@ -224,7 +181,7 @@
                 // { "data": "user_phone", name:'user_phone', className : 'p-20', searchable: true},
                 { "data": "merchant_bussiness_category_title", name:'merchant_bussiness_category_title', className : 'p-20', searchable: true}
             ],
-            "error" : function (xhr, error, thrown) {
+            error : function (xhr, error, thrown) {
                 alert( 'You are not logged in' );
             },
             "columnDefs": [ {"targets": 0, "orderable": false} ],
@@ -239,5 +196,25 @@
             }
             }
         );
-</script> -->
+    });
+
+    $('#edit_checked_user').click(function(){
+            let checkedValue = [];
+            let checked = $('input:checked').val();
+            $('input:checked').each(function(){
+                checkedValue.push($(this).val());
+            })
+            let countChecked = checkedValue.length;
+
+            if(countChecked > 1) {
+                console.log(checkedValue);
+                alert('sory you need only one item to be edited');
+            }else if(countChecked == 1){
+                window.location =  'client/'+checkedValue[0]+'/edit';
+            }else{
+                alert('sory you need one checked');
+            }
+            
+        });
+</script>
 @endpush

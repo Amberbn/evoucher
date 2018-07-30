@@ -26,7 +26,7 @@
                         <div class="form-group">
                         <div class="form-input">
                             <label for="brand-name">Brand Name</label>
-                            <input name="brand-name" type="text" class="form-control" id="brand-name" placeholder="">
+                            <input name="merchant_title" type="text" class="form-control" id="brand-name" placeholder="">
                         </div>
                     </div>
                         <div class="row">
@@ -34,11 +34,14 @@
                             <div class="form-group">
                             <div class="form-input">
                                 <label for="choose-client">Client</label>
-                                <select name="choose-client" class="custom-select dropdown-select2" id="choose-client">
-                                <option selected>Choose...</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <select name="merchant_client_id" class="custom-select dropdown-select2" id="choose-client">
+                                <!-- <option {{ !@$user->client_id ? 'selected' : '' }}>Choose...</option> -->
+                                @foreach ($clients as $client)
+                                <!-- @php
+                                    $selected = @$user->client_id == $client['client_id'] ? 'selected' : '';
+                                @endphp -->
+                                <option value="{{ $client['client_id'] }}" {{ $selected }}>{{ $client['client_name'] }}</option>
+                                @endforeach
                                 </select>
                             </div>
                             </div>
@@ -55,15 +58,20 @@
                             <textarea class="form-control" name="description" id="" cols="30" rows="3"></textarea>
                             </div>
                         </div>
+                        
                         <div class="row">
                             <div class="col-md-6">
                             <div class="form-group">
                                 <label for="business-category">Business Category</label>
                                 <select name="business-category" class="custom-select dropdown-select2" id="business-category">
-                                    <option selected>Choose...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                   <!-- <option {{ !@$user->merchant_bussiness_category_pid ? 'selected' : '' }}>Choose...</option> -->
+                                @foreach ($bussinessCategory->bussinessCategory as $bc)
+
+                                <!-- @php
+                                    $selected = @$user->client_id == $client['client_id'] ? 'selected' : '';
+                                @endphp -->
+                                <option value="{{ $bc->parameters_id }}" {{ $selected }}>{{ $bc->parameters_value }}</option>
+                                @endforeach
                                 </select>
                             </div>
                             </div>
