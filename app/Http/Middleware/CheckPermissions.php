@@ -21,8 +21,7 @@ class CheckPermissions
 
         if (Auth::check() && ($isActive || $isDelete)) {
             Auth::logout();
-            $request->session()->flash('alert-danger', 'Your Account is not activated yet.');
-            return redirect('/login')->with('erro_login', 'Your error text');
+            return redirect()->route('login')->with('message', 'These credentials do not match our records.');
         }
 
         $route = \Route::currentRouteName();

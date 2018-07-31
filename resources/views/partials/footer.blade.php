@@ -93,7 +93,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 <script>
-    $(".alert").delay(4000).slideUp(200, function() {
+    $(".alert").delay(30000).slideUp(200, function() {
             $(this).alert('close');
     });
     toastr.options = {

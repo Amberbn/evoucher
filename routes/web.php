@@ -16,7 +16,8 @@ Route::get('/welcome', 'Web\WelcomeController@welcome');
 Route::get('/terms-and-condition', 'Web\WelcomeController@termsAndCondition');
 Route::middleware(['auth', 'check-permission'])->group(function () {
     Route::get('/home', 'Web\HomeController@index')->name('home');
-    Route::get('/chage-password', 'Web\AccountController@changePassword')->name('account.change.password');
+    Route::get('/chage-password', 'Web\AccountController@index')->name('account.change.password');
+    Route::post('/chage-password', 'Web\AccountController@changePassword')->name('user.change.password');
     Route::resource('/user', 'Web\UserController');
     Route::put('/user-delete', 'Web\UserController@destroyFromArray')->name('users.delete');
     Route::get('/users', 'Web\UserController@indexDatatable')->name('user.list.datatable');
