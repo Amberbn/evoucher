@@ -1,3 +1,4 @@
+@section('title', 'Login')
 @include('partials/header_blank')
 <body class="login document-resize">
 <div class="site full-screen">
@@ -25,6 +26,16 @@
                   </div>
                   <form class="login-form">
                     <h3 class="login-form__heading text-center">Login</h3>
+                    
+                     @if ($errors->any())
+                      <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{$errors->first()}}
+                        </div>
+                     @endif
+
                      @if (session('message'))
                       <div class="alert alert-danger" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -32,7 +43,7 @@
                         </button>
                         {{ session('message') }}
                         </div>
-                    @endif
+                     @endif
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email</label>
                       <input name="user_name" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">

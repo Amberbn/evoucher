@@ -31,7 +31,7 @@ class BaseControllerWeb extends Controller
     public function getResponseCodeFromJson($response)
     {
         $data = new Collection($response->getData()->status_code);
-        return $data->first();
+        return (int) $data->first();
     }
 
     public function pageNotFound()

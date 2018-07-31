@@ -21,14 +21,13 @@ class CheckPermissions
 
         if (Auth::check() && ($isActive || $isDelete)) {
             Auth::logout();
-            $request->session()->flash('alert-danger', 'Your Account is not activated yet.');
-            return redirect('/login')->with('erro_login', 'Your error text');
+            return redirect()->route('login')->with('message', 'These credentials do not match our records.');
         }
 
         $route = \Route::currentRouteName();
         $arrayResource = $request->session()->get('resources');
         $routeExplode = explode('.', $route);
-        $behavior = ['create', 'read', 'update', 'delete'];
+        $routeDefine = ['create', 'read', 'update', 'delete'];
 
         $canAccess = null;
         if (count($routeExplode) > 1) {
@@ -37,7 +36,7 @@ class CheckPermissions
             $canAccess = $routeExplode[0];
         }
 
-        if (in_array($canAccess, $behavior)) {
+        if (in_array($canAccess, $routeDefine)) {
             $contains = str_contains($arrayResource[$routeExplode[0]], $canAccess);
             if (!$contains) {
                 abort(404);

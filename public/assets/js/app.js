@@ -94,7 +94,8 @@
 
       $(document).on('click', '.has-show-hide-password .show-hide', function () {
 
-        var inputPass = $(this).prev();
+        var inputPass = $(this).parent().find('input');
+        console.log(inputPass);
         var btnText = $(this).find('span');
 
         if (inputPass.attr('type') == 'password') {
