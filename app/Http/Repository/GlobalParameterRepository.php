@@ -3,6 +3,7 @@ namespace App\Repository;
 
 use App\GlobalParameter;
 use App\Repository\BaseRepository;
+use DB;
 
 /**
  *
