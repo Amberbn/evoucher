@@ -28,5 +28,6 @@ Route::middleware(['auth', 'check-permission'])->group(function () {
 
     Route::resource('/merchant', 'Web\MerchantController');
     Route::get('/merchants', 'Web\MerchantController@indexDatatable')->name('merchant.list.datatable');
-    Route::get('/merchant/create', 'Web\MerchantController@create')->name('merchant.create');
+    // Route::get('/merchant/create', 'Web\MerchantController@create')->name('merchant.create');
+    //  Route::post('/merchant/create', 'Web\MerchantController@create')->name('merchant.save');
 });

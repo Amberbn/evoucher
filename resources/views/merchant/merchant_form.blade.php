@@ -1,4 +1,8 @@
 @extends('layouts/main')
+@php
+    $title = @$merchant ? 'Edit Merchant' : 'Create New Merchant'
+@endphp
+@section('title', $title)
 @section('content')
 <div id="main-content">
     <div class="container-fluid">
@@ -16,7 +20,13 @@
     <div class="main-content__body container-fluid">
         <div class="row justify-content-md-center">
             <div class="content-area col-md-9">
-                <form id="company-form" action="" method="POST">
+                @php
+                    $merchantId = @$merchant->merchant_id;
+                    $method = $merchantId ? 'PUT' : 'POST';
+                    $route = $merchantId ? route('merchant.update',['id' => $merchantId]) : route('merchant.store');
+                @endphp
+                <form id="company-form" action="{{ $route }}" method="POST">
+                    @csrf
                 <div class="content-area__main">
                     <div class="form-section bottom-30">
                         <h2 class="heading">Merchant Information</h2>
@@ -55,7 +65,7 @@
                         <div class="form-group">
                             <div class="form-input">
                             <label for="description">Description</label>
-                            <textarea class="form-control" name="description" id="" cols="30" rows="3"></textarea>
+                            <textarea class="form-control" name="merchant_description" id="" cols="30" rows="3"></textarea>
                             </div>
                         </div>
                         
@@ -63,7 +73,7 @@
                             <div class="col-md-6">
                             <div class="form-group">
                                 <label for="business-category">Business Category</label>
-                                <select name="business-category" class="custom-select dropdown-select2" id="business-category">
+                                <select name="merchant_bussiness_category_pid" class="custom-select dropdown-select2" id="business-category">
                                    <!-- <option {{ !@$user->merchant_bussiness_category_pid ? 'selected' : '' }}>Choose...</option> -->
                                 @foreach ($bussinessCategory->bussinessCategory as $bc)
 
@@ -79,7 +89,7 @@
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="campaign-tags">Tags</label>
-                                    <select name="campaign-tags" class="custom-select select2-input-tags" id="campaign-tags" multiple="multiple">
+                                    <select name="merchant_tags" class="custom-select select2-input-tags" id="campaign-tags" multiple="multiple">
                                     <option value="1">Tag One</option>
                                     <option value="2">Tag Two</option>
                                     <option value="3">Tag Three</option>
@@ -96,14 +106,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                             <label for="socmed-facebook">Facebook</label>
-                            <input name="socmed-facebook" type="text" class="form-control" id="socmed-facebook" placeholder="">
+                            <input name="merchant_socmed_url_facebook" type="text" class="form-control" id="socmed-facebook" placeholder="">
                             </div>
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
                             <div class="form-group">
                             <label for="socmed-instagram">Instagram</label>
-                            <input name="socmed-instagram" type="text" class="form-control" id="socmed-instagram" placeholder="">
+                            <input name="merchant_socmed_url_instagram" type="text" class="form-control" id="socmed-instagram" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -111,14 +121,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                             <label for="socmed-twitter">Twitter</label>
-                            <input name="socmed-twitter" type="text" class="form-control" id="socmed-twitter" placeholder="">
+                            <input name="merchant_socmed_url_twitter" type="text" class="form-control" id="socmed-twitter" placeholder="">
                             </div>
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
                             <div class="form-group">
                             <label for="socmed-line">Line</label>
-                            <input name="socmed-line" type="text" class="form-control" id="socmed-line" placeholder="">
+                            <input name="merchant_socmed_url_line" type="text" class="form-control" id="socmed-line" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -126,14 +136,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="socmed-linkedin">LinkedIn</label>
-                                <input name="socmed-linkedin" type="text" class="form-control" id="socmed-linkedin" placeholder="">
+                                <input name="merchant_socmed_url_linkedin" type="text" class="form-control" id="socmed-linkedin" placeholder="">
                             </div>
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="socmed-pinterest">Pinterest</label>
-                                <input name="socmed-pinterest" type="text" class="form-control" id="socmed-pinterest" placeholder="">
+                                <input name="merchant_socmed_url_pinterest" type="text" class="form-control" id="socmed-pinterest" placeholder="">
                             </div>
                         </div>
                     </div>

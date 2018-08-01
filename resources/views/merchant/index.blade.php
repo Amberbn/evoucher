@@ -1,4 +1,5 @@
 @extends('layouts/main')
+@section('title', 'Merchant List')
 @section('content')
 <div id="main-content">
     <div class="main-content__body container-fluid">
@@ -118,7 +119,8 @@
                                 <div class="col-md-4">
                                     <div class="voucher-list-menu row">
                                         <div class="col-md-5 offset-md-6">
-                                            <button type="button" class="btn btn-primary btn-add-client" data-toggle="modal" data-target="#userMenuModal">Add Merchant</button>
+                                            <button type="button" class="btn btn-primary btn-add-client"
+                                            id="add_merchant" link-url="{{ route('merchant.create') }}">Add Merchant</button>
                                         </div>
                                     </div>
                                 </div>
@@ -142,9 +144,9 @@
                                             <!-- <th></th> -->
                                             <th>Merchant Name</th>
                                             <th>Category</th>
-                                            <!-- <th>PIC</th> -->
-                                           <!--  <th>Outlets</th>
-                                            <th>Phone Number</th>
+                                            <th>PIC</th>
+                                            <th>Outlets</th>
+                                            <!-- <th>Phone Number</th>
                                             <th>Monthly Revenua</th> -->
                                         </tr>
                                     </thead>
@@ -161,6 +163,8 @@
     </div>
     <!-- /.main-content__body -->
 </div>
+{{ csrf_field() }}
+{{ method_field('PUT') }}
 @endsection
 
 @push('footer_scripts')
@@ -177,9 +181,10 @@
             "columns": [
                 { "data": "action",className : 'p-20',searchable: false },
                 { "data": "merchant_title",name:'merchant_title', className : 'p-20', searchable: true },
-                // { "data": "user_profile_name",name:'user_profile_name', className : 'p-20', searchable: true},
-                // { "data": "user_phone", name:'user_phone', className : 'p-20', searchable: true},
-                { "data": "merchant_bussiness_category_title", name:'merchant_bussiness_category_title', className : 'p-20', searchable: true}
+                { "data": "merchant_bussiness_category_title", name:'merchant_bussiness_category_title', className : 'p-20', searchable: true},
+                { "data": "client_name",name:'client_name', className : 'p-20', searchable: true},
+                { "data": "merchant_bussiness_category_pid", name:'merchant_bussiness_category_pid', className : 'p-20', searchable: true}
+                
             ],
             error : function (xhr, error, thrown) {
                 alert( 'You are not logged in' );
@@ -198,6 +203,10 @@
         );
     });
 
+     $('#add_merchant').click(function(){
+            window.location = $(this).attr('link-url');
+        });
+
     $('#edit_checked_user').click(function(){
             let checkedValue = [];
             let checked = $('input:checked').val();
@@ -210,7 +219,7 @@
                 console.log(checkedValue);
                 alert('sory you need only one item to be edited');
             }else if(countChecked == 1){
-                window.location =  'client/'+checkedValue[0]+'/edit';
+                window.location =  'merchant/'+checkedValue[0]+'/edit';
             }else{
                 alert('sory you need one checked');
             }
