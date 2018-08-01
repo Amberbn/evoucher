@@ -145,7 +145,7 @@ class MerchantRepository extends BaseRepository
         return $this->dataTableResponseBuilder($merchants, $filter);
     }
 
-    public function updateMerchant($request, $merchant)
+    public function updateMerchant($request, $merchantId)
     {
         $merchant = $this->model::where('merchant_id', $merchantId)->first();
 
