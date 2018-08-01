@@ -107,4 +107,14 @@ class MerchantController extends BaseControllerWeb
 
         return view('merchant.merchant_form', $data);
     }
+
+     public function update(Request $request, $id)
+    {
+        $merchant = $this->merchantRepository->updateMerchant($request, $id);
+        $merchant = $this->getResponseCodeFromJson($merchant);
+        if ($responseCode != 200) {
+
+        }
+        return redirect()->route('merchant.index');
+    }
 }
