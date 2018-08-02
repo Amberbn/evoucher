@@ -70,12 +70,51 @@ class MerchantController extends BaseControllerWeb
 
     public function store(Request $request)
     {
-        $merchant = $this->merchantRepository->store($request);
+        // dd($request->all());
+        $merchant = $this->merchantRepository->saveMerchant($request);
+
         $responseCode = $this->getResponseCodeFromJson($merchant);
         if ($responseCode != 201) {
 
         }
 
+        return redirect()->route('merchant.index');
+    }
+
+    public function edit($id)
+    {
+        $merchant = $this->merchantRepository->getMerchantById($id);
+        $merchant = $this->getDataFromJson($merchant)->first();
+        // dd($merchant);
+        $filter = [
+            'client_id',
+            'client_name',
+            'client_legal_name',
+        ];
+        $clients = $this->getDropDownClient($this->clientRepository->getClient(), $filter);
+        $bussinessCategory = $this->getSettings(['bussiness_category']);
+
+
+
+        $edit = true;
+
+         $data = compact(
+            'merchant',
+            'edit',
+            'clients',
+            'bussinessCategory'
+        );
+
+        return view('merchant.merchant_form', $data);
+    }
+
+     public function update(Request $request, $id)
+    {
+        $merchant = $this->merchantRepository->updateMerchant($request, $id);
+        $merchant = $this->getResponseCodeFromJson($merchant);
+        if ($responseCode != 200) {
+
+        }
         return redirect()->route('merchant.index');
     }
 }
