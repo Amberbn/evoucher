@@ -77,6 +77,16 @@ class MerchantRepository extends BaseRepository
         DB::beginTransaction();
 
         try {
+            $filename = null;
+            if ($request->merchant_logo_image_url) {
+                $filename = $this->saveImage($request, 'merchant_logo_image_url', 'merchant');
+            }
+
+            $tagsConcat = null;
+            if(!empty($request->merchant_tags)) {
+                $tagsConcat = implode(',',$request->merchant_tags);
+            }
+
             $merchant = new Merchant;
             $merchant->merchant_code = "DJOURNAL1234";
             $merchant->merchant_client_id = $request->input('merchant_client_id');
@@ -89,7 +99,8 @@ class MerchantRepository extends BaseRepository
             $merchant->merchant_socmed_url_instagram = $request->input('merchant_socmed_url_instagram');
             $merchant->merchant_socmed_url_line = $request->input('merchant_socmed_url_line');
             $merchant->merchant_socmed_url_pinterest = $request->input('merchant_socmed_url_pinterest');
-            $merchant->merchant_tags = $request->input('merchant_tags');
+            $merchant->merchant_tags = $tagsConcat;
+            $merchant->merchant_logo_image_url = $filename;
             $merchant->data_sort = $request->input('data_sort') ?: 1000;
             $merchant->isactive = $request->input('isactive') ?: true;
             $merchant->isdelete = $request->input('isdelete') ?: false;
@@ -104,6 +115,29 @@ class MerchantRepository extends BaseRepository
 
             return $this->sendBadRequest($e->getMessage());
         }
+    }
+
+    public function getTags()
+    {
+        $tags = $this->model::select('merchant_tags')->get();
+
+        $tagsArray = [];
+
+        foreach ($tags as $tag) {
+            $explode = explode(',',$tag->merchant_tags);
+            foreach ($explode as $ex) {
+                if($ex == "") {
+                    continue;
+                }
+                $tagsArray[] = $ex;
+            }
+        }
+
+        if (empty($tags->toArray())) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess(collect($tagsArray)->unique());
     }
 
     public function getMerchantById($merchantId)
@@ -127,6 +161,12 @@ class MerchantRepository extends BaseRepository
             'mm.merchant_bussiness_category_pid',
             'bcat.parameters_value as merchant_bussiness_category_title',
             'mm.merchant_description',
+            'mm.merchant_socmed_url_facebook',
+            'mm.merchant_socmed_url_twitter',
+            'mm.merchant_socmed_url_linkedin',
+            'mm.merchant_socmed_url_instagram',
+            'mm.merchant_socmed_url_line',
+            'mm.merchant_socmed_url_pinterest',
             'mm.merchant_tags',
             'mm.data_sort',
             'mm.isactive',
@@ -147,7 +187,12 @@ class MerchantRepository extends BaseRepository
 
     public function updateMerchant($request, $merchantId)
     {
+       
         $merchant = $this->model::where('merchant_id', $merchantId)->first();
+        $tagsConcat = null;
+        if(!empty($request->merchant_tags)) {
+            $tagsConcat = implode(',',$request->merchant_tags);
+        }
 
         if (!$merchant) {
             return $this->sendNotfound();
@@ -156,16 +201,26 @@ class MerchantRepository extends BaseRepository
         DB::beginTransaction();
 
         try {
-            $merchant->merchant_code = $request->input('merchant_code');
             $merchant->merchant_client_id = $request->input('merchant_client_id');
             $merchant->merchant_title = $request->input('merchant_title');
             $merchant->merchant_bussiness_category_pid = $request->input('merchant_bussiness_category_pid');
             $merchant->merchant_description = $request->input('merchant_description');
-            $merchant->merchant_tags = $request->input('merchant_tags');
+            $merchant->merchant_socmed_url_facebook = $request->input('merchant_socmed_url_facebook');
+            $merchant->merchant_socmed_url_twitter = $request->input('merchant_socmed_url_twitter');
+            $merchant->merchant_socmed_url_linkedin = $request->input('merchant_socmed_url_linkedin');
+            $merchant->merchant_socmed_url_instagram = $request->input('merchant_socmed_url_instagram');
+            $merchant->merchant_socmed_url_line = $request->input('merchant_socmed_url_line');
+            $merchant->merchant_socmed_url_pinterest = $request->input('merchant_socmed_url_pinterest');
+            $merchant->merchant_tags = $tagsConcat;
             $merchant->data_sort = $request->input('data_sort') ?: 1000;
             $merchant->isactive = $request->input('isactive') ?: true;
             $merchant->isdelete = $request->input('isdelete') ?: false;
             $merchant->last_updated_by_user_name = $this->loginUsername();
+             if ($request->file('merchant_logo_image_url')) {
+                $filename = $this->saveImage($request, 'merchant_logo_image_url', 'merchant');
+                $merchant->merchant_logo_image_url = $filename;
+            }
+
             $merchant->save();
 
             DB::commit();
