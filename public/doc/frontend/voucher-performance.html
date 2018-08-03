@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
         <meta name="author" content="Kharis Sulistiyono">
-        <title>User Management - Prezent</title>
+        <title>Voucher Performance - Prezent</title>
         <!-- Favicon -->
         <link rel="icon" href="img/favicon.png" type="image/png">
         <link rel="shortcut icon" href="img/favicon.png" type="image/png">
@@ -18,7 +16,6 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
         <link href="css/fontawesome-all.min.css" rel="stylesheet">
-        <link href="vendor/select2/select2.min.css" rel="stylesheet">
         <link href="vendor/checkradios/jquery.checkradios.min.css" rel="stylesheet">
         <!-- Custom CSS -->
         <link href="css/app.css" rel="stylesheet">
@@ -44,7 +41,7 @@
                             <nav class="top-breadcrump" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a class="span" href="#">User Management</a>
+                                        <a class="span" href="#">Paket Makan Berdua di hari Sabtu ...</a>
                                     </li>
                                 </ol>
                             </nav>
@@ -119,7 +116,7 @@
                     </div>
                     <div class="admin-bar__shortcut">
                         <div class="btn-zoom-in-shadow">
-                            <button class="btn shortcut border-0 plus"><i class="fa fa-plus"></i></button>
+                            <button class="btn shortcut border-0 plus" data-toggle="modal" data-target="#userMenuModal"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
                 </div>
@@ -179,138 +176,179 @@
                 <div class="main-content__body container-fluid">
                     <div class="row justify-content-md-center">
                         <div class="content-area content-area__client-detail col-md-12">
-                            <div class="campaign-history">
-                                <form id="campaigns" action="" method="">
-                                    <div class="voucher-top-area row">
-                                        <div class="col-md-8">
-                                            <div class="voucher-filter-form">
-                                                <form action="" method="GET">
-                                                    <div class="form-section row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <div class="form-input">
-                                                                <label for="filter-by-tags">Tags</label>
-                                                                <select name="by-tags" class="custom-select select2-input-tags" id="filter-by-tags" multiple="multiple">
-                                                                    <option value="food-beverages">Food & Beverages</option>
-                                                                    <option value="retails">Retails</option>
-                                                                    <option value="entertainment">Entertainment</option>
-                                                                    <option value="beauty">Beauty</option>
-                                                                    <option value="hotels">Hotels</option>
-                                                                    <option value="holiday-packages">Holiday Packages</option>
-                                                                    <option value="relaxations">Relaxations</option>
-                                                                    <option value="others">Others</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="filter-by-keyword">Search</label>
-                                                            <div class="input-group">
-                                                                <input id="filter-by-keyword" name="s" type="text" class="form-control" placeholder="">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.col-md-6 -->
-                                                    </div>
-                                                <!-- /.form-section.row -->
-                                                </form>
-                                            </div>
-                                <!-- /.voucher-filter-form -->
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="voucher-list-menu row">
-                                                <div class="col-md-5 offset-md-6">
-                                                    <button type="button" class="btn btn-primary btn-add-client"  data-toggle="modal" data-target="#userMenuModal">Add User</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table id="userMGTTable" class="table campaign-list-table" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        <a class="popover-menu-btn" href="#">
-                                                        <img src="img/icon-plus-blue.png" alt="+" />
-                                                        </a>
-                                                        <div class="popover-menu-content">
-                                                            <ul class="list-unstyled">
-                                                                <li><a href="#">Edit Checked User</a></li>
-                                                                <li><a href="#">Delete Checked Users</a></li>
-                                                                <li><a href="#">Archive Checked</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </th>
-                                                    <th>Full Name</th>
-                                                    <th>Phone Number</th>
-                                                    <th>Company</th>
-                                                    <th>User Type</th>
-                                                    <th>User Role</th>
-                                                    <th>Last Login</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="first">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" value="campaign-1" class="form-check-input" nice-checkbox-radio />
-                                                        </div>
-                                                    </td>
-                                                    <td>Annisa Kinanti</td>
-                                                    <td>0812 3378 2323</td>
-                                                    <td>PT Sprint Asia Technology</td>
-                                                    <td>Prezent User</td>
-                                                    <td>Manager</td>
-                                                    <td class="last">Yesterday - 13.35</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="first">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" value="campaign-2" class="form-check-input" nice-checkbox-radio />
-                                                    </div>
-                                                    </td>
-                                                    <td>James Kurnia Wijaya</td>
-                                                    <td>0818 7890 5421</td>
-                                                    <td>PT Bank Central Asia</td>
-                                                    <td>Client User</td>
-                                                    <td>Campaign Builder</td>
-                                                    <td class="last">20 Feb 2018</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="first">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" value="campaign-3" class="form-check-input" nice-checkbox-radio />
-                                                    </div>
-                                                    </td>
-                                                    <td>Rio Nainggolan</td>
-                                                    <td>0812 9942 1025</td>
-                                                    <td>PT Sprint Asia Technology</td>
-                                                    <td>Prezent User</td>
-                                                    <td>Manager</td>
-                                                    <td class="last">Today - 16.25</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="first">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" value="campaign-3" class="form-check-input" nice-checkbox-radio />
-                                                    </div>
-                                                    </td>
-                                                    <td>Dede Hermana</td>
-                                                    <td>0812 0540 6465</td>
-                                                    <td>PT Sprint Asia Technology</td>
-                                                    <td>Prezent User</td>
-                                                    <td>Manager</td>
-                                                    <td class="last">Today - 18.45</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </form>
-                              
+                            <div class="client-menu-outer clearfix">
+                                <ul class="client-menu list-unstyled clearfix">
+                                    <li><a href="#" class="active">Performance</a></li>
+                                    <li><a href="#">Voucher Details</a></li>
+                                </ul>
+                                <div class="merchant-btn float-right">
+                                    <button class="btn btn-primary btn-bordered btn-transparent-light-bg">Delete Voucher</button>
+                                    <button type="button" class="btn btn-primary btn-add-client" data-toggle="modal" data-target="#userMenuModal">Create Campaign</button>       
+                                </div>
                             </div>
-                            <!-- /.campaign-history -->
+                            <div class="client-statistics-outer">
+                                <div class="client-statistics clearfix">
+                                    <div class="client-stats-item">
+                                        <div class="client-stats-item__inner">
+                                            <a href="#">
+                                                <h5 class="client-stats-item__name">Purchased Voucher</h5>
+                                                <div class="client-stats-item__value">820 pcs</div>
+                                                <div class="client-stats-item__compare">
+                                                    <span class="client-stats-item__compare-number stats-up">13% <i class="fa fa-caret-up"></i></span>
+                                                    <span class="client-stats-item__compare-time">This Week</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- /.client-stats-item -->
+                                    <div class="client-stats-item">
+                                        <div class="client-stats-item__inner">
+                                            <a href="#">
+                                                <h5 class="client-stats-item__name">Remaining Stock</h5>
+                                                <div class="client-stats-item__value">5500 pcs</div>
+                                                <div class="client-stats-item__compare">
+                                                    <span class="client-stats-item__compare-number stats-up">13% <i class="fa fa-caret-up"></i></span>
+                                                    <span class="client-stats-item__compare-time">This Week</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- /.client-stats-item -->
+                                    <div class="client-stats-item">
+                                        <div class="client-stats-item__inner">
+                                            <a href="#">
+                                                <h5 class="client-stats-item__name">Revenue Generated</h5>
+                                                <div class="client-stats-item__value">IDR 7,932.00</div>
+                                                <div class="client-stats-item__compare">
+                                                    <span class="client-stats-item__compare-number stats-down">5% <i class="fa fa-caret-down"></i></span>
+                                                    <span class="client-stats-item__compare-time">This Week</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- /.client-stats-item -->
+                                    <div class="client-stats-item">
+                                        <div class="client-stats-item__inner">
+                                            <a href="#">
+                                                <h5 class="client-stats-item__name">Redeem Rate</h5>
+                                                <div class="client-stats-item__value">74.25%</div>
+                                                <div class="client-stats-item__compare">
+                                                    <span class="client-stats-item__compare-number stats-down">5% <i class="fa fa-caret-down"></i></span>
+                                                    <span class="client-stats-item__compare-time">This Week</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- /.client-stats-item -->
+                                    <div class="client-stats-item">
+                                        <div class="client-stats-item__inner">
+                                            <a href="#">
+                                                <h5 class="client-stats-item__name">Redeem Rate</h5>
+                                                <div class="client-stats-item__value">690.000</div>
+                                                <div class="client-stats-item__compare">
+                                                    <span class="client-stats-item__compare-number stats-down">5% <i class="fa fa-caret-down"></i></span>
+                                                    <span class="client-stats-item__compare-time">This Week</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- /.client-stats-item -->
+                                </div>
+                                <!-- /.client-statistics -->
+                            </div>
+                            
+                            <div class="campaign-history">
+                                    <form id="campaigns" action="" method="">
+                                        <div class="voucher-top-area row">
+                                            <div class="col-md-8">
+                                                <div class="voucher-filter-form">
+                                                    <form action="" method="GET">
+                                                        <div class="form-section row">
+                                                        
+                                                        <!-- /.col-md-6 -->
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="filter-by-keyword">Search Voucher History</label>
+                                                                <div class="input-group">
+                                                                    <input id="filter-by-keyword" name="s" type="text" class="form-control" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.col-md-6 -->
+                                                        </div>
+                                                    <!-- /.form-section.row -->
+                                                    </form>
+                                                </div>
+                                    <!-- /.voucher-filter-form -->
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="userMGTTable" class="table campaign-list-table" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <a class="popover-menu-btn" href="#">
+                                                            <img src="img/icon-plus-blue.png" alt="+" />
+                                                            </a>
+                                                            <div class="popover-menu-content">
+                                                                <ul class="list-unstyled">
+                                                                    <li><a href="#">Edit Checked User</a></li>
+                                                                    <li><a href="#">Delete Checked Users</a></li>
+                                                                    <li><a href="#">Archive Checked</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </th>
+                                                        <th>Campaign Name</th>
+                                                        <th>Client</th>
+                                                        <th>Campaign Period</th>
+                                                        <th>Sold</th>
+                                                        <th>Redeem Rate</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="first">
+                                                            <div class="form-check">
+                                                                <input type="checkbox" value="campaign-1" class="form-check-input" nice-checkbox-radio />
+                                                            </div>
+                                                        </td>
+                                                        <td>Paket Nonton Star Wars</td>
+                                                        <td>Bank Central Asia Tbk.</td>
+                                                        <td>30 May - 30 June 2018</td>
+                                                        <td>400</td>
+                                                        <td class="last">12%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="first">
+                                                        <div class="form-check">
+                                                            <input type="checkbox" value="campaign-2" class="form-check-input" nice-checkbox-radio />
+                                                        </div>
+                                                        </td>
+                                                        <td>Paket Nonton Star Wars</td>
+                                                        <td>Bank Mandiri</td>
+                                                        <td>30 May - 30 June 2018</td>
+                                                        <td>312</td>
+                                                        <td class="last">8%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="first">
+                                                        <div class="form-check">
+                                                            <input type="checkbox" value="campaign-3" class="form-check-input" nice-checkbox-radio />
+                                                        </div>
+                                                        </td>
+                                                        <td>Paket Nonton Star Wars</td>
+                                                        <td>Bank Danamon</td>
+                                                        <td>30 May - 30 June 2018</td>
+                                                        <td>280</td>
+                                                        <td class="last">10%</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                  
+                                </div>
+                                <!-- /.campaign-history -->
                         </div>
                         <!-- /.content-area -->
                     </div>
@@ -323,15 +361,16 @@
         <div class="modal modal-user-menu fade clarfix" id="userMenuModal" tabindex="-1" role="dialog" aria-labelledby="userMenuModalLabel" aria-hidden="true">
             <div class="modal-user-menu__inner" role="document">
                 <div class="user-menu-cards clearfix">
-                    <h2 class="modal-dialog user-menu-cards__heading">What type of user would you like to add?</h2>
+                    <h2 class="modal-dialog user-menu-cards__heading">What do you want to do?</h2>
                     <div class="modal-dialog modal-user-menu__content">
                         <div class="modal-content">
                             <div class="modal-body">
                                 <a href="#">
                                     <div class="modal-body__inner">
-                                        <img src="img/img-client-user.svg" alt="">
-                                        <h3>Client User</h3>
-                                        <p>Lorem ipsum dolor sit amet, nonumy eleifend at vel. His ei accusata principes.</p>
+                                        <div class="cards-icon"></div>
+                                        <h3>Create <br />
+                                            New Campaign
+                                        </h3>
                                     </div>
                                 </a>
                             </div>
@@ -343,16 +382,42 @@
                             <div class="modal-body">
                                 <a href="#">
                                     <div class="modal-body__inner">
-                                        <img src="img/img-prezent-user.svg" alt="">
-                                        <h3>Prezent User</h3>
-                                        <p>Lorem ipsum dolor sit amet, nonumy eleifend at vel. His ei accusata principes.</p>
+                                        <div class="cards-icon"></div>
+                                        <h3>Generate Vouchers</h3>
                                     </div>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <!-- /.modal-dialog -->
-                    
+                    <div class="modal-dialog modal-user-menu__content">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <a href="#">
+                                    <div class="modal-body__inner">
+                                        <div class="cards-icon"></div>
+                                        <h3>Create <br />
+                                            New Vouchers
+                                        </h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-dialog -->
+                    <div class="modal-dialog modal-user-menu__content">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <a href="#">
+                                    <div class="modal-body__inner">
+                                        <div class="cards-icon"></div>
+                                        <h3>Create Invoice</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-dialog -->
                     <div class="clearfix"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
@@ -375,10 +440,6 @@
         <script src="vendor/session/jquery.session.js"></script>
         <!-- Checkradios JavaScript -->
         <script src="vendor/checkradios/jquery.checkradios.min.js"></script>
-        <!-- Select2 JavaScript -->
-        <script src="vendor/select2/select2.min.js"></script>
-        <!-- Add-Clear JavaScript -->
-        <script src="vendor/add-clear/add-clear.min.js"></script>
         <!-- Datatables JavaScript -->
         <script type="text/javascript" charset="utf8" src="vendor/datatable/js/jquery.dataTables.js"></script>
         <script type="text/javascript" charset="utf8" src="vendor/datatable/js/dataTables.bootstrap4.min.js"></script>
@@ -398,7 +459,7 @@
                     }
                   }
                 );
- 
+            
                 // #myInput is a <input type="text"> element
                 $('#filter-by-keyword').on( 'keyup', function () {
                     table.search( this.value ).draw();
@@ -407,6 +468,8 @@
             
         </script>
         <!-- <script src="vendor/tablesorter/jquery.tablesorter.min.js"></script> -->
+        <!-- Zoom JavaScript -->
+        <!-- <script src="vendor/zoom/zoom.js"></script> -->
         <!-- Custom Theme JavaScript -->
         <script src="js/app.js"></script>
     </body>
