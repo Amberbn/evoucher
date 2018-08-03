@@ -42,6 +42,18 @@ h2.user-menu-cards__heading{
     width: 50%;
 }
 
+.list5{
+    padding: 15px 30px 40px 140px !important;
+}
+
+.list5 li{
+    width: 20%;
+}
+
+.radio-block{
+    display: block;
+}
+
 #company-form h2.heading-desc-0{
     margin-bottom:30px !important;
     font-size: 20px;
@@ -131,7 +143,13 @@ h2.user-menu-cards__heading{
     text-align: center;
 }
 
-.voucher-tab .nav-tabs a.nav-link.active{
+.voucher-tab-4 .nav-tabs a.nav-link{
+    color:#C4C4C4;
+    width:25%;
+    text-align: center;
+}
+
+.voucher-tab .nav-tabs a.nav-link.active, .voucher-tab-4 .nav-tabs a.nav-link.active{
     border-bottom:3px #004D9A solid !important;
     border-top:none !important;
     border-left:none !important;
@@ -140,15 +158,46 @@ h2.user-menu-cards__heading{
     font-weight: bold;
 }
 
-.voucher-tab .nav-tabs a.nav-link:hover{
+.voucher-tab-4 .nav-tabs a.nav-link.active{
+    background: none !important;
+}
+
+.voucher-tab .nav-tabs a.nav-link:hover, .voucher-tab-4 .nav-tabs a.nav-link:hover{
     border-top:none !important;
     border-left:none !important;
     border-right:none !important;
 }
 
+.vtab-content{
+    padding:20px;
+    background: #fff;
+}
+
 pre.prvResult{
     font-family: 'Muli', sans-serif !important;
     color:#000;
+}
+
+.table-border-bottom td{
+    border-bottom:1px solid #dee2e6;
+    border-top-style:none !important;
+}
+
+.tcList{
+    padding-left:20px;
+}
+
+.tcList li{
+    line-height: 2.5em;
+}
+
+.badge.badge-primary.btags{
+    padding:0.4em 1em;
+    border-radius:0.5rem;
+}
+
+.txt-blue{
+    color:#004D9A;
 }
 
 /* Merchant & Outlet */
@@ -163,6 +212,39 @@ ul#accordion {
 
 .btn-removelist{
     background:none;
+}
+
+.voucher-dropdown span, span.dropdown-txt-2{
+    color:#828282;
+    font-weight: normal;
+}
+
+.option-value.dropdown-txt{
+    color:#505050 !important;
+    font-weight: bold;
+}
+
+.dropdown-icon-1, .dropdown-icon-2{
+    position: absolute;
+    top:0.6em;
+    color:#828282 !important;
+}
+
+.dropdown-icon-1{
+    right: -3em;
+}
+
+.dropdown-icon-2{
+    right: -1em;
+}
+
+.dropdown-toggle.linkMenu {
+    text-decoration: none;
+    display:block;
+}
+
+.dropdown-toggle.linkMenu::after {
+    display: none;
 }
 
 /* Client company information */

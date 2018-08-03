@@ -31,15 +31,13 @@ class MerchantController extends BaseControllerWeb
     public function indexDatatable()
     {
         $merchant = $this->merchantRepository->getAllMerchants();
-        // dd("Jangkrik");
         $merchant = $this->getDataFromJson($merchant);
-// dd($merchant);
         return Datatables::of($merchant)
             ->addIndexColumn()
             ->addColumn('action', function ($merchant) {
                 return '<td class="first">' .
                 '<div class="form-check">' .
-                '<input type="checkbox" value="user_id_' . $merchant->merchant_id . '" class="form-check-input" nice-checkbox-radio />' .
+                '<input type="checkbox" value="' . $merchant->merchant_id . '" class="form-check-input" nice-checkbox-radio />' .
                     '</div>' .
                     '</td>';
             })
@@ -56,13 +54,17 @@ class MerchantController extends BaseControllerWeb
         ];
         $clients = $this->getDropDownClient($this->clientRepository->getClient(), $filter);
         $bussinessCategory = $this->getSettings(['bussiness_category']);
+        $parametersValue = $this->getSettings(['parameters_value']);
+        $tags = $this->getDataFromJson($this->merchantRepository->getTags());
+
         $edit = false;
         
-
         $data = compact(
             'edit',
             'clients',
-            'bussinessCategory'
+            'bussinessCategory',
+            'parametersValue',
+            'tags'
         );
 
         return view('merchant.merchant_form', $data);
@@ -70,22 +72,20 @@ class MerchantController extends BaseControllerWeb
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $merchant = $this->merchantRepository->saveMerchant($request);
-
         $responseCode = $this->getResponseCodeFromJson($merchant);
         if ($responseCode != 201) {
 
         }
+        $response = $this->getDataFromJson($merchant);
 
-        return redirect()->route('merchant.index');
+        return redirect()->route('outlet.create').'?merchant_id='.$merchant->id;
     }
 
     public function edit($id)
     {
-        $merchant = $this->merchantRepository->getMerchantById($id);
-        $merchant = $this->getDataFromJson($merchant)->first();
-        // dd($merchant);
+        $merchantData = $this->merchantRepository->getMerchantById($id);
+        $merchant = $this->getDataFromJson($merchantData)->first();
         $filter = [
             'client_id',
             'client_name',
@@ -94,7 +94,7 @@ class MerchantController extends BaseControllerWeb
         $clients = $this->getDropDownClient($this->clientRepository->getClient(), $filter);
         $bussinessCategory = $this->getSettings(['bussiness_category']);
 
-
+        $tags = $this->getDataFromJson($this->merchantRepository->getTags());
 
         $edit = true;
 
@@ -102,7 +102,8 @@ class MerchantController extends BaseControllerWeb
             'merchant',
             'edit',
             'clients',
-            'bussinessCategory'
+            'bussinessCategory',
+            'tags'
         );
 
         return view('merchant.merchant_form', $data);
@@ -111,10 +112,13 @@ class MerchantController extends BaseControllerWeb
      public function update(Request $request, $id)
     {
         $merchant = $this->merchantRepository->updateMerchant($request, $id);
-        $merchant = $this->getResponseCodeFromJson($merchant);
+        $responseCode = $this->getResponseCodeFromJson($merchant);
         if ($responseCode != 200) {
 
         }
-        return redirect()->route('merchant.index');
+        $response =  $this->getDataFromJson($merchant);
+        // dd(route('outlet.create').'?merchant_id='.$response['merchant_id']);
+         return redirect()->route('outlet.create').'?merchant_id='.$response['merchant_id'];
+        // return redirect()->route('merchant.index');
     }
 }
