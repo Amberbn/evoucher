@@ -25,8 +25,9 @@
                     $method = $merchantId ? 'PUT' : 'POST';
                     $route = $merchantId ? route('merchant.update',['id' => $merchantId]) : route('merchant.store');
                 @endphp
-                <form id="company-form" action="{{ $route }}" method="POST">
+                <form id="company-form" action="{{ $route }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="_method" value="{{ $method }}">
                 <div class="content-area__main">
                     <div class="form-section bottom-30">
                         <h2 class="heading">Merchant Information</h2>
@@ -36,7 +37,7 @@
                         <div class="form-group">
                         <div class="form-input">
                             <label for="brand-name">Brand Name</label>
-                            <input name="merchant_title" type="text" class="form-control" id="brand-name" placeholder="">
+                            <input name="merchant_title" type="text" class="form-control" value="{{ @$merchant->merchant_title }}" id="brand-name" placeholder="">
                         </div>
                     </div>
                         <div class="row">
@@ -45,11 +46,11 @@
                             <div class="form-input">
                                 <label for="choose-client">Client</label>
                                 <select name="merchant_client_id" class="custom-select dropdown-select2" id="choose-client">
-                                <!-- <option {{ !@$user->client_id ? 'selected' : '' }}>Choose...</option> -->
+                                <option {{ !@$merchant->merchant_client_id ? 'selected' : '' }}>Choose...</option>
                                 @foreach ($clients as $client)
-                                <!-- @php
-                                    $selected = @$user->client_id == $client['client_id'] ? 'selected' : '';
-                                @endphp -->
+                                @php
+                                    $selected = @$merchant->merchant_client_id == $client['client_id'] ? 'selected' : '';
+                                @endphp
                                 <option value="{{ $client['client_id'] }}" {{ $selected }}>{{ $client['client_name'] }}</option>
                                 @endforeach
                                 </select>
@@ -65,34 +66,46 @@
                         <div class="form-group">
                             <div class="form-input">
                             <label for="description">Description</label>
-                            <textarea class="form-control" name="merchant_description" id="" cols="30" rows="3"></textarea>
+                            <textarea class="form-control" name="merchant_description" id="" cols="30" rows="3">{{ @$merchant->merchant_description }}</textarea>
                             </div>
                         </div>
-                        
                         <div class="row">
                             <div class="col-md-6">
                             <div class="form-group">
                                 <label for="business-category">Business Category</label>
                                 <select name="merchant_bussiness_category_pid" class="custom-select dropdown-select2" id="business-category">
-                                   <!-- <option {{ !@$user->merchant_bussiness_category_pid ? 'selected' : '' }}>Choose...</option> -->
+                                   <option {{ !@$merchant->merchant_bussiness_category_pid ? 'selected' : '' }}>Choose...</option>
                                 @foreach ($bussinessCategory->bussinessCategory as $bc)
 
-                                <!-- @php
-                                    $selected = @$user->client_id == $client['client_id'] ? 'selected' : '';
-                                @endphp -->
+                                @php
+                                    $selected = @$merchant->merchant_bussiness_category_pid == $bc->parameters_id ? 'selected' : '';
+                                @endphp
                                 <option value="{{ $bc->parameters_id }}" {{ $selected }}>{{ $bc->parameters_value }}</option>
                                 @endforeach
                                 </select>
                             </div>
                             </div>
+
+                            @php
+                                $tagArray = null;
+                                if(@$merchant) {
+                                    $tagArray = explode(',',$merchant->merchant_tags);
+                                }
+                            @endphp
                             <div class="col-md-6">
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="campaign-tags">Tags</label>
-                                    <select name="merchant_tags" class="custom-select select2-input-tags" id="campaign-tags" multiple="multiple">
-                                    <option value="1">Tag One</option>
-                                    <option value="2">Tag Two</option>
-                                    <option value="3">Tag Three</option>
+                                    <select name="merchant_tags[]" class="custom-select select2-input-tags" id="campaign-tags" multiple>
+                                    @foreach ($tags as $tg => $tag)
+                                        @php
+                                            $selected = null;
+                                            if(@$merchant) {
+                                                $selected = in_array($tag, $tagArray) ? 'selected' : '';
+                                            }
+                                        @endphp
+                                        <option value="{{ strtolower($tag) }}" {{ $selected }}>{{ $tag }}</option>
+                                    @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -106,14 +119,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                             <label for="socmed-facebook">Facebook</label>
-                            <input name="merchant_socmed_url_facebook" type="text" class="form-control" id="socmed-facebook" placeholder="">
+                            <input name="merchant_socmed_url_facebook" type="text" value="{{ @$merchant->merchant_socmed_url_facebook }}" class="form-control" id="socmed-facebook" placeholder="">
                             </div>
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
                             <div class="form-group">
                             <label for="socmed-instagram">Instagram</label>
-                            <input name="merchant_socmed_url_instagram" type="text" class="form-control" id="socmed-instagram" placeholder="">
+                            <input name="merchant_socmed_url_instagram" type="text" value="{{ @$merchant->merchant_socmed_url_instagram }}" class="form-control" id="socmed-instagram" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -121,14 +134,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                             <label for="socmed-twitter">Twitter</label>
-                            <input name="merchant_socmed_url_twitter" type="text" class="form-control" id="socmed-twitter" placeholder="">
+                            <input name="merchant_socmed_url_twitter" type="text" value="{{ @$merchant->merchant_socmed_url_twitter }}" class="form-control" id="socmed-twitter" placeholder="">
                             </div>
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
                             <div class="form-group">
                             <label for="socmed-line">Line</label>
-                            <input name="merchant_socmed_url_line" type="text" class="form-control" id="socmed-line" placeholder="">
+                            <input name="merchant_socmed_url_line" value="{{ @$merchant->merchant_socmed_url_line }}" type="text" class="form-control" id="socmed-line" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -136,14 +149,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="socmed-linkedin">LinkedIn</label>
-                                <input name="merchant_socmed_url_linkedin" type="text" class="form-control" id="socmed-linkedin" placeholder="">
+                                <input name="merchant_socmed_url_linkedin" type="text" value="{{ @$merchant->merchant_socmed_url_linkedin }}" class="form-control" id="socmed-linkedin" placeholder="">
                             </div>
                         </div>
                         <!-- /.col-md-6 -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="socmed-pinterest">Pinterest</label>
-                                <input name="merchant_socmed_url_pinterest" type="text" class="form-control" id="socmed-pinterest" placeholder="">
+                                <input name="merchant_socmed_url_pinterest" type="text" value="{{ @$merchant->merchant_socmed_url_pinterest }}" class="form-control" id="socmed-pinterest" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -154,17 +167,24 @@
                         <div class="col-6">
                             <div id="upload_button">
                                 <label>
-                                <input id="uploadInput" type="file" name="logo-file" accept="image/*">
+                                <input id="uploadInput" type="file" name="merchant_logo_image_url" accept="image/*">
                                 <span class="btn btn-outline-primary btn-block">Upload Logo Merchant</span>
                                 </label>
                                 <p>Min. image 50 x 50 px</p>
                             </div>
                         </div>
                         <div class="col-6">
+                            @if(@$merchant->merchant_logo_image_url)
                             <div id="uploadBox">
-                                <input type="text" name="logo-name" id="uploadText" readonly>
-                                <a href="#" class="clearFile"><img src="img/icon-times.svg" alt=""></a>
+                                <input type="text" name="logo-name" id="uploadText" value="{{ @$merchant->merchant_logo_image_url }}" readonly>
+                                <a href="#" class="clearFile"><img src="{{ asset('assets/img/icon-times.svg') }}" alt=""></a>
                             </div>
+                             @else
+                             <div id="uploadBox">
+                                <input type="text" name="logo-name" id="uploadText" readonly>
+                                <a href="#" class="clearFile"><img src="{{ asset('assets/img/icon-times.svg') }}" alt=""></a>
+                            </div>
+                            @endif
                         </div>
                     </div>
                         
