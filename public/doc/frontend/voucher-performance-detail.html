@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+        <meta name="author" content="Kharis Sulistiyono">
+        <title>Voucher Detail - Prezent</title>
+        <!-- Favicon -->
+        <link rel="icon" href="img/favicon.png" type="image/png">
+        <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Muli:200,300,400,700,800" rel="stylesheet">
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="css/fontawesome-all.min.css" rel="stylesheet">
+        <link href="vendor/checkradios/jquery.checkradios.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="css/app.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
+        <link href="css/admin.css" rel="stylesheet">
+        <!-- Datatable CSS -->
+        <link rel="stylesheet" type="text/css" href="vendor/datatable/css/dataTables.bootstrap4.css">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="member-area document-resize">
+        <div class="site clearfix">
+            <div id="admin-top-bar">
+                <div class="admin-bar">
+                    <div class="admin-bar__main-menu">
+                        <button class="btn"><span class="lines-menu"></span></button>
+                    </div>
+                    <div class="admin-bar__context">
+                        <div class="inner">
+                            <nav class="top-breadcrump" aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a class="span" href="#">Paket Makan Berdua di hari Sabtu ...</a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="admin-bar__nav">
+                        <span class="mobile-nav-toggle"><i class="fa fa-bars"></i></span>
+                        <ul>
+                            <li class="nav__support">
+                                <a href="#"><span class="icon-ic_support"></span></a>
+                            </li>
+                            <li class="nav__notification parent-menu incoming-notification has-notification">
+                                <a href="#">
+                                <span class="icon-ic_notif"></span>
+                                <span class="notification-counter">121</span>
+                                </a>
+                                <ul class="sub-menu notification__dropdown">
+                                    <li class="notif__head">
+                                        New Notification <span class="new-notif-count">2</span>
+                                    </li>
+                                    <li class="notif__status-pending unread">
+                                        <a href="#">
+                                            <div class="notif__inner">
+                                                <span class="notif__campaign-name"><strong>Pending Invoice :</strong> Invoice No. D-0011</span>
+                                                &ndash; <span class="notif__campaign-date">29 Aug 2018</span>
+                                                <p class="notif__campaign-created">Today &ndash; 8.15 <span></span></p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notif__status-paid unread">
+                                        <a href="#">
+                                            <div class="notif__inner">
+                                                <span class="notif__campaign-name"><strong>Invoice Paid :</strong> Invoice No. D-0006</span>
+                                                <p class="notif__campaign-created">Today &ndash; 8.02 <span></span></p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notif__status-new">
+                                        <a href="#" class="sign-out">
+                                            <div class="notif__inner">
+                                                <span class="notif__campaign-name"><strong>PT. Mitra Adhi Perkasa</strong> want to start a campaign.</span>
+                                                <p class="notif__campaign-created">Yesterday &ndash; 9.12 <span></span></p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notif__status-paid">
+                                        <a href="#">
+                                            <div class="notif__inner">
+                                                <span class="notif__campaign-name"><strong>Invoice Paid :</strong> Invoice No. D-0002</span>
+                                                <p class="notif__campaign-created">8 May 2018 &ndash; 10.30 <span></span></p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notif__footer">
+                                        <a href="#">Show more notifications</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="user-menu parent-menu">
+                                <a href="#">
+                                <span class="user-menu__avatar"></span>
+                                <span class="user-menu__name">Annisa Kinanti</span>
+                                <span class="profile-menu-toggle"><i class="fa fa-angle-down"></i></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li><a href="#">Edit Profile</a></li>
+                                    <li><a href="#">Change Password</a></li>
+                                    <li><a href="#" class="sign-out">Sign Out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="admin-bar__shortcut">
+                        <div class="btn-zoom-in-shadow">
+                            <button class="btn shortcut border-0 plus" data-toggle="modal" data-target="#userMenuModal"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#admin-top-bar -->
+            <div id="side-menu">
+                <ul class="nav flex-column">
+                    <li class="nav-item first">
+                        <div class="admin-bar__main-menu">
+                            <button class="btn"><span class="lines-menu"></span></button>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-dashboard active" href="#">
+                        <span class="nav-link__icon icon-ic_dashboard"><span class="nav-link__text">Dashboard</span></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-client" href="#">
+                        <span class="nav-link__icon icon-ic_client"><span class="nav-link__text">Client</span></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-campaign" href="#">
+                        <span class="nav-link__icon icon-ic_campaign"><span class="nav-link__text">Campaign</span></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-coupon" href="#">
+                        <span class="nav-link__icon icon-ic_coupon"><span class="nav-link__text">Coupon</span></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-merchant" href="#">
+                        <span class="nav-link__icon icon-ic_merchant"><span class="nav-link__text">Merchant</span></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-invoice" href="#">
+                        <span class="nav-link__icon icon-ic_invoice"><span class="nav-link__text">Invoice</span></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-deposit" href="#">
+                        <span class="nav-link__icon icon-ic_deposit"><span class="nav-link__text">Deposit</span></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-user" href="#">
+                        <span class="nav-link__icon icon-ic_user"><span class="nav-link__text">User</span></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /#side-menu -->
+            <div id="main-content">
+                <div class="main-content__body container-fluid">
+                    <div class="row justify-content-md-center">
+                        <div class="content-area content-area__client-detail col-md-12">
+                            <div class="client-menu-outer clearfix">
+                                <ul class="client-menu list-unstyled clearfix">
+                                    <li><a href="#">Performance</a></li>
+                                    <li><a href="#" class="active">Voucher Details</a></li>
+                                </ul>
+                                <div class="merchant-btn float-right">
+                                    <button class="btn btn-primary btn-bordered btn-transparent-light-bg">Delete Voucher</button>
+                                    <button type="button" class="btn btn-primary btn-add-client" data-toggle="modal" data-target="#userMenuModal">Create Campaign</button>       
+                                </div>
+                            </div>
+                           
+                            <div class="row bottom-30">
+                                    <div class="col-md-3">
+                                        <div class="voucher-item-v2__inner">
+                                            <div class="voucher-item-v2__top">
+                                                <figure class="voucher-item-v2__thumbnail">
+                                                    <img src="img/user/starwars-movie-poster-small.png" alt="Paket Nonton Star Wars" />
+                                                </figure>
+                                                
+                                            </div>
+                                            <h2 class="voucher-item-v2__title">
+                                                Paket Makan Berdua di Hari Sabtu dan Minggu
+                                            </h2>
+                                            <div class="voucher-item-v2__middle">
+                                                <div class="voucher-item-v2__middle-left">
+                                                    <div class="voucher-item-v2__point">
+                                                        <span>500.000</span> pts
+                                                    </div>
+                                                </div>
+                                                <div class="voucher-item-v2__middle-right">
+                                                    <ul class="voucher-item-v2__option">
+                                                        <li class="current-option">
+                                                            <div class="btn-group voucher-dropdown">
+                                                                <a href="#" class="dropdown-toggle linkMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <span class="option-value dropdown-txt">Pepper Lunch</span>
+                                                                    <span>and 3 others</span>
+                                                                    <span class="dropdown-icon-1"><i class="fa fa-chevron-down"></i></span>
+                                                                </a>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">Tag 1</a>
+                                                                    <a class="dropdown-item" href="#">Tag 2</a>
+                                                                    <a class="dropdown-item" href="#">Tag 3</a>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="voucher-item-v2__footer">
+                                                <div class="voucher-item-v2__footer-item">
+                                                    <span>537</span> Remaining
+                                                </div>
+                                                <div class="voucher-item-v2__footer-item">
+                                                    <span>537</span> Redeemed
+                                                </div>
+                                                <div class="voucher-item-v2__footer-item">
+                                                    <div class="btn-group dropright ">
+                                                        
+                                                        <a href="#" class="dropdown-toggle linkMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span>3</span> <span class="dropdown-txt-2">Tags</span>
+                                                            <span class="dropdown-icon-2"><i class="fa fa-chevron-right"></i></span>
+                                                        </a>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Tag 1</a>
+                                                            <a class="dropdown-item" href="#">Tag 2</a>
+                                                            <a class="dropdown-item" href="#">Tag 3</a>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                <div class="col-md-9">
+                                    <nav class="voucher-tab-4">
+                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link active" id="nav-voucher-profile-tab" data-toggle="tab" href="#nav-voucher-profile" role="tab" aria-controls="nav-voucher-profile" aria-selected="true">Voucher Profile</a>
+                                            <a class="nav-item nav-link" id="nav-voucher-details-tab" data-toggle="tab" href="#nav-voucher-details" role="tab" aria-controls="nav-voucher-details" aria-selected="false">Voucher Details</a>
+                                            <a class="nav-item nav-link" id="nav-tc-tab" data-toggle="tab" href="#nav-tc" role="tab" aria-controls="nav-tc" aria-selected="false">T &amp; C</a>
+                                            <a class="nav-item nav-link" id="nav-instructions-tab" data-toggle="tab" href="#nav-instructions" role="tab" aria-controls="nav-instructions" aria-selected="false">Instructions</a>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content vtab-content">
+                                        <div class="tab-pane fade show active" id="nav-voucher-profile" role="tabpanel" aria-labelledby="nav-voucher-profile-tab">
+                                            <table class="table table-border-bottom">
+                                                <tr>
+                                                    <td width="120">Voucher Name</td>
+                                                    <td width="30">:</td>
+                                                    <td><b>Paket Nonton Star Wars</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Client</td>
+                                                    <td>:</td>
+                                                    <td><b>10 June 2018 - 30 June 2018</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Info</td>
+                                                    <td>:</td>
+                                                    <td><b>Voucher meliputi 2 tiket 1 kali nonton film Star Wars The Last Jedi di CGV Cinemas cabang manapun.
+                                                            Berlaku hingga 30 Juni 2018</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Redeemed</td>
+                                                    <td>:</td>
+                                                    <td><b>215 pcs</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Stock</td>
+                                                    <td>:</td>
+                                                    <td><b>4985/5200 pcs</b></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane fade show" id="nav-voucher-details" role="tabpanel" aria-labelledby="nav-voucher-details-tab">
+                                            <table class="table table-border-bottom">
+                                                <tr>
+                                                    <td width="200">Voucher Period</td>
+                                                    <td width="30">:</td>
+                                                    <td><b>10 June 2018 - 30 June 2018</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Stock Voucher</td>
+                                                    <td>:</td>
+                                                    <td><b>5.500 pcs</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Voucher Value Amount</td>
+                                                    <td>:</td>
+                                                    <td><b>1.000 pcs</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Voucher Unit Price Amount</td>
+                                                    <td>:</td>
+                                                    <td><b>100.000</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Voucher Value Point</td>
+                                                    <td>:</td>
+                                                    <td><b>1.000 Point</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tags</td>
+                                                    <td>:</td>
+                                                    <td>
+                                                        <span class="badge badge-primary btags">Food &amp; Beverages</span>
+                                                        <span class="badge badge-primary btags">Retails</span>
+                                                        <span class="badge badge-primary btags">Entertainment</span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-tc" role="tabpanel" aria-labelledby="nav-tc-tab">
+                                            <ul class="tcList">
+                                                <li>This voucher is valid until the date mentioned on the voucher and can be redeemed at any stores in Jakarta</li>
+                                                <li>This voucher is non-refundable and cannot be exchanged for cash in part or full and is valid for a single transaction only</li>
+                                                <li>CGV points cannot be availed or redeemed while using this voucher</li>
+                                                <li>Strictly no extension of the expiry date from the date of issue will be allowed</li>
+                                                <li>The management retains the right to reject any voucher that has been tampered with or found in any way unacceptable</li>
+                                                <li>We are not responsible if a Gift Voucher is lost, stolen, damaged or destroyed and no replacement will be provided in these circumstances</li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-instructions" role="tabpanel" aria-labelledby="nav-instructions-tab">
+                                            <table>
+                                                <tr>
+                                                    <td width="160" valign="top">Instruction for customer</td>
+                                                    <td width="30" valign="top">:</td>
+                                                    <td>
+                                                        <p><b><span class="txt-blue">Step 1</span>: Open the link, click on the redeem button, and select your voucher.</b></p>
+                                                        <p><b><span class="txt-blue">Step 2</span>: Swipe your voucher to get a unique voucher code</b></p>
+                                                        <p><b><span class="txt-blue">Step 3</span>: Present this code to the outlet staff for redemption. Some vouchers require you to give the voucher code to make booking. If it is an online redemption, you may be required to enter the voucher code on the partner’s website. Be sure to read the Redemption Instructions for full details. </b></p>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="160" valign="top">Instruction for Outlet</td>
+                                                    <td width="30" valign="top">:</td>
+                                                    <td>
+                                                        <p><b><span class="txt-blue">Step 1</span>: Open the link, click on the redeem button, and select your voucher.</b></p>
+                                                        <p><b><span class="txt-blue">Step 2</span>: Swipe your voucher to get a unique voucher code</b></p>
+                                                        <p><b><span class="txt-blue">Step 3</span>: Present this code to the outlet staff for redemption. Some vouchers require you to give the voucher code to make booking. If it is an online redemption, you may be required to enter the voucher code on the partner’s website. Be sure to read the Redemption Instructions for full details. </b></p>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="campaign-history">
+                                    <form id="campaigns" action="" method="">
+                                        <div class="voucher-top-area row">
+                                            <div class="col-md-8">
+                                                <div class="voucher-filter-form">
+                                                    <form action="" method="GET">
+                                                        <div class="form-section row">
+                                                        
+                                                        <!-- /.col-md-6 -->
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="filter-by-keyword">Search Outlet List</label>
+                                                                <div class="input-group">
+                                                                    <input id="filter-by-keyword" name="s" type="text" class="form-control" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.col-md-6 -->
+                                                        </div>
+                                                    <!-- /.form-section.row -->
+                                                    </form>
+                                                </div>
+                                    <!-- /.voucher-filter-form -->
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="userMGTTable" class="table campaign-list-table" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <a class="popover-menu-btn" href="#">
+                                                            <img src="img/icon-plus-blue.png" alt="+" />
+                                                            </a>
+                                                            <div class="popover-menu-content">
+                                                                <ul class="list-unstyled">
+                                                                    <li><a href="#">Edit Checked User</a></li>
+                                                                    <li><a href="#">Delete Checked Users</a></li>
+                                                                    <li><a href="#">Archive Checked</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </th>
+                                                        <th>Outlet Name</th>
+                                                        <th>Merchant</th>
+                                                        <th>City</th>
+                                                        <th>Area</th>
+                                                        <th>Person In Charge</th>
+                                                        <th>Phone</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="first">
+                                                            <div class="form-check">
+                                                                <input type="checkbox" value="campaign-1" class="form-check-input" nice-checkbox-radio />
+                                                            </div>
+                                                        </td>
+                                                        <td>Taman Anggrek</td>
+                                                        <td>XXI Cineplex</td>
+                                                        <td>Jakarta</td>
+                                                        <td>Grogol</td>
+                                                        <td>Budi Anggoro</td>
+                                                        <td class="last">021 21222121</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="first">
+                                                        <div class="form-check">
+                                                            <input type="checkbox" value="campaign-2" class="form-check-input" nice-checkbox-radio />
+                                                        </div>
+                                                        </td>
+                                                        <td>Kota Kasablanka</td>
+                                                        <td>CGV Cinemas</td>
+                                                        <td>Jakarta</td>
+                                                        <td>Kuningan</td>
+                                                        <td>Angga Purnama</td>
+                                                        <td class="last">021 21222121</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="first">
+                                                        <div class="form-check">
+                                                            <input type="checkbox" value="campaign-3" class="form-check-input" nice-checkbox-radio />
+                                                        </div>
+                                                        </td>
+                                                        <td>Gandaria City</td>
+                                                        <td>XXI Cineplex</td>
+                                                        <td>Jakarta</td>
+                                                        <td>Gandaria</td>
+                                                        <td>Indah Pertiwi</td>
+                                                        <td class="last">021 21222121</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                  
+                                </div>
+                                <!-- /.campaign-history -->
+                        </div>
+                        <!-- /.content-area -->
+                    </div>
+                </div>
+                <!-- /.main-content__body -->
+            </div>
+            <!-- /#main-content -->
+        </div>
+        <!-- /.site -->
+        <div class="modal modal-user-menu fade clarfix" id="userMenuModal" tabindex="-1" role="dialog" aria-labelledby="userMenuModalLabel" aria-hidden="true">
+            <div class="modal-user-menu__inner" role="document">
+                <div class="user-menu-cards clearfix">
+                    <h2 class="modal-dialog user-menu-cards__heading">What do you want to do?</h2>
+                    <div class="modal-dialog modal-user-menu__content">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <a href="#">
+                                    <div class="modal-body__inner">
+                                        <div class="cards-icon"></div>
+                                        <h3>Create <br />
+                                            New Campaign
+                                        </h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-dialog -->
+                    <div class="modal-dialog modal-user-menu__content">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <a href="#">
+                                    <div class="modal-body__inner">
+                                        <div class="cards-icon"></div>
+                                        <h3>Generate Vouchers</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-dialog -->
+                    <div class="modal-dialog modal-user-menu__content">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <a href="#">
+                                    <div class="modal-body__inner">
+                                        <div class="cards-icon"></div>
+                                        <h3>Create <br />
+                                            New Vouchers
+                                        </h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-dialog -->
+                    <div class="modal-dialog modal-user-menu__content">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <a href="#">
+                                    <div class="modal-body__inner">
+                                        <div class="cards-icon"></div>
+                                        <h3>Create Invoice</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.modal-dialog -->
+                    <div class="clearfix"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery Version 3.3.1 -->
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Moment Core JavaScript -->
+        <script src="vendor/moment/moment.min.js"></script>
+        <!-- Bootstrap Datetime Picker JavaScript -->
+        <script src="vendor/tempusdominus/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- GreenSock JavaScript -->
+        <script src="vendor/greensock/TweenMax.min.js"></script>
+        <!-- Session JavaSctipt -->
+        <script src="vendor/session/jquery.session.js"></script>
+        <!-- Checkradios JavaScript -->
+        <script src="vendor/checkradios/jquery.checkradios.min.js"></script>
+        <!-- Datatables JavaScript -->
+        <script type="text/javascript" charset="utf8" src="vendor/datatable/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" charset="utf8" src="vendor/datatable/js/dataTables.bootstrap4.min.js"></script>
+        <script>
+            $(document).ready( function () {
+                var table = $('.campaign-list-table').DataTable(
+                  {
+                    "columnDefs": [ {"targets": 0, "orderable": false} ],
+                    "pagingType": "full_numbers",
+                    "language": {
+                      "paginate": {
+                        "first": '&laquo',
+                        "last": '&raquo',
+                        "next": '&rsaquo;',
+                        "previous": '&lsaquo;'
+                      }
+                    }
+                  }
+                );
+            
+                // #myInput is a <input type="text"> element
+                $('#filter-by-keyword').on( 'keyup', function () {
+                    table.search( this.value ).draw();
+                } );
+            } );
+            
+        </script>
+        <!-- <script src="vendor/tablesorter/jquery.tablesorter.min.js"></script> -->
+        <!-- Zoom JavaScript -->
+        <!-- <script src="vendor/zoom/zoom.js"></script> -->
+        <!-- Custom Theme JavaScript -->
+        <script src="js/app.js"></script>
+    </body>
+</html>
