@@ -111,7 +111,7 @@ class VoucherCatalogRepository extends BaseRepository
 
             $voucherCatalog = new VoucherCatalog;
             $voucherCatalog->voucher_catalog_revision_no = 0;
-            $voucherCatalog->merchant_client_id = $request->input('merchant_client_id');
+            $voucherCatalog->merchant_client_id = $request->input('merchant_client_id') ?: $this->me()['client_id'];
             $voucherCatalog->voucher_catalog_sku_code = $result;
             $voucherCatalog->voucher_catalog_title = $request->input('voucher_catalog_title');
             $voucherCatalog->voucher_catalog_main_image_url = $filename;
