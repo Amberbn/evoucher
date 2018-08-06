@@ -30,5 +30,14 @@ Route::middleware(['auth', 'check-permission'])->group(function () {
     Route::get('/merchants', 'Web\MerchantController@indexDatatable')->name('merchant.list.datatable');
 
     Route::resource('/outlet', 'Web\OutletController');
-   
+
+    Route::resource('/voucher', 'Web\VoucherController');
+
+    Route::post('/save-voucher-profile', 'Web\VoucherController@saveVoucherProfile')->name('voucher.profile.store');
+    Route::get('/voucher-form-detail/{id}', 'Web\VoucherController@voucherDetail')->name('voucher.detail');
+    Route::post('/save-voucher-detail/{id}', 'Web\VoucherController@saveVoucherDetail')->name('voucher.detail.store');
+    Route::get('/voucher-form-merchant/{id}', 'Web\VoucherController@voucherMercant')->name('voucher.merchant');
+    Route::post('/save-form-merchant/{id}', 'Web\VoucherController@saveVoucherMercant')->name('voucher.merchant.store');
+
+    Route::get('/outlet-by-merchant/{id}', 'Web\VoucherController@getOutlet')->name('voucher.get.outlet');
 });
