@@ -163,52 +163,38 @@
     <script src="{{ asset('assets/js/merchant-list.js') }}"></script>
      <script>
         $(document).ready(function(){
-            $(document).on('select2:open','select[id^="add-outlet"]',function(){
-                let groupNumber = $(this).attr('group-number');
-                let el = $(this).parent().parent().parent().find('#exclude-outlet_'+groupNumber);
-                let merchantId = $(this).attr('selected-parent');
-                let thisId = $(this).attr('id');
-                console.log(merchantId);
-
-
-                let isDataAvaible = $('#'+thisId).find('option').length;
-                console.log(isDataAvaible);
-                var $outlet = $('#'+thisId);
-                
-                if(isDataAvaible < 1) {
-                    $.get('/outlet-by-merchant/' + merchantId, function(merchant)
-                    {
-                        $outlet.find('option').remove().end();
-                        $.each(merchant, function(index, merchant) {
-                            $outlet.append('<option value="' + merchant.outlets_id + '">' + merchant.outlets_title + '</option>');
-                        });
-                    });
-                }
-            });
-
-            $(document).on('select2:open','select[id^="exclude-outlet"]',function(){
-                let groupNumber = $(this).attr('group-number');
-                let el = $(this).parent().parent().parent().find('#add-outlet_'+groupNumber);
-                let merchantId = $(this).attr('selected-parent');
-                let thisId = $(this).attr('id');
-                console.log(merchantId);
-
-
-                let isDataAvaible = $('#'+thisId).find('option').length;
-                console.log(isDataAvaible);
-                var $outlet = $('#'+thisId);
-                
-                if(isDataAvaible < 1) {
-                    $.get('/outlet-by-merchant/' + merchantId, function(merchant)
-                    {
-                        $outlet.find('option').remove().end();
-                        $.each(merchant, function(index, merchant) {
-                            $outlet.append('<option value="' + merchant.outlets_id + '">' + merchant.outlets_title + '</option>');
-                        });
-                    });
-                }
-            });
             
+            $('#addMerchant').click(function(){
+                createSelect2Component('select[id^="add-outlet','add-outlet_');
+                createSelect2Component('select[id^="exclude-outlet','exclude-outlet_');
+            });
+
+            function createSelect2Component(selector,idComponent) {
+                 $(selector).each(function(){
+                    let groupNumber = $(this).attr('group-number');
+                    console.log(groupNumber);
+                    let merchantId = $(this).attr('selected-parent');
+                    let thisId = $(this).attr('id');
+                    $('#'+idComponent+groupNumber).select2({
+                        ajax: {
+                            url: '/outlet-by-merchant/'+merchantId,
+                            processResults: function (data) {
+                                console.log(data);
+                                return {
+                                    results: $.map(data, function (item) {
+                                        console.log(item);
+                                        return {
+                                            text: item.outlets_title,
+                                            id: item.outlets_id
+                                        }
+                                    })
+                                };
+                            }
+                        }
+                    });
+                });
+            }
+
             $(document).on('change','select[id^="add-outlet"]',function(){
                 let groupNumber = $(this).attr('group-number');
                 let valueLength = $(this).val().length;
@@ -248,7 +234,7 @@
                 if(isEmptyCard > 0) {
                     $('#voucher_merchant_form').submit();
                 }else{
-                    alert('gak ada card untuk di submit');
+                    toastr.error('Please add some form to be submitted');
                 }
             });
             
