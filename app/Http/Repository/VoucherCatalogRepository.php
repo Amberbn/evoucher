@@ -26,7 +26,7 @@ class VoucherCatalogRepository extends BaseRepository
         return $filter;
     }
 
-    public function getAllVoucherCatalog()
+    public function getAllVoucherCatalog($voucherId = null)
     {
         $voucherCatalogs = DB::table('vou_voucher_catalog as cat')
             ->join('bsn_client as bc', 'cat.merchant_client_id', '=', 'bc.client_id')
@@ -34,6 +34,9 @@ class VoucherCatalogRepository extends BaseRepository
 
         if (!$this->isGroupSprint()) {
             $voucherCatalogs->where('bc.client_category_pid', '=', $this->me()['client_category_pid']);
+        }
+        if ($voucherId) {
+            $voucherCatalogs->where('cat.voucher_catalog_id','=',$voucherId);
         }
 
         $voucherCatalogs->select(
@@ -70,6 +73,119 @@ class VoucherCatalogRepository extends BaseRepository
         $filter = $this->voucherCatalogFilter();
 
         return $this->dataTableResponseBuilder($voucherCatalogs, $filter);
+    }
+
+    public function getVoucherDraftById($voucherId)
+    {
+        $voucherCatalogs = $this->model
+            ->where('voucher_catalog_id','=',$voucherId)
+            ->where('isactive',false)
+            ->where('voucher_status','=','DRAFT');
+        if (empty($voucherCatalogs->get()->toArray())) {
+            return $this->sendNotfound();
+        }
+        return $this->sendSuccess($voucherCatalogs->first());
+    }
+
+    public function getVoucherCatalogTags()
+    {
+        $tags = DB::table('vw_voucher_catalog_tags')->get();
+        if (empty($tags->toArray())) {
+            return $this->sendNotfound();
+        }
+        return $this->sendSuccess($tags);
+    }
+
+    public function createVoucherProfile($request)
+    {
+        $randomNum = substr(str_shuffle("0123456789"), 0, 4);
+        $result = $randomNum . "-" . $randomNum;
+        $tags = implode(',',$request->voucher_catalog_tags);
+        DB::beginTransaction();
+        try {
+
+            $filename = null;
+            if ($request->voucher_catalog_main_image_url) {
+                $filename = $this->saveImage($request, 'voucher_catalog_main_image_url', 'voucher');
+            }
+
+            $voucherCatalog = new VoucherCatalog;
+            $voucherCatalog->voucher_catalog_revision_no = 0;
+            $voucherCatalog->merchant_client_id = $request->input('merchant_client_id') ?: $this->me()['client_id'];
+            $voucherCatalog->voucher_catalog_sku_code = $result;
+            $voucherCatalog->voucher_catalog_title = $request->input('voucher_catalog_title');
+            $voucherCatalog->voucher_catalog_main_image_url = $filename;
+            $voucherCatalog->voucher_catalog_information = $request->input('voucher_catalog_information');
+            $voucherCatalog->voucher_catalog_valid_start_date = $request->input('voucher_catalog_valid_start_date');
+            $voucherCatalog->voucher_catalog_valid_end_date = $request->input('voucher_catalog_valid_end_date');
+            $voucherCatalog->voucher_catalog_tags = $tags;
+            $voucherCatalog->voucher_status = 'DRAFT';
+            $voucherCatalog->data_sort = $request->input('data_sort') ? : 1000;
+            $voucherCatalog->isactive = $request->input('isactive') ? : false;
+            $voucherCatalog->isdelete = $request->input('isdelete') ? : false;
+            $voucherCatalog->created_by_user_name = $this->loginUsername();
+            $voucherCatalog->last_updated_by_user_name = $this->loginUsername();
+            $voucherCatalog->save();
+
+            DB::commit();
+
+            $voucher = $this->model::where('voucher_catalog_id',$voucherCatalog->voucher_catalog_id)->first();
+            return $this->sendCreated($voucher);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return $this->sendBadRequest($e->getMessage());
+        }        
+    }
+
+    public function createVoucherDetail($request,$voucherId)
+    {
+        $voucher = $this->model
+            ->where('voucher_catalog_id', '=', $voucherId)
+            ->where('isactive', false)
+            ->where('voucher_status', '=', 'DRAFT');
+        if (empty($voucher->get()->toArray())) {
+            return $this->sendNotfound();
+        }
+
+        $stockTransactionInitialStockLevel = 0;
+        $voucherCatalogStockLevel = request('voucher_catalog_stock_level');
+        $stockTransactionInitialStockLevel = $voucherCatalogStockLevel;
+
+        DB::beginTransaction();
+        try {
+            $voucherCatalog = $voucher->first();
+            $voucherCatalog->voucher_catalog_terms_and_condition = $request->input('voucher_catalog_terms_and_condition');
+            $voucherCatalog->voucher_catalog_instruction_customer = $request->input('voucher_catalog_instruction_customer');
+            $voucherCatalog->voucher_catalog_instruction_outlet = $request->input('voucher_catalog_instruction_outlet');
+            $voucherCatalog->voucher_catalog_value_amount = $request->input('voucher_catalog_value_amount');
+            $voucherCatalog->voucher_catalog_value_point = $request->input('voucher_catalog_value_point');
+            $voucherCatalog->voucher_catalog_unit_price_amount = $request->input('voucher_catalog_unit_price_amount');
+            $voucherCatalog->voucher_catalog_unit_price_point = $request->input('voucher_catalog_unit_price_point');
+            $voucherCatalog->voucher_catalog_stock_level = $request->input('voucher_catalog_stock_level');
+            $voucherCatalog->last_updated_by_user_name = $this->loginUsername();
+            $voucherCatalog->save();
+
+            $stockTransaction = new StockTransaction;
+            $stockTransaction->voucher_catalog_id = $voucherCatalog->voucher_catalog_id;
+            $stockTransaction->stock_transaction_adjustment_type = 'EDIT';
+            $stockTransaction->campaign_id = $request->input('campaign_id') ? : null;
+            $stockTransaction->stock_transaction_initial_stock_level = $stockTransactionInitialStockLevel;
+            $stockTransaction->stock_transaction_adjustment_value = 0;
+            $stockTransaction->stock_transaction_adjusted_stock_level = 0;
+            $stockTransaction->created_at = NOW();
+            $stockTransaction->created_by_user_name = $this->loginUsername();
+            $stockTransaction->save();
+
+            DB::commit();
+
+            return $this->sendCreated($voucherCatalog);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return $this->sendBadRequest($e->getMessage());
+        }        
+
     }
 
     public function saveVoucherCatalog($request)

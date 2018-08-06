@@ -83,6 +83,7 @@
 {{-- <script src="{{ asset('assets/vendor/zoom/zoom.js') }}"></script> --}}
 <!-- Custom Theme JavaScript -->
 <script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/js/upload.js') }}"></script>
 <script src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/add-clear/add-clear.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/checkradios/jquery.checkradios.min.js') }}"></script>
