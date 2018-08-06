@@ -37,7 +37,10 @@ class CheckPermissions
         }
 
         if (in_array($canAccess, $routeDefine)) {
-            $contains = str_contains($arrayResource[$routeExplode[0]], $canAccess);
+            $contains = null;
+            if (isset($arrayResource[$routeExplode[0]])) {
+                $contains = str_contains($arrayResource[$routeExplode[0]], $canAccess);
+            }
             if (!$contains) {
                 abort(404);
             }

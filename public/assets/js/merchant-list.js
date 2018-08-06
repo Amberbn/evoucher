@@ -1,14 +1,21 @@
 $(document).ready(function(){
     $('#addMerchant').click(function(event){
         event.preventDefault();
-        setMerchantList();
+        let el = $(this);
+        setMerchantList(el);
     });
 
 });
 
-function setMerchantList(){
+function setMerchantList(el){
     if($('#search-merchant').val() !== "")
         var idxNum = countList();
+        let selectedValue = $(el).parent().parent().parent().find('#search-merchant').val();
+        let count = $("select[selected-parent='"+selectedValue+"']").length;
+        if(count >= 2) {
+            alert('sudah ada');
+            return;
+        }
         var merchantList = $('#merchantTemplate').html();
         $('#accordion').append(merchantList);
         // renaming id name
@@ -19,29 +26,39 @@ function setMerchantList(){
         $('#accordion li.merchantList').find('#collapseMerchantBtn').prop('id','collapseMerchantBtn'+idxNum);
         $('#accordion li.merchantList').find('#collapseMerchantBtn'+idxNum).attr('data-target','#collapseMerchant'+idxNum);
         $('#accordion li.merchantList').find('#collapseMerchantBtn'+idxNum).attr('aria-controls','#collapseMerchant'+idxNum);
+
+
         $('#accordion li.merchantList').find('#collapseMerchant').prop('id','collapseMerchant'+idxNum);
         $('#accordion li.merchantList').find('#collapseMerchant'+idxNum).attr('aria-labelledby','headingMerchant'+idxNum);
         // all outlet radio
-        $('#collapseMerchant'+idxNum).find('input[name="voucher-outlet"]').prop('name', 'voucher-outlet'+idxNum);
-        $('#collapseMerchant'+idxNum).find('input[id="all-outlet"]').prop('id', 'all-outlet'+idxNum);
-        $('#collapseMerchant'+idxNum).find('input[value="all-outlet"]').prop('value', 'all-outlet'+idxNum);
-        $('#collapseMerchant'+idxNum).find('label[for="all-outlet"]').prop('for', 'all-outlet'+idxNum);
+        //$('#collapseMerchant'+idxNum).find('input[name="voucher-outlet_"]').prop('name', 'voucher-outlet_'+idxNum);
+        $('#collapseMerchant'+idxNum).find('input[name="voucher-outlet_"]').prop('name', 'voucher['+selectedValue+'][redem_all_outlet]');
+        $('#collapseMerchant'+idxNum).find('input[id="all-outlet_"]').prop('id', 'all-outlet_'+idxNum);
+        //$('#collapseMerchant'+idxNum).find('input[value="all-outlet_"]').prop('value', 'all-outlet_'+idxNum);
+        $('#collapseMerchant'+idxNum).find('input[value="all-outlet_"]').prop('value', true);
+        $('#collapseMerchant'+idxNum).find('label[for="all-outlet_"]').prop('for', 'all-outlet_'+idxNum);
         // selected outlet radio
-        $('#collapseMerchant'+idxNum).find('input[id="selected-outlet"]').prop('id', 'selected-outlet'+idxNum);
-        $('#collapseMerchant'+idxNum).find('input[value="selected-outlet"]').prop('value', 'selected-outlet'+idxNum);
-        $('#collapseMerchant'+idxNum).find('label[for="selected-outlet"]').prop('for', 'selected-outlet'+idxNum);
+        $('#collapseMerchant'+idxNum).find('input[id="selected-outlet_"]').prop('id', 'selected-outlet_'+idxNum);
+        $('#collapseMerchant'+idxNum).find('input[value="selected-outlet_"]').prop('value', 'selected-outlet_'+idxNum);
+        $('#collapseMerchant'+idxNum).find('label[for="selected-outlet_"]').prop('for', 'selected-outlet_'+idxNum);
         // add outlet option
-        $('#collapseMerchant'+idxNum).find('select[id="add-outlet"]').prop('id', 'add-outlet'+idxNum);
-        $('#collapseMerchant'+idxNum).find('select[name="add-outlet"]').prop('name', 'add-outlet'+idxNum);
-        $('#collapseMerchant'+idxNum).find('label[for="add-outlet"]').prop('for', 'add-outlet'+idxNum);
+        $('#collapseMerchant'+idxNum).find('select[id="add-outlet_"]').prop('id', 'add-outlet_'+idxNum);
+        $('#collapseMerchant'+idxNum).find('select[id="add-outlet_'+idxNum+'"]').attr('group-number', idxNum);
+        $('#collapseMerchant'+idxNum).find('select[id="add-outlet_'+idxNum+'"]').attr('selected-parent', selectedValue);
+        //$('#collapseMerchant'+idxNum).find('select[name="add-outlet_"]').prop('name', 'add-outlet_'+idxNum);
+        $('#collapseMerchant'+idxNum).find('select[name="add-outlet_"]').prop('name', 'voucher['+selectedValue+'][add_outlet][]');
+        $('#collapseMerchant'+idxNum).find('label[for="add-outlet_"]').prop('for', 'add-outlet_'+idxNum);
         //$('#collapseMerchant'+idxNum).find('select[data-select2-id="add-outlet"]').attr('data-select2-id', 'add-outlet'+idxNum);
-        $('#add-outlet'+idxNum).select2();
+        $('#add-outlet_'+idxNum).select2();
         // exclude outlet option
-        $('#collapseMerchant'+idxNum).find('select[id="exclude-outlet"]').prop('id', 'exclude-outlet'+idxNum);
-        $('#collapseMerchant'+idxNum).find('select[name="exclude-outlet"]').prop('name', 'exclude-outlet'+idxNum);
-        $('#collapseMerchant'+idxNum).find('label[for="exclude-outlet"]').prop('for', 'exclude-outlet'+idxNum);
+        $('#collapseMerchant'+idxNum).find('select[id="exclude-outlet_"]').prop('id', 'exclude-outlet_'+idxNum);
+        $('#collapseMerchant'+idxNum).find('select[id="exclude-outlet_'+idxNum+'"]').attr('group-number', idxNum);
+        $('#collapseMerchant'+idxNum).find('select[id="exclude-outlet_'+idxNum+'"]').attr('selected-parent', selectedValue);
+        // $('#collapseMerchant'+idxNum).find('select[name="exclude-outlet_"]').prop('name', 'exclude-outlet_'+idxNum);
+        $('#collapseMerchant'+idxNum).find('select[name="exclude-outlet_"]').prop('name', 'voucher['+selectedValue+'][exclude-outlet][]');
+        $('#collapseMerchant'+idxNum).find('label[for="exclude-outlet_"]').prop('for', 'exclude-outlet_'+idxNum);
         //$('#collapseMerchant'+idxNum).find('select[data-select2-id="exclude-outlet"]').attr('data-select2-id', 'exclude-outlet'+idxNum);
-        $('#exclude-outlet'+idxNum).select2();
+        $('#exclude-outlet_'+idxNum).select2();
 }
 
 function countList(){
@@ -56,12 +73,14 @@ function checkOutlet(e){
     var idx = idname.substr(txtlen - 1);
     var checkedname = idname.substr(0, txtlen - 1);
     //console.log(checkedname);
-    if(checkedname === 'all-outlet'){
-        $('#add-outlet'+idx).prop('disabled', true);
-        $('#exclude-outlet'+idx).prop('disabled', true);
+    if(checkedname === 'all-outlet_'){
+        $('#add-outlet_'+idx).prop('disabled', true);
+        $('#exclude-outlet_'+idx).prop('disabled', true);
+        $('#add-outlet_'+idx+'-error').remove();
+        $('#exclude-outlet_'+idx+'-error').remove();
     }else{
-        $('#add-outlet'+idx).prop('disabled', false);
-        $('#exclude-outlet'+idx).prop('disabled', false);
+        $('#add-outlet_'+idx).prop('disabled', false);
+        $('#exclude-outlet_'+idx).prop('disabled', false);
     }
     
 }
@@ -87,24 +106,26 @@ function resetIDList(){
         $('#accordion li.merchantList:eq('+i+')').find('div[id^="collapseMerchant"]').prop('id','collapseMerchant'+i);
         $('#accordion li.merchantList:eq('+i+')').find('div[id^="collapseMerchant"]').attr('aria-labelledby','headingMerchant'+i);
         // all outlet radio
-        $('#collapseMerchant'+i).find('input[name^="voucher-outlet"]').prop('name', 'voucher-outlet'+i);
-        $('#collapseMerchant'+i).find('input[id^="all-outlet"]').prop('id', 'all-outlet'+i);
-        $('#collapseMerchant'+i).find('input[value^="all-outlet"]').prop('value', 'all-outlet'+i);
-        $('#collapseMerchant'+i).find('label[for^="all-outlet"]').prop('for', 'all-outlet'+i);
+        $('#collapseMerchant'+i).find('input[name^="voucher-outlet_"]').prop('name', 'voucher-outlet_'+i);
+        $('#collapseMerchant'+i).find('input[id^="all-outlet_"]').prop('id', 'all-outlet_'+i);
+        $('#collapseMerchant'+i).find('input[value^="all-outlet_"]').prop('value', 'all-outlet_'+i);
+        $('#collapseMerchant'+i).find('label[for^="all-outlet_"]').prop('for', 'all-outlet_'+i);
         // selected outlet radio
-        $('#collapseMerchant'+i).find('input[id^="selected-outlet"]').prop('id', 'selected-outlet'+i);
-        $('#collapseMerchant'+i).find('input[value^="selected-outlet"]').prop('value', 'selected-outlet'+i);
-        $('#collapseMerchant'+i).find('label[for^="selected-outlet"]').prop('for', 'selected-outlet'+i);
+        $('#collapseMerchant'+i).find('input[id^="selected-outlet_"]').prop('id', 'selected-outlet_'+i);
+        $('#collapseMerchant'+i).find('input[value^="selected-outlet_"]').prop('value', 'selected-outlet_'+i);
+        $('#collapseMerchant'+i).find('label[for^="selected-outlet_"]').prop('for', 'selected-outlet_'+i);
         // add outlet option
-        $('#collapseMerchant'+i).find('select[id^="add-outlet"]').prop('id', 'add-outlet'+i);
-        $('#collapseMerchant'+i).find('select[name^="add-outlet"]').prop('name', 'add-outlet'+i);
-        $('#collapseMerchant'+i).find('label[for^="add-outlet"]').prop('for', 'add-outlet'+i);
+        $('#collapseMerchant'+i).find('select[id^="add-outlet_"]').prop('id', 'add-outlet_'+i);
+        $('#collapseMerchant'+i).find('select[id="add-outlet_'+i+'"]').attr('group-number', i);
+        $('#collapseMerchant'+i).find('select[name^="add-outlet_"]').prop('name', 'add-outlet_'+i);
+        $('#collapseMerchant'+i).find('label[for^="add-outlet_"]').prop('for', 'add-outlet_'+i);
         //$('#collapseMerchant'+i).find('select[data-select2-id="add-outlet"]').attr('data-select2-id', 'add-outlet'+i);
         //$('#add-outlet'+i).select2();
         // exclude outlet option
-        $('#collapseMerchant'+i).find('select[id^="exclude-outlet"]').prop('id', 'exclude-outlet'+i);
-        $('#collapseMerchant'+i).find('select[name^="exclude-outlet"]').prop('name', 'exclude-outlet'+i);
-        $('#collapseMerchant'+i).find('label[for^="exclude-outlet"]').prop('for', 'exclude-outlet'+i);
+        $('#collapseMerchant'+i).find('select[id^="exclude-outlet_"]').prop('id', 'exclude-outlet_'+i);
+        $('#collapseMerchant'+i).find('select[id="exclude-outlet_'+i+'"]').attr('group-number', i);
+        $('#collapseMerchant'+i).find('select[name^="exclude-outlet_"]').prop('name', 'exclude-outlet_'+i);
+        $('#collapseMerchant'+i).find('label[for^="exclude-outlet_"]').prop('for', 'exclude-outlet_'+i);
         //$('#collapseMerchant'+i).find('select[data-select2-id="exclude-outlet"]').attr('data-select2-id', 'exclude-outlet'+i);
         //$('#exclude-outlet'+i).select2();
     }
