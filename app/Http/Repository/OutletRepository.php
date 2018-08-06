@@ -104,6 +104,25 @@ class OutletRepository extends BaseRepository
 
     }
 
+    public function getOutletByMercahantId($merchantId)
+    {
+        $outlet = $this->model::join('mch_merchant as merchant', 'mch_outlets.merchant_id','=', 'merchant.merchant_id')
+        ->select(
+            [
+                'mch_outlets.outlets_id',
+                'mch_outlets.outlets_title'
+            ]
+        )->where('mch_outlets.merchant_id',$merchantId)
+            ->where('mch_outlets.isactive',true)
+            ->where('mch_outlets.isdelete',false)->get();
+
+        if (empty($outlet->toArray())) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($outlet);
+    }
+
     public function store($request)
     {
         try {
