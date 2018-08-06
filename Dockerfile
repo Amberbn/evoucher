@@ -14,7 +14,7 @@ RUN apt-get update \
     && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
     && locale-gen \
     && apt-get update \
-    && apt-get -y --no-install-recommends install msodbcsql17 unixodbc-dev \
+    && apt-get -y --no-install-recommends install msodbcsql17 unixodbc-dev mssql-tools \
         curl libxml2-dev libssl-dev zlib1g-dev apt-transport-https apt-utils lsb-release ca-certificates \
         libpng-dev libturbojpeg0 libjpeg-dev \
     && wget https://getcomposer.org/download/1.6.3/composer.phar -O /usr/local/bin/composer \
