@@ -71,6 +71,33 @@ class MerchantRepository extends BaseRepository
         return $this->dataTableResponseBuilder($merchants, $filter);
     }
 
+    public function getMerchant($merchantId = null)
+    {
+        $merchant = $this->model::join('mch_outlets as outlet', 'outlet.merchant_id', '=', 'mch_merchant.merchant_id')
+            ->select(
+                [
+                    'mch_merchant.merchant_id',
+                    'mch_merchant.merchant_title'
+                ]
+            );
+
+        if($merchantId) {
+            $merchant = $merchant->where('mch_merchant.merchant_id', $merchantId)->get();
+        }
+
+        $merchant = $merchant->where('mch_merchant.isactive',true);
+        $merchant = $merchant->where('mch_merchant.isdelete', false);
+        $merchant = $merchant->where('outlet.isactive', true);
+        $merchant = $merchant->where('outlet.isdelete', false);
+        $merchant = $merchant->get();
+
+        if (empty($merchant->toArray())) {
+            return $this->sendNotfound();
+        }
+
+        return $this->sendSuccess($merchant);
+    }
+
     public function saveMerchant($request)
     {
         // dd($request->all());
