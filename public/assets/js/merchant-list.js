@@ -45,6 +45,11 @@ function setMerchantList(el) {
     $('#collapseMerchant' + idxNum).find('select[id="add-outlet_"]').prop('id', 'add-outlet_' + idxNum);
     $('#collapseMerchant' + idxNum).find('select[id="add-outlet_' + idxNum + '"]').attr('group-number', idxNum);
     $('#collapseMerchant' + idxNum).find('select[id="add-outlet_' + idxNum + '"]').attr('selected-parent', selectedValue);
+
+    $('#collapseMerchant' + idxNum).find('input[id="parent_id_"]').prop('id', 'parent_id_' + idxNum);
+    $('#collapseMerchant' + idxNum).find('input[id="parent_id_' + idxNum + '"]').prop('name', 'voucher[' + selectedValue + '][merchant_id]');
+    $('#collapseMerchant' + idxNum).find('input[id="parent_id_' + idxNum + '"]').prop('value', selectedValue);
+
     //$('#collapseMerchant'+idxNum).find('select[name="add-outlet_"]').prop('name', 'add-outlet_'+idxNum);
     $('#collapseMerchant' + idxNum).find('select[name="add-outlet_"]').prop('name', 'voucher[' + selectedValue + '][add_outlet][]');
     $('#collapseMerchant' + idxNum).find('label[for="add-outlet_"]').prop('for', 'add-outlet_' + idxNum);
@@ -124,6 +129,7 @@ function resetIDList() {
         //$('#collapseMerchant'+i).find('select[data-select2-id="add-outlet"]').attr('data-select2-id', 'add-outlet'+i);
         //$('#add-outlet'+i).select2();
         // exclude outlet option
+
         $('#collapseMerchant' + i).find('select[id^="exclude-outlet_"]').prop('id', 'exclude-outlet_' + i);
         $('#collapseMerchant' + i).find('select[id="exclude-outlet_' + i + '"]').attr('group-number', i);
         $('#collapseMerchant' + i).find('select[name^="exclude-outlet_"]').prop('name', 'exclude-outlet_' + i);

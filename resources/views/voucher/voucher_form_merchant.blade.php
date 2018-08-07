@@ -136,6 +136,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="parent_id_">
                         <div class="form-group">
                             <div class="form-input">
                                 <label for="add-outlet_">Add Outlet</label>

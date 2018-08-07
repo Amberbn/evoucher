@@ -1,17 +1,20 @@
 <?php
 namespace App\Http\Repository;
 
-use App\Repository\BaseRepository;
-use App\VoucherCatalog;
-use App\VoucherCatalogOutlet;
-use App\StockTransaction;
 use DB;
+use App\Outlet;
+use App\VoucherCatalog;
+use App\StockTransaction;
+use App\VoucherCatalogOutlet;
+use App\Repository\BaseRepository;
 
 class VoucherCatalogRepository extends BaseRepository
 {
     public function __construct()
     {
         $this->model = new VoucherCatalog();
+        $this->catalogOutlet = new VoucherCatalogOutlet;
+        $this->outlet = new Outlet;
     }
 
     public function voucherCatalogFilter()
@@ -75,6 +78,101 @@ class VoucherCatalogRepository extends BaseRepository
         return $this->dataTableResponseBuilder($voucherCatalogs, $filter);
     }
 
+    public function saveVoucherMerchant($request,$voucherCatalogId)
+    {
+        DB::beginTransaction();
+        try {
+            
+            $getVoucherCatalog = $this->model
+                ->where('voucher_catalog_id', $voucherCatalogId)
+                ->first();
+    
+            if(!$getVoucherCatalog) {
+                return $this->sendNotfound();
+            }
+
+            $voucherCatalogId = $getVoucherCatalog->voucher_catalog_id;
+            $savedCatalogOutlet = [];
+            $voucherRequest = $request->input('voucher');
+            foreach ($voucherRequest as $voucher) {
+                $redemAllOutlet = $voucher['redem_all_outlet'] == 'true' ? true : false;
+                $merchantId = $voucher['merchant_id'];
+
+                if (!$redemAllOutlet && isset($voucher['add_outlet'])) {
+                    foreach ($voucher['add_outlet'] as $outletId) {
+                       $catalogOutlet = $this->saveVoucherCatalogOutlet($voucherCatalogId ,$outletId, $merchantId);
+                       $savedCatalogOutlet[] = $catalogOutlet->toArray();
+                    }
+                } else if(!$redemAllOutlet && isset($voucher['exclude_outlet'])) {
+                    $outlets = $this->getOutletByMerchantId($merchantId, $voucher['exclude_outlet']);
+                    
+                    if(!$outlets) {
+                        continue;
+                    }
+
+                    foreach($outlets as $outlet) {
+                        $outletId = $outlet->outlets_id;
+                        $catalogOutlet = $this->saveVoucherCatalogOutlet($voucherCatalogId ,$outletId, $merchantId);
+                        $savedCatalogOutlet[] = $catalogOutlet->toArray();
+                    }
+
+                } else if($redemAllOutlet) {
+                    $outlets = $this->getOutletByMerchantId($merchantId);
+
+                    if (!$outlets) {
+                        continue;
+                    }
+
+                    foreach ($outlets as $outlet) {
+                        $outletId = $outlet->outlets_id;
+                        $catalogOutlet = $this->saveVoucherCatalogOutlet($voucherCatalogId ,$outletId, $merchantId);
+                        $savedCatalogOutlet[] = $catalogOutlet->toArray();
+                    }
+                } else {
+                    continue;
+                }
+            }
+
+            $voucherCatalog = $this->model
+                ->where('voucher_catalog_id', $voucherCatalogId)
+                ->first();
+            $voucherCatalog->isactive = true;
+            $voucherCatalog->voucher_status = "RELEASED";
+            $voucherCatalog->save();
+
+            DB::commit();
+
+            return $this->sendCreated($savedCatalogOutlet);
+        } catch(\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
+        }
+        
+    }
+
+    public function saveVoucherCatalogOutlet($voucherCatalogId ,$outletId, $merchantId)
+    {
+        $catalogOutlet = new VoucherCatalogOutlet;
+        $catalogOutlet->voucher_catalog_id = $voucherCatalogId;
+        $catalogOutlet->outlets_id = $outletId;
+        $catalogOutlet->merchant_id = $merchantId;
+        $catalogOutlet->created_by_user_name = $this->loginUsername();
+        $catalogOutlet->created_at = NOW();
+        $catalogOutlet->save();
+        return $catalogOutlet;
+    }
+
+    public function getOutletByMerchantId($merchantId,$noIn = null)
+    {
+        $outlets = $this->outlet::where('merchant_id', $merchantId)
+            ->where('isactive', true)
+            ->where('isdelete', false);
+            if($noIn) {
+                $outlets = $outlets->whereNotIn('outlets_id', $noIn);
+            }
+        return $outlets->get();
+    }
+
     public function getVoucherDraftById($voucherId)
     {
         $voucherCatalogs = $this->model
@@ -133,8 +231,7 @@ class VoucherCatalogRepository extends BaseRepository
             return $this->sendCreated($voucher);
         } catch (\Exception $e) {
             DB::rollBack();
-
-            return $this->sendBadRequest($e->getMessage());
+            return $this->throwErrorException($e);
         }        
     }
 
@@ -250,7 +347,6 @@ class VoucherCatalogRepository extends BaseRepository
     public function updateVoucherCatalog($request, $id)
     {
         $voucherCatalog = VoucherCatalog::find($id);
-// dd($voucherCatalog);
         $version = $voucherCatalog->voucher_catalog_revision_no += 1;
 
         DB::beginTransaction();
