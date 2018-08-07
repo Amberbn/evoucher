@@ -32,19 +32,19 @@
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="terms-conditions">Terms &amp; Conditions</label>
-                                    <textarea name="voucher_catalog_terms_and_condition" class="form-control prvInput" id="terms-conditions" placeholder=""></textarea>
+                                    <textarea name="voucher_catalog_terms_and_condition" class="form-control prvInput" id="terms-conditions" placeholder="">{{ @$voucher['voucher_catalog_terms_and_condition'] }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="instruction-customer">Instruction for customer</label>
-                                    <textarea name="voucher_catalog_instruction_customer" class="form-control" id="instruction-customer" placeholder=""></textarea>
+                                    <textarea name="voucher_catalog_instruction_customer" class="form-control" id="instruction-customer" placeholder="">{{ @$voucher['voucher_catalog_instruction_customer'] }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="instruction-outlet">Instruction for outlet</label>
-                                    <textarea name="voucher_catalog_instruction_outlet" class="form-control" id="instruction-outlet" placeholder=""></textarea>
+                                    <textarea name="voucher_catalog_instruction_outlet" class="form-control" id="instruction-outlet" placeholder="">{{ @$voucher['voucher_catalog_instruction_outlet'] }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -52,14 +52,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="voucher-stock">Stock Voucher</label>
-                                    <input name="voucher_catalog_stock_level" type="text" class="form-control" id="voucher-stock" placeholder="">
+                                    <input name="voucher_catalog_stock_level" type="text" class="form-control" id="voucher-stock" placeholder="" value="{{ @$voucher['voucher_catalog_stock_level'] }}">
                                 </div>
                             </div>
                             <!-- /.col-md-6 -->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="price-amount">Unit Price Amount</label>
-                                    <input name="voucher_catalog_unit_price_amount" type="text" class="form-control" id="price-amount" placeholder="">
+                                    <input name="voucher_catalog_unit_price_amount" type="text" class="form-control" id="price-amount" placeholder="" value="{{ @$voucher['voucher_catalog_unit_price_amount'] }}">
                                 </div>
                             </div>
                             <!-- /.col-md-6 -->
@@ -68,14 +68,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="value-amount">Value Amount</label>
-                                    <input name="voucher_catalog_value_amount" type="text" class="form-control" id="value-amount" placeholder="">
+                                    <input name="voucher_catalog_value_amount" type="text" class="form-control" id="value-amount" placeholder="" value="{{ @$voucher['voucher_catalog_value_amount'] }}">
                                 </div>
                             </div>
                             <!-- /.col-md-6 -->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="price-point">Unit Price Point</label>
-                                    <input name="voucher_catalog_unit_price_point" type="text" class="form-control" id="price-point" placeholder="">
+                                    <input name="voucher_catalog_unit_price_point" type="text" class="form-control" id="price-point" placeholder="" value="{{ @$voucher['voucher_catalog_unit_price_point'] }}">
                                 </div>
                             </div>
                             <!-- /.col-md-6 -->
@@ -84,7 +84,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="value-point">Value Point</label>
-                                    <input name="voucher_catalog_value_point" type="text" class="form-control" id="value-point" placeholder="">
+                                    <input name="voucher_catalog_value_point" type="text" class="form-control" id="value-point" placeholder="" value="{{ @$voucher['voucher_catalog_value_point'] }}">
                                 </div>
                             </div>
                             <!-- /.col-md-6 -->
@@ -129,7 +129,7 @@
                                 {{ $voucher['voucher_catalog_information'] }}
                             </div>
                             <div class="tab-pane fade show active" id="nav-tc" role="tabpanel" aria-labelledby="nav-tc-tab">
-                                <pre class="prvResult"></pre>
+                                {{ @$voucher['voucher_catalog_terms_and_condition'] }}
                             </div>
                             <div class="tab-pane fade" id="nav-tukar" role="tabpanel" aria-labelledby="nav-tukar-tab">...</div>
                         </div>
