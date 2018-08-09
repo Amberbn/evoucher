@@ -58,10 +58,7 @@ class VoucherController extends BaseControllerWeb
     {
         $voucher = $this->repository->getVoucherDraftById($id);
         $responseCode = $this->getResponseCodeFromJson($voucher);
-        // $merchant = $this->merchantRepository->getMerchant();
         $merchantDropdown = $this->getDataFromJson($this->merchantRepository->getMerchant())->unique();
-        //$merchantDropdown = $this->getSpecificSelect($merchant, ['merchant_id', 'merchant_title']);
-        // $merchantDropdown = $this->getSpecificSelect($merchant, ['merchant_id', 'merchant_title']);
 
         if ($responseCode == 404) {
             return $this->pageNotFound();
@@ -82,9 +79,16 @@ class VoucherController extends BaseControllerWeb
         return $outlet;
     }
 
-    public function saveVoucherMercant(Request $request, $id)
+    public function saveVoucherMercant(Request $request, $voucherCatalogId)
     {
-        dd($request->all());
+        $data = $this->repository->saveVoucherMerchant($request, $voucherCatalogId);
+        $responseCode = $this->getResponseCodeFromJson($data);
+        if ($responseCode != 201) {
+
+        }
+        $voucher = $this->getDataFromJson($data);
+
+        return redirect()->route('voucher.index');
     }
 
     /**
