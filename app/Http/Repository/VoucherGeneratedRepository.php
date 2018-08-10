@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository;
 
+use App\Jobs\SendVocherSmsJob;
 use App\Repository\BaseRepository;
 use App\VoucherGenerated;
 use DB;
@@ -17,25 +18,39 @@ class VoucherGeneratedRepository extends BaseRepository
         try {
             DB::beginTransaction();
 
-            $vouchers = DB::table('vw_voucher_generated')
-                ->where('campaign_id', $campaignId)->get();
+            $vouchers = DB::table('vw_voucher_generated as generated')
+                ->join('bsn_campaign as campaign', 'campaign.campaign_id', 'generated.campaign_id')
+                ->join('bsn_campaign_vouchers as voucher', 'voucher.campaign_voucher_id', 'generated.campaign_voucher_id')
+                ->join('vou_voucher_catalog as catalog', 'catalog.voucher_catalog_id', 'voucher.voucher_catalog_id')
+                ->where('campaign.campaign_id', $campaignId)
+                ->select([
+                    'generated.campaign_voucher_id',
+                    'generated.campaign_voucher_id',
+                    'generated.campaign_id',
+                    'generated.client_id',
+                    'generated.campaign_recipient_id',
+                    'generated.campaign_recipient_salutation',
+                    'generated.campaign_recipient_name',
+                    'generated.campaign_recipient_phone',
+                    'generated.campaign_recipient_email',
+                    'generated.voucher_generated_is_redeemed',
+                    'generated.voucher_generated_redeem_id',
+                    'generated.voucher_generated_locked_till',
+                    'generated.voucher_generated_no',
+                    'catalog.voucher_catalog_id',
+                    'campaign.campaign_distribute_by_sms',
+                    'campaign.campaign_distribute_by_email',
+                    'campaign.campaign_message_sms',
+                    'campaign.campaign_message_body',
+                    'campaign.campaign_message_title',
+                ])->get();
 
-            foreach ($vouchers as $voucher) {
-                $vouchergenerate = new VoucherGenerated;
-                $vouchergenerate->campaign_voucher_id = $voucher->campaign_voucher_id;
-                $vouchergenerate->voucher_generated_no = $voucher->voucher_generated_no;
-                $vouchergenerate->campaign_id = $voucher->campaign_id;
-                $vouchergenerate->client_id = $voucher->client_id;
-                $vouchergenerate->campaign_recipient_id = $voucher->campaign_recipient_id;
-                $vouchergenerate->campaign_recipient_salutation = $voucher->campaign_recipient_salutation;
-                $vouchergenerate->campaign_recipient_name = $voucher->campaign_recipient_name;
-                $vouchergenerate->campaign_recipient_phone = $voucher->campaign_recipient_phone;
-                $vouchergenerate->campaign_recipient_email = $voucher->campaign_recipient_email;
-                $vouchergenerate->voucher_generated_is_redeemed = $voucher->voucher_generated_is_redeemed;
-                $vouchergenerate->voucher_generated_redeem_id = $voucher->voucher_generated_redeem_id;
-                $vouchergenerate->voucher_generated_locked_till = $voucher->voucher_generated_locked_till;
-                $vouchergenerate->save();
+            if (!$vouchers) {
+                return $this->sendNotfound();
             }
+
+            $createdBy = $this->loginUsername();
+            dispatch(new SendVocherSmsJob($vouchers, $createdBy));
 
             DB::commit();
             return $this->sendCreated();
@@ -43,7 +58,6 @@ class VoucherGeneratedRepository extends BaseRepository
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->throwErrorException($e);
-
         }
 
     }
