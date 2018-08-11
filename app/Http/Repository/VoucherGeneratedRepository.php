@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository;
 
-use App\Jobs\SendVocherSmsJob;
+use App\Events\SendSmsEvent;
 use App\Repository\BaseRepository;
 use App\VoucherGenerated;
 use DB;
@@ -50,8 +50,7 @@ class VoucherGeneratedRepository extends BaseRepository
             }
 
             $createdBy = $this->loginUsername();
-            dispatch(new SendVocherSmsJob($vouchers, $createdBy));
-
+            event(new SendSmsEvent($vouchers, $createdBy));
             DB::commit();
             return $this->sendCreated();
 
