@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+        <meta name="author" content="Kharis Sulistiyono">
+        <title>E-Voucher - Prezent</title>
+        <!-- Favicon -->
+        <link rel="icon" href="img/favicon.png" type="image/png">
+        <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Muli:200,300,400,700,800" rel="stylesheet">
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="css/fontawesome-all.min.css" rel="stylesheet">
+        <link href="vendor/tempusdominus/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+        <link href="vendor/checkradios/jquery.checkradios.min.css" rel="stylesheet">
+        <link href="vendor/select2/select2.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="css/app.css" rel="stylesheet">
+        <link href="css/landing.css" rel="stylesheet">
+        <link href="css/admin.css" rel="stylesheet">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="landing document-resize">
+        <div class="site clearfix">
+
+          <div class="main-content__body container-fluid">
+              <div class="row">
+                  <div class="landing-container col-md-4">
+
+                      <div class="landing-heading">
+                        <h1>Congratulation!</h1>
+                        <p>
+                          Selamat, sebagai nasabah setia Bank BCA, Anda terpilih sebagai pemenang Super Untung pada bulan ini!
+                        </p>
+                      </div>
+
+                      <div class="card card-form">
+                          <div class="card-header">
+                              <h5 class="card-title">Paket Nonton Star Wars</h5>
+                              <h5 class="card-subtitle">CGV Cinemas</h5>
+                          </div>
+                          <div class="card-body text-center">
+                              <img src="img/user/starwars-movie-poster-medium.jpg" alt="">
+                          </div>
+                          <div class="card-footer text-muted">
+                              <nav class="voucher-tab">
+                                  <div class="nav nav-tabs" id="m-Tab" role="tablist">
+                                      <a class="nav-item nav-link active" href="#nav-info">Informasi</a>
+                                      <a class="nav-item nav-link" href="#nav-ketentuan">Ketentuan</a>
+                                      <a class="nav-item nav-link" href="#nav-tukar">Penukaran</a>
+                                  </div>
+                              </nav>
+                              <div class="tab-content" id="m-tabContent">
+                                  <div class="tab-pane fade show active" id="nav-info">
+                                      Voucher meliputi 2 tiket 1 kali nonton film Star Wars The Last Jedi di CGV Cinemas cabang manapun.
+                                  </div>
+                                  <div class="tab-pane fade" id="nav-ketentuan">
+                                      Voucher berlaku hingga 30 Agustus 2018
+                                  </div>
+                                  <div class="tab-pane fade" id="nav-tukar">
+                                      <p class="text-center">
+                                            Tunjukkan QR Code ini kepada kasir/loket penukaran <br>
+                                            <a href='#' data-toggle="modal" data-target="#storeCodeModal">
+                                                <img src='http://www.unitag.io/qreator/generate?crs=e2ZRfLkGhCcNX0uPU0VF3l2iWCU5iBS65XqQ37eAYrFw1DqSur4MlY3KDO2BDD2mBo8u49VJSRUN61r7kZGYhdTmk%252F7zrZPNv%252BvdL8%252F3FZQIsRoRa29g6JCo%252BMr1U9KIrE%252Bnsuv3ZYI6Py3tmkIQ8%252BEeCrwb5jj4Irri3GordWt5Lnn5RdF7YPFjY1wajrVuR%252B%252FP9hE8xiNWLqCVKbr%252Bl4lUhL%252FV8dHyx4iB3lMvJA6b%252BR9YbGA4eBLyE4ApKFZytg2Kx6IpTsPPqimIJ3mZFOwRtlBVPh3fqjEmcG687Iw0%252F5378PNxX6sImd7pE23A5T1UiqdyW3LF34GmKxyp1g%253D%253D&crd=mXKe51B3LcpJnGj6pepi6V3RM8sS1f7iyDZdZEpcqQ3B93K71VLjQVUBTpD9A4ML7KVXVgDdRMTiVz24fi6wYw%253D%253D' alt='QR Code'/>
+                                                <br><span id="storeCodeVal">AAPL690WK54M50</span>
+                                            </a>
+                                      </p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- /.card -->
+
+                      <!-- Cara Penukaran Voucher -->
+                      <div id="nav-info-card" class="card card-form card-extra">
+                        <div class="card-header">
+                          <h5 class="card-title">Cara Penukaran Voucher</h5>
+                        </div>
+                        <ul class="text-list">
+                          <li>
+                            Harus melampirkan kartu identitas yang masih berlaku
+                          </li>
+
+                          <li>
+                            Voucher hanya bisa ditukarkan langsung di loket CGV Cinemas
+                          </li>
+
+                          <li>
+                            Harap melakukan reservasi 2 hari sebelumnya ke nomor 021-80549009 ext 4001
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /.card -->
+
+
+                      <!-- Syarat dan Ketentuan -->
+                      <div id="nav-ketentuan-card" class="card card-form card-extra" style="display: none">
+                        <div class="card-header">
+                          <h5 class="card-title">Syarat dan Ketentuan</h5>
+                        </div>
+                        <ul class="text-list">
+                          <li>
+                            1 Voucher berlaku untuk 2 orang
+                          </li>
+
+                          <li>
+                            Free Admission for Child below 3 years
+                            Voucher berlaku untuk LEGOLAND Themepark yang berlokasi di Johor Bahru Malaysia
+                          </li>
+
+                          <li>
+                            Voucher tidak termasuk untuk transportasi
+                          </li>
+
+                          <li>
+                            Tiket masuk harus diperlihatkan di setiap stasiun
+                          </li>
+
+                          <li>
+                            Cebu Air Travel and Tours Opening Hour: Senin - Sabtu 10.00 - 19.00, tutup pada hari Minggu, hari libur nasional, Chinese New Year, dan sehari sebelum hari libur nasional Alamat: 03-65 Lucky Plaza, Telepon: +65-6235-2328
+                          </li>
+
+                          <li>
+                            LEGOLAND Themepark Operational Hour: Daily 10:00AM to 6:00PM
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /.card -->
+
+                      <!-- Syarat dan Ketentuan -->
+                      <div id="nav-ketentuan-card2" class="card card-form card-extra" style="display: none">
+                        <div class="card-header">
+                          <h5 class="card-title">Dapat Ditukar Pada Outlet</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div id="accordion">
+                                    <div class="card">
+                                      <div class="card-header" id="headingCity0">
+                                        <h5 class="mb-0">
+                                          <a href="#" class="accordion-head" data-toggle="collapse" data-target="#collapseCity0" aria-expanded="true" aria-controls="collapseCity0">
+                                            Jakarta
+                                          </a>
+                                        </h5>
+                                      </div>
+                                  
+                                      <div id="collapseCity0" class="collapse show" aria-labelledby="headingCity0" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <ul id="accordCity0">
+                                                <li id="headcity0-ol0">
+                                                    <a href="#" class="li-outlet" data-toggle="collapse" data-target="#collapseCity0Sub0" aria-expanded="false" aria-controls="collapseCity0Sub0">
+                                                        CGV Cinemas
+                                                    </a>
+                                                    <div class="collapse show" id="collapseCity0Sub0" aria-labelledby="headcity0-ol0" data-parent="#accordCity0">
+                                                        <div class="card card-body">
+                                                            <ul>
+                                                                <li>AEON Mall <br> Lantai LG Lot 35</li>
+                                                                <li>Teras Kota 2 <br> Lt G-Island/12, Jl liahlawan</li>
+                                                                <li>Summarecon Mall Serpong <br>Lt Dasar GF-247, Jl Boulevard Raya Gading, Serpong, Kelapa Dua, Tangerang 15810</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li id="headcity0-outlet1">
+                                                    <a href="#" class="li-outlet collapsed" data-toggle="collapse" data-target="#collapseCity0Sub1" aria-expanded="false" aria-controls="collapseCity0Sub1">
+                                                        XXI Cinemas
+                                                    </a>
+                                                    <div class="collapse" id="collapseCity0Sub1" aria-labelledby="headcity0-ol1" data-parent="#accordCity0">
+                                                        <div class="card card-body">
+                                                            <ul>
+                                                                <li>Puri Indah Mall <br> Lantai 2, Jl. Puri Indah Raya Jakarta Barat</li>
+                                                                <li>MALL TAMAN ANGGREK Lantai 3 <br>Jl. Letjen S. Parman, Kav. 21, Jakarta Barat</li>
+                                                                <li>Gandaria City Level 2 <br>Jl Sultan Iskandar Muda, Kebayoran Lama, <br> Jakarta Selatan</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-header" id="headingCity1">
+                                          <h5 class="mb-0">
+                                            <a href="#" class="accordion-head collapsed" data-toggle="collapse" data-target="#collapseCity1" aria-expanded="true" aria-controls="collapseCity1">
+                                              Bandung
+                                            </a>
+                                          </h5>
+                                        </div>
+                                    
+                                        <div id="collapseCity1" class="collapse" aria-labelledby="headingCity1" data-parent="#accordion">
+                                          <div class="card-body">
+                                              <ul id="accordCity1">
+                                                  <li id="headcity1-ol0">
+                                                      <a href="#" class="li-outlet collapsed" data-toggle="collapse" data-target="#collapseCity1Sub0" aria-expanded="false" aria-controls="collapseCity1Sub0">
+                                                          CGV Cinemas
+                                                      </a>
+                                                      <div class="collapse" id="collapseCity1Sub0" aria-labelledby="headcity1-ol0" data-parent="#accordCity1">
+                                                          <div class="card card-body">
+                                                              <ul>
+                                                                  <li>Istana BEC <br> Jl. Purnawarman No.7-11</li>
+                                                                  <li>Uncle K <br> 23 Paskal Shopping Mall, Jl. Pasir Kaliki</li>
+                                                              </ul>
+                                                          </div>
+                                                      </div>
+                                                  </li>
+                                                  <li id="headcity1-outlet1">
+                                                      <a href="#" class="li-outlet collapsed" data-toggle="collapse" data-target="#collapseCity1Sub1" aria-expanded="false" aria-controls="collapseCity1Sub1">
+                                                          XXI Cinemas
+                                                      </a>
+                                                      <div class="collapse" id="collapseCity1Sub1" aria-labelledby="headcity1-ol1" data-parent="#accordCity1">
+                                                          <div class="card card-body">
+                                                              <ul>
+                                                                  <li>BRAGA CITY WALK Lantai 2 <br>Jl. Braga 99-101, Bandung</li>
+                                                                  <li>CIWALK Lantai 2 <br>Jl. Cihampelas 160, Bandung</li>
+                                                              </ul>
+                                                          </div>
+                                                      </div>
+                                                  </li>
+                                              </ul>
+                                              
+                                          </div>
+                                        </div>
+                                      </div>
+                                    
+                                  </div>
+                            </div>
+                        </div>
+                      </div>
+                      <!-- /.card -->
+
+                      <div id="nav-info-btn" class="nav-tab-btn">
+                            <button type="button" class="btn btn-wide-block btn-green btn-add-campaign btn-redeem-voucher border-0">Tukarkan Voucher</button>
+                        </div>
+                      <div id="nav-tukar-btn" class="nav-tab-btn" style="display:none">
+                            <button type="button" class="btn btn-wide-block btn-green btn-add-campaign btn-redeem-voucher border-0" data-toggle="modal" data-target="#storeCodeModal">Masukkan Outlet Code</button>
+                            <p class="text-center note-text">*hanya boleh dilakukan oleh petugas kasir/loket</p>
+                      </div>
+                  </div>
+                  <!-- /.sidebar-area -->
+              </div>
+          </div>
+
+        </div>
+        <!-- /.site -->
+
+        <div class="footer-social">
+        <div class="row">
+            <div class="col-md-4">
+              <ul class="list-unstyled">
+                <li><a href="#" class="soc-facebook"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="#" class="soc-instagram"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#" class="soc-twitter"><i class="fab fa-twitter"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+            
+        <!-- The Store Code Modal -->
+        <div class="modal fade" id="storeCodeModal">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">                
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p class="text-center">
+                            Ini merupakan voucher Prezent, untuk menukarkan mohon masukkan outlet code Anda
+                        </p>
+                        <form id="storeCodeForm">
+                            <input type="text" class="form-control" name="store-code" placeholder="Store Code">
+                            <button type="submit" class="btn btn-wide-block btn-green btn-add-campaign btn-redeem-voucher border-0">Redeem</button>
+                        </form>
+                    </div>                
+                </div>
+            </div>
+        </div>
+
+        <!-- The Store Code Modal -->
+        <div class="modal fade" id="statusModal">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">                
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p class="text-center">
+                            <img src="img/img-error.svg" alt="">
+                        </p>
+                        <h4 class="text-center">Store Code Salah</h4>
+                        <p id="status-text" class="text-center">Mohon hubungi 1500171 untuk informasi lebih lanjut</p>
+                        <button type="button" class="btn btn-wide-block btn-green btn-add-campaign btn-redeem-voucher border-0" data-dismiss="modal">Coba Lagi</button>
+                    </div>                
+                </div>
+            </div>
+        </div>
+
+        <!-- jQuery Version 3.3.1 -->
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Moment Core JavaScript -->
+        <script src="vendor/moment/moment.min.js"></script>
+        <!-- Bootstrap Datetime Picker JavaScript -->
+        <script src="vendor/tempusdominus/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- GreenSock JavaScript -->
+        <script src="vendor/greensock/TweenMax.min.js"></script>
+        <!-- Session JavaSctipt -->
+        <script src="vendor/session/jquery.session.js"></script>
+        <!-- Checkradios JavaScript -->
+        <script src="vendor/checkradios/jquery.checkradios.min.js"></script>
+        <!-- Select2 JavaScript -->
+        <script src="vendor/select2/select2.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="js/app.js"></script>
+        <script src="js/landing-page.js"></script>
+        <script src="js/merchant-list.js"></script>
+    </body>
+</html>
