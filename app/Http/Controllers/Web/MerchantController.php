@@ -79,7 +79,7 @@ class MerchantController extends BaseControllerWeb
         }
         $response = $this->getDataFromJson($merchant);
 
-        return redirect()->route('outlet.create').'?merchant_id='.$merchant->id;
+        return redirect()->route('merchant.outlet.create', ['id' => $response['merchant_id']]);
     }
 
     public function edit($id)

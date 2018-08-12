@@ -2,6 +2,7 @@
 namespace App\Http\Repository;
 
 use App\Outlet;
+use App\Merchant;
 use App\Repository\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -129,8 +130,9 @@ class OutletRepository extends BaseRepository
             DB::beginTransaction();
 
             $outlet = $this->model;
+            $outlet->merchant_id = Merchant::find($request->merchant_id);
             $outlet->outlets_code = $request->input('outlets_code');
-            $outlet->merchant_id = $request->input('merchant_id');
+            
             $outlet->merchant_client_id = $request->input('merchant_client_id');
             $outlet->outlets_title = $request->input('outlets_title');
             $outlet->outlets_email = $request->input('outlets_email');

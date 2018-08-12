@@ -17,7 +17,8 @@
     <div class="main-content__body container-fluid">
         <div class="row justify-content-md-center">
             <div class="content-area col-md-9">
-                <form id="company-form" action="" method="POST">
+                <form id="company-form" action="{{ route('merchant.outlet.store',['id' => $response['merchant_id']]) }}" method="POST">
+                     @csrf
                     <div class="content-area__main">
                         <div class="form-section bottom-30">
                             <h2 class="heading">Outlet Details</h2>
@@ -29,7 +30,7 @@
                                     <div class="form-group">
                                         <div class="form-input">
                                             <label for="outlet-name">Outlet Name</label>
-                                            <input name="outlet-name" type="text" class="form-control" id="outlet-name" placeholder="">
+                                            <input name="outlets_title" type="text" class="form-control" id="outlet-name" placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -50,13 +51,13 @@
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="outlet-description">Outlet Description</label>
-                                    <textarea class="form-control" name="outlet-description" id="" cols="30" rows="3"></textarea>
+                                    <textarea class="form-control" name="outlets_description" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="outlet-address">Outlet Address</label>
-                                    <input name="outlet-address" type="text" class="form-control" id="outlet-address" placeholder="">
+                                    <input name="outlets_address_line" type="text" class="form-control" id="outlet-address" placeholder="">
                                 </div>
                             </div>
                             <div class="row">
@@ -64,10 +65,12 @@
                                     <div class="form-group">
                                         <label for="province">Province</label>
                                         <select name="province" class="custom-select dropdown-select2" id="province">
-                                            <option selected>Choose...</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            @foreach ($settings->addressStateProvince as $province)
+                                             <!--  @php
+                                                $selected = @$client->client_billing_address_state_province_pid == $province->parameters_id ? 'selected' : '';
+                                              @endphp -->
+                                              <option value="{{ $province->parameters_id }}" {{ $selected }}>{{ $province->parameters_value }}</option>   
+                                          @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -75,10 +78,14 @@
                                     <div class="form-group">
                                         <label for="city">City</label>
                                         <select name="city" class="custom-select dropdown-select2" id="city">
-                                            <option selected>Choose...</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                           <!--  @if(@$client->client_billing_address_city_pid) -->
+                                             @foreach ($settings->addressCity as $city)
+                                                <!-- @php
+                                                  $selected = @$client->client_billing_address_city_pid == $city->parameters_id ? 'selected' : '';
+                                                @endphp -->
+                                              <option value="{{ $city->parameters_id }}" {{ $selected }}>{{ $city->parameters_value }}</option>   
+                                              @endforeach
+                                            <!-- @endif -->
                                         </select>
                                     </div>
                                 </div>
@@ -88,17 +95,16 @@
                                     <div class="form-group">
                                         <label for="area">Area</label>
                                         <select name="area" class="custom-select dropdown-select2" id="area">
-                                            <option selected>Choose...</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                        @foreach ($settings->addressRegion as $region)
+                                             <option value="{{ $region->parameters_id }}" {{ $selected }}>{{ $region->parameters_value }}</option>   
+                                        @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="phone-number">Phone Number</label>
-                                        <input name="phone-number" type="number" class="form-control" id="phone-number" placeholder="">
+                                        <input name="outlets_phone" type="number" class="form-control" id="phone-number" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -106,13 +112,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input name="email" type="email" class="form-control" id="email" placeholder="">
+                                        <input name="outlets_email" type="email" class="form-control" id="email" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                             <label for="coordinate">Outlet Coordinate Location</label>
-                                            <input name="coordinate" type="text" class="form-control" id="coordinate" placeholder="">
+                                            <input name="outlets_location_coordinates" type="text" class="form-control" id="coordinate" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -133,3 +139,42 @@
     <!-- /.main-content__body -->
 </div>
 @endsection
+<script type="text/javascript">
+    $('#province').change(function()
+        {
+            $.get('/general-setting/' + $(this).attr('data') +'/'+ this.value, function(cities)
+            {
+                var $state = $('#city');
+
+                $state.find('option').remove().end();
+                $state.append('<option value="" selected disabled hidden>Choose...</option>');
+
+                var $stateArea = $('#area');
+
+                $stateArea.find('option').remove().end();
+                $stateArea.append('<option value="" selected disabled hidden>Choose...</option>');
+                console.log(cities);
+
+                $.each(cities, function(index, city) {
+                    $state.append('<option value="' + city.parameters_id + '">' + city.parameters_value + '</option>');
+                });
+            });
+        });
+
+        $('#city').change(function()
+        {
+            $.get('/general-setting/' + $(this).attr('data') +'/'+ this.value, function(region)
+            {
+                var $state = $('#area');
+
+                $state.find('option').remove().end();
+                console.log(region);
+                $state.append('<option value="" selected disabled hidden>Choose...</option>');
+                $.each(region, function(index, region) {
+                    $state.append('<option value="' + region.parameters_id + '">' + region.parameters_value + '</option>');
+                });
+            });
+        });
+</script>
+@push('footer_scripts')
+

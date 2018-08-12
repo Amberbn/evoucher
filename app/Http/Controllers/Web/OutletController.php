@@ -24,8 +24,41 @@ class OutletController extends BaseControllerWeb
 		return view('outlet.index');
 	}
 
-	public function create(Request $request)
+	public function create(Request $request, $merchantId)
 	{
-			
+		$merchant = $this->merchantRepository->getMerchantById($merchantId);
+		// dd($merchant);
+		$response = $this->getDataFromJson($merchant);
+		// dd($response);
+		$filters = [
+			'address_state_province',
+            'address_city',
+            'address_region',
+        ];
+
+
+
+        $settings = $this->getSettings($filters, false);
+         // dd($settings);
+		 // $bussinessCategory = $this->getSettings(['bussiness_category']);
+        // $parametersValue = $this->getSettings(['parameters_value']);
+
+        // $data = compact(
+        // 	'settings' 
+        // );
+
+		return view('outlet.outlet_form', compact('settings', 'response'));
+	}
+
+	public function store(Request $request)
+	{
+		$outlet= $this->outletRepository->store($request);
+        $responseCode = $this->getResponseCodeFromJson($request);
+        if ($responseCode != 201) {
+
+        }
+        $response = $this->getDataFromJson($request);
+
+        return redirect()->route('route.index');
 	}
 }
