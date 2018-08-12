@@ -63,10 +63,29 @@
     </div>
     </div>
 </div>
+<div id="requestPINModal" class="modal fade post-reset-password-form-submission-modal" aria-labelledby="requestPINLabel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="{{ asset('assets/img/img-warning.svg') }}" alt="Change the redeem PIN" />
+                <h2>Heads Up</h2>
+                <div>Are you sure you want to change the redeem PIN?</div>
+            </div>
+            <div class="modal-footer">
+                <div class="slide-group-b">
+                    <a href="#" class="one-b" data-dismiss="modal">Cancel</a>
+                    <a href="#" class="two-b"><span class="slideBtn-b">Change PIN</span><div class="bg-b"></div></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- /.site -->
 <!-- jQuery Version 3.3.1 -->
 <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/popper/popper.min.js') }}"></script>
+
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
@@ -93,6 +112,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+
 <script>
     $(".alert").delay(30000).slideUp(200, function() {
             $(this).alert('close');
