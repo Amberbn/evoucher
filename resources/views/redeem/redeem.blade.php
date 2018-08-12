@@ -225,3 +225,36 @@
             </div>
         </div>
 @endsection
+@push('footer_scripts')
+<script type="text/javascript">
+  $('#storeCodeForm').submit(function(event){
+    var codeVal = $('input[name="store-code"]').val();
+    if(codeVal !== ''){
+        if(codeVal == 'AAPL690WK54M50'){
+            console.log('success');
+            setStatusModal(arrStatus[2], true);
+        }else{
+            console.log('error 2');
+            setStatusModal(arrStatus[1], true);
+        }
+    }else{
+        console.log('error 1');
+        setStatusModal(arrStatus[0], false);
+    }
+    event.preventDefault();
+});
+
+function setStatusModal(data, type){
+    $('#statusModal').find('img').prop('src','{{ asset("assets/img/img-error.svg") }}');
+    $('#statusModal').find('h4').html(data.title);
+    $('#statusModal').find('button').html(data.btn);
+    var newmsg = data.message;
+    if(type == true){
+        $('#storeCodeModal').modal('hide');
+    }
+    $('#statusModal').find('p#status-text').html(data.message);
+    $('#statusModal').modal('show');
+}
+</script>
+
+@endpush

@@ -14,12 +14,12 @@ class RedeemController extends ApiController
      */
     public function __construct()
     {
-        $this->merchantRepository = new RedeemRepository;
+        $this->redeemRepository = new RedeemRepository;
     }
 
-    public function redeem(Request $request)
+    public function redeem(Request $request, $voucherNumber)
     {
-    	 $redeem = $this->redeemRepository->redeem($request);
+    	 $redeem = $this->redeemRepository->redeem($request, $voucherNumber);
 
     	 return $redeem;
     }

@@ -9,78 +9,91 @@ use Carbon\Carbon;
 
 class RedeemRepository extends BaseRepository
 {
-    public function redeem($request)
+    public function redeem($request, $voucherNumber)
     {
+        // dd($voucherNumber);
+        if (!$voucherNumber) {
+           return $this->sendNotfound();
+        }
+
         //variabel yang dilempar ke api redeem
-        $voucherNumber = $request->input('voucher_number');
         $outletAuthentificationCode = $request->input('outlet_authentification_code');
         $referenceId = $request->input('reference_id');
 
         //variabel validasi
-         $redeemFailureCode = "";
-         $getDate = Carbon::now();
+        //  $redeemFailureCode = "";
+        //  $getDate = Carbon::now();
 
-        $checkVoucher = DB::table('vw_redeem_check_voucher as ck')
-            ->where('ck.voucher_generated_no', $voucherNumber)
-            ->select(
-                'ck.campaign_voucher_id',
-                'ck.voucher_generated_id',
-                'ck.voucher_generated_no',
-                'ck.campaign_status',
-                'ck.campaign_period_start_date',
-                'ck.campaign_period_end_date',
-                'ck.campaign_voucher_valid_start_date',
-                'ck.campaign_voucher_valid_end_date',
-                'ck.voucher_generated_is_redeemed',
-                'ck.voucher_generated_locked_till',
-                'ck.voucher_generated_fail_counter'
-            )->get();
+        // $checkVoucher = DB::table('vw_redeem_check_voucher as ck')
+        //     ->where('ck.voucher_generated_no', $voucherNumber)
+        //     ->select(
+        //         'ck.campaign_voucher_id',
+        //         'ck.voucher_generated_id',
+        //         'ck.voucher_generated_no',
+        //         'ck.campaign_status',
+        //         'ck.campaign_period_start_date',
+        //         'ck.campaign_period_end_date',
+        //         'ck.campaign_voucher_valid_start_date',
+        //         'ck.campaign_voucher_valid_end_date',
+        //         'ck.voucher_generated_is_redeemed',
+        //         'ck.voucher_generated_locked_till',
+        //         'ck.voucher_generated_fail_counter'
+        //     )->get();
 
-        //load data voucher
-        $loadVoucher = DB::table('vw_redeem_check_outlet as co')
-            ->where('co.campaign_voucher_id', $checkVoucher->campaign_voucher_id)
-            ->where('co.outlets_auth_code', $outletAuthentificationCode)
-            ->select(
-                'co.outlets_id',
-                'co.merchant_id'
-            )->get();
+        // //load data voucher
+        // $loadVoucher = DB::table('vw_redeem_check_outlet as co')
+        //     ->where('co.campaign_voucher_id', $checkVoucher->campaign_voucher_id)
+        //     ->where('co.outlets_auth_code', $outletAuthentificationCode)
+        //     ->select(
+        //         'co.outlets_id',
+        //         'co.merchant_id'
+        //     )->get();
 
-        if ($checkVoucher->voucher_generated_id == null) {
-            $redeemFailureCode = "INV";
-        }
-        if ($checkVoucher->voucher_generated_locked_till != null && $checkVoucher->voucher_generated_locked_till > $getDate) {
+        // if ($checkVoucher->voucher_generated_id == null) {
+        //     $redeemFailureCode = "INV";
+        // }
+        // if ($checkVoucher->voucher_generated_locked_till != null && $checkVoucher->voucher_generated_locked_till > $getDate) {
             
-        }
-        if ($checkVoucher->voucher_generated_is_redeemed == 1) {
-             $redeemFailureCode = "RF01";
-        }elseif ($getDate < $checkVoucher->campaign_voucher_valid_start_date || $getDate < $checkVoucher->campaign_period_start_date) {
-            $redeemFailureCode = "RF02";
-        }elseif ($getDate > $checkVoucher->campaign_voucher_valid_end_date || $getDate > $checkVoucher->campaign_period_end_date) {
-            $redeemFailureCode = "RF03";
-        }
-        if ($loadVoucher->outlets_id == null) {
-            $redeemFailureCode = "RF04";
-        }
+        // }
+        // if ($checkVoucher->voucher_generated_is_redeemed == 1) {
+        //      $redeemFailureCode = "RF01";
+        // }elseif ($getDate < $checkVoucher->campaign_voucher_valid_start_date || $getDate < $checkVoucher->campaign_period_start_date) {
+        //     $redeemFailureCode = "RF02";
+        // }elseif ($getDate > $checkVoucher->campaign_voucher_valid_end_date || $getDate > $checkVoucher->campaign_period_end_date) {
+        //     $redeemFailureCode = "RF03";
+        // }
+        // if ($loadVoucher->outlets_id == null) {
+        //     $redeemFailureCode = "RF04";
+        // }
 
-        if (($checkVoucher->voucher_generated_locked_till != null && $checkVoucher->voucher_generated_locked_till > $getDate) || $checkVoucher->voucher_generated_id == null) {
-            $checkVoucher->voucher_generated_no;
-            $getDate();
-            $reference_id;
-            $redeemFailureCode;
-        }
-        if ($redeemFailureCode != null) {
+        // if (($checkVoucher->voucher_generated_locked_till != null && $checkVoucher->voucher_generated_locked_till > $getDate) || $checkVoucher->voucher_generated_id == null) {
+        //     $checkVoucher->voucher_generated_no;
+        //     $getDate();
+        //     $reference_id;
+        //     $redeemFailureCode;
+        // }
+        // if ($redeemFailureCode != null) {
             
 
-            if ($checkVoucher->voucher_generated_fail_counter == 4) {
+        //     if ($checkVoucher->voucher_generated_fail_counter == 4) {
                 
-            }elseif ($checkVoucher->voucher_generated_fail_counter <= 3) {
+        //     }elseif ($checkVoucher->voucher_generated_fail_counter <= 3) {
                 
-            }else{
-                if ($redeemFailureCode == null) {
+        //     }else{
+        //         if ($redeemFailureCode == null) {
                     
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
+
+        $redeem = DB::select(DB::raw("exec sp_campaign_voucher_redeem :voucher_number, :outlet_authentification_code, :reference_id"),[
+            ':voucher_number' => $voucherNumber,
+            ':outlet_authentification_code' => $outletAuthentificationCode,
+            ':reference_id' => $referenceId,
+        ]);
+
+        return $this->sendSuccess($redeem);
+
     }
 
     public function redeemInformation($voucherGeneratedNumber)
