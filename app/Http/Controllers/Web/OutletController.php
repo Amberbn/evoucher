@@ -28,7 +28,7 @@ class OutletController extends BaseControllerWeb
 	{
 		$merchant = $this->merchantRepository->getMerchantById($merchantId);
 		// dd($merchant);
-		$response = $this->getDataFromJson($merchant);
+		$response = $this->getDataFromJson($merchant)->first();
 		// dd($response);
 		$filters = [
 			'address_state_province',
