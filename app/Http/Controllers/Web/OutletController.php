@@ -47,12 +47,20 @@ class OutletController extends BaseControllerWeb
         // 	'settings' 
         // );
 
-		return view('outlet.outlet_form', compact('settings', 'response'));
+       
+        $outletCode = $this->outletRepository->generateOutletCode();
+        dd($outletCode);
+
+		return view('outlet.outlet_form', compact('settings', 'response', 'outletCode'));
 	}
 
-	public function store(Request $request)
+	public function store(Request $request, $merchantId)
 	{
-		$outlet= $this->outletRepository->store($request);
+		if (!$merchantId) {
+			return pageNotFound();
+		}
+		$outlet= $this->outletRepository->store($request, $merchantId);
+		dd($outlet);
         $responseCode = $this->getResponseCodeFromJson($request);
         if ($responseCode != 201) {
 

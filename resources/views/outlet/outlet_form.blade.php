@@ -39,7 +39,7 @@
                                         <div class="form-input row">
                                             <label for="outlet-code">Redeem PIN</label>
                                             <div class="col-10" id="requestInput">
-                                                <input name="outlet-code" type="number" class="form-control" id="outlet-code" placeholder="98449848" disabled>
+                                                <input name="outlet-code" value="" type="number" class="form-control" id="outlet-code" readonly>
                                             </div>
                                             <div class="col-2" id="requestBtn">
                                                 <a href="#" id="requestPIN" data-toggle="tooltip" data-placement="bottom" title="Change PIN">
