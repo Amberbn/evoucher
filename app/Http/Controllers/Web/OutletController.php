@@ -50,9 +50,13 @@ class OutletController extends BaseControllerWeb
 		return view('outlet.outlet_form', compact('settings', 'response'));
 	}
 
-	public function store(Request $request)
+	public function store(Request $request, $merchantId)
 	{
-		$outlet= $this->outletRepository->store($request);
+		if (!$merchantId) {
+			return pageNotFound();
+		}
+		$outlet= $this->outletRepository->store($request, $merchantId);
+		dd($outlet);
         $responseCode = $this->getResponseCodeFromJson($request);
         if ($responseCode != 201) {
 

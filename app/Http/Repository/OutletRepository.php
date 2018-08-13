@@ -124,13 +124,13 @@ class OutletRepository extends BaseRepository
         return $this->sendSuccess($outlet);
     }
 
-    public function store($request)
+    public function store($request, $merchantId)
     {
         try {
             DB::beginTransaction();
 
             $outlet = $this->model;
-            $outlet->merchant_id = Merchant::find($request->merchant_id);
+            $outlet->merchant_id = $merchantId;
             $outlet->outlets_code = $request->input('outlets_code');
             
             $outlet->merchant_client_id = $request->input('merchant_client_id');
