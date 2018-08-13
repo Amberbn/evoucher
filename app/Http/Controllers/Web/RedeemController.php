@@ -16,6 +16,7 @@ class RedeemController extends BaseControllerWeb
 
     public function redeem($voucherGeneratedNumber)
     {
+        $voucherId = $voucherGeneratedNumber;
     	$redeem = $this->redemRepository->redeemInformation($voucherGeneratedNumber);
 
     	if(!$voucherGeneratedNumber) {
@@ -27,6 +28,15 @@ class RedeemController extends BaseControllerWeb
     	}
 
     	$redeem = $this->getDataFromJson($redeem);
-    	return view('redeem.redeem', compact('redeem'));
+    	return view('redeem.redeem', compact('redeem','voucherId'));
+    }
+
+    public function redeemSave(Request $request, $voucherNumber)
+    {
+         $redeem = $this->redemRepository->redeem($request, $voucherNumber);
+
+         // return ($this->getDataFromJson($redeem)->first());
+
+         return $redeem;
     }
 }

@@ -32,9 +32,9 @@
                           <div class="card-footer text-muted">
                               <nav class="voucher-tab">
                                   <div class="nav nav-tabs" id="m-Tab" role="tablist">
-                                      <a class="nav-item nav-link active" href="#nav-info">Informasi</a>
-                                      <a class="nav-item nav-link" href="#nav-ketentuan">Ketentuan</a>
-                                      <a class="nav-item nav-link" href="#nav-tukar">Penukaran</a>
+                                      <a class="nav-item nav-link active" id="info" href="#nav-info">Informasi</a>
+                                      <a class="nav-item nav-link" id="ketentuan" href="#nav-ketentuan">Ketentuan</a>
+                                      <a class="nav-item nav-link" id="penukaran" href="#nav-tukar">Penukaran</a>
                                   </div>
                               </nav>
                               <div class="tab-content" id="m-tabContent">
@@ -162,7 +162,7 @@
                       <!-- /.card -->
 
                       <div id="nav-info-btn" class="nav-tab-btn">
-                            <button type="button" class="btn btn-wide-block btn-green btn-add-campaign btn-redeem-voucher border-0">Tukarkan Voucher</button>
+                            <button id="tukarkanVoucher" type="button" class="btn btn-wide-block btn-green btn-add-campaign btn-redeem-voucher border-0">Tukarkan Voucher</button>
                         </div>
                       <div id="nav-tukar-btn" class="nav-tab-btn" style="display:none">
                             <button type="button" class="btn btn-wide-block btn-green btn-add-campaign btn-redeem-voucher border-0" data-toggle="modal" data-target="#storeCodeModal">Masukkan Outlet Code</button>
@@ -214,11 +214,11 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <p class="text-center">
-                            <img src="{{ asset('assets/img/img-error.svg') }}" alt="">
+                            <img id="status_image" src="{{ asset('assets/img/img-error.svg') }}" alt="">
                            <!-- <img src="img/img-error.svg" alt=""> -->
                         </p>
-                        <h4 class="text-center">Store Code Salah</h4>
-                        <p id="status-text" class="text-center">Mohon hubungi 1500171 untuk informasi lebih lanjut</p>
+                        <h4 class="text-center" id="status_title">Store Code Salah</h4>
+                        <p id="status-text" class="text-center">Loading ..</p>
                         <button type="button" class="btn btn-wide-block btn-green btn-add-campaign btn-redeem-voucher border-0" data-dismiss="modal">Coba Lagi</button>
                     </div>                
                 </div>
@@ -244,6 +244,32 @@
     event.preventDefault();
 });
 
+$('#tukarkanVoucher').click(function(e){
+  e.preventDefault();
+  $('#nav-tukar').attr('class','tab-pane fade active show');
+
+  let link = $('#penukaran').attr('class','nav-item nav-link active show');
+  $('.nav-item.nav-link').each(function(){
+      if($(this).attr('id') !== 'penukaran') {
+        console.log($(this).attr('id'));
+        $(this).removeClass('active');
+        $(this).removeClass('show');
+      }
+  })
+
+  $('.tab-pane.fade').each(function(){
+    if($(this).attr('id') !== 'nav-tukar') {
+        $(this).removeClass('active');
+        $(this).removeClass('show');
+      }
+  })
+
+  $('#nav-info-card').hide();
+  $('#nav-info-btn').hide();
+  $('#nav-tukar-btn').show();
+
+});
+
 function setStatusModal(data, type){
     $('#statusModal').find('img').prop('src','{{ asset("assets/img/img-error.svg") }}');
     $('#statusModal').find('h4').html(data.title);
@@ -259,10 +285,45 @@ function setStatusModal(data, type){
 //functiob redeem
 $(document).on('click','#btnRedeem', function(){
   redeemCode().done(function(response){
-    $('#statusModal').modal('hide');
+    // $('#statusModal').modal('hide');
     $('#statusModal, input').val('');
+    let redemFailureCode = response['data'][0]['redeem_failure_code'];
+    let reedemStatusCode = response['data'][0]['redeem_status_code'];
+    let voucherGeneratedNo = response['data'][0]['voucher_generated_no'];
+    let redeemRequestDate = response['data'][0]['redeem_request_date'];
+    let messages = null;
+    let statusTitle = 'Voucher Tidak Valid';
+    let statusImage = "{{ asset('assets/img/img-error.svg') }}";
+    if(reedemStatusCode == '001') {
+      statusTitle = 'Suksess Redeem Voucher';
+      statusImage = "{{ asset('assets/img/img-success.svg') }}";
+      messages = 'Success! voucher ['+voucherGeneratedNo+'] has been redeemed on '+ redeemRequestDate+' Please inform customer.';
+    }else if(reedemStatusCode == '000' && redemFailureCode == 'INV') {
+      messages = 'Oops! unknown voucher number or invalid store code, redeem failed';
+    }else if (reedemStatusCode == '000' && redemFailureCode == 'RF01'){
+      messages = 'Oops! voucher ['+voucherGeneratedNo+'] has been redeemed before! Please inform customer.';
+    }else if (reedemStatusCode == '000' && redemFailureCode == 'RF02'){
+      messages = 'Oops! voucher ['+voucherGeneratedNo+'] or it\'s related campaign has not been started yet! Please inform customer';
+    }else if (reedemStatusCode == '000' && redemFailureCode == 'RF03'){
+      messages = 'Oops! voucher ['+voucherGeneratedNo+'] or it\'s related campaign has expired! Please inform customer. ';
+    }else if (reedemStatusCode == '000' && redemFailureCode == 'RF04'){
+      messages = 'Oops! Invalid store code for voucher ['+voucherGeneratedNo+'] redeem failed! Please inform customer. ';
+    }else if (reedemStatusCode == '000' && redemFailureCode.includes('Locked')){
+      messages = 'Oops! there\'s too many failed redeem attempt for voucher ['+voucherGeneratedNo+'], redeem access '+redemFailureCode+'.';
+    }
+
+    $('#status_image').attr('src',statusImage);
+
+    $('#status_title').text(statusTitle);
+
+    $('#status-text').text(messages);
   }).fail(function(){
     console.log('data kosong');
+     let statusTitle = 'Voucher Tidak Valid';
+     let messages = 'Error Network';
+    $('#status_title').text(statusTitle);
+
+    $('#status-text').text(messages);
   });
 })
 
@@ -273,11 +334,11 @@ function redeemCode(){
 
   var data = {
     _token:token,
-    outlets_auth_code:outlet_authentification_code
+    outlets_auth_code:storeCode
   };
 
   return $.ajax({
-    url: '{{ route('') }}',
+    url: "{{ route('voucher.save.outlet',['voucherId' => $voucherId]) }}",
     data: data,
     method: 'POST',
   });
