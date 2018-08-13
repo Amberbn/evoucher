@@ -199,8 +199,8 @@
                             Ini merupakan voucher Prezent, untuk menukarkan mohon masukkan outlet code Anda
                         </p>
                         <form id="storeCodeForm">
-                            <input type="text" class="form-control" name="store-code" placeholder="Store Code">
-                            <button type="submit" class="btn btn-wide-block btn-green btn-add-campaign btn-redeem-voucher border-0">Redeem</button>
+                            <input type="text" class="form-control" name="outlet_authentification_code" placeholder="Store Code">
+                            <button type="submit" id="btnRedeem" class="btn btn-wide-block btn-green btn-add-campaign btn-redeem-voucher border-0">Redeem</button>
                         </form>
                     </div>                
                 </div>
@@ -254,6 +254,33 @@ function setStatusModal(data, type){
     }
     $('#statusModal').find('p#status-text').html(data.message);
     $('#statusModal').modal('show');
+}
+
+//functiob redeem
+$(document).on('click','#btnRedeem', function(){
+  redeemCode().done(function(response){
+    $('#statusModal').modal('hide');
+    $('#statusModal, input').val('');
+  }).fail(function(){
+    console.log('data kosong');
+  });
+})
+
+//Function redeem code for get value
+function redeemCode(){
+  var token = $('meta[name="csrf-token"]').attr('content');
+  var storeCode = $('input[name="outlet_authentification_code"]').val();
+
+  var data = {
+    _token:token,
+    outlets_auth_code:outlet_authentification_code
+  };
+
+  return $.ajax({
+    url: '{{ route('') }}',
+    data: data,
+    method: 'POST',
+  });
 }
 </script>
 
