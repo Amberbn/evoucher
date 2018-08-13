@@ -45,11 +45,17 @@ class SendVocherSmsJob implements ShouldQueue
             $smsResponseCodeConfig = Config::where('config_group_name', 'SMS_Respond_Code')
                 ->select('config_name', 'config_value')
                 ->get();
+            $voucherGenerateNo = VoucherGenerated::select('voucher_generated_no')->get()->toArray();
+            $randomNumber = rand(9999999999, 1000000000);
+
+            while (in_array($randomNumber, $voucherGenerateNo)) {
+                $randomNumber = rand(9999999999, 1000000000);
+            }
 
             $voucher = $this->voucher;
             $vouchergenerate = new VoucherGenerated;
             $vouchergenerate->campaign_voucher_id = $voucher->campaign_voucher_id;
-            $vouchergenerate->voucher_generated_no = $voucher->voucher_generated_no;
+            $vouchergenerate->voucher_generated_no = $randomNumber;
             $vouchergenerate->campaign_id = $voucher->campaign_id;
             $vouchergenerate->client_id = $voucher->client_id;
             $vouchergenerate->campaign_recipient_id = $voucher->campaign_recipient_id;
