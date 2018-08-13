@@ -1,0 +1,236 @@
+.landing .footer-social {
+  *zoom: 1;
+}
+.landing .footer-social:before, .landing .footer-social:after {
+  content: " ";
+  display: table;
+}
+.landing .footer-social:after {
+  clear: both;
+}
+
+body.landing,
+body.landing .site,
+body.landing #main-content {
+  background-color: #005FAF;
+}
+
+.landing-container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-heading,
+.footer-social,
+.footer-social a {
+  color: #fff;
+}
+
+.btn-redeem-voucher.btn-add-campaign {
+  width: 100%;
+  float: none;
+  margin-top: 10px;
+}
+
+.landing .nav-item.nav-link,
+.landing .nav-tabs .nav-link:hover,
+.landing .nav-tabs .nav-link:focus,
+.landing .nav-tabs .nav-link.active,
+.landing .nav-tabs .nav-item.show .nav-link {
+  border: none !important;
+  box-shadow: none !important;
+}
+.landing .card {
+  margin-bottom: 10px;
+}
+.landing .card li {
+  margin-bottom: 1rem;
+}
+.landing .card-extra {
+  margin-bottom: 10px;
+}
+.landing .card-extra:first-child {
+  margin-top: 10px;
+}
+.landing .card-extra .card-header {
+  border-bottom: none;
+  padding-bottom: 1rem;
+}
+.landing .card-extra .card-title {
+  margin-bottom: 0;
+}
+.landing .footer-social {
+  margin: 20px 0 0 0;
+}
+.landing .footer-social .col-md-4 {
+  margin-left: auto;
+  margin-right: auto;
+}
+.landing .footer-social ul {
+  display: flex;
+  align-items: stretch;
+  /* Default */
+  justify-content: space-between;
+}
+.landing .footer-social li {
+  display: block;
+  flex: 0 1 auto;
+  /* Default */
+  width: 33.3333333333%;
+  text-align: center;
+}
+.landing .footer-social a {
+  display: inline-block;
+  paddin-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
+}
+
+.landing .card-main {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+}
+.landing .card-main .card-footer {
+  background-color: #fff !important;
+  padding-top: 0;
+  margin-top: -1px;
+}
+.landing .card-main .voucher-tab {
+  padding-top: 0.75rem;
+  margin-bottom: 0;
+  background-color: #fff;
+}
+.landing .card-main .card-footer:last-child {
+  border-radius: 0;
+  background-color: transparent;
+}
+.landing .card-main .tab-pane-content {
+  background-color: #fff;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  padding-top: 10px;
+  padding-bottom: 1.25rem;
+  margin-bottom: 20px;
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+}
+.landing .card-main .tab-pane-content .inner {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.landing .voucher-tab {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.landing .card-footer {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+.landing .tab-content > * {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-bottom:1.25rem;
+}
+.landing .card .card {
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+}
+
+.landing .note-text{
+  color:#fff !important;
+}
+
+.landing .modal-content{
+  padding: 1rem 0;
+}
+
+.landing .text-list{
+  padding-right:0.7rem
+}
+
+/* Accordion */
+.landing #accordion{
+  padding-bottom:1rem;
+}
+
+.landing #accordion .card{
+  margin:0;
+  padding:0 1.3rem;
+  border:none;
+}
+
+.landing #accordion .card-header{
+  padding:0.5rem 0;
+  border-bottom: 1px #000 solid;
+  margin-bottom:0.5rem;
+}
+
+.landing #accordion .card-header a{
+  color:#000;
+  font-weight: bold;
+}
+
+.landing #accordion .card-body{
+  min-height: 0 !important;
+}
+
+.landing #accordion .card, .landing #accordion .card-body{
+  background: none;
+}
+
+.landing #accordion ul{
+  padding:0;
+  list-style-type: none;
+}
+
+.landing #accordion .li-outlet{
+  color:#004D9A;
+  font-weight: bold;
+}
+
+.landing #accordion .accordion-head, .landing #accordion .li-outlet{
+  display: block;
+}
+
+.landing #accordion .li-outlet:parent{
+  margin-bottom: 0;
+}
+
+.landing #accordion .accordion-head.collapsed:before{
+  position:absolute;
+  font-family: 'Font Awesome 5 Free';
+  right:1.5rem;
+  /* content:"\f078";down */
+  content:"\f054";/*right*/
+}
+
+.landing #accordion .accordion-head:not(.collapsed):before{
+  position:absolute;
+  font-family: 'Font Awesome 5 Free';
+  right:1.5rem;
+  content:"\f078";
+}
+
+.landing #accordion .accordion-head:hover, .landing #accordion .li-outlet:hover {
+  text-decoration: none;
+}
+
+.landing #accordion .li-outlet.collapsed:after{
+  position: absolute;
+  font-family: 'Font Awesome 5 Free';
+  right:10rem;
+  content:"\f0da";/*right*/
+}
+
+.landing #accordion .li-outlet:not(.collapsed):after{
+  position: absolute;
+  font-family: 'Font Awesome 5 Free';
+  right:10rem;
+  content:"\f0d7";
+}
+
+/*# sourceMappingURL=landing.css.map */
