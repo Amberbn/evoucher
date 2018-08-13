@@ -3,6 +3,7 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.qrcode.min.js') }}"></script>
 <!-- Moment Core JavaScript -->
 <script src="{{ asset('assets/vendor/moment/moment.min.js') }}"></script>
 <!-- Bootstrap Datetime Picker JavaScript -->

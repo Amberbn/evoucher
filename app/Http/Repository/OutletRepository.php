@@ -221,4 +221,16 @@ class OutletRepository extends BaseRepository
             return $this->throwErrorException($e);
         }
     }
+
+    public function generateOutletCode()
+    {
+        $voucherGenerateNo = Outlet::select('outlets_code')->get()->toArray();
+        $randomNumber = rand(9999999999, 1000000000);
+
+            while (in_array($randomNumber, $voucherGenerateNo)) {
+                $randomNumber = rand(9999999999, 1000000000);
+            }
+
+        return $randomNumber;
+    }
 }

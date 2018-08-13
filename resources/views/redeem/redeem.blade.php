@@ -27,7 +27,15 @@
                               <h5 class="card-subtitle">{{ $redeemInformation->Merchant }}</h5>
                           </div>
                           <div class="card-body text-center">
-                              <img src="{{ asset('assets/img/user/starwars-movie-poster-medium.jpg') }}" alt="">
+                              @if(!$redeemInformation->campaign_voucher_main_image_url)
+                                <img src="{{ asset('assets/img/user/starwars-movie-poster-medium.jpg') }}" alt="">
+                              @else
+                                @php
+                                  $filePath = '/img/voucher/original/'.$redeemInformation->campaign_voucher_main_image_url;
+                                  $location = asset($filePath);
+                                @endphp
+                                <img src="{{ $location }}" alt="">
+                              @endif
                           </div>
                           <div class="card-footer text-muted">
                               <nav class="voucher-tab">
@@ -46,10 +54,14 @@
                                   </div>
                                   <div class="tab-pane fade" id="nav-tukar">
                                       <p class="text-center">
-                                            Tunjukkan QR Code ini kepada kasir/loket penukaran <br>
-                                            <a href='#' data-toggle="modal" data-target="#storeCodeModal">
+                                            Tunjukkan QR Code ini kepada kasir/loket penukaran <br><br>
+                                           <!--  <a href='#' data-toggle="modal" data-target="#storeCodeModal">
                                                 <img src='http://www.unitag.io/qreator/generate?crs=e2ZRfLkGhCcNX0uPU0VF3l2iWCU5iBS65XqQ37eAYrFw1DqSur4MlY3KDO2BDD2mBo8u49VJSRUN61r7kZGYhdTmk%252F7zrZPNv%252BvdL8%252F3FZQIsRoRa29g6JCo%252BMr1U9KIrE%252Bnsuv3ZYI6Py3tmkIQ8%252BEeCrwb5jj4Irri3GordWt5Lnn5RdF7YPFjY1wajrVuR%252B%252FP9hE8xiNWLqCVKbr%252Bl4lUhL%252FV8dHyx4iB3lMvJA6b%252BR9YbGA4eBLyE4ApKFZytg2Kx6IpTsPPqimIJ3mZFOwRtlBVPh3fqjEmcG687Iw0%252F5378PNxX6sImd7pE23A5T1UiqdyW3LF34GmKxyp1g%253D%253D&crd=mXKe51B3LcpJnGj6pepi6V3RM8sS1f7iyDZdZEpcqQ3B93K71VLjQVUBTpD9A4ML7KVXVgDdRMTiVz24fi6wYw%253D%253D' alt='QR Code'/>
                                                 <br><span id="storeCodeVal">AAPL690WK54M50</span>
+                                            </a> -->
+
+                                             <a href='#' data-toggle="modal" data-target="#storeCodeModal" id="qrcode">
+                                                
                                             </a>
                                       </p>
                                   </div>
@@ -343,6 +355,21 @@ function redeemCode(){
     method: 'POST',
   });
 }
+
+
+// jQuery("#qrcode").qrcode("url");
+
+// or
+
+jQuery("#qrcode").qrcode({
+    //render:"table"
+    width: 300,
+    height: 300,
+    text: "{{ $voucherId }}"
+});
+
+// <span id="storeCodeVal">AAPL690WK54M50</span>
+$('#qrcode').append('<br/><span id="storeCodeVal">{{ $voucherId }}</span>');
 </script>
 
 @endpush
