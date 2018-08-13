@@ -12,6 +12,7 @@
  */
 Auth::routes();
 Route::get('/redeem/{voucherId}', 'Web\RedeemController@redeem')->name('voucher.get.outlet');
+Route::post('/redeem/{voucherId}', 'Web\RedeemController@redeemSave')->name('voucher.save.outlet');
 Route::get('/', 'Web\HomeController@index');
 Route::get('/welcome', 'Web\WelcomeController@welcome');
 Route::get('/terms-and-condition', 'Web\WelcomeController@termsAndCondition');
