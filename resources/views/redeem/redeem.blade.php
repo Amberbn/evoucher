@@ -31,10 +31,10 @@
                                 <img src="{{ asset('assets/img/user/starwars-movie-poster-medium.jpg') }}" alt="">
                               @else
                                 @php
-                                  $filePath = '/img/voucher/original/'.$redeemInformation->campaign_voucher_main_image_url;
-                                  $location = asset($filePath);
+                                  $path = 'storage/voucher/original';
+                                  $filePath = $path.'/'.$redeemInformation->campaign_voucher_main_image_url;
                                 @endphp
-                                <img src="{{ $location }}" alt="">
+                                <img src="{{ asset($filePath) }}" alt="">
                               @endif
                           </div>
                           <div class="card-footer text-muted">
