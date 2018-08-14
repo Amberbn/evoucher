@@ -11,6 +11,8 @@
 |
  */
 Auth::routes();
+Route::get('/redeem/{voucherId}', 'Web\RedeemController@redeem')->name('voucher.get.outlet');
+Route::post('/redeem/{voucherId}', 'Web\RedeemController@redeemSave')->name('voucher.save.outlet');
 Route::get('/', 'Web\HomeController@index');
 Route::get('/welcome', 'Web\WelcomeController@welcome');
 Route::get('/terms-and-condition', 'Web\WelcomeController@termsAndCondition');
@@ -30,6 +32,8 @@ Route::middleware(['auth', 'check-permission'])->group(function () {
     Route::get('/merchants', 'Web\MerchantController@indexDatatable')->name('merchant.list.datatable');
 
     Route::resource('/outlet', 'Web\OutletController');
+    Route::get('/outlet-create/{id}', 'Web\OutletController@create')->name('merchant.outlet.create');
+    Route::post('/outlet-create/{id}', 'Web\OutletController@store')->name('merchant.outlet.store');
 
     Route::resource('/voucher', 'Web\VoucherController');
 
@@ -40,4 +44,6 @@ Route::middleware(['auth', 'check-permission'])->group(function () {
     Route::post('/save-form-merchant/{id}', 'Web\VoucherController@saveVoucherMercant')->name('voucher.merchant.store');
 
     Route::get('/outlet-by-merchant/{id}', 'Web\VoucherController@getOutlet')->name('voucher.get.outlet');
+
+    
 });

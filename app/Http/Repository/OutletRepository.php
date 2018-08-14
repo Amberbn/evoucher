@@ -2,6 +2,7 @@
 namespace App\Http\Repository;
 
 use App\Outlet;
+use App\Merchant;
 use App\Repository\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -123,15 +124,20 @@ class OutletRepository extends BaseRepository
         return $this->sendSuccess($outlet);
     }
 
-    public function store($request)
+    public function store($request, $merchantId)
     {
+        $ouletAuthCode = $this->generateOutletCode();
+        if (!$ouletAuthCode) {
+            return $this->sendNotfound();
+        }
         try {
             DB::beginTransaction();
 
             $outlet = $this->model;
+            $outlet->merchant_id = $merchantId;
             $outlet->outlets_code = $request->input('outlets_code');
-            $outlet->merchant_id = $request->input('merchant_id');
-            $outlet->merchant_client_id = $request->input('merchant_client_id');
+            
+            $outlet->merchant_client_id = $this->me()['client_id'];
             $outlet->outlets_title = $request->input('outlets_title');
             $outlet->outlets_email = $request->input('outlets_email');
             $outlet->outlets_phone = $request->input('outlets_phone');
@@ -141,12 +147,14 @@ class OutletRepository extends BaseRepository
             $outlet->outlets_address_city_pid = $request->input('outlets_address_city_pid');
             $outlet->outlets_address_region_pid = $request->input('outlets_address_region_pid');
             $outlet->outlets_location_coordinates = $request->input('outlets_location_coordinates');
-            $outlet->outlets_auth_code = $request->input('outlets_auth_code');
+            $outlet->outlets_auth_code = $ouletAuthCode;
             $outlet->data_sort = $request->input('data_sort') ?: 1000;
             $outlet->isactive = $request->input('isactive') ?: true;
             $outlet->isdelete = $request->input('isdelete') ?: false;
             $outlet->created_by_user_name = $this->loginUsername();
             $outlet->save();
+
+            // dd($outlet);
 
             DB::commit();
 
@@ -218,5 +226,17 @@ class OutletRepository extends BaseRepository
             DB::rollBack();
             return $this->throwErrorException($e);
         }
+    }
+
+    public function generateOutletCode()
+    {
+        $voucherGenerateNo = Outlet::select('outlets_code')->get()->toArray();
+        $randomNumber = rand(9999999999, 1000000000);
+
+            while (in_array($randomNumber, $voucherGenerateNo)) {
+                $randomNumber = rand(9999999999, 1000000000);
+            }
+
+        return $randomNumber;
     }
 }

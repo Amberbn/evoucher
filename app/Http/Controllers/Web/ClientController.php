@@ -55,9 +55,7 @@ class ClientController extends BaseControllerWeb
             'client_category',
             'campaign_category',
         ];
-
         $settings = $this->getSettings($filters, true);
-
         $edit = false;
 
         $users = (new UserRepository)
@@ -128,7 +126,7 @@ class ClientController extends BaseControllerWeb
     }
 
     /**
-     * Update the specified resource in storage.
+      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
