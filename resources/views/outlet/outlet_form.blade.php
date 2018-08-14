@@ -39,7 +39,7 @@
                                         <div class="form-input row">
                                             <label for="outlet-code">Redeem PIN</label>
                                             <div class="col-10" id="requestInput">
-                                                <input name="outlet-code" type="number" class="form-control" id="outlet-code" placeholder="98449848" disabled>
+                                                <input name="outlets_code" value="{{ $outletCode }}" type="number" class="form-control" id="outlet-code" readonly>
                                             </div>
                                             <div class="col-2" id="requestBtn">
                                                 <a href="#" id="requestPIN" data-toggle="tooltip" data-placement="bottom" title="Change PIN">
@@ -67,7 +67,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="province">Province</label>
-                                        <select name="province" class="custom-select dropdown-select2" id="province" data="address_city">
+                                        <select name="outlets_address_province_pid" class="custom-select dropdown-select2" id="province" data="address_city">
                                             @foreach ($settings->addressStateProvince as $province)
                                              <!--  @php
                                                 $selected = @$client->client_billing_address_state_province_pid == $province->parameters_id ? 'selected' : '';
@@ -80,7 +80,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="city">City</label>
-                                        <select name="city" class="custom-select dropdown-select2" id="city" data="address_region">
+                                        <select name="outlets_address_city_pid" class="custom-select dropdown-select2" id="city" data="address_region">
                                            <!--  @if(@$client->client_billing_address_city_pid) -->
                                              @foreach ($settings->addressCity as $city)
                                                 <!-- @php
@@ -97,7 +97,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="area">Area</label>
-                                        <select name="area" class="custom-select dropdown-select2" id="area">
+                                        <select name="outlets_address_region_pid" class="custom-select dropdown-select2" id="area">
                                         @foreach ($settings->addressRegion as $region)
                                              <option value="{{ $region->parameters_id }}" {{ $selected }}>{{ $region->parameters_value }}</option>   
                                         @endforeach

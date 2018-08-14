@@ -137,7 +137,6 @@
                                                     <ul class="list-unstyled">
                                                         <li><a id="edit_checked_user">Edit Checked User</a></li>
                                                         <li><a href="#">Delete Checked Users</a></li>
-                                                        <li><a href="#">Archive Checked</a></li>
                                                     </ul>
                                                 </div>
                                             </th>
