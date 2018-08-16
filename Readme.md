@@ -21,6 +21,7 @@
 - Basic artisan command: `docker-compose exec app php artisan YourCommandHere`
 - Migration: `docker-compose exec app php artisan migrate`
 - Queue Listener: `docker-compose exec app php artisan queue:work`
+- Run docker-compose exec app php artisan queue:listen --timeout=60
 
 
 ## Contributors
