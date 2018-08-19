@@ -278,7 +278,7 @@
                     buttons: {
                         confirm: function () {
                             $.ajax({
-                                url: '{{ route('users.delete') }}',
+                                url: '{{ route('users.delete.custom') }}',
                                 type: 'PUT',
                                 data: {
                                     _token:formToken,

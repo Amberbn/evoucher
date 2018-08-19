@@ -226,7 +226,7 @@
                 checkedValue.push($(this).val());
             })
             let countChecked = checkedValue.length;
-            console.log(countChecked);
+            console.log(checkedValue);
 
             if(countChecked <= 0) {
                toastr.error('Please check item to be deleted');
@@ -243,7 +243,7 @@
                     buttons: {
                         confirm: function () {
                             $.ajax({
-                                url: '{{ route('clients.delete') }}',
+                                url: '{{ route('clients.delete.custom') }}',
                                 type: 'PUT',
                                 data: {
                                     _token:formToken,
