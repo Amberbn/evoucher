@@ -91,6 +91,7 @@ class BaseRepository
 
     public function throwErrorException($e)
     {
+        \Log::error($e->getMessage());
         $defaultErrorMessage = 'Oops! Something went wrong';
         if (config('app.debug')) {
             return $this->sendBadRequest($e->getMessage());

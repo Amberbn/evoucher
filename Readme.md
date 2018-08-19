@@ -23,6 +23,15 @@
 - Queue Listener: `docker-compose exec app php artisan queue:work`
 - Run docker-compose exec app php artisan queue:listen --timeout=60
 
+## Cron configuration
+- Just edit the `crontab` file on the root of the project.
+- If you change it while container already running, don't forget to restart the container: `docker-compose up -d`
+- 1. Buka file crontab di project, pastikan End of Line Sequence nya LF bukan CRLF. Di vscode settingnya di status bar kanan bawah samping tulisan "UTF-8", rubah ke "LF". Terus save.
+- 2. docker-compose build, tunggu sampe kelar.
+- 3. Setelah kelar build, masuk ke bash docker: docker-compose exec app bash
+- 4. Buka crontab file: crontab -e, save tanpa edit,
+- 5. Restart cron dalam container: service cron restart
+- 6. Pantau file storage/logs/laravel.log, untuk memastikan cronnya jalan. Akan ada log tiap menit.
 
 ## Contributors
 - Mahendra R Sonday

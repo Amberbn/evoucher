@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use App\Campaign;
+use App\VoucherCatalog;
 use App\Campaignvoucher;
 use App\VoucherGenerated;
 use App\CampaignRecipient;
@@ -24,6 +25,7 @@ class CampaignRepository extends BaseRepository
         $this->campaignVoucherOutlet = new CampaignVoucherOutlet;
         $this->voucherCatalogRepository = new VoucherCatalogRepository;
         $this->voucherGenerated = new VoucherGenerated;
+        $this->voucherCatalog = new VoucherCatalog;
     }
 
     public function campaignMessage()
@@ -367,16 +369,17 @@ class CampaignRepository extends BaseRepository
             foreach ($request->voucher as $voucherRequest) {
 
                 //get value from voucher catalog
-                $voucherCatalog = $this->campaignVoucher
+                    
+                $voucherCatalog = $this->voucherCatalog
                     ->where('voucher_catalog_id', $voucherRequest['voucher_catalog_id'])
                     ->first();
 
                 //set alias because to long code
                 $unitQuantity = $voucherRequest['campaign_voucher_unit_quantity'];
-                $valueAmount = $voucherCatalog->campaign_voucher_value_amount;
-                $valuePoint = $voucherCatalog->campaign_voucher_value_point;
-                $unitPriceAmount = $voucherCatalog->campaign_voucher_unit_price_amount;
-                $unitPricePoint = $voucherCatalog->campaign_voucher_unit_price_point;
+                $valueAmount = $voucherCatalog->voucher_catalog_value_amount;
+                $valuePoint = $voucherCatalog->voucher_catalog_value_point;
+                $unitPriceAmount = $voucherCatalog->voucher_catalog_unit_price_amount;
+                $unitPricePoint = $voucherCatalog->voucher_catalog_unit_price_point;
                 $revisionNumber = $voucherCatalog->voucher_catalog_revision_no;
                 $catalogId = $voucherCatalog->voucher_catalog_id;
                 $campaignId = $campaign->campaign_id;
@@ -391,18 +394,18 @@ class CampaignRepository extends BaseRepository
                 //copy data from voucher catalog
                 $voucher->voucher_catalog_revision_no = $voucherCatalog->voucher_catalog_revision_no;
                 $voucher->merchant_client_id = $voucherCatalog->merchant_client_id;
-                $voucher->campaign_voucher_sku_code = $voucherCatalog->campaign_voucher_sku_code;
-                $voucher->campaign_voucher_title = $voucherCatalog->campaign_voucher_title;
-                $voucher->campaign_voucher_main_image_url = $voucherCatalog->campaign_voucher_main_image_url;
-                $voucher->campaign_voucher_information = $voucherCatalog->campaign_voucher_information;
-                $voucher->campaign_voucher_terms_and_condition = $voucherCatalog->campaign_voucher_terms_and_condition;
-                $voucher->campaign_voucher_instruction_customer = $voucherCatalog->campaign_voucher_instruction_customer;
-                $voucher->campaign_voucher_instruction_outlet = $voucherCatalog->campaign_voucher_instruction_outlet;
-                $voucher->campaign_voucher_valid_start_date = $voucherCatalog->campaign_voucher_valid_start_date;
-                $voucher->campaign_voucher_valid_end_date = $voucherCatalog->campaign_voucher_valid_end_date;
-                $voucher->campaign_voucher_tags = $voucherCatalog->campaign_voucher_tags;
-                $voucher->campaign_voucher_unit_quantity = $voucherCatalog->campaign_voucher_unit_quantity;
-                $voucher->campaign_voucher_unit_cogs_amount = $voucherCatalog->campaign_voucher_unit_cogs_amount;
+                $voucher->campaign_voucher_sku_code = $voucherCatalog->voucher_catalog_sku_code;
+                $voucher->campaign_voucher_title = $voucherCatalog->voucher_catalog_title;
+                $voucher->campaign_voucher_main_image_url = $voucherCatalog->voucher_catalog_main_image_url;
+                $voucher->campaign_voucher_information = $voucherCatalog->voucher_catalog_information;
+                $voucher->campaign_voucher_terms_and_condition = $voucherCatalog->voucher_catalog_terms_and_condition;
+                $voucher->campaign_voucher_instruction_customer = $voucherCatalog->voucher_catalog_instruction_customer;
+                $voucher->campaign_voucher_instruction_outlet = $voucherCatalog->voucher_catalog_instruction_outlet;
+                $voucher->campaign_voucher_valid_start_date = $voucherCatalog->voucher_catalog_valid_start_date;
+                $voucher->campaign_voucher_valid_end_date = $voucherCatalog->voucher_catalog_valid_end_date;
+                $voucher->campaign_voucher_tags = $voucherCatalog->voucher_catalog_tags;
+                $voucher->campaign_voucher_unit_quantity = $voucherRequest['campaign_voucher_unit_quantity'];
+                $voucher->campaign_voucher_unit_cogs_amount = $voucherCatalog->voucher_catalog_unit_cogs_amount;
                 $voucher->data_sort = $voucherCatalog->data_sort;
 
                 //calculate per voucher
@@ -547,9 +550,13 @@ class CampaignRepository extends BaseRepository
                 return $this->sendNotfound();
             }
 
-            $voucherCatalog = $this->campaignVoucher
+            // $voucherCatalog = $this->campaignVoucher
+            //     ->where('voucher_catalog_id', $request->voucher_catalog_id)
+            //     ->first();
+            $voucherCatalog = $this->voucherCatalog
                 ->where('voucher_catalog_id', $request->voucher_catalog_id)
                 ->first();
+
 
             if (!$voucherCatalog) {
                 return $this->sendNotfound();
@@ -560,10 +567,10 @@ class CampaignRepository extends BaseRepository
 
             //set alias because to long code
             $unitQuantity = 1;
-            $valueAmount = $voucherCatalog->campaign_voucher_value_amount;
-            $valuePoint = $voucherCatalog->campaign_voucher_value_point;
-            $unitPriceAmount = $voucherCatalog->campaign_voucher_unit_price_amount;
-            $unitPricePoint = $voucherCatalog->campaign_voucher_unit_price_point;
+            $valueAmount = $voucherCatalog->voucher_catalog_value_amount;
+            $valuePoint = $voucherCatalog->voucher_catalog_value_point;
+            $unitPriceAmount = $voucherCatalog->voucher_catalog_unit_price_amount;
+            $unitPricePoint = $voucherCatalog->voucher_catalog_unit_price_point;
             $revisionNumber = $voucherCatalog->voucher_catalog_revision_no;
             $catalogId = $voucherCatalog->voucher_catalog_id;
             $campaignId = $campaign->campaign_id;
@@ -578,18 +585,17 @@ class CampaignRepository extends BaseRepository
             //copy data from voucher catalog
             $voucher->voucher_catalog_revision_no = $voucherCatalog->voucher_catalog_revision_no;
             $voucher->merchant_client_id = $voucherCatalog->merchant_client_id;
-            $voucher->campaign_voucher_sku_code = $voucherCatalog->campaign_voucher_sku_code;
-            $voucher->campaign_voucher_title = $voucherCatalog->campaign_voucher_title;
-            $voucher->campaign_voucher_main_image_url = $voucherCatalog->campaign_voucher_main_image_url;
-            $voucher->campaign_voucher_information = $voucherCatalog->campaign_voucher_information;
-            $voucher->campaign_voucher_terms_and_condition = $voucherCatalog->campaign_voucher_terms_and_condition;
-            $voucher->campaign_voucher_instruction_customer = $voucherCatalog->campaign_voucher_instruction_customer;
-            $voucher->campaign_voucher_instruction_outlet = $voucherCatalog->campaign_voucher_instruction_outlet;
-            $voucher->campaign_voucher_valid_start_date = $voucherCatalog->campaign_voucher_valid_start_date;
-            $voucher->campaign_voucher_valid_end_date = $voucherCatalog->campaign_voucher_valid_end_date;
-            $voucher->campaign_voucher_tags = $voucherCatalog->campaign_voucher_tags;
-            $voucher->campaign_voucher_unit_quantity = $voucherCatalog->campaign_voucher_unit_quantity;
-            $voucher->campaign_voucher_unit_cogs_amount = $voucherCatalog->campaign_voucher_unit_cogs_amount;
+            $voucher->campaign_voucher_sku_code = $voucherCatalog->voucher_catalog_sku_code;
+            $voucher->campaign_voucher_title = $voucherCatalog->voucher_catalog_title;
+            $voucher->campaign_voucher_main_image_url = $voucherCatalog->voucher_catalog_main_image_url;
+            $voucher->campaign_voucher_information = $voucherCatalog->voucher_catalog_information;
+            $voucher->campaign_voucher_terms_and_condition = $voucherCatalog->voucher_catalog_terms_and_condition;
+            $voucher->campaign_voucher_instruction_customer = $voucherCatalog->voucher_catalog_instruction_customer;
+            $voucher->campaign_voucher_instruction_outlet = $voucherCatalog->voucher_catalog_instruction_outlet;
+            $voucher->campaign_voucher_valid_start_date = $voucherCatalog->voucher_catalog_valid_start_date;
+            $voucher->campaign_voucher_valid_end_date = $voucherCatalog->voucher_catalog_valid_end_date;
+            $voucher->campaign_voucher_tags = $voucherCatalog->voucher_catalog_tags;
+            $voucher->campaign_voucher_unit_cogs_amount = $voucherCatalog->voucher_catalog_unit_cogs_amount;
             $voucher->data_sort = $voucherCatalog->data_sort;
 
             //calculate per voucher

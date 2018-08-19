@@ -29,6 +29,12 @@ class CheckPermissions
         $routeExplode = explode('.', $route);
         $routeDefine = ['create', 'read', 'update', 'delete'];
 
+        if(count($routeExplode) > 2) {
+            if ($routeExplode[2] == 'custom') {
+                return $next($request);
+            }
+        }
+
         $canAccess = null;
         if (count($routeExplode) > 1) {
             $canAccess = $routeExplode[1] == 'index' ? 'read' : $routeExplode[1];
