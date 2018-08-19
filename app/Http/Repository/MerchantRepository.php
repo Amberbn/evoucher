@@ -45,6 +45,7 @@ class MerchantRepository extends BaseRepository
 
         $merchants->select(
             'mm.merchant_id',
+            'mm.merchant_logo_image_url',
             'mm.merchant_code',
             'mm.merchant_client_id',
             'bc.client_code',
@@ -257,6 +258,47 @@ class MerchantRepository extends BaseRepository
             DB::rollBack();
 
             return $this->sendBadRequest($e->getMessage());
+        }
+    }
+
+    public function delete($merchantId)
+    {
+         $merchant = $this->model::where('merchant_id', $merchantId)->first();
+
+        if (!$merchant) {
+            return $this->sendNotfound();
+        }
+
+        try {
+            DB::beginTransaction();
+            $merchant->isdelete = true;
+            $merchant->last_updated_by_user_name = $this->loginUsername();
+            $merchant->save();
+            DB::commit();
+
+            return $this->sendSuccess($merchant);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
+        }
+    }
+
+    public function multipleDelete($arraysId)
+    {
+        try {
+            DB::beginTransaction();
+            
+            foreach ($arraysId as $merchantId) {
+                $merchant = $this->model::where('merchant_id', $merchantId)->first();
+                $merchant->isdelete = true;
+                $merchant->last_updated_by_user_name = $this->loginUsername();
+                $merchant->save();
+                DB::commit();
+            }
+            return $this->sendSuccess(true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
         }
     }
 }

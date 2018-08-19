@@ -118,7 +118,14 @@ class MerchantController extends BaseControllerWeb
         }
         $response =  $this->getDataFromJson($merchant);
         // dd(route('outlet.create').'?merchant_id='.$response['merchant_id']);
-         return redirect()->route('outlet.create').'?merchant_id='.$response['merchant_id'];
+         return redirect()->route('merchant.index');
         // return redirect()->route('merchant.index');
+    }
+
+    public function destroyFromArray(Request $request)
+    {
+        $multipleDelete =  $this->merchantRepository->multipleDelete($request->data);
+        // dd($multipleDelete);
+        $responseCode = $this->getResponseCodeFromJson($multipleDelete);
     }
 }
