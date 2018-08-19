@@ -25,6 +25,7 @@ class SendSmsToJob
      */
     public function handle(SendSmsEvent $vouchers)
     {
+        \Log::info('Send Sms Event is running on ' . date('Y-m-d H:i:s'));
         $voucherCollection = $vouchers->vouchers;
         $createdBy = $vouchers->createdBy;
         foreach ($voucherCollection as $voucher) {

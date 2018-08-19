@@ -16,7 +16,7 @@ RUN apt-get update \
     && apt-get update \
     && apt-get -y --no-install-recommends install msodbcsql17 unixodbc-dev mssql-tools \
         curl libxml2-dev libssl-dev zlib1g-dev apt-transport-https apt-utils lsb-release ca-certificates \
-        libpng-dev libturbojpeg0 libjpeg-dev \
+        libpng-dev libturbojpeg0 libjpeg-dev cron vim \
     && wget https://getcomposer.org/download/1.6.3/composer.phar -O /usr/local/bin/composer \
     && chmod a+rx /usr/local/bin/composer
 

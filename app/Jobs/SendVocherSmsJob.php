@@ -101,7 +101,7 @@ class SendVocherSmsJob implements ShouldQueue
                 $distribution->save();
             }
         } catch (\Exception $e) {
-            Log::error($e);
+            \Log::error($e);
         }
     }
 
