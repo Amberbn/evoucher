@@ -21,10 +21,10 @@ Route::middleware(['auth', 'check-permission'])->group(function () {
     Route::get('/chage-password', 'Web\AccountController@index')->name('account.change.password');
     Route::post('/chage-password', 'Web\AccountController@changePassword')->name('user.change.password');
     Route::resource('/user', 'Web\UserController');
-    Route::put('/user-delete', 'Web\UserController@destroyFromArray')->name('users.delete');
+    Route::put('/user-delete', 'Web\UserController@destroyFromArray')->name('users.delete.custom');
     Route::get('/users', 'Web\UserController@indexDatatable')->name('user.list.datatable');
     Route::resource('/client', 'Web\ClientController');
-    Route::put('/client-detete', 'Web\ClientController@destroyFromArray')->name('clients.delete');
+    Route::put('/client-detete', 'Web\ClientController@destroyFromArray')->name('clients.delete.custom');
     Route::get('/clients', 'Web\ClientController@indexDatatable')->name('client.list.datatable');
     Route::get('/general-setting/{param}/{parent?}', 'Web\GeneralSettingController@index')->name('chain.dropdown');
 
