@@ -24,3 +24,4 @@ RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install mbstring pdo pdo_mysql iconv mbstring phar zip gd xml \
     && pecl install sqlsrv pdo_sqlsrv \
     && docker-php-ext-enable sqlsrv pdo_sqlsrv
+RUN service cron start

@@ -23,6 +23,10 @@
 - Queue Listener: `docker-compose exec app php artisan queue:work`
 - Run docker-compose exec app php artisan queue:listen --timeout=60
 
+## Cron configuration
+- Just edit the `crontab` file on the root of the project.
+- If you change it while container already running, don't forget to restart the container: `docker-compose up -d`
+
 
 ## Contributors
 - Mahendra R Sonday

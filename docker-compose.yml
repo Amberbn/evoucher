@@ -16,9 +16,21 @@ services:
             context: ./
         volumes:
             - ./:/var/www/html
+            - ./crontab:/etc/cron.d/cron
         working_dir: /var/www/html
         links:
             - redis
+            #- mssql
+    #mssql:
+    #    image: microsoft/mssql-server-linux
+    #    ports:
+    #        - "1433:1433"
+    #    volumes:
+    #         - ./dbdata:/var/opt/mssql
+    #    environment:
+    #      SA_PASSWORD: "SA_PASSWORD"
+    #      ACCEPT_EULA: "Y"
+    #    container_name: mssql
     redis:
         image: redis:alpine3.8
         ports:
