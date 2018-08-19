@@ -666,11 +666,18 @@ class CampaignRepository extends BaseRepository
                 ->where('campaign_recipient_id', $campaignRecipient->campaign_recipient_id)
                 ->where('client_id', $campaignRecipient->client_id)
                 ->first();
+
+                $voucherGenerateNo = VoucherGenerated::select('voucher_generated_no')->get()->toArray();
+                $randomNumber = rand(9999999999, 1000000000);
+
+                while (in_array($randomNumber, $voucherGenerateNo)) {
+                    $randomNumber = rand(9999999999, 1000000000);
+                }
                 
                 //copy data to generated voucher
                 $vouchergenerate = new VoucherGenerated;
                 $vouchergenerate->campaign_voucher_id = $campaignVoucher->campaign_voucher_id;
-                $vouchergenerate->voucher_generated_no = $generateNewVouchers->voucher_generated_no;
+                $vouchergenerate->voucher_generated_no = $randomNumber;
                 $vouchergenerate->campaign_id = $generateNewVouchers->campaign_id;
                 $vouchergenerate->client_id = $generateNewVouchers->client_id;
                 $vouchergenerate->campaign_recipient_id = $generateNewVouchers->campaign_recipient_id;

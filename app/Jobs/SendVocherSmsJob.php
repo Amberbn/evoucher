@@ -115,7 +115,7 @@ class SendVocherSmsJob implements ShouldQueue
         if ($handphone) {
 
             $messageBody = str_replace(' ', '+', $smsMessageBody);
-            $url = 'http://smsgw.sprintasia.net:8085/api/msg.php?=';
+            $url = 'http://smsgw.sprintasia.net:8085/api/msg.php?u=';
             $url .= $SMS_GATEWAY_USER . '&p=' . $SMS_GATEWAY_PASSWORD . '&d=';
             $url .= $handphone . '&m=' . $messageBody;
 
