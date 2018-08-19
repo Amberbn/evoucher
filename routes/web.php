@@ -30,6 +30,7 @@ Route::middleware(['auth', 'check-permission'])->group(function () {
 
     Route::resource('/merchant', 'Web\MerchantController');
     Route::get('/merchants', 'Web\MerchantController@indexDatatable')->name('merchant.list.datatable');
+    Route::put('/merchant-detete', 'Web\MerchantController@destroyFromArray')->name('merchant.delete.custom');
 
     Route::resource('/outlet', 'Web\OutletController');
     Route::get('/outlet-create/{id}', 'Web\OutletController@create')->name('merchant.outlet.create');

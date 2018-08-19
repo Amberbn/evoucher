@@ -13,7 +13,7 @@ class MerchantRepository extends BaseRepository
 {
     public function __construct()
     {
-        $this->model = new Merchant();
+        $this->model = new Merchant;
     }
     
         /**
@@ -43,8 +43,12 @@ class MerchantRepository extends BaseRepository
             $merchants->where('bc.client_category_pid', '=', $this->me()['client_category_pid']);
         }
 
+        $merchants->where('mm.isactive', '=', true);
+        $merchants->where('mm.isdelete', '=', false);
+
         $merchants->select(
             'mm.merchant_id',
+            'mm.merchant_logo_image_url',
             'mm.merchant_code',
             'mm.merchant_client_id',
             'bc.client_code',
@@ -257,6 +261,47 @@ class MerchantRepository extends BaseRepository
             DB::rollBack();
 
             return $this->sendBadRequest($e->getMessage());
+        }
+    }
+
+    public function delete($merchantId)
+    {
+         $merchant = $this->model::where('merchant_id', $merchantId)->first();
+
+        if (!$merchant) {
+            return $this->sendNotfound();
+        }
+
+        try {
+            DB::beginTransaction();
+            $merchant->isdelete = true;
+            $merchant->last_updated_by_user_name = $this->loginUsername();
+            $merchant->save();
+            DB::commit();
+
+            return $this->sendSuccess($merchant);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
+        }
+    }
+
+    public function multipleDelete($arraysId)
+    {
+        try {
+            DB::beginTransaction();
+
+            foreach ($arraysId as $merchantId) {
+                $merchant = $this->model::where('merchant_id', $merchantId)->first();
+                $merchant->isdelete = true;
+                $merchant->last_updated_by_user_name = $this->loginUsername();
+                $merchant->save();
+                DB::commit();
+            }
+            return $this->sendSuccess(true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
         }
     }
 }
