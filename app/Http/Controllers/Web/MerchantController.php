@@ -33,11 +33,19 @@ class MerchantController extends BaseControllerWeb
         $merchant = $this->merchantRepository->getAllMerchants();
         $merchant = $this->getDataFromJson($merchant);
         return Datatables::of($merchant)
-            ->addIndexColumn()
+            ->addColumn('merchant_logo_image_url', function ($merchant) {
+                $image = asset('assets/img/noimage.png');
+
+                if($merchant->merchant_logo_image_url) {
+                    $path = 'storage/merchant/thumbnail';
+                    $image = asset($path.'/'.$merchant->merchant_logo_image_url);
+                }
+               return '<img src="'.$image.'" width="49px" height="28px">';
+            })
             ->addColumn('action', function ($merchant) {
                 return '<td class="first">' .
                 '<div class="form-check">' .
-                '<input type="checkbox" value="' . $merchant->merchant_id . '" class="form-check-input" nice-checkbox-radio />' .
+                '<input type="checkbox" id="' . $merchant->merchant_id . '" value="' . $merchant->merchant_id . '" class="form-check-input" nice-checkbox-radio />' .
                     '</div>' .
                     '</td>';
             })

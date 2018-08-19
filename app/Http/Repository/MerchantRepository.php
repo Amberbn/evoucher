@@ -13,7 +13,7 @@ class MerchantRepository extends BaseRepository
 {
     public function __construct()
     {
-        $this->model = new Merchant();
+        $this->model = new Merchant;
     }
     
         /**
@@ -42,6 +42,9 @@ class MerchantRepository extends BaseRepository
         if (!$this->isGroupSprint()) {
             $merchants->where('bc.client_category_pid', '=', $this->me()['client_category_pid']);
         }
+
+        $merchants->where('mm.isactive', '=', true);
+        $merchants->where('mm.isdelete', '=', false);
 
         $merchants->select(
             'mm.merchant_id',
@@ -287,7 +290,7 @@ class MerchantRepository extends BaseRepository
     {
         try {
             DB::beginTransaction();
-            
+
             foreach ($arraysId as $merchantId) {
                 $merchant = $this->model::where('merchant_id', $merchantId)->first();
                 $merchant->isdelete = true;

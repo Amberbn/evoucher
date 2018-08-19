@@ -45,8 +45,8 @@
                             <div class="form-group">
                             <div class="form-input">
                                 <label for="choose-client">Client</label>
-                                <select name="merchant_client_id" id="merchant_client_id" class="custom-select dropdown-select2" id="choose-client">
-                                <option {{ !@$merchant->merchant_client_id ? 'selected' : '' }}>Choose...</option>
+                                <select name="merchant_client_id" id="merchant_client_id" class="custom-select dropdown-select2" id="choose-client" required>
+                                <option {{ !@$merchant->merchant_client_id ? 'selected' : '' }} disabled hidden>Choose...</option>
                                 @foreach ($clients as $client)
                                 @php
                                     $selected = @$merchant->merchant_client_id == $client['client_id'] ? 'selected' : '';
@@ -73,8 +73,8 @@
                             <div class="col-md-6">
                             <div class="form-group">
                                 <label for="business-category">Business Category</label>
-                                <select name="merchant_bussiness_category_pid" id="merchant_bussiness_category_pid" class="custom-select dropdown-select2" id="business-category">
-                                   <option {{ !@$merchant->merchant_bussiness_category_pid ? 'selected' : '' }}>Choose...</option>
+                                <select name="merchant_bussiness_category_pid" id="merchant_bussiness_category_pid" class="custom-select dropdown-select2" id="business-category" required>
+                                   <option {{ !@$merchant->merchant_bussiness_category_pid ? 'selected' : '' }} disabled hidden>Choose...</option>
                                 @foreach ($bussinessCategory->bussinessCategory as $bc)
 
                                 @php
@@ -96,7 +96,7 @@
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="campaign-tags">Tags</label>
-                                    <select name="merchant_tags[]" id="merchant_tags" class="custom-select select2-input-tags" id="campaign-tags" multiple>
+                                    <select name="merchant_tags[]" id="merchant_tags" class="custom-select select2-input-tags" id="campaign-tags" multiple required>
                                     @foreach ($tags as $tg => $tag)
                                         @php
                                             $selected = null;
@@ -207,37 +207,46 @@
 
 @push('footer_scripts')
 <script type="text/javascript">
-// $('#company_information_button').click(function(e){
-//           e.preventDefault();
-//           $('#company-form').validate({
-//           errorElement: "div",
-//           onkeyup: false,
-//           ignore: [],
-//           rules: {    
-//               merchant_title: {
-//                 required: true,
-//               },
-//               merchant_client_id: {
-//                 required: true,
-//               },
-//               merchant_description: {
-//                 required: true,
-//               },
-//               merchant_bussiness_category_pid: {
-//                 required: true,
-//               },
-//               merchant_tags: {
-//                 required: true,
-//               }
-//             },
-//             messages: {
-//               merchant_title: "this Field is required",
-//               merchant_client_id: "this Field is required",
-//               merchant_description: "this Field is required",
-//               merchant_bussiness_category_pid: "this Field is required",
-//               merchant_tags: "this Field is required",
-//           }
-//       })
-//       });
+    $(document).ready(function(){
+        $('#company_information_button').click(function(e){
+            e.preventDefault();
+            $('#company-form').validate({
+                errorElement: "div",
+                onkeyup: false,
+                ignore: [],
+                rules: {    
+                  merchant_title: {
+                    required: true,
+                  },
+                  merchant_client_id: {
+                    required: true,
+                  },
+                  merchant_description: {
+                    required: true,
+                  },
+                  merchant_bussiness_category_pid: {
+                    required: true,
+                  },
+                  merchant_tags: {
+                    required: true,
+                  }
+                },
+                errorPlacement: function(error, element) {
+                console.log(element.prop('nodeName'));
+                    if (element.prop('nodeName') == 'SELECT') {
+                        error.appendTo(element.parent());
+                        console.log('here');
+                    }
+                    else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+            if ((!$('#company-form').valid())) {
+              return false;
+            }
+            $('#company-form').submit();
+        })
+    });
 </script>
 @endpush

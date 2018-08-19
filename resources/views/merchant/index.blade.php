@@ -83,7 +83,7 @@
                                     <div class="voucher-filter-form">
                                         <form action="" method="GET">
                                             <div class="form-section row">
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <div class="form-group">
                                                       <div class="form-input">
                                                         <label for="filter-by-tags">Tags</label>
@@ -99,7 +99,7 @@
                                                         </select>
                                                       </div>
                                                     </div>
-                                                  </div>
+                                                  </div> -->
                                                 <!-- /.col-md-6 -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -256,7 +256,7 @@
                     buttons: {
                         confirm: function () {
                             $.ajax({
-                                url: '{{ route('merchant.delete') }}',
+                                url: '{{ route('merchant.delete.custom') }}',
                                 type: 'PUT',
                                 data: {
                                     _token:formToken,
