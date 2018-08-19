@@ -85,7 +85,7 @@ class CampaignController extends ApiController
     {
         
         $error = $this->validateStep($request);
-        if (!$errors) {
+        if (!$error) {
              return $this->repository->createCampaign($request);
         }
 
