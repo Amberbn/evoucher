@@ -1,11 +1,11 @@
 <?php
 namespace App\Repository;
 
-use DB;
 use App\Campaign;
-use App\VoucherGenerated;
 use App\Events\SendSmsEvent;
 use App\Repository\BaseRepository;
+use App\VoucherGenerated;
+use DB;
 
 class VoucherGeneratedRepository extends BaseRepository
 {
@@ -28,11 +28,11 @@ class VoucherGeneratedRepository extends BaseRepository
 
             $vouchers = DB::table('vw_voucher_generated_global_by_event as generated')
                 ->where('generated.campaign_id', $campaignId)->get();
-    
+
             if (!$vouchers) {
                 return $this->sendNotfound();
             }
-            
+
             $createdBy = $this->loginUsername();
             event(new SendSmsEvent($vouchers, $createdBy));
             DB::commit();
