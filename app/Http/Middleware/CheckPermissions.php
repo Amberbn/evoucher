@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Client;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,12 +17,25 @@ class CheckPermissions
      */
     public function handle($request, Closure $next)
     {
-        $isActive = Auth::user()->isactive != 1;
-        $isDelete = Auth::user()->isdelete != 0;
+        $user = Auth::user();
+        $isActive = $user->isactive != 1;
+        $isDelete = $user->isdelete != 0;
+
+        $client = Client::where('client_id', $user->client_id)->first();
+
+        if (!$client) {
+            return $this->forceLogout();
+        }
 
         if (Auth::check() && ($isActive || $isDelete)) {
-            Auth::logout();
-            return redirect()->route('login')->with('message', 'These credentials do not match our records.');
+            return $this->forceLogout();
+        }
+
+        $clientIsactive = $client->isactive != 1;
+        $clientIsDelete = $client->isdelete != 0;
+
+        if (($clientIsactive || $clientIsDelete)) {
+            return $this->forceLogout();
         }
 
         $route = \Route::currentRouteName();
@@ -29,7 +43,7 @@ class CheckPermissions
         $routeExplode = explode('.', $route);
         $routeDefine = ['create', 'read', 'update', 'delete'];
 
-        if(count($routeExplode) > 2) {
+        if (count($routeExplode) > 2) {
             if ($routeExplode[2] == 'custom') {
                 return $next($request);
             }
@@ -52,5 +66,11 @@ class CheckPermissions
             }
         }
         return $next($request);
+    }
+
+    public function forceLogout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('message', 'These credentials do not match our records.');
     }
 }

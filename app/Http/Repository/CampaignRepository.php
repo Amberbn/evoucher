@@ -419,9 +419,12 @@ class CampaignRepository extends BaseRepository
                 $voucher->campaign_voucher_unit_price_amount_subtotal = ($unitPriceAmount * $unitQuantity);
                 $voucher->campaign_voucher_unit_price_point_subtotal = ($unitPricePoint * $unitQuantity);
                 $voucher->created_by_user_name = $this->loginUsername();
+                $voucher->campaign_voucher_isforclientonly = $voucherCatalog->voucher_catalog_isforclientonly;
+                $voucher->campaign_voucher_category_pid = $voucherCatalog->voucher_catalog_category_pid;
+                $voucher->campaign_voucher_short_information = $voucherCatalog->voucher_catalog_short_information;
                 $voucher->created_at = NOW();
                 $voucher->save();
-
+                $voucherCampaign[] = $voucher;
                 //update decrement stock catalog
                 $stock = new VoucherCatalogRepository;
                 $stock->stockTransaction($catalogId, 'CAMPAIGN', $campaignId, $unitQuantity);
@@ -454,6 +457,11 @@ class CampaignRepository extends BaseRepository
             if (!$campaign) {
                 return $this->sendNotfound();
             }
+
+            if(!empty($voucherCampaign)) {
+                return $this->sendCreated($voucherCampaign);
+            }
+
             return $this->sendCreated(['saved' => true]);
         }catch(\Exception $e) {
             DB::rollBack();
@@ -609,6 +617,9 @@ class CampaignRepository extends BaseRepository
             $voucher->campaign_voucher_unit_price_amount_subtotal = ($unitPriceAmount * $unitQuantity);
             $voucher->campaign_voucher_unit_price_point_subtotal = ($unitPricePoint * $unitQuantity);
             $voucher->created_by_user_name = $this->loginUsername();
+            $voucher->campaign_voucher_isforclientonly = $voucherCatalog->voucher_catalog_isforclientonly;
+            $voucher->campaign_voucher_category_pid = $voucherCatalog->voucher_catalog_category_pid;
+            $voucher->campaign_voucher_short_information = $voucherCatalog->voucher_catalog_short_information;
             $voucher->created_at = NOW();
             $voucher->save();
 

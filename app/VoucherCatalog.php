@@ -34,5 +34,8 @@ class VoucherCatalog extends Model
         'isdelete',
         'created_by_user_name',
         'last_updated_by_user_name',
+        'voucher_catalog_isforclientonly',
+        'voucher_catalog_category_pid',
+        'voucher_catalog_short_information'
     ];
 }

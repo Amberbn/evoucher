@@ -11,7 +11,7 @@ class HomeController extends BaseControllerWeb
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'check-permission']);
     }
 
     public function username()
