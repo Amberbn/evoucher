@@ -34,7 +34,8 @@
                                   $path = 'storage/voucher/original';
                                   $filePath = $path.'/'.$redeemInformation->campaign_voucher_main_image_url;
                                 @endphp
-                                <img src="{{ asset($filePath) }}" alt="">
+                                <!--<img src="{{ asset($filePath) }}" alt="">-->
+                                <img src="{{ asset('assets/img/user/image.jpg') }}" alt="">
                               @endif
                           </div>
                           <div class="card-footer text-muted">
@@ -75,33 +76,27 @@
                         <div class="card-header">
                           <h5 class="card-title">Cara Penukaran Voucher</h5>
                         </div>
-                        @if(!$redeemInformation->campaign_voucher_short_information)
+                        
                         <ul class="text-list">
+                          
                           <li>
-                            Harus melampirkan kartu identitas yang masih berlaku
-                          </li>
-
-                          <li>
-                            Voucher hanya bisa ditukarkan langsung di loket {{ $redeemInformation->Merchant }}
+                          {{ $redeemInformation->campaign_voucher_short_information }}
                           </li>
                         </ul>
-                        @else
-                        <div class="text-list">
-                          {{ $redeemInformation->campaign_voucher_short_information }}
-                        </div>
-
-                        @endif
+                        
                       </div>
                       <!-- /.card -->
 
                       <!-- Syarat dan Ketentuan -->
-                      <div id="nav-ketentuan-card" class="card card-form card-extra" style="display: none">
+                      <div id="nav-ketentuan-card" class="card card-form card-extra">
                         <div class="card-header">
                           <h5 class="card-title">Syarat dan Ketentuan</h5>
                         </div>
-                        <div class="text-list">
+                        <ul class="text-list">
+                          <li>
                           {{ $redeemInformation->campaign_voucher_terms_and_condition }}
-                        </div>
+                          </li>
+                        </ul>
                       </div>
                       <!-- /.card -->
 
@@ -304,7 +299,7 @@ $(document).on('click','#btnRedeem', function(){
     let voucherGeneratedNo = response['data'][0]['voucher_generated_no'];
     let redeemRequestDate = response['data'][0]['redeem_request_date'];
     let messages = null;
-    let statusTitle = 'Voucher Tidak Valid';
+    let statusTitle = 'Invalid Voucher';
     let statusImage = "{{ asset('assets/img/img-error.svg') }}";
     if(reedemStatusCode == '001') {
       statusTitle = 'Suksess Redeem Voucher';
@@ -331,8 +326,8 @@ $(document).on('click','#btnRedeem', function(){
     $('#status-text').text(messages);
   }).fail(function(){
     console.log('data kosong');
-     let statusTitle = 'Voucher Tidak Valid';
-     let messages = 'Error Network';
+     let statusTitle = 'Invalid Voucher';
+     let messages = 'Unknown Voucher URL';
     $('#status_title').text(statusTitle);
 
     $('#status-text').text(messages);

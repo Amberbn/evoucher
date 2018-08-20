@@ -1,13 +1,15 @@
 <?php
 namespace App\Repository;
 
-use App\Repository\BaseRepository;
-use App\User;
-use App\UserLog;
 use Hash;
-use Illuminate\Http\Request;
 use JWTAuth;
+use App\User;
+use App\Client;
+use App\UserLog;
 use JWTAuthException;
+use Illuminate\Http\Request;
+use App\Repository\BaseRepository;
+use Illuminate\Support\Facades\Auth;
 
 class AuthRepository extends BaseRepository
 {
@@ -30,11 +32,46 @@ class AuthRepository extends BaseRepository
             return $this->sendBadRequest('failed to create token');
         }
         $token = ['token' => $token];
+        $checkUser = $this->checkUser();
+
+        if(!$checkUser) {
+            return $this->sendBadRequest('These credentials do not match our records.');
+        }
+
         if ($token) {
             $this->createLoginLog($request, $credentials);
         }
 
         return $this->sendSuccess($token);
+    }
+
+    public function checkUser() {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $userIsActive = $user->isactive != 1;
+            $userIsDelete = $user->isdelete != 0;
+
+            if(($userIsActive || $userIsDelete)) {
+                return false;
+            }
+
+            $client = Client::where('client_id', $user->client_id)->first();
+
+            if (!$client) {
+                return false;
+            }
+
+            $clientIsactive = $client->isactive != 1;
+            $clientIsDelete = $client->isdelete != 0;
+
+            if (($clientIsactive || $clientIsDelete)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
