@@ -83,7 +83,7 @@
                                     <div class="voucher-filter-form">
                                         <form action="" method="GET">
                                             <div class="form-section row">
-                                                <div class="col-md-6">
+                                                <!-- <div class="col-md-6">
                                                     <div class="form-group">
                                                       <div class="form-input">
                                                         <label for="filter-by-tags">Tags</label>
@@ -99,7 +99,7 @@
                                                         </select>
                                                       </div>
                                                     </div>
-                                                  </div>
+                                                  </div> -->
                                                 <!-- /.col-md-6 -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -136,11 +136,12 @@
                                                 <div class="popover-menu-content">
                                                     <ul class="list-unstyled">
                                                         <li><a id="edit_checked_user">Edit Checked User</a></li>
-                                                        <li><a href="#">Delete Checked Users</a></li>
+                                                        <li><a id="delete_checked_user">Delete Checked Users</a></li>
                                                     </ul>
                                                 </div>
                                             </th>
                                             <!-- <th></th> -->
+                                            <th></th>
                                             <th>Merchant Name</th>
                                             <th>Category</th>
                                             <th>PIC</th>
@@ -179,6 +180,7 @@
             pageLength: 10,
             "columns": [
                 { "data": "action",className : 'p-20',searchable: false },
+                { "data": "merchant_logo_image_url",name:'merchant_logo_image_url', className : 'p-20', searchable: true },
                 { "data": "merchant_title",name:'merchant_title', className : 'p-20', searchable: true },
                 { "data": "merchant_bussiness_category_title", name:'merchant_bussiness_category_title', className : 'p-20', searchable: true},
                 { "data": "client_name",name:'client_name', className : 'p-20', searchable: true},
@@ -200,11 +202,14 @@
             }
             }
         );
+
+        $('#add_merchant').click(function(){
+        window.location = $(this).attr('link-url');
     });
 
-     $('#add_merchant').click(function(){
-            window.location = $(this).attr('link-url');
-        });
+      $('#filter-by-keyword').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        } );
 
     $('#edit_checked_user').click(function(){
             let checkedValue = [];
@@ -223,6 +228,71 @@
                 alert('sory you need one checked');
             }
             
+    });
+
+    $('#delete_checked_user').click(function(){
+            let checkedValue = [];
+            let checked = $('input:checked').val();
+            $('input:checked').each(function(){
+                checkedValue.push($(this).val());
+            })
+            let countChecked = checkedValue.length;
+            console.log(countChecked);
+
+            if(countChecked <= 0) {
+               toastr.error('Please check item to be deleted');
+            }else{                
+                var formToken = $('input[name="_token"]').val(); 
+                console.log("formToken" + formToken);
+                var formMethod = $('input[name="_method"]').val();
+                console.log("formMethod" + formMethod);
+                var parent=$(this).parent().parent();
+                
+                var confirmation_text_default = 'Do you want to delete this record?';                
+                
+                $.confirm({
+                    title: 'Confirmation Dialog',
+                    content: confirmation_text_default,
+                    buttons: {
+                        confirm: function () {
+                            $.ajax({
+                                url: '{{ route('merchant.delete.custom') }}',
+                                type: 'PUT',
+                                data: {
+                                    _token:formToken,
+                                    _method:formMethod,
+                                    data : checkedValue
+                                },
+                                success: function( data, status, xhr ) {
+                                    console.log("dataaa: "+data);
+                                    if ( status === 'success' ) {
+                                        $(checkedValue).each(function(index, value){
+                                            $('#'+value).parent().parent().parent().slideUp(300, function () {
+                                            $(this).closest("tr").remove();
+                                            toastr.success( 'success deleted' );
+                                            console.log(checkedValue);
+                                            table.draw();
+                                        })
+                                        })
+                                    }
+                                },
+                                error: function( data ) {
+                                    if ( status === 422 ) {
+                                        toastr.error('Cannot delete this data');
+                                    }
+                                }
+                            });
+                        },
+                        cancel: function () {
+                        confirm = false;
+                        }
+                    }
+                });
+            }
+            
         });
+    });
+
+    
 </script>
 @endpush
