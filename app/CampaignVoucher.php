@@ -41,6 +41,9 @@ class CampaignVoucher extends Model
         'data_sort',
         'created_at',
         'created_by_user_name',
+        'campaign_voucher_isforclientonly',
+        'campaign_voucher_category_pid',
+        'campaign_voucher_short_information'
     ];
 
 }
