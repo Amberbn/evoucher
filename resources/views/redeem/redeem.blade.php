@@ -28,14 +28,15 @@
                           </div>
                           <div class="card-body text-center">
                               @if(!$redeemInformation->campaign_voucher_main_image_url)
-                                <img src="{{ asset('assets/img/user/starwars-movie-poster-medium.jpg') }}" alt="">
+                                <!-- <img src="{{ asset('assets/img/user/starwars-movie-poster-medium.jpg') }}" alt=""> -->
+                                <img src="{{ asset('assets/img/noimage.png') }}" alt="" width="496px" height="500px">
                               @else
                                 @php
                                   $path = 'storage/voucher/original';
                                   $filePath = $path.'/'.$redeemInformation->campaign_voucher_main_image_url;
                                 @endphp
-                                <!--<img src="{{ asset($filePath) }}" alt="">-->
-                                <img src="{{ asset('assets/img/user/image.jpg') }}" alt="">
+                                <img src="{{ asset($filePath) }}" alt="" width="496px" height="500px">
+                                <!-- <img src="{{ asset('assets/img/user/image.jpg') }}" alt=""> -->
                               @endif
                           </div>
                           <div class="card-footer text-muted">
