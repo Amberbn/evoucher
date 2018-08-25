@@ -1,5 +1,6 @@
 @extends('layouts/main')
 @section('title', 'Merchant List')
+@section('headerTitle', 'Merchant Management')
 @section('content')
 <div id="main-content">
     <div class="main-content__body container-fluid">

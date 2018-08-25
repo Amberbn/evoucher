@@ -1,5 +1,6 @@
 @extends('layouts/main')
 @section('title', 'User List')
+@section('headerTitle', 'User Management')
 @section('content')
 @php
     $page = 'user';
