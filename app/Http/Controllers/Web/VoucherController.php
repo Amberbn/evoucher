@@ -25,7 +25,9 @@ class VoucherController extends BaseControllerWeb
     {
         $tags = $this->repository->getVoucherCatalogTags();
         $tagsData = $this->getDataFromJson($tags);
-        return view('voucher.voucher_form', compact('tagsData'));
+
+        $voucherCategory = $this->getSettings(['voucher_category_pid']);
+        return view('voucher.voucher_form', compact('tagsData', 'voucherCategory'));
     }
 
     public function saveVoucherProfile(Request $request)

@@ -216,6 +216,8 @@ class VoucherCatalogRepository extends BaseRepository
             $voucherCatalog->voucher_catalog_information = $request->input('voucher_catalog_information');
             $voucherCatalog->voucher_catalog_valid_start_date = $request->input('voucher_catalog_valid_start_date');
             $voucherCatalog->voucher_catalog_valid_end_date = $request->input('voucher_catalog_valid_end_date');
+            $voucherCatalog->voucher_catalog_category_pid = $request->input('voucher_catalog_category_pid');
+            $voucherCatalog->voucher_catalog_short_information = $request->input('voucher_catalog_short_information');
             $voucherCatalog->voucher_catalog_tags = $tags;
             $voucherCatalog->voucher_status = 'DRAFT';
             $voucherCatalog->data_sort = $request->input('data_sort') ? : 1000;
