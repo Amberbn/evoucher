@@ -2,7 +2,7 @@
 namespace App\Repository;
 
 use DB;
-use Illuminate\Http\File;
+use Illuminate\Support\Facades\File;
 
 class BaseRepository
 {
@@ -118,8 +118,18 @@ class BaseRepository
         $image = \Image::make($file);
         $image->widen(1024);
 
+        //create folder if not exis
+        if (!File::exists($folderName)) {
+            File::makeDirectory($folderName);
+        }
+
         // upload storage
+
         $filePath = $folderName . '/original/';
+        if (!File::exists($filePath)) {
+            File::makeDirectory($filePath);
+        }
+
         $storage->put($filePath . $imageFileName, (string) $image->encode() . $filePath);
 
         $imageThumnail = \Image::make($file);
@@ -127,6 +137,9 @@ class BaseRepository
 
         //upload storage
         $filePathThumnail = $folderName . '/thumbnail/';
+        if (!File::exists($filePathThumnail)) {
+            File::makeDirectory($filePathThumnail);
+        }
         $storage->put($filePathThumnail . $imageFileName, (string) $imageThumnail->encode() . $filePathThumnail);
 
         // return name
