@@ -10,22 +10,24 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class ProcessEmail implements ShouldQueue
+class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $data;
-    protected $email;
+    public $voucher;
+    public $vouchergenerate;
+    public $createdBy;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($voucher, $vouchergenerate, $createdBy)
     {
-        $this->email = $data['email'];
-        $this->data = $data;
+        $this->voucher = $voucher;
+        $this->vouchergenerate = $vouchergenerate;
+        $this->createdBy = $createdBy;
     }
 
     /**
@@ -35,7 +37,10 @@ class ProcessEmail implements ShouldQueue
      */
     public function handle()
     {
-        $email = new SendEmailNotification($data);
+        $voucher = $this->voucher;
+        $vouchergenerate = $this->vouchergenerate;
+
+        $email = new SendEmailNotification($voucher, $vouchergenerate, $createdBy);
         Mail::to($this->email)->send($email);
     }
 }
