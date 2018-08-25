@@ -1,5 +1,6 @@
 @extends('layouts/main')
 @section('title', 'Client List')
+@section('headerTitle', 'Client Management')
 @section('content')
 @php
     $page = 'client';

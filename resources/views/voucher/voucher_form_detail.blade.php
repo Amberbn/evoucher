@@ -1,8 +1,9 @@
 @extends('layouts/main')
 @php
-    $title = 'voucher';
+    $title = 'voucher detail';
 @endphp
 @section('title', $title)
+@section('headerTitle', 'Create New Voucher Detail')
 @section('content')
 <div id="main-content">
     <div class="container-fluid">

@@ -3,6 +3,7 @@
     $title = @$merchant ? 'Edit Merchant' : 'Create New Merchant'
 @endphp
 @section('title', $title)
+@section('headerTitle', $title)
 @section('content')
 <div id="main-content">
     <div class="container-fluid">

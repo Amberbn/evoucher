@@ -111,7 +111,7 @@ class BaseRepository
     public function saveImage($request, $requestType, $folderName)
     {
         $file = $request->file($requestType);
-        $imageFileName = strtolower(str_random(10)) . '.' . $file->getClientOriginalExtension();
+        $imageFileName = strtolower(str_random(20)) . '.' . $file->getClientOriginalExtension();
         $storage = \Storage::disk('public');
 
         //convert image
