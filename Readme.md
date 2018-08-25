@@ -41,12 +41,14 @@
 
 - docker-compose exec app php artisan queue:listen --timeout=60 `//voucher generate`
 - docker-compose exec app php artisan queue:listen --queue=SendSMSJob --timeout=60 `//send sms for voucher generate`
+- docker-compose exec app php artisan queue:listen --queue=SendEmailJob --timeout=60 `//send email for voucher generate`
   ## if you set env GENERATE_VOUCHERJOB_IS_SPLIT=false
         - you need only docker-compose exec app php artisan queue:listen --timeout=60
   ## else if you set env GENERATE_VOUCHERJOB_IS_SPLIT=true
-        - you need run 2 terminal
+        - you need run 3 terminal
         - docker-compose exec app php artisan queue:listen --timeout=60
         - docker-compose exec app php artisan queue:listen --queue=SendSMSJob --timeout=60
+        - docker-compose exec app php artisan queue:listen --queue=SendEmailJob --timeout=60
 
 ## Contributors
 
