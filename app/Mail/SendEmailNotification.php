@@ -37,7 +37,7 @@ class SendEmailNotification extends Mailable
         $voucher = $this->voucher;
         $vouchergenerate = $this->vouchergenerate;
 
-        $name = null;
+        $name = env('MAIL_FROM_NAME');
         $emailfrom = env('MAIL_FROM_ADDRESS');
         $subject = $voucher->campaign_message_title;
         $emailSendTo = $vouchergenerate->campaign_recipient_email;
