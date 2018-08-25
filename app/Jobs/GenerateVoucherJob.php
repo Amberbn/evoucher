@@ -102,16 +102,19 @@ class GenerateVoucherJob implements ShouldQueue
 
     public function sendEmail($voucher, $vouchergenerate, $createdBy)
     {
-        \Log::info('send sms email inside voucher for number ' . $voucher->campaign_recipient_email . ' is running on ' . date('Y-m-d H:i:s'));
+        \Log::info('send sms email inside voucher for email ' . $voucher->campaign_recipient_email . ' is running on ' . date('Y-m-d H:i:s'));
 
         $sendgridApiKey = env('SENDGRID_API_KEY');
 
         $emailfrom = env('MAIL_FROM_ADDRESS');
         $subject = $voucher->campaign_message_title;
         $emailSendTo = $vouchergenerate->campaign_recipient_email;
-        $contentType = "text/plain";
-        $emailContent = $voucher->campaign_message_body;
-
+        $contentType = "text/html";
+        $content = $voucher->campaign_message_body;
+        $voucherNo = $vouchergenerate->voucher_generated_no;
+        $redeemUrl = '<br/><a href="' . env('REDEEM_PAGE'). $voucherNo . '">Click here to redeem your voucher<a/>';
+        $emailContent = $content . $redeemUrl;
+        
         $buildEmail = new \SendGrid\Mail\Mail();
         $buildEmail->setFrom($emailfrom);
         $buildEmail->setSubject($subject);
@@ -137,7 +140,11 @@ class GenerateVoucherJob implements ShouldQueue
         $type = 'SMS';
         $referenceId = null;
         $responseCode = null;
-        $responseCallback = $this->sendSMS($voucher);
+
+        $voucherNo = $vouchergenerate->voucher_generated_no;
+        $redeemUrl = env('REDEEM_PAGE') . $voucherNo;
+
+        $responseCallback = $this->sendSMS($voucher, $redeemUrl);
 
         if ($responseCallback) {
             $responseCode = explode('-', $responseCallback);
@@ -163,7 +170,7 @@ class GenerateVoucherJob implements ShouldQueue
 
     }
 
-    public function sendSMS($voucher)
+    public function sendSMS($voucher, $redeemUrl)
     {
         $SMS_GATEWAY_USER = 'Prezent';
         $SMS_GATEWAY_PASSWORD = 'Kd47Msd';
@@ -175,7 +182,7 @@ class GenerateVoucherJob implements ShouldQueue
             $messageBody = str_replace(' ', '+', $smsMessageBody);
             $url = 'http://smsgw.sprintasia.net:8085/api/msg.php?u=';
             $url .= $SMS_GATEWAY_USER . '&p=' . $SMS_GATEWAY_PASSWORD . '&d=';
-            $url .= $handphone . '&m=' . $messageBody;
+            $url .= $handphone . '&m=' . $messageBody.'+'. $redeemUrl;
 
             $client = new \GuzzleHttp\Client();
             $response = $client->request('GET', $url);

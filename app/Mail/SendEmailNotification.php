@@ -36,19 +36,26 @@ class SendEmailNotification extends Mailable
     {
         $voucher = $this->voucher;
         $vouchergenerate = $this->vouchergenerate;
+        $createdBy = $this->createdBy;
 
-        $name = null;
+
+        $name = env('MAIL_FROM_NAME');
         $emailfrom = env('MAIL_FROM_ADDRESS');
         $subject = $voucher->campaign_message_title;
         $emailSendTo = $vouchergenerate->campaign_recipient_email;
-        $emailContent = $voucher->campaign_message_body;
+
+        $content = $voucher->campaign_message_body;
+        $voucherNo = $vouchergenerate->voucher_generated_no;
+        $redeemUrl = env('REDEEM_PAGE') . $voucherNo;
+        $emailContent = $content . $redeemUrl;
 
         return $this->view('emails.email')
             ->from($emailfrom, $name)
-            ->cc($address, $name)
-            ->bcc($address, $name)
-            ->replyTo($address, $name)
+            ->replyTo($emailfrom, $name)
             ->subject($subject)
-            ->with(['message' => $emailContent]);
+            ->with([
+                'content' => $content,
+                'redeem_url' => $redeemUrl,
+            ]);
     }
 }
