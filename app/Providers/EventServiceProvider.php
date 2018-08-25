@@ -23,8 +23,8 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Logout' => [
             'App\Listeners\UserLoggedOut',
         ],
-        'App\Events\SendSmsEvent' => [
-            'App\Listeners\SendSmsToJob',
+        'App\Events\GenerateVoucherEvent' => [
+            'App\Listeners\SendGenerateVoucherToJob',
         ],
     ];
 

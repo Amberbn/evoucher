@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Events\SendSmsEvent;
+use App\Events\GenerateVoucherEvent;
 use DB;
 use Illuminate\Console\Command;
 
@@ -43,7 +43,7 @@ class ScheduleGenerateVoucher extends Command
         if ($vouchers) {
             $createdBy = "Laravel Job";
             \Log::info('Schedule Generate Voucher is running on ' . date('Y-m-d H:i:s'));
-            event(new SendSmsEvent($vouchers, $createdBy));
+            event(new GenerateVoucherEvent($vouchers, $createdBy));
         }
     }
 }
