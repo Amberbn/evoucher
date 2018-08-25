@@ -44,6 +44,9 @@ class SendSMSJob implements ShouldQueue
             $voucher = $this->voucher;
             $vouchergenerate = $this->vouchergenerate;
 
+            $voucherNo = $vouchergenerate->voucher_generated_no;
+            $redeemUrl = env('REDEEM_PAGE') . $voucherNo;
+
             \Log::info('send sms job outside voucher for number '. $voucher->campaign_recipient_phone .' is running on ' . date('Y-m-d H:i:s'));
 
             $smsResponseCodeConfig = Config::where('config_group_name', 'SMS_Respond_Code')
@@ -53,7 +56,7 @@ class SendSMSJob implements ShouldQueue
             $type = 'SMS';
             $referenceId = null;
             $responseCode = null;
-            $responseCallback = $this->sendSMS($voucher);
+            $responseCallback = $this->sendSMS($voucher, $redeemUrl);
 
             if ($responseCallback) {
                 $responseCode = explode('-', $responseCallback);
@@ -85,7 +88,7 @@ class SendSMSJob implements ShouldQueue
         }
     }
 
-    public function sendSMS($voucher)
+    public function sendSMS($voucher, $redeemUrl)
     {
         $SMS_GATEWAY_USER = 'Prezent';
         $SMS_GATEWAY_PASSWORD = 'Kd47Msd';
@@ -97,7 +100,7 @@ class SendSMSJob implements ShouldQueue
             $messageBody = str_replace(' ', '+', $smsMessageBody);
             $url = 'http://smsgw.sprintasia.net:8085/api/msg.php?u=';
             $url .= $SMS_GATEWAY_USER . '&p=' . $SMS_GATEWAY_PASSWORD . '&d=';
-            $url .= $handphone . '&m=' . $messageBody;
+            $url .= $handphone . '&m=' . $messageBody.'+'. $redeemUrl;
 
             $client = new \GuzzleHttp\Client();
             $response = $client->request('GET', $url);

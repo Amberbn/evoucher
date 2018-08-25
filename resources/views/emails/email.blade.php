@@ -4,7 +4,7 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <h2>Test Email</h2>
-        <p></p>
+        <h2>{{ $content }}</h2>
+        <p><a href="{{ $redeem_url }}">Click here to redeem your voucher</a></p>
     </body>
 </html>

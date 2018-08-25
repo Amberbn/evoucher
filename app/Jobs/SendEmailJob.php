@@ -39,8 +39,11 @@ class SendEmailJob implements ShouldQueue
     {
         $voucher = $this->voucher;
         $vouchergenerate = $this->vouchergenerate;
+        $createdBy = $this->createdBy;
+
+        \Log::info('send sms email outside voucher for email ' . $voucher->campaign_recipient_email . ' is running on ' . date('Y-m-d H:i:s'));
 
         $email = new SendEmailNotification($voucher, $vouchergenerate, $createdBy);
-        Mail::to($this->email)->send($email);
+        Mail::to($vouchergenerate->campaign_recipient_email)->send($email);
     }
 }
