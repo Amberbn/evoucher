@@ -29,13 +29,13 @@
           </li>
           @endisPermitted
 
-          {{--  @isPermitted('coupon','read')  --}}
+          @isPermitted('voucher','read')
           <li class="nav-item">
-            <a class="nav-link nav-link-coupon" href="#">
+            <a class="nav-link nav-link-coupon" href="{{ route('voucher.index') }}">
               <span class="nav-link__icon icon-ic_coupon"><span class="nav-link__text">Coupon</span></span>
             </a>
           </li>
-          {{--  @endisPermitted  --}}
+          @endisPermitted
 
           @isPermitted('merchant','read')
           <li class="nav-item">

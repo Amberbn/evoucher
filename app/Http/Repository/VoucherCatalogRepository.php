@@ -3,6 +3,7 @@ namespace App\Http\Repository;
 
 use DB;
 use App\Outlet;
+use Carbon\Carbon;
 use App\VoucherCatalog;
 use App\StockTransaction;
 use App\VoucherCatalogOutlet;
@@ -76,6 +77,144 @@ class VoucherCatalogRepository extends BaseRepository
         $filter = $this->voucherCatalogFilter();
 
         return $this->dataTableResponseBuilder($voucherCatalogs, $filter);
+    }
+
+    public function voucherCatalogDatatable($voucherId = null)
+    {
+        $voucherCatalogs = DB::table('vou_voucher_catalog as cat')
+            ->join('bsn_client as bc', 'cat.merchant_client_id', '=', 'bc.client_id')
+            ->join('frm_global_parameters as gp', 'gp.parameters_id', '=', 'cat.voucher_catalog_category_pid')
+            ->where('cat.isdelete', false)
+            ->where('cat.voucher_catalog_valid_end_date', '>', date('Y-m-d h:i:s'));
+
+        if (!$this->isGroupSprint()) {
+            $voucherCatalogs->where('bc.client_category_pid', '=', $this->me()['client_category_pid']);
+        }
+        if ($voucherId) {
+            $voucherCatalogs->where('cat.voucher_catalog_id', '=', $voucherId);
+        }
+
+        $voucherCatalogs->select(
+            'cat.voucher_catalog_id',
+            'cat.voucher_catalog_revision_no',
+            'cat.merchant_client_id',
+            'bc.client_name',
+            'cat.voucher_catalog_sku_code',
+            'cat.voucher_catalog_title',
+            'cat.voucher_catalog_main_image_url',
+            'cat.voucher_catalog_information',
+            'cat.voucher_catalog_terms_and_condition',
+            'cat.voucher_catalog_instruction_customer',
+            'cat.voucher_catalog_instruction_outlet',
+            'cat.voucher_catalog_valid_start_date',
+            'cat.voucher_catalog_valid_end_date',
+            'cat.voucher_catalog_tags',
+            'cat.voucher_catalog_value_amount',
+            'cat.voucher_catalog_value_point',
+            'cat.voucher_catalog_unit_price_amount',
+            'cat.voucher_catalog_unit_price_point',
+            'cat.voucher_catalog_stock_level',
+            'cat.voucher_status',
+            'cat.data_sort',
+            'cat.isactive',
+            'cat.isdelete',
+            'cat.created_by_user_name',
+            'cat.last_updated_by_user_name',
+            'gp.parameters_value as voucher_category_pid_title'
+        );
+
+        if (empty($voucherCatalogs->get()->toArray())) {
+            return $this->sendNotfound();
+        }
+        $vouchers = $voucherCatalogs->get();
+
+        $voucherOutlet = DB::table('vou_voucher_catalog_outlets as vco')
+            ->join('mch_outlets as out', 'out.outlets_id', '=', 'vco.outlets_id')
+            ->join('frm_global_parameters as prov', function ($join) {
+                $join
+                    ->on('prov.parameters_id', '=', 'out.outlets_address_province_pid')
+                    ->where('prov.parameters_type', '=', 'address_state_province');
+            })
+            ->join('frm_global_parameters as city', function ($join) {
+                $join
+                    ->on('city.parameters_id', '=', 'out.outlets_address_city_pid')
+                    ->where('city.parameters_type', '=', 'address_city');
+            })
+            ->join('frm_global_parameters as region', function ($join) {
+                $join
+                    ->on('region.parameters_id', '=', 'out.outlets_address_region_pid')
+                    ->where('region.parameters_type', '=', 'address_region');
+            })->select([
+                'vco.voucher_catalog_id',
+                'out.outlets_title',
+                'out.outlets_address_line',
+                'prov.parameters_value as address_state_province_title',
+                'city.parameters_value as address_city_title',
+                'region.parameters_value as address_region_title'
+            ])
+            ->get();
+
+        $voucherArray = [];
+        foreach($vouchers as $voucher) {
+            $catId = $voucher->voucher_catalog_id;
+
+            $voucherArray[$catId]['voucher_catalog_id'] = $voucher->voucher_catalog_id;
+            $voucherArray[$catId]['client_name'] = $voucher->client_name;
+            $voucherArray[$catId]['voucher_catalog_title'] = $voucher->voucher_catalog_title;
+            $voucherArray[$catId]['voucher_catalog_main_image_url'] = $voucher->voucher_catalog_main_image_url;
+            $voucherArray[$catId]['voucher_catalog_valid_start_date'] = $voucher->voucher_catalog_valid_start_date;
+            $voucherArray[$catId]['voucher_catalog_valid_end_date'] = $voucher->voucher_catalog_valid_end_date;
+            $voucherArray[$catId]['voucher_catalog_tags'] = $voucher->voucher_catalog_tags;
+            $voucherArray[$catId]['voucher_catalog_value_amount'] = $voucher->voucher_catalog_value_amount;
+            $voucherArray[$catId]['voucher_catalog_value_point'] = $voucher->voucher_catalog_value_point;
+            $voucherArray[$catId]['voucher_catalog_unit_price_amount'] = $voucher->voucher_catalog_unit_price_amount;
+            $voucherArray[$catId]['voucher_catalog_unit_price_point'] = $voucher->voucher_catalog_unit_price_point;
+            $voucherArray[$catId]['voucher_category_pid_title'] = $voucher->voucher_category_pid_title;
+
+            $voucherOutletsCollection = $voucherOutlet->where('voucher_catalog_id', $voucher->voucher_catalog_id);
+
+            $location = null;
+            $area = null;
+            $province = null;
+            $city = null;
+            $region = null;
+            foreach($voucherOutletsCollection as $outlet) {
+                $location .= $outlet->outlets_title.' , '; 
+                $area .=  $outlet->outlets_address_line . ' , ';
+                $province .= $outlet->address_state_province_title . ' , ';
+                $city .= $outlet->address_city_title . ' , ';
+                $region .= $outlet->address_region_title . ' , ';
+            }
+
+            $oneMonth = Carbon::now()->addMonth(1);
+            $twoMonth = Carbon::now()->addMonth(2);
+            $sixMonth = Carbon::now()->addMonth(6);
+            $oneYear = Carbon::now()->addYear();
+
+            $endDate = Carbon::parse($voucher->voucher_catalog_valid_end_date);
+
+            $filterDate = null;
+            if($endDate > $oneYear) {
+                $filterDate = 'more than 1 year';
+            }elseif($endDate > $sixMonth) {
+                $filterDate = 'more than 6 month';
+            }elseif($endDate > $twoMonth){
+                $filterDate = 'more than 2 month';
+            } elseif ($endDate > $oneMonth) {
+                $filterDate = 'more than 1 month';
+            }
+
+            $voucherArray[$catId]['outlet_location'] = $location;
+            $voucherArray[$catId]['outlet_area'] = $area;
+            $voucherArray[$catId]['province'] = $province;
+            $voucherArray[$catId]['city'] = $city;
+            $voucherArray[$catId]['region'] = $region;
+            $voucherArray[$catId]['voucher_expiration'] = $filterDate;
+
+        }
+        $vouchersCollection = collect($voucherArray);
+
+        return $this->sendSuccess($vouchersCollection);
     }
 
     public function saveVoucherMerchant($request,$voucherCatalogId)
