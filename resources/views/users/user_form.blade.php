@@ -3,6 +3,7 @@
     $title = @$user ? 'Edit User' : 'Create New User'
 @endphp
 @section('title', $title)
+@section('headerTitle', $title)
 @section('content')
 <div id="main-content">
 <div class="main-content__body container-fluid">

@@ -2,10 +2,10 @@
 
 namespace App\Listeners;
 
-use App\Events\SendSmsEvent;
-use App\Jobs\SendVocherSmsJob;
+use App\Events\GenerateVoucherEvent;
+use App\Jobs\GenerateVoucherJob;
 
-class SendSmsToJob
+class SendGenerateVoucherToJob
 {
     /**
      * Create the event listener.
@@ -20,16 +20,16 @@ class SendSmsToJob
     /**
      * Handle the event.
      *
-     * @param  SendSmsEvent  $event
+     * @param  GenerateVoucherEvent  $event
      * @return void
      */
-    public function handle(SendSmsEvent $vouchers)
+    public function handle(GenerateVoucherEvent $vouchers)
     {
-        \Log::info('Send Sms Event is running on ' . date('Y-m-d H:i:s'));
+        \Log::info('send generate voucher job is running on ' . date('Y-m-d H:i:s'));
         $voucherCollection = $vouchers->vouchers;
         $createdBy = $vouchers->createdBy;
         foreach ($voucherCollection as $voucher) {
-            dispatch(new SendVocherSmsJob($voucher, $createdBy));
+            dispatch(new GenerateVoucherJob($voucher, $createdBy));
         }
     }
 }

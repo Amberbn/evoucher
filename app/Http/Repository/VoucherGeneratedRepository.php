@@ -2,7 +2,7 @@
 namespace App\Repository;
 
 use App\Campaign;
-use App\Events\SendSmsEvent;
+use App\Events\GenerateVoucherEvent;
 use App\Repository\BaseRepository;
 use App\VoucherGenerated;
 use DB;
@@ -34,7 +34,7 @@ class VoucherGeneratedRepository extends BaseRepository
             }
 
             $createdBy = $this->loginUsername();
-            event(new SendSmsEvent($vouchers, $createdBy));
+            event(new GenerateVoucherEvent($vouchers, $createdBy));
             DB::commit();
             return $this->sendCreated();
 

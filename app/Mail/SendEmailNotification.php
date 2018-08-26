@@ -10,16 +10,21 @@ class SendEmailNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    public $voucher;
+    public $vouchergenerate;
+    public $createdBy;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($voucher, $vouchergenerate, $createdBy)
     {
-        $this->data = $data;
+        $this->voucher = $voucher;
+        $this->vouchergenerate = $vouchergenerate;
+        $this->createdBy = $createdBy;
+
     }
 
     /**
@@ -29,16 +34,28 @@ class SendEmailNotification extends Mailable
      */
     public function build()
     {
-        $address = 'strevecloud@gmail.com';
-        $subject = 'This is a demo!';
-        $name = 'Streve Cloud';
+        $voucher = $this->voucher;
+        $vouchergenerate = $this->vouchergenerate;
+        $createdBy = $this->createdBy;
+
+
+        $name = env('MAIL_FROM_NAME');
+        $emailfrom = env('MAIL_FROM_ADDRESS');
+        $subject = $voucher->campaign_message_title;
+        $emailSendTo = $vouchergenerate->campaign_recipient_email;
+
+        $content = $voucher->campaign_message_body;
+        $voucherNo = $vouchergenerate->voucher_generated_no;
+        $redeemUrl = env('REDEEM_PAGE') . $voucherNo;
+        $emailContent = $content . $redeemUrl;
 
         return $this->view('emails.email')
-            ->from($address, $name)
-            ->cc($address, $name)
-            ->bcc($address, $name)
-            ->replyTo($address, $name)
+            ->from($emailfrom, $name)
+            ->replyTo($emailfrom, $name)
             ->subject($subject)
-            ->with(['message' => $this->data['message']]);
+            ->with([
+                'content' => $content,
+                'redeem_url' => $redeemUrl,
+            ]);
     }
 }

@@ -1,8 +1,9 @@
 @extends('layouts/main')
 @php
-    $title = 'voucher';
+    $title = 'voucher profile';
 @endphp
 @section('title', $title)
+@section('headerTitle', 'Create New Voucher Profile')
 @section('content')
 <div id="main-content">
     <div class="container-fluid">
@@ -38,7 +39,7 @@
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="short-description">Short Descriptions</label>
-                                    <textarea class="form-control" id="short-description" placeholder=""></textarea>
+                                    <textarea name="voucher_catalog_short_information" class="form-control" id="short-description" placeholder=""></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -52,11 +53,16 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="voucher-category">Voucher Category</label>
-                                    <select class="custom-select dropdown-select2" id="voucher-category">
-                                        <option selected>Choose...</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                   <select name="voucher_catalog_category_pid" class="custom-select dropdown-select2" id="industry" required>
+                                        <option value="" {{ !@$voucher ? 'selected' : '' }} disabled hidden>Choose...</option>
+                                        @foreach ($voucherCategory->voucherCategoryPid as $category)
+                                        @php
+                                            $selected = @$voucher->voucher_catalog_category_pid == $category->parameters_id ? 'selected' : '';
+                                            if(@$voucher->client_industry_category_pid == $category->parameters_id) {
+                                            }
+                                        @endphp
+                                        <option value="{{ $category->parameters_id }}" {{ $selected }}>{{ $category->parameters_value }}</option>    
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -196,6 +202,12 @@
                         minlength : 10
                     },
                     voucher_catalog_tags: {
+                        required: true
+                    },
+                    voucher_catalog_category_pid: {
+                        required: true
+                    },
+                    voucher_catalog_short_information: {
                         required: true
                     },
                     voucher_catalog_valid_start_date: {

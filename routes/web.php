@@ -36,7 +36,9 @@ Route::middleware(['auth', 'check-permission'])->group(function () {
     Route::get('/outlet-create/{id}', 'Web\OutletController@create')->name('merchant.outlet.create');
     Route::post('/outlet-create/{id}', 'Web\OutletController@store')->name('merchant.outlet.store');
 
-    Route::resource('/voucher', 'Web\VoucherController');
+    Route::get('/vouchers', 'Web\VoucherController@index')->name('voucher.index');
+    Route::get('/vouchers-datatable', 'Web\VoucherController@indexDatatable')->name('voucher.list.datatable');
+    Route::get('/vouchers/create', 'Web\VoucherController@create')->name('voucher.create');
 
     Route::post('/save-voucher-profile', 'Web\VoucherController@saveVoucherProfile')->name('voucher.profile.store');
     Route::get('/voucher-form-detail/{id}', 'Web\VoucherController@voucherDetail')->name('voucher.detail');

@@ -4,9 +4,15 @@
     <button class="btn"><span class="lines-menu"></span></button>
     </div>
     <div class="admin-bar__context">
-    <div class="inner">
-        <h1 class="admin-bar__context-title">Add Prezent User</h1>
-    </div>
+        <div class="inner">
+            <nav class="top-breadcrump" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                <a class="span"> @yield('headerTitle')</a>
+                </li>
+            </ol>
+            </nav>
+        </div>
     </div>
     <div class="admin-bar__nav">
     <span class="mobile-nav-toggle"><i class="fa fa-bars"></i></span>
@@ -64,11 +70,9 @@
         <li class="user-menu parent-menu">
         <a href="#">
         @php
-            $folderPath = 'storage/profile/thumbnail/';
             $profileImage = Auth::user()->user_profile_image_url;
-            $filePath = $folderPath.$profileImage;
         @endphp
-            <span class="user-menu__avatar" style="background-image:url('{{ asset($filePath) }}')"></span>
+            <span class="user-menu__avatar" style="background-image:url('{{ getImage($profileImage,'profile','thumbnail') }}')"></span>
             <span class="user-menu__name">{{ Auth::user()->user_profile_name }}</span>
             <span class="profile-menu-toggle"><i class="fa fa-angle-down"></i></span>
         </a>
