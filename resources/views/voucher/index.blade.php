@@ -336,7 +336,9 @@
                 { "data": "province", name:'province', className : 'p-20', searchable: true, regex:true,visible: false},
                 { "data": "city", name:'city', className : 'p-20', searchable: true, regex:true,visible: false},
                 { "data": "voucher_expiration", name:'voucher_expiration', className : 'p-20', searchable: true, regex:true,visible: false},
-                { "data": "voucher_catalog_value_amount", name:'voucher_catalog_value_amount', className : 'p-20', searchable: true, regex:true,visible: false}
+                { "data": "voucher_catalog_value_amount", name:'voucher_catalog_value_amount', className : 'p-20', searchable: true, regex:true,visible: false},
+                { "data": "outlet_location", name:'outlet_location', className : 'p-20', searchable: true, regex:true,visible: false},
+                { "data": "outlet_area", name:'outlet_area', className : 'p-20', searchable: true, regex:true,visible: false}
             ],
             "error" : function (xhr, error, thrown) {
                 alert( 'You are not logged in' );
