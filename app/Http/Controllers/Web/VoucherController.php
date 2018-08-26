@@ -6,6 +6,10 @@ use App\Http\Repository\OutletRepository;
 use App\Http\Repository\VoucherCatalogRepository;
 use App\Repository\MerchantRepository;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
+
+use Yajra\DataTables\CollectionDataTable;
+
 
 class VoucherController extends BaseControllerWeb
 {
@@ -22,6 +26,34 @@ class VoucherController extends BaseControllerWeb
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        $tags = $this->getDataFromJson($this->repository->getVoucherCatalogTags());
+        return view('voucher.index',compact('tags'));
+    }
+
+    public function indexDatatable()
+    {
+        $voucher = $this->repository->voucherCatalogDatatable();
+        $vouchers = $this->getDataFromJson($voucher);
+        
+        return Datatables::of($vouchers)
+            ->addIndexColumn()
+            ->addColumn('action', function ($voucher) {
+                return '<td class="first">' .
+                    '<div class="form-check">' .
+                    '<input type="checkbox" id="' . $voucher->voucher_catalog_id . '" value="' . $voucher->voucher_catalog_id . '" class="form-check-input" nice-checkbox-radio />' .
+                    '</div>' .
+                    '</td>';
+            })
+            ->make(true);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         $tags = $this->repository->getVoucherCatalogTags();
         $tagsData = $this->getDataFromJson($tags);
@@ -91,16 +123,6 @@ class VoucherController extends BaseControllerWeb
         $voucher = $this->getDataFromJson($data);
 
         return redirect()->route('voucher.index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
