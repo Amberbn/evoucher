@@ -1,26 +1,37 @@
 @extends('layouts/main')
 @php
     $title = 'voucher profile';
+    $headerTitle = @$voucher ? 'Edit Voucher Profile' : 'Create New Voucher Profile';
+    $disabled = @$voucher ? 'disabled' : '';
+    $progressList = @$voucher ? 'list2' : 'list3';
 @endphp
 @section('title', $title)
-@section('headerTitle', 'Create New Voucher Profile')
+@section('headerTitle', $headerTitle)
 @section('content')
 <div id="main-content">
     <div class="container-fluid">
         <div class="row">
             <div class="campaign-form-progress-outer col-md-8">
-                <ol class="campaign-form-progress list3">
+                <ol class="campaign-form-progress {{ $progressList }}">
                     <li class="active"><span>Voucher Profile</span></li>
                     <li><span>Voucher Details</span></li>
-                    <li><span>Merchant &amp; Outlet</span></li>
+                    @if(!@$voucher)
+                        <li><span>Merchant &amp; Outlet</span></li>
+                    @endif
                 </ol>
                 <!-- /.campaign-form-progress -->
             </div>
             <!-- /.campaign-form-progress-outer -->
         </div>
     </div>
+    @php
+        $route = route('voucher.profile.store');
+        if(@$voucher){
+            $route = route('voucher.detail.edit',['id' => $voucher->voucher_catalog_id]);
+        }
+    @endphp
     <div class="main-content__body container-fluid">
-        <form id="voucher_profile_form" action="{{ route('voucher.profile.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="voucher_profile_form" action="{{ $route }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="content-area col-md-8">
@@ -33,19 +44,22 @@
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="voucher-name">Voucher Name</label>
-                                    <input name="voucher_catalog_title" type="text" class="form-control" id="voucher-name" placeholder="">
+                                    <input name="voucher_catalog_title" type="text" class="form-control" id="voucher-name" 
+                                        placeholder="" value="{{ @$voucher->voucher_catalog_title }}" {{ $disabled }}>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="short-description">Short Descriptions</label>
-                                    <textarea name="voucher_catalog_short_information" class="form-control" id="short-description" placeholder=""></textarea>
+                                    <textarea name="voucher_catalog_short_information" class="form-control" id="short-description" 
+                                        placeholder="" {{ $disabled }}>{{ @$voucher->voucher_catalog_short_information }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-input">
                                     <label for="full-information">Full Information</label>
-                                    <textarea name="voucher_catalog_information" class="form-control prvInput" id="full-information" placeholder=""></textarea>
+                                    <textarea name="voucher_catalog_information" class="form-control prvInput" id="full-information" 
+                                        placeholder="" {{ $disabled }}>{{ @$voucher->voucher_catalog_information }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -53,12 +67,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="voucher-category">Voucher Category</label>
-                                   <select name="voucher_catalog_category_pid" class="custom-select dropdown-select2" id="industry" required>
+                                   <select name="voucher_catalog_category_pid" class="custom-select dropdown-select2" id="industry" {{ $disabled }} required>
                                         <option value="" {{ !@$voucher ? 'selected' : '' }} disabled hidden>Choose...</option>
                                         @foreach ($voucherCategory->voucherCategoryPid as $category)
                                         @php
                                             $selected = @$voucher->voucher_catalog_category_pid == $category->parameters_id ? 'selected' : '';
-                                            if(@$voucher->client_industry_category_pid == $category->parameters_id) {
+                                            if(@$voucher->voucher_catalog_category_pid == $category->parameters_id) {
                                             }
                                         @endphp
                                         <option value="{{ $category->parameters_id }}" {{ $selected }}>{{ $category->parameters_value }}</option>    
@@ -77,7 +91,7 @@
                                 <div class="form-group">
                                     <div class="form-input">
                                         <label for="voucher-tags">Tags</label>
-                                        <select name="voucher_catalog_tags[]" class="custom-select select2-input-tags" id="voucher-tags" multiple="multiple" required>
+                                        <select name="voucher_catalog_tags[]" class="custom-select select2-input-tags" id="voucher-tags" multiple="multiple" {{ $disabled }} required>
                                             @foreach ($tagsData as $tag)
                                                 @php
                                                     $selected = null;
@@ -94,16 +108,22 @@
                             <!-- /.col-md-6 -->
                         </div>
                         <!-- /.form-section.row -->
+                        @php
+                            $editableDatePicker = @$voucher ? '' : 'form-group__validity-period';
+                            $startDate = @$voucher ? sqlDateFormat(@$voucher->voucher_catalog_valid_start_date) : '';
+                            $endDate = @$voucher ? sqlDateFormat(@$voucher->voucher_catalog_valid_end_date) : '';
+                        @endphp
                         <div class="form-section expand-col-12 row">
                             <div class="col-md-6 col-sm-12">
-                                <div class="form-group form-group__validity-period">
-
+                                <div class="form-group {{ $editableDatePicker }}">
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <label>Validity Start Date</label>
                                             <div class="form-input">
                                                 <div class="input-group" id="pick-date-period-start" data-target-input="nearest">
-                                                    <input type="text" placeholder="Start" name="voucher_catalog_valid_start_date" aria-label="Start" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#pick-date-period-start" />
+                                                    <input type="text" placeholder="Start" name="voucher_catalog_valid_start_date" aria-label="Start" 
+                                                        class="form-control datetimepicker-input" data-toggle="datetimepicker"
+                                                        data-target="#pick-date-period-start" value="{{ $startDate }}" {{ $disabled }}/>
                                                     <div class="input-group-append" data-target="#pick-date-period-start" data-toggle="datetimepicker">
                                                         <button class="btn btn-outline-secondary" type="button"><i class="icon-ft_calendar"></i></button>
                                                     </div>
@@ -114,7 +134,9 @@
                                             <label>Validity End Date</label>
                                             <div class="form-input">
                                                 <div class="input-group" id="pick-date-period-end" data-target-input="nearest">
-                                                    <input type="text" placeholder="End" name="voucher_catalog_valid_end_date" aria-label="End" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#pick-date-period-end" />
+                                                    <input type="text" placeholder="End" name="voucher_catalog_valid_end_date" aria-label="End" 
+                                                        class="form-control datetimepicker-input" data-toggle="datetimepicker" 
+                                                        data-target="#pick-date-period-end" value="{{ $endDate }}" {{ $disabled }}/>
                                                     <div class="input-group-append" data-target="#pick-date-period-end" data-toggle="datetimepicker">
                                                         <button class="btn btn-outline-secondary" type="button"><i class="icon-ft_calendar"></i></button>
                                                     </div>
@@ -142,19 +164,26 @@
                             <h5>Merchant</h5>
                         </div>
                         <div id="upload_button" class="card-body text-center">
-                            <p id="prvImgRes" class="card-text">500 x 341 px</p>
-                            <label id="prvUploadBtn">
-                                <input id="prvImgInput" name="voucher_catalog_main_image_url" type="file" accept="image/*" onchange="preview_image(event)">
-                                <span class="btn btn-green">Insert Image</span>
-                            </label>
-                            <div id="prvBox">
-                                <div id="prvRemoveBtn">
-                                    <a href="#"><img src="{{ asset('assets/img/img-remove-button.svg') }}" alt=""></a>
+                            @if(@$voucher->voucher_catalog_main_image_url)
+                                @php
+                                    $filePath = getImage($voucher->voucher_catalog_main_image_url,'voucher','original')
+                                @endphp
+                                <img src="{{ $filePath }}" alt="">
+                            @else
+                                <p id="prvImgRes" class="card-text">500 x 341 px</p>
+                                <label id="prvUploadBtn">
+                                    <input id="prvImgInput" name="voucher_catalog_main_image_url" type="file" accept="image/*" onchange="preview_image(event)">
+                                    <span class="btn btn-green">Insert Image</span>
+                                </label>
+                                <div id="prvBox">
+                                    <div id="prvRemoveBtn">
+                                        <a href="#"><img src="{{ asset('assets/img/img-remove-button.svg') }}" alt=""></a>
+                                    </div>
+                                    <div id="prvImgBox">
+                                        <img id="output_image" />
+                                    </div>
                                 </div>
-                                <div id="prvImgBox">
-                                    <img id="output_image" />
-                                </div>
-                            </div>
+                            @endif
                         </div>
                         <div class="card-footer text-muted">
                             <nav class="voucher-tab">
@@ -166,12 +195,26 @@
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
-                                    <pre class="prvResult"></pre>
+                                    @if(@$voucher->voucher_catalog_information)
+                                        {{ @$voucher->voucher_catalog_information }}
+                                    @else
+                                        <pre class="prvResult"></pre>
+                                    @endif
                                 </div>
                                 <div class="tab-pane fade" id="nav-tc" role="tabpanel" aria-labelledby="nav-tc-tab">
-                                    You may redeem this card 1 voucher for 1 person only. Lost or stolen cards will not be replaced. This card is non-refundable. For more information: +6221-2920-0100 | callcenter@cgv.id
+                                    @if(@$voucher->voucher_catalog_terms_and_condition)
+                                        {{ @$voucher->voucher_catalog_terms_and_condition }}
+                                    @else
+                                        You may redeem this card 1 voucher for 1 person only. Lost or stolen cards will not be replaced. This card is non-refundable. For more information: +6221-2920-0100 | callcenter@cgv.id
+                                    @endif
                                 </div>
-                                <div class="tab-pane fade" id="nav-tukar" role="tabpanel" aria-labelledby="nav-tukar-tab">...</div>
+                                <div class="tab-pane fade" id="nav-tukar" role="tabpanel" aria-labelledby="nav-tukar-tab">
+                                    @if(@$voucher->voucher_catalog_short_information)
+                                        {{ @$voucher->voucher_catalog_short_information }}
+                                    @else
+                                        ...
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>

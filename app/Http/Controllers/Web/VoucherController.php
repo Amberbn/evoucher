@@ -8,9 +8,6 @@ use App\Repository\MerchantRepository;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 
-use Yajra\DataTables\CollectionDataTable;
-
-
 class VoucherController extends BaseControllerWeb
 {
     public function __construct()
@@ -28,20 +25,20 @@ class VoucherController extends BaseControllerWeb
     public function index()
     {
         $tags = $this->getDataFromJson($this->repository->getVoucherCatalogTags());
-        return view('voucher.index',compact('tags'));
+        return view('voucher.index', compact('tags'));
     }
 
     public function indexDatatable()
     {
         $voucher = $this->repository->voucherCatalogDatatable();
         $vouchers = $this->getDataFromJson($voucher);
-        
+
         return Datatables::of($vouchers)
             ->addIndexColumn()
             ->addColumn('action', function ($voucher) {
                 return '<td class="first">' .
-                    '<div class="form-check">' .
-                    '<input type="checkbox" id="' . $voucher->voucher_catalog_id . '" value="' . $voucher->voucher_catalog_id . '" class="form-check-input" nice-checkbox-radio />' .
+                '<div class="form-check">' .
+                '<input type="checkbox" id="' . $voucher->voucher_catalog_id . '" value="' . $voucher->voucher_catalog_id . '" class="form-check-input checkbox-list" nice-checkbox-radio />' .
                     '</div>' .
                     '</td>';
             })
@@ -125,59 +122,59 @@ class VoucherController extends BaseControllerWeb
         return redirect()->route('voucher.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function editVoucheProfile($id)
     {
-        //
+        if (!$id) {
+            return $this->pageNotFound();
+        }
+
+        $voucher = $this->repository->getAllVoucherCatalog($id);
+        $responseCode = $this->getResponseCodeFromJson($voucher);
+        if ($responseCode == 404) {
+            return $this->pageNotFound();
+        }
+        $voucherCategory = $this->getSettings(['voucher_category_pid']);
+        $tags = $this->repository->getVoucherCatalogTags();
+        $tagsData = $this->getDataFromJson($tags);
+
+        $voucher = $this->getDataFromJson($voucher)->first();
+
+        return view('voucher.voucher_form', compact('voucher', 'voucherCategory', 'tagsData'));
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function editVoucherDetail($id)
     {
-        //
+        if (!$id) {
+            return $this->pageNotFound();
+        }
+
+        $voucher = $this->repository->getVoucherDraftById($id, false);
+        $responseCode = $this->getResponseCodeFromJson($voucher);
+        if ($responseCode == 404) {
+            return $this->pageNotFound();
+        }
+        $notEditable = true;
+        $voucher = $this->getDataFromJson($voucher);
+
+        return view('voucher.voucher_form_detail', compact('voucher', 'notEditable'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function updateVoucherDetail(Request $request, $id)
     {
-        //
+        $voucher = $this->repository->updateVoucherCatalogStock($request,$id);
+        $responseCode = $this->getResponseCodeFromJson($voucher);
+        if ($responseCode == 404) {
+            return $this->pageNotFound();
+        }
+
+        return redirect()->route('voucher.index');
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroyFromArray(Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $multipleDelete = $this->repository->multipleDelete($request->data);
+        $responseCode = $this->getResponseCodeFromJson($multipleDelete);
     }
 }
