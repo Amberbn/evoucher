@@ -238,9 +238,13 @@
                                             </a>
                                             <div class="popover-menu-content">
                                                 <ul class="list-unstyled">
-                                                    <li><a href="#">Edit Checked Voucher</a></li>
-                                                    <li><a href="#">Delete Checked Voucher</a></li>
-                                                    <li><a href="#">Archive Checked</a></li>
+                                                    @isPermitted($page,'update')
+                                                         <li><a id="edit_checked_voucher">Edit Checked</a></li>
+                                                    @endisPermitted
+
+                                                    @isPermitted($page,'delete')
+                                                        <li><a id="delete_checked_voucher">Delete Checked</a></li>
+                                                    @endisPermitted
                                                 </ul>
                                             </div>
                                         </th>
@@ -310,7 +314,8 @@
     </div>
     <!-- /.main-content__body -->
 </div>
-
+{{ csrf_field() }}
+{{ method_field('PUT') }}
 @endsection
 @push('footer_scripts')
 <script src="{{ asset('assets/vendor/rangeslider/rangeslider.min.js') }}"></script>
@@ -446,7 +451,87 @@
 
         $('#input_slider').change(function(){
                 table.draw();
+        })
+
+        $('#edit_checked_voucher').click(function(){
+            let checkedValue = [];
+            //let checked = $('input:checked').val();
+            let checked = $('.checkbox-list:checked').val();
+            console.log(checked);
+            $('.checkbox-list:checked').each(function(){
+                checkedValue.push($(this).val());
             })
+            let countChecked = checkedValue.length;
+
+            if(countChecked > 1) {
+                console.log(checkedValue);
+                toastr.error( 'Only one item can be edited' );
+            }else if(countChecked == 1){
+                window.location = 'edit-voucher-profile/'+checkedValue[0];
+            }else{
+                toastr.error('Please check item to be edited');
+            }
+            
+        });
+
+        $('#delete_checked_voucher').click(function(){
+            let checkedValue = [];
+            let checked = $('.checkbox-list:checked').val();
+            $('.checkbox-list:checked').each(function(){
+                checkedValue.push($(this).val());
+            })
+            let countChecked = checkedValue.length;
+            console.log(countChecked);
+
+            if(countChecked <= 0) {
+               toastr.error('Please check item to be deleted');
+            }else{                
+                var formToken = $('input[name="_token"]').val();
+                var formMethod = $('input[name="_method"]').val();
+                var parent=$(this).parent().parent();
+                
+                var confirmation_text_default = 'Do you want to delete this record?';                
+                
+                $.confirm({
+                    title: 'Confirmation Dialog',
+                    content: confirmation_text_default,
+                    buttons: {
+                        confirm: function () {
+                            $.ajax({
+                                url: '{{ route('voucher.delete.custom') }}',
+                                type: 'PUT',
+                                data: {
+                                    _token:formToken,
+                                    _method:formMethod,
+                                    data : checkedValue
+                                },
+                                success: function( data, status, xhr ) {
+                                    if ( status === 'success' ) {
+                                        $(checkedValue).each(function(index, value){
+                                            $('#'+value).parent().parent().parent().slideUp(300, function () {
+                                            $(this).closest("tr").remove();
+                                            toastr.success( 'success deleted' );
+                                            console.log(checkedValue);
+                                            table.draw();
+                                        })
+                                        })
+                                    }
+                                },
+                                error: function( data ) {
+                                    if ( status === 422 ) {
+                                        toastr.error('Cannot delete this data');
+                                    }
+                                }
+                            });
+                        },
+                        cancel: function () {
+                        confirm = false;
+                        }
+                    }
+                });
+            }
+            
+        });
     
         
     } );
