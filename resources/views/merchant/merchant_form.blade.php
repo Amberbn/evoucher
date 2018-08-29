@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group has-only-a-link">
-                            <a href="#" class="align-middle">Client is not registered yet? Click here to add new client</a>
+                            <a href="{{ route('client.create') }}" class="align-middle">Client is not registered yet? Click here to add new client</a>
                             </div>
                         </div>
                         </div>
