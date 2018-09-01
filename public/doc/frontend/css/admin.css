@@ -168,6 +168,28 @@ h2.user-menu-cards__heading{
     border-right:none !important;
 }
 
+#moreDetailModal .voucher-tab{
+    font-size: 1.2em;
+}
+
+.campaign-tab-separator{
+    border-left:1px #ccc solid;
+}
+
+.campaign-list-tab {
+    list-style: none;
+    padding: 0;
+}
+
+.campaign-list-tab li{
+    border-bottom: 1px #ccc solid;
+    padding:1em 0;
+}
+
+.campaign-list-tab li:last-child{
+    border-bottom: none;
+}
+
 .vtab-content{
     padding:20px;
     background: #fff;
@@ -425,6 +447,7 @@ span.slideBtn-b {
 
 .campaign-list-table.dataTable td {
     border-bottom: 9px #F5F6FA solid;
+    vertical-align: middle;
 }
 
 .campaign-list-table.dataTable.no-footer {
@@ -525,4 +548,7 @@ span.slideBtn-b {
     padding-top:3px !important;
 }
 
-
+/* Campaign more detail modal */
+#moreDetailModal .modal-body{
+    padding:0;
+}
