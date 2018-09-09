@@ -26,7 +26,7 @@
           @php
             $clientId = @$client->client_id;
             $method = $clientId ? 'PUT' : 'POST';
-            $route = $clientId ? route('client.update',['id' => $clientId]) : route('client.store');
+            $route = $clientId ? route('clients.update',['id' => $clientId]) : route('clients.store');
           @endphp
           <form id="company-form" action="{{ $route }}" method="POST" enctype="multipart/form-data">
              @csrf

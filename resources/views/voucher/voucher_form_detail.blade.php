@@ -2,8 +2,9 @@
 @php
     $title = 'voucher detail';
     $headerTitle = @$notEditable ? 'Edit Voucher Detail' : 'Create New Voucher Detail';
-    $disabled = @$notEditable ? 'disabled' : '';
-    $progressList = @$notEditable ? 'list2' : 'list3';
+    $disabled = @$voucher['voucher_status'] == 'RELEASED' ? 'disabled' : '';
+    $progressList = @$voucher['voucher_status'] == 'RELEASED' ? 'list2' : 'list3';
+    $isReleased = @$voucher['voucher_status'] == 'RELEASED' ? true : false;
 @endphp
 @section('title', $title)
 @section('headerTitle', $headerTitle)
@@ -75,6 +76,15 @@
 
                             $valueAmount = @$voucher['voucher_catalog_value_amount'];
                             $valueAmountrupiah = formatRupiah($valueAmount);
+
+                            $unitCogsValueAmount = @$voucher['voucher_catalog_unit_cogs_amount'];
+                            $unitCogsValueAmountRupiah = formatRupiah($unitCogsValueAmount);
+
+                           if(!$isReleased){
+                               $priceAmountrupiah = (int)@$voucher['voucher_catalog_unit_price_amount'];
+                               $valueAmountrupiah = (int)@$voucher['voucher_catalog_value_amount'];
+                               $unitCogsValueAmountRupiah = (int)@$voucher['voucher_catalog_unit_cogs_amount'];
+                           }
                         @endphp
                         <div class="form-section row">
                             <div class="col-md-6">
@@ -115,9 +125,17 @@
                         <div class="form-section row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="value-point">Value Point</label>
+                                    <label for="value-amount">Value Point</label>
                                     <input name="voucher_catalog_value_point" type="text" class="form-control" 
-                                        id="value-point" placeholder="" value="{{ @$voucher['voucher_catalog_value_point'] }}" {{ $disabled }}>
+                                        id="value-amount" placeholder="" value="{{ @$voucher['voucher_catalog_value_point'] }}" {{ $disabled }}>
+                                </div>
+                            </div>
+                            <!-- /.col-md-6 -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="price-point">Unit COGS Amount</label>
+                                    <input name="voucher_catalog_unit_cogs_amount" type="text" class="form-control" 
+                                        id="price-point" placeholder="" value="{{ $unitCogsValueAmountRupiah }}" {{ $disabled }}>
                                 </div>
                             </div>
                             <!-- /.col-md-6 -->
