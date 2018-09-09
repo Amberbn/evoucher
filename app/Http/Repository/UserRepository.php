@@ -263,7 +263,11 @@ class UserRepository extends BaseRepository
 
     public function getListUsername()
     {
-        $user = User::select('user_id', 'user_name')->get();
+        $user = User::select('user_id', 'user_name')
+            ->where('isactive', '=', true)
+            ->where('isdelete', '=', false)
+            ->get();
+
         if (!$user) {
             return $this->sendNotfound();
         }

@@ -3,7 +3,7 @@
 @section('headerTitle', 'Client Management')
 @section('content')
 @php
-    $page = 'client';
+    $page = 'clients';
 @endphp
 <div id="main-content">
     <div class="main-content__body container-fluid">
@@ -108,7 +108,7 @@
                                     <div class="voucher-list-menu row">
                                         <div class="col-md-5 offset-md-6">
                                              @isPermitted($page,'read')
-                                                <button type="button" id="add_client" link-url="{{ route('client.create') }}" class="btn btn-primary btn-add-client">Create Client</button>
+                                                <button type="button" id="add_client" link-url="{{ route('clients.create') }}" class="btn btn-primary btn-add-client">Create Client</button>
                                              @endisPermitted
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@
             "columns": [
                 { "data": "action",className : 'p-20',searchable: false },
                 { "data": "client_name",name:'client_name', className : 'p-20', searchable: true },
-                { "data": "user_profile_name",name:'user_profile_name', className : 'p-20', searchable: true},
+                { "data": "user_name",name:'user_name', className : 'p-20', searchable: true},
                 { "data": "user_phone", name:'user_phone', className : 'p-20', searchable: true},
                 { "data": "industry_category_title", name:'industry_category_title', className : 'p-20', searchable: true}
             ],
@@ -213,7 +213,7 @@
                 console.log(checkedValue);
                 toastr.error( 'Only one item can be edited' );
             }else if(countChecked == 1){
-                window.location =  'client/'+checkedValue[0]+'/edit';
+                window.location =  'clients/'+checkedValue[0]+'/edit';
             }else{
                 toastr.error('Please check item to be edited');
             }

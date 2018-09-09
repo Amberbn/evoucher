@@ -197,6 +197,58 @@
       });
     }
 
+    //start date
+    $(function () {
+      $('.form-group__validity-period #pick-date-period-start').datetimepicker();
+      var date = $('.form-group__validity-period #pick-date-period-start').datetimepicker('viewDate');
+      console.log(date);
+      $('.form-group__validity-period #pick-date-period-start').on("change.datetimepicker", function (e) {
+        date = $('.form-group__validity-period #pick-date-period-start').datetimepicker('viewDate');
+        let dateFormated = moment(date).format('YYYY-MM-DD');
+        console.log(dateFormated);
+
+
+        let end = $('#end_date').val();
+        let endDate = Date.parse(new Date(end));
+        let parseEndDate = Date.parse(new Date(endDate));
+        console.log(parseEndDate);
+        if (!isNaN(parseEndDate)) {
+          // toastr.error('You cant set end date before start date');
+          $('#end_date').val('')
+        }
+
+        var myDate = Date.parse(new Date(dateFormated));
+        var dateTimeNow = Date.parse(moment(Date.now()).format('YYYY-MM-DD'));
+        if (myDate < dateTimeNow) {
+          toastr.error('Start date cannot be less than current date');
+          $('#start_date').val(moment(dateTimeNow).format('MM/DD/YYYY'))
+        }
+      });
+    });
+
+    //end date
+    $(function () {
+      $('.form-group__validity-period #pick-date-period-end').datetimepicker();
+      var date = $('.form-group__validity-period #pick-date-period-end').datetimepicker('viewDate');
+      $('.form-group__validity-period #pick-date-period-end').on("change.datetimepicker", function (e) {
+        date = $('.form-group__validity-period #pick-date-period-end').datetimepicker('viewDate');
+        let dateFormated = moment(date).format('YYYY-MM-DD');
+        var myDate = Date.parse(new Date(dateFormated));
+        let start = $('#start_date').val();
+        let startDate = Date.parse(new Date(start));
+        let parseStartDate = Date.parse(new Date(startDate));
+
+        if (isNaN(parseStartDate)) {
+          toastr.error('You cant select end date before start date');
+          $('#end_date').val('')
+        }
+        if (myDate < parseStartDate) {
+          toastr.error('End date should be greater than start date');
+          $('#end_date').val(moment(parseStartDate).format('MM/DD/YYYY'))
+        }
+      });
+    });
+
     // Reset form fields
 
     if ($('.voucher-filter-form .btn.clear-all-filter').length) {

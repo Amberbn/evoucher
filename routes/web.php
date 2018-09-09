@@ -38,9 +38,9 @@ Route::middleware(['auth', 'check-permission'])->group(function () {
     //end user page
 
     //client page
-    Route::resource('/client', 'Web\ClientController');
+    Route::resource('/clients', 'Web\ClientController');
     Route::put('/client-detete', 'Web\ClientController@destroyFromArray')->name('clients.delete.custom');
-    Route::get('/clients', 'Web\ClientController@indexDatatable')->name('client.list.datatable');
+    Route::get('/clients-datatable', 'Web\ClientController@indexDatatable')->name('client.list.datatable');
     //end client page
 
     //settings
