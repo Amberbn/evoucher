@@ -34,7 +34,9 @@ class VoucherCatalogRepository extends BaseRepository
     {
         $voucherCatalogs = DB::table('vou_voucher_catalog as cat')
             ->join('bsn_client as bc', 'cat.merchant_client_id', '=', 'bc.client_id')
-            ->where('cat.isdelete', false);
+            ->join('frm_global_parameters as gp', 'gp.parameters_id', '=', 'cat.voucher_catalog_category_pid')
+            ->where('cat.isdelete', false)
+            ->where('cat.voucher_catalog_valid_end_date', '>', date('Y-m-d h:i:s'));
 
         if (!$this->isGroupSprint()) {
             $voucherCatalogs->where('bc.client_category_pid', '=', $this->me()['client_category_pid']);
@@ -68,7 +70,10 @@ class VoucherCatalogRepository extends BaseRepository
             'cat.isactive',
             'cat.isdelete',
             'cat.created_by_user_name',
-            'cat.last_updated_by_user_name'
+            'cat.last_updated_by_user_name',
+            'cat.voucher_catalog_short_information',
+            'cat.voucher_catalog_category_pid',
+            'gp.parameters_value as voucher_category_pid_title'
         );
     
         if (empty($voucherCatalogs->get()->toArray())) {
@@ -312,12 +317,17 @@ class VoucherCatalogRepository extends BaseRepository
         return $outlets->get();
     }
 
-    public function getVoucherDraftById($voucherId)
+    public function getVoucherDraftById($voucherId, $isDraft = true)
     {
         $voucherCatalogs = $this->model
             ->where('voucher_catalog_id','=',$voucherId)
-            ->where('isactive',false)
-            ->where('voucher_status','=','DRAFT');
+            ->where('isdelete',false);
+            
+            if($isDraft){
+                $voucherCatalogs = $voucherCatalogs->where('isactive', false)
+                ->where('voucher_status', '=', 'DRAFT');
+            }
+
         if (empty($voucherCatalogs->get()->toArray())) {
             return $this->sendNotfound();
         }
@@ -485,6 +495,29 @@ class VoucherCatalogRepository extends BaseRepository
         }        
     }
 
+    public function updateVoucherCatalogStock($request, $id)
+    {
+        $voucherCatalog = VoucherCatalog::where('voucher_catalog_id', $id)->first();
+        if(!$voucherCatalog){
+            return $this->sendNotfound();
+        }
+
+        try{
+            DB::beginTransaction();
+            $voucherCatalog->voucher_catalog_stock_level = $request->input('voucher_catalog_stock_level');
+            $voucherCatalog->save();
+
+            $transaction = $this->stockTransaction($voucherCatalog->voucher_catalog_id, 'EDIT', null, $request->input('voucher_catalog_stock_level'));
+            
+            DB::commit();
+
+            return $this->sendSuccess($voucherCatalog);
+        }catch(\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
+        }
+    }
+
     public function updateVoucherCatalog($request, $id)
     {
         $voucherCatalog = VoucherCatalog::find($id);
@@ -573,6 +606,25 @@ class VoucherCatalogRepository extends BaseRepository
             $query->save();
 
             return $stockTransaction;
+        }
+    }
+
+    public function multipleDelete($arraysId)
+    {
+        try {
+            DB::beginTransaction();
+
+            foreach ($arraysId as $voucherId) {
+                $user = $this->model::where('voucher_catalog_id', $voucherId)->first();
+                $user->isdelete = true;
+                $user->last_updated_by_user_name = $this->loginUsername();
+                $user->save();
+                DB::commit();
+            }
+            return $this->sendSuccess(true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->throwErrorException($e);
         }
     }
 }

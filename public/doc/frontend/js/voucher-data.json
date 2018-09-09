@@ -1,0 +1,51 @@
+[
+    {
+        "id": "1",
+        "name": "Prezent IDR 500.000 Voucher",
+        "alt": "Paket Nonton Star Wars",
+        "desc": "Voucher meliputi 2 tiket 1 kali nonton film Star Wars The Last Jedi di CGV, XXI, Cinemaxx dan Flix Cinema cabang manapun.",
+        "amount": "1000",
+        "redeemed": "246",
+        "remaining": "645",
+        "tags": "150",
+        "merchants": [
+            "Starbucks",
+            "Krispy Kreme",
+            "Pizza Express",
+            "Cold Stone",
+            "Domino's Pizza"
+        ],
+        "img_path": "img/user/starwars-movie-poster-small.png"
+    },
+    {
+        "id": "2",
+        "name": "Prezent IDR 200.000 Voucher",
+        "alt": "Paket Nonton Avengers Infinity War",
+        "desc": "Voucher meliputi 2 tiket 1 kali nonton film Paket Nonton Avengers Infinity War di CGV, XXI, Cinemaxx dan Flix Cinema cabang manapun.",
+        "amount": "500",
+        "redeemed": "150",
+        "remaining": "350",
+        "tags": "120",
+        "merchants": [
+            "Dunkin's Donut",
+            "D'Crepes",
+            "Pizza Hut",
+            "Platinum"
+        ],
+        "img_path": "img/user/avengers-infinity-war-poster-small.jpg"
+    },
+    {
+        "id": "3",
+        "name": "BreatTalk 100k Vouchers",
+        "alt": "Paket Roti BreadTalk",
+        "desc": "Voucher belanja di BreadTalk cabang manapun.",
+        "amount": "500",
+        "redeemed": "100",
+        "remaining": "400",
+        "tags": "100",
+        "merchants": [
+            "All Merchants"
+        ],
+        "img_path": "img/user/breadtalk-poster-small.jpg"
+    }
+]

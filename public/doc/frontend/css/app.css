@@ -2736,6 +2736,9 @@ input[type="range"]:focus + .rangeslider .rangeslider__handle {
 .campaign-list-table span.status-finished {
   color: #2B93D1;
 }
+.campaign-list-table span.status-neutral {
+  color: #919191;
+}
 
 .campaign-history tbody tr.spacer,
 .campaign-history tbody tr.spacer + tr.spacer {
