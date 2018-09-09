@@ -162,10 +162,39 @@ class VoucherController extends BaseControllerWeb
 
     public function updateVoucherDetail(Request $request, $id)
     {
-        $voucher = $this->repository->updateVoucherCatalogStock($request,$id);
+        $voucher = $this->repository->getVoucherDraftById($id, false);
         $responseCode = $this->getResponseCodeFromJson($voucher);
         if ($responseCode == 404) {
             return $this->pageNotFound();
+        }
+
+        // $voucher = $this->getDataFromJson($voucher);
+
+        $voucherBeforeUpdate = $this->getDataFromJson($voucher);
+        $voucherStatus = $voucherBeforeUpdate['voucher_status'];
+
+        $voucherUpdate = null;
+
+        if ($voucherStatus == 'DRAFT') {
+            $voucherUpdate = $this->repository->createVoucherDetail($request, $id);
+        }else if($voucherStatus == 'RELEASED'){
+            $voucherUpdate = $this->repository->updateVoucherCatalogStock($request, $id);
+        }
+
+        if(!$voucherUpdate) {
+            return $this->pageNotFound();
+        }
+
+        $responseCodeUpdate = $this->getResponseCodeFromJson($voucherUpdate);
+        if ($responseCodeUpdate == 404) {
+            return $this->pageNotFound();
+        }
+
+        $voucherArray = $this->getDataFromJson($voucherUpdate);
+        $status = $voucherArray['voucher_status'];
+        $voucherCatatlogId = $voucherArray['voucher_catalog_id'];
+        if($status == 'DRAFT') {
+            return redirect()->route('voucher.merchant', ['id' => $voucherCatatlogId]);
         }
 
         return redirect()->route('voucher.index');

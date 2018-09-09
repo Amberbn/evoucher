@@ -13,9 +13,9 @@
             </a>
           </li>
 
-          @isPermitted('client','read')
+          @isPermitted('clients','read')
           <li class="nav-item">
-            <a class="nav-link nav-link-client" href="{{ route('client.index') }}">
+            <a class="nav-link nav-link-client" href="{{ route('clients.index') }}">
               <span class="nav-link__icon icon-ic_client"><span class="nav-link__text">Client</span></span>
             </a>
           </li>

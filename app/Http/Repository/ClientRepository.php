@@ -52,7 +52,9 @@ class ClientRepository extends BaseRepository
             })
             ->leftJoin('frm_user as PIC', function ($join) use ($table) {
             $join
-                ->on('PIC.user_id', '=', $table . '.client_in_charge_user_id');
+                ->on('PIC.user_id', '=', $table . '.client_in_charge_user_id')
+                ->where('PIC.isactive', '=', true)
+                ->where('PIC.isdelete', '=', false);
             });
 
         if ($clientId) {
@@ -96,7 +98,8 @@ class ClientRepository extends BaseRepository
             'emp.parameters_value as employee_size_category_title',
             'city.parameters_value as client_billing_address_city_title',
             'PIC.user_phone',
-            'PIC.user_profile_name'
+            'PIC.user_profile_name',
+            'PIC.user_name'
         );
 
         if (empty($client->get()->toarray())) {

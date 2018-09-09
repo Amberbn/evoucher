@@ -78,7 +78,7 @@ class ClientController extends BaseControllerWeb
         if ($responseCode != 201) {
 
         }
-        return redirect()->route('client.index');
+        return redirect()->route('clients.index');
 
     }
 
@@ -139,7 +139,7 @@ class ClientController extends BaseControllerWeb
         if ($responseCode != 200) {
 
         }
-        return redirect()->route('client.index');
+        return redirect()->route('clients.index');
     }
 
     /**

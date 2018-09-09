@@ -226,7 +226,13 @@ class VoucherCatalogRepository extends BaseRepository
     {
         DB::beginTransaction();
         try {
-            
+
+            //delete voucher catolog outlet if not empty
+
+            $voucherCatalogOutletAvaible = $this->catalogOutlet
+                ->where('voucher_catalog_id', '=', $voucherCatalogId)
+                ->delete();
+
             $getVoucherCatalog = $this->model
                 ->where('voucher_catalog_id', $voucherCatalogId)
                 ->first();
@@ -408,6 +414,7 @@ class VoucherCatalogRepository extends BaseRepository
             $voucherCatalog->voucher_catalog_instruction_outlet = $request->input('voucher_catalog_instruction_outlet');
             $voucherCatalog->voucher_catalog_value_amount = $request->input('voucher_catalog_value_amount');
             $voucherCatalog->voucher_catalog_value_point = $request->input('voucher_catalog_value_point');
+            $voucherCatalog->voucher_catalog_unit_cogs_amount = $request->input('voucher_catalog_unit_cogs_amount');
             $voucherCatalog->voucher_catalog_unit_price_amount = $request->input('voucher_catalog_unit_price_amount');
             $voucherCatalog->voucher_catalog_unit_price_point = $request->input('voucher_catalog_unit_price_point');
             $voucherCatalog->voucher_catalog_stock_level = $request->input('voucher_catalog_stock_level');

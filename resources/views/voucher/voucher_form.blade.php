@@ -2,8 +2,9 @@
 @php
     $title = 'voucher profile';
     $headerTitle = @$voucher ? 'Edit Voucher Profile' : 'Create New Voucher Profile';
-    $disabled = @$voucher ? 'disabled' : '';
-    $progressList = @$voucher ? 'list2' : 'list3';
+    $disabled = @$voucher->voucher_status == 'RELEASED' ? 'disabled' : '';
+    $progressList = @$voucher->voucher_status == 'RELEASED' ? 'list2' : 'list3';
+    $isReleased = @$voucher->voucher_status == 'RELEASED' ? true : false;
 @endphp
 @section('title', $title)
 @section('headerTitle', $headerTitle)
@@ -15,7 +16,7 @@
                 <ol class="campaign-form-progress {{ $progressList }}">
                     <li class="active"><span>Voucher Profile</span></li>
                     <li><span>Voucher Details</span></li>
-                    @if(!@$voucher)
+                    @if(!@$isReleased)
                         <li><span>Merchant &amp; Outlet</span></li>
                     @endif
                 </ol>
@@ -121,7 +122,7 @@
                                             <label>Validity Start Date</label>
                                             <div class="form-input">
                                                 <div class="input-group" id="pick-date-period-start" data-target-input="nearest">
-                                                    <input type="text" placeholder="Start" name="voucher_catalog_valid_start_date" aria-label="Start" 
+                                                    <input type="text" placeholder="Start" name="voucher_catalog_valid_start_date" id="start_date" aria-label="Start" 
                                                         class="form-control datetimepicker-input" data-toggle="datetimepicker"
                                                         data-target="#pick-date-period-start" value="{{ $startDate }}" {{ $disabled }}/>
                                                     <div class="input-group-append" data-target="#pick-date-period-start" data-toggle="datetimepicker">
@@ -134,7 +135,7 @@
                                             <label>Validity End Date</label>
                                             <div class="form-input">
                                                 <div class="input-group" id="pick-date-period-end" data-target-input="nearest">
-                                                    <input type="text" placeholder="End" name="voucher_catalog_valid_end_date" aria-label="End" 
+                                                    <input type="text" placeholder="End" name="voucher_catalog_valid_end_date" id="end_date" aria-label="End" 
                                                         class="form-control datetimepicker-input" data-toggle="datetimepicker" 
                                                         data-target="#pick-date-period-end" value="{{ $endDate }}" {{ $disabled }}/>
                                                     <div class="input-group-append" data-target="#pick-date-period-end" data-toggle="datetimepicker">
@@ -160,7 +161,7 @@
                 <div class="sidebar-area col-md-4">
                     <div class="card card-form">
                         <div class="card-header">
-                            <h5 class="card-title">Paket Nonton Star Wars</h5>
+                            <h5 class="card-title">My Voucher Name</h5>
                             <h5>Merchant</h5>
                         </div>
                         <div id="upload_button" class="card-body text-center">
@@ -205,7 +206,7 @@
                                     @if(@$voucher->voucher_catalog_terms_and_condition)
                                         {{ @$voucher->voucher_catalog_terms_and_condition }}
                                     @else
-                                        You may redeem this card 1 voucher for 1 person only. Lost or stolen cards will not be replaced. This card is non-refundable. For more information: +6221-2920-0100 | callcenter@cgv.id
+                                        <p></p>
                                     @endif
                                 </div>
                                 <div class="tab-pane fade" id="nav-tukar" role="tabpanel" aria-labelledby="nav-tukar-tab">
