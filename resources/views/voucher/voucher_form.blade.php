@@ -161,7 +161,7 @@
                 <div class="sidebar-area col-md-4">
                     <div class="card card-form">
                         <div class="card-header">
-                            <h5 class="card-title">Paket Nonton Star Wars</h5>
+                            <h5 class="card-title">My Voucher Name</h5>
                             <h5>Merchant</h5>
                         </div>
                         <div id="upload_button" class="card-body text-center">
