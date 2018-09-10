@@ -29,6 +29,7 @@ Route::middleware(['auth', 'check-permission'])->group(function () {
     Route::get('/home', 'Web\HomeController@index')->name('home');
     Route::get('/chage-password', 'Web\AccountController@index')->name('account.change.password');
     Route::post('/chage-password', 'Web\AccountController@changePassword')->name('user.change.password');
+    Route::get('/force-logout', 'Web\AccountController@forceLogout')->name('account.force.logout');
     //end account and dashboard
 
     //user page
