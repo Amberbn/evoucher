@@ -18,6 +18,11 @@ class AccountController extends BaseControllerWeb
         return view('account.change_password');
     }
 
+    public function forceLogout(){
+        Auth::logout();
+        return redirect()->route('login');
+    }
+
     public function changePassword(Request $request)
     {
         $response = $this->repository->changePassword($request);
