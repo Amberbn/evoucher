@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+      <meta name="author" content="Kharis Sulistiyono">
+      <title>Campaign Checkout - Prezent</title>
+      <!-- Favicon -->
+      <link rel="icon" href="img/favicon.png" type="image/png">
+      <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+      <!-- Google Font -->
+      <link href="https://fonts.googleapis.com/css?family=Muli:200,300,400,700,800" rel="stylesheet">
+      <!-- Bootstrap Core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <!-- Font Awesome -->
+      <link href="css/fontawesome-all.min.css" rel="stylesheet">
+      <link href="vendor/tempusdominus/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+      <link href="vendor/checkradios/jquery.checkradios.min.css" rel="stylesheet">
+      <link href="vendor/select2/select2.min.css" rel="stylesheet">
+      <!-- Custom CSS -->
+      <link href="css/app.css" rel="stylesheet">
+      <link href="css/admin.css" rel="stylesheet">
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body class="member-area document-resize">
+      <div class="site clearfix">
+         <div id="admin-top-bar">
+            <div class="admin-bar">
+               <div class="admin-bar__main-menu">
+                  <button class="btn"><span class="lines-menu"></span></button>
+               </div>
+               <div class="admin-bar__context">
+                  <div class="inner">
+                     <h1 class="admin-bar__context-title">Checkout</h1>
+                  </div>
+               </div>
+               <div class="admin-bar__nav">
+                  <span class="mobile-nav-toggle"><i class="fa fa-bars"></i></span>
+                  <ul>
+                     <li class="nav__support">
+                        <a href="#"><span class="icon-ic_support"></span></a>
+                     </li>
+                     <li class="nav__notification parent-menu incoming-notification has-notification">
+                        <a href="#">
+                        <span class="icon-ic_notif"></span>
+                        <span class="notification-counter">121</span>
+                        </a>
+                        <ul class="sub-menu notification__dropdown">
+                           <li class="notif__head">
+                              New Notification <span class="new-notif-count">2</span>
+                           </li>
+                           <li class="notif__status-item unread">
+                              <a href="#">
+                                 <div class="notif__inner">
+                                    <span class="notif__campaign-name">Pending Invoice : Invoice No. D-0011</span>
+                                    &ndash; <span class="notif__campaign-date">29 Aug 2018</span>
+                                    <p class="notif__campaign-created">Today &ndash; 8.15 <span></span></p>
+                                 </div>
+                              </a>
+                           </li>
+                           <li class="notif__status-item unread">
+                              <a href="#">
+                                 <div class="notif__inner">
+                                    <span class="notif__campaign-name">Invoice Paid : Invoice No. D-0006</span>
+                                    <p class="notif__campaign-created">Today &ndash; 8.02 <span></span></p>
+                                 </div>
+                              </a>
+                           </li>
+                           <li class="notif__status-item as-read">
+                              <a href="#" class="sign-out">
+                                 <div class="notif__inner">
+                                    <span class="notif__campaign-name as-read">PT. Mitra Adhi Perkasa want to start a campaign.</span>
+                                    <p class="notif__campaign-created">Yesterday &ndash; 9.12 <span></span></p>
+                                 </div>
+                              </a>
+                           </li>
+                           <li class="notif__status-item as-read">
+                              <a href="#">
+                                 <div class="notif__inner">
+                                    <span class="notif__campaign-name as-read">Invoice Paid : Invoice No. D-0002</span>
+                                    <p class="notif__campaign-created">8 May 2018 &ndash; 10.30 <span></span></p>
+                                 </div>
+                              </a>
+                           </li>
+                           <li class="notif__footer">
+                              <a href="#">Show more notifications</a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="user-menu parent-menu">
+                        <a href="#">
+                        <span class="user-menu__avatar"></span>
+                        <span class="user-menu__name">Annisa Kinanti</span>
+                        <span class="profile-menu-toggle"><i class="fa fa-angle-down"></i></span>
+                        </a>
+                        <ul class="sub-menu">
+                           <li><a href="#">Edit Profile</a></li>
+                           <li><a href="#">Change Password</a></li>
+                           <li><a href="#" class="sign-out">Sign Out</a></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+               <div class="admin-bar__shortcut">
+                  <div class="btn-zoom-in-shadow">
+                     <button class="btn shortcut border-0 plus" data-toggle="modal" data-target="#userMenuModal"><i class="fa fa-plus"></i></button>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /#admin-top-bar -->
+         <div id="side-menu">
+            <ul class="nav flex-column">
+               <li class="nav-item first">
+                  <div class="admin-bar__main-menu">
+                     <button class="btn"><span class="lines-menu"></span></button>
+                  </div>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link nav-link-dashboard active" href="#">
+                  <span class="nav-link__icon icon-ic_dashboard"><span class="nav-link__text">Dashboard</span></span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link nav-link-client" href="#">
+                  <span class="nav-link__icon icon-ic_client"><span class="nav-link__text">Client Management</span></span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link nav-link-campaign" href="#">
+                  <span class="nav-link__icon icon-ic_campaign"><span class="nav-link__text">Campaign Management</span></span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link nav-link-coupon" href="#">
+                  <span class="nav-link__icon icon-ic_coupon"><span class="nav-link__text">Voucher Management</span></span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link nav-link-merchant" href="#">
+                  <span class="nav-link__icon icon-ic_merchant"><span class="nav-link__text">Merchant Management</span></span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link nav-link-invoice" href="#">
+                  <span class="nav-link__icon icon-ic_invoice"><span class="nav-link__text">Invoice Management</span></span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link nav-link-deposit" href="#">
+                  <span class="nav-link__icon icon-ic_deposit"><span class="nav-link__text">Deposit Management</span></span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link nav-link-user" href="#">
+                  <span class="nav-link__icon icon-ic_user"><span class="nav-link__text">User Management</span></span>
+                  </a>
+               </li>
+            </ul>
+         </div>
+         <!-- /#side-menu -->
+         <div id="main-content">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="campaign-form-progress-outer col-md-12">
+                     <ol class="campaign-form-progress list5">
+                        <li class="done"><span>Campaign Profile</span></li>
+                        <li class="done"><span>Select Vouchers</span></li>
+                        <li class="done"><span>Campaign Messages</span></li>
+                        <li class="done"><span>Recepient List</span></li>
+                        <li class="active"><span>Checkout</span></li>
+                     </ol>
+                     <!-- /.campaign-form-progress -->
+                  </div>
+                  <!-- /.campaign-form-progress-outer -->
+               </div>
+            </div>
+            <div class="main-content__body container-fluid">
+                <div class="campaign-checkout-list">
+                    <div class="checkout-header row">
+                        <div class="col-1 campaign-first-col">
+                            <a class="popover-menu-btn" href="#">
+                                <img src="img/icon-plus-blue.png" alt="+" />
+                            </a>
+                            <div class="popover-menu-content">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Edit Checked Voucher</a></li>
+                                    <li><a href="#">Delete Checked Voucher</a></li>
+                                    <li><a href="#">Archive Checked</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-5"><span class="checkout-th">Voucher Name</span></div>
+                        <div class="col-2 text-right"><span class="checkout-th">Price Per Unit</span></div>
+                        <div class="col-2 text-right"><span class="checkout-th">Quantity</span></div>  
+                        <div class="col-2 text-right"><span class="checkout-th">Sub Total</span></div>
+                    </div>
+                    <form id="campaign-checkout-form" action="" method="POST">
+                        <ul class="checkout-list-body">
+                            <li class="checkout-list">
+                                <div class="checkout-list-a row">
+                                    <div class="col-1 campaign-first-col">
+                                        <div class="form-check">
+                                            <input type="checkbox" value="campaign-1" class="form-check-input" nice-checkbox-radio />
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="checkout-list-title">
+                                            Paket 2 Tiket Nonton Star Wars - The Last Jedi
+                                        </div>
+                                        <div class="checkout-list-desc">
+                                            Customer List 1, SMS and Email Delivery
+                                        </div>
+                                    </div>
+                                    <div class="col-2 checkout-value">75.000</div>
+                                    <div class="col-2 checkout-value">1.200</div>  
+                                    <div class="col-2 checkout-value">90.000.000</div>
+                                </div>
+                                <div class="checkout-list-b row">
+                                    <div class="col-1 campaign-first-col"></div>
+                                    <div class="col-5">
+                                        <div class="checkout-list-title">
+                                            SMS Cost
+                                        </div>
+                                    </div>
+                                    <div class="col-2 checkout-value">250</div>
+                                    <div class="col-2 checkout-value">1.200</div>  
+                                    <div class="col-2 checkout-value">300.000</div>
+                                </div>
+                            </li>
+                            <li class="checkout-list">
+                                <div class="checkout-list-a row">
+                                    <div class="col-1 campaign-first-col">
+                                        <div class="form-check">
+                                            <input type="checkbox" value="campaign-1" class="form-check-input" nice-checkbox-radio />
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="checkout-list-title">
+                                            Paket Makan Berdua di Hari Sabtu dan Minggu
+                                        </div>
+                                        <div class="checkout-list-desc">
+                                            Customer List 2, SMS and Email Delivery
+                                        </div>
+                                    </div>
+                                    <div class="col-2 checkout-value">100.000</div>
+                                    <div class="col-2 checkout-value">800</div>  
+                                    <div class="col-2 checkout-value">80.000.000</div>
+                                </div>
+                                <div class="checkout-list-b row">
+                                    <div class="col-1 campaign-first-col"></div>
+                                    <div class="col-5">
+                                        <div class="checkout-list-title">
+                                            SMS Cost
+                                        </div>
+                                    </div>
+                                    <div class="col-2 checkout-value">250</div>
+                                    <div class="col-2 checkout-value">800</div>  
+                                    <div class="col-2 checkout-value">200.000</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    
+                    
+                </div>
+                <div class="row ">
+                    <div class="col-12 checkout-list-panel">
+                        <a href="#">Add Another Voucher</a>
+                    </div>
+                </div>
+                <div class="row checkout-list-total">
+                    <div class="col-12">
+                        <div class="row bottom-10">
+                            <div class="col-1 campaign-first-col"></div>
+                            <div class="col-5"><div class="checkout-list-total-desc">Sub Total</div></div>
+                            <div class="col-2 offset-4 text-right"><div class="checkout-list-total-desc">170.500.000</div></div>
+                        </div>
+                        <div class="row bottom-10">
+                            <div class="col-1 campaign-first-col"></div>
+                            <div class="col-5"><div class="checkout-list-total-desc">Tax</div></div>
+                            <div class="col-2 offset-4 text-right"><div class="checkout-list-total-desc">17.050.000</div></div>
+                        </div>
+                        <div class="row bottom-10">
+                            <div class="col-1 campaign-first-col"></div>
+                            <div class="col-5"><div class="checkout-list-total-desc">Handling Fee</div></div>
+                            <div class="col-2 offset-4 text-right"><div class="checkout-list-total-desc">17.050.000</div></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 campaign-first-col"></div>
+                            <div class="col-9"><div class="checkout-desc-total">Total Potensial Cost</div></div>
+                            <div class="col-2 text-right"><div class="checkout-desc-total"><span class="float-left">IDR</span>204.660.000</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section btn-submit" align="center">
+                    <div class="float-left">
+                        <button type="submit" class="btn font13 btn-green btn-add-client border-0" >Edit Campaign</button>
+                        <button type="button" class="btn font13 btn-green btn-add-client border-0" >Save Campaign</button>
+                    </div>
+                    <div class="clearfix">
+                        <button type="submit" class="btn btn-wide-block btn-green btn-add-campaign border-0">Run Campaign</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.main-content__body -->
+         </div>
+         <!-- /#main-content -->
+      </div>
+      <!-- /.site -->
+      <div class="modal modal-user-menu fade clarfix" id="userMenuModal" tabindex="-1" role="dialog" aria-labelledby="userMenuModalLabel" aria-hidden="true">
+         <div class="modal-user-menu__inner" role="document">
+            <div class="user-menu-cards clearfix">
+               <h2 class="modal-dialog user-menu-cards__heading">What do you want to do?</h2>
+               <div class="modal-dialog modal-user-menu__content">
+                  <div class="modal-content">
+                     <div class="modal-body">
+                        <a href="#">
+                           <div class="modal-body__inner">
+                              <img src="img/img-client-user.svg" alt="">
+                              <h3>Create <br />
+                                 New Campaign
+                              </h3>
+                           </div>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+               <!-- /.modal-dialog -->
+               <div class="modal-dialog modal-user-menu__content">
+                  <div class="modal-content">
+                     <div class="modal-body">
+                        <a href="#">
+                           <div class="modal-body__inner">
+                              <img src="img/generate-vouchers.png" alt="">
+                              <h3>Generate Vouchers</h3>
+                           </div>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+               <!-- /.modal-dialog -->
+               <div class="modal-dialog modal-user-menu__content">
+                  <div class="modal-content">
+                     <div class="modal-body">
+                        <a href="#">
+                           <div class="modal-body__inner">
+                              <img src="img/create-new-vouchers.png" alt="">
+                              <h3>Create <br />
+                                 New Vouchers
+                              </h3>
+                           </div>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+               <!-- /.modal-dialog -->
+               <div class="modal-dialog modal-user-menu__content">
+                  <div class="modal-content">
+                     <div class="modal-body">
+                        <a href="#">
+                           <div class="modal-body__inner">
+                              <!-- <div class="cards-icon"></div> -->
+                              <img src="img/create-invoice.png" alt="">
+                              <h3>Create Invoice</h3>
+                           </div>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+               <!-- /.modal-dialog -->
+               <div class="clearfix"></div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- jQuery Version 3.3.1 -->
+      <script src="js/jquery-3.3.1.min.js"></script>
+      <!-- Bootstrap Core JavaScript -->
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <!-- Moment Core JavaScript -->
+      <script src="vendor/moment/moment.min.js"></script>
+      <!-- Bootstrap Datetime Picker JavaScript -->
+      <script src="vendor/tempusdominus/tempusdominus-bootstrap-4.min.js"></script>
+      <!-- GreenSock JavaScript -->
+      <script src="vendor/greensock/TweenMax.min.js"></script>
+      <!-- Session JavaSctipt -->
+      <script src="vendor/session/jquery.session.js"></script>
+      <!-- Checkradios JavaScript -->
+      <script src="vendor/checkradios/jquery.checkradios.min.js"></script>
+      <!-- Select2 JavaScript -->
+      <script src="vendor/select2/select2.min.js"></script>
+      <!-- Zoom JavaScript -->
+      <script src="vendor/zoom/zoom.js"></script>
+      <!-- Custom Theme JavaScript -->
+      <script src="js/app.js"></script>
+      <script src="js/campaign-module.js"></script>
+   </body>
+</html>
+

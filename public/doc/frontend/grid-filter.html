@@ -25,7 +25,8 @@
             {id:2, v_name: "Carrefour 100k Voucher", v_cat: "Retail", value: 100, amount: 1200, valid: '1 Jul - 30 Jul 2018'},
             {id:3, v_name: "Carrefour 200k Voucher", v_cat: "Retail", value: 140, amount: 1500, valid: '1 Jul - 30 Jul 2018'},
             {id:4, v_name: "Carrefour 100k Voucher", v_cat: "Retail", value: 100, amount: 1000, valid: '1 Aug - 30 Aug 2018'},
-            {id:5, v_name: "XXI Buy 2 Get 1", v_cat: "Entertainment", value: 150, amount: 1300, valid: '1 Sep - 30 Sep 2018'}
+            {id:5, v_name: "XXI Buy 2 Get 1", v_cat: "Entertainment", value: 150, amount: 1300, valid: '1 Sep - 30 Sep 2018'},
+            {id:5, v_name: "XXI Discount 10%", v_cat: "Entertainment", value: 110, amount: 1500, valid: '1 Sep - 30 Sep 2018'}
         ];
 
         function searchData(keyword){
@@ -58,6 +59,25 @@
                             +'</b></div></div>';
             }
             document.getElementById('listdata').innerHTML = listdata;
+        }
+
+        function Paginator(items, page, per_page) {
+ 
+            var page = page || 1,
+            per_page = per_page || 3,
+            offset = (page - 1) * per_page,
+
+            paginatedItems = items.slice(offset).slice(0, per_page),
+            total_pages = Math.ceil(items.length / per_page);
+            return {
+                page: page,
+                per_page: per_page,
+                pre_page: page - 1 ? page - 1 : null,
+                next_page: (total_pages > page) ? page + 1 : null,
+                total: items.length,
+                total_pages: total_pages,
+                data: paginatedItems
+            };
         }
 
         myKeyword(0);

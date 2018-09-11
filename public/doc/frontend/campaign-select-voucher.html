@@ -400,8 +400,27 @@
                             <div id="loop-layout" class="vouchers voucher-list-v2-wrapper clearfix"></div>
                             <!-- /.vouchers.col-md-12 -->
                         </div>
+                        
                     </div>
                     <!-- /.content-area -->
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#" onclick="showPage(1);return false">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#" onclick="showPage(2);return false">2</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
             <!-- /.main-content__body -->
@@ -534,34 +553,64 @@
                     </nav>
                     <div class="tab-content vtab-content">
                         <div class="tab-pane fade show active" id="nav-voucher-detail" role="tabpanel" aria-labelledby="nav-voucher-detail-tab">
-                            <div class="row">
+                            <div class="row bottom-20">
                                 <div class="col-6">
                                     <ul class="campaign-list-tab">
-                                        <li>Voucher Name :<br>Map F&amp;B Gift Voucher</li>
-                                        <li>Client :<br>PT Mitra Adi Perkas</li>
-                                        <li>Voucher Validity :<br>10 June 2018 - 30 Juni 2018</li>
-                                        <li>Stock Remaining :<br>800 pcs</li>
+                                        <li>Voucher Name :<br><span class="campaign-list-value txt-blue">Map F&amp;B Gift Voucher</span></li>
+                                        <li>Client :<br><span class="campaign-list-value txt-blue">PT Mitra Adi Perkasa</span></li>
+                                        <li>Voucher Validity :<br><span class="campaign-list-value">10 June 2018 - 30 Juni 2018</span></li>
+                                        <li>Stock Remaining :<br><span class="campaign-list-value txt-blue">800 pcs</span></li>
                                     </ul>
                                 </div>
                                 <div class="col-6 campaign-tab-separator">
                                     <ul class="campaign-list-tab">
-                                        <li>Voucher Redeemed : <br>135 pcs</li>
-                                        <li>Voucher Unit Price Amount : <br>100.000</li>
-                                        <li>Voucher Value Point : <br>1.000.000 pts</li>
+                                        <li>Voucher Redeemed : <br><span class="campaign-list-value">135 pcs</span></li>
+                                        <li>Voucher Unit Price Amount : <br><span class="campaign-list-value">100.000</span></li>
+                                        <li>Voucher Value Point : <br><span class="campaign-list-value">1.000.000 pts</span></li>
                                         <li>Tags : <br>
-                                            <span class="badge badge-primary">Food &amp; Beverages</span>
-                                            <span class="badge badge-primary">Retails</span>
-                                            <span class="badge badge-primary">Entertainment</span>
+                                            <span class="badge badge-primary btags">Food &amp; Beverages</span>
+                                            <span class="badge badge-primary btags">Retails</span>
+                                            <span class="badge badge-primary btags">Entertainment</span>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab">BBBB</div>
-                        <div class="tab-pane fade" id="nav-merchant" role="tabpanel" aria-labelledby="nav-merchant-tab">CCCC</div>
-                        <div class="button-group">
-                            <button class="btn btn-outline-primary">Voucher Report</button>
-                            <button class="btn btn-secondary">Close Detail</button>
+                        <div class="tab-pane fade" id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab">
+                            <ul class="campaign-list-tab">
+                                <li>Info : <br>
+                                    <span class="campaign-list-value">Voucher meliputi 2 tiket 1 kali nonton film Star Wars The Last Jedi di CGV Cinemas cabang manapun.
+                                        Berlaku hingga 30 Juni 2018</span>
+                                </li>
+                                <li>Instruction for Customer : <br>
+                                    <span class="campaign-list-value">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </span>
+                                </li>
+                                <li>Instruction for Outlet : <br>
+                                    <span class="campaign-list-value">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade" id="nav-merchant" role="tabpanel" aria-labelledby="nav-merchant-tab">
+                            <ul class="campaign-list-tab">
+                                <li><span class="campaign-list-value">Krispy Kreme</span></li>
+                                <li><span class="campaign-list-value">Starbucks</span></li>
+                                <li><span class="campaign-list-value">Pizza Express</span></li>
+                                <li><span class="campaign-list-value">Cold Stone</span></li>
+                                <li><span class="campaign-list-value">Domino's Pizza</span></li>
+                                <li><span class="campaign-list-value">Burger King</span></li>
+                                <li><span class="campaign-list-value">Godiva</span></li>
+                                <li><span class="campaign-list-value">PAUL</span></li>
+                                <li><span class="campaign-list-value">Genki Sushi</span></li>
+                                <li><span class="campaign-list-value">Chatter Box</span></li>
+                            </ul>
+                        </div>
+                        <div class="form-section clearfix" align="center">
+                            <button type="submit" class="btn font13 btn-outline-primary btn-add-client">Voucher Report</button>
+                            <button type="button" class="btn font13 btn-green btn-add-client">Close Detail</button>
                         </div>
                     </div>
                     

@@ -233,6 +233,24 @@
         $('#uploadBox').fadeOut();
       });
 
+      $(".uploadCsv").change(function(e){
+        if(e.target.files.length !== 0){
+          var csvFile = e.target.files[0].name;
+          var idCsv = e.target.name;
+          console.log(e.target.name)
+          $('#output-'+idCsv).val(csvFile);
+          $('#box-'+idCsv).show();
+        }
+      });
+
+      $('.clearCsvFile').click(function(event){
+        event.preventDefault();
+        var idClearCsv = $(this).prop('id');
+            idClearCsv = idClearCsv.substr(6);
+        $('input[name="'+idClearCsv+'"]').val(null);
+        $('#output-'+idClearCsv).val('');
+        $('#box-'+idClearCsv).fadeOut();
+      });
     }
     uploadFile();
   }
