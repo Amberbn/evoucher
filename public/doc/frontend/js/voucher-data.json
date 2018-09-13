@@ -9,17 +9,16 @@
         "remaining": "645",
         "tags": "150",
         "merchants": [
-            "Starbucks",
-            "Krispy Kreme",
-            "Pizza Express",
-            "Cold Stone",
-            "Domino's Pizza"
+            "CGV Cinemas",
+            "Cinema XXI",
+            "IMAXX",
+            "Cinemaxx"
         ],
         "img_path": "img/user/starwars-movie-poster-small.png"
     },
     {
         "id": "2",
-        "name": "Prezent IDR 200.000 Voucher",
+        "name": "Paket 2 Tiket Nonton Avengers Infinity War",
         "alt": "Paket Nonton Avengers Infinity War",
         "desc": "Voucher meliputi 2 tiket 1 kali nonton film Paket Nonton Avengers Infinity War di CGV, XXI, Cinemaxx dan Flix Cinema cabang manapun.",
         "amount": "500",
@@ -27,10 +26,10 @@
         "remaining": "350",
         "tags": "120",
         "merchants": [
-            "Dunkin's Donut",
-            "D'Crepes",
-            "Pizza Hut",
-            "Platinum"
+            "CGV Cinemas",
+            "Cinema XXI",
+            "IMAXX",
+            "Cinemaxx"
         ],
         "img_path": "img/user/avengers-infinity-war-poster-small.jpg"
     },
@@ -47,5 +46,94 @@
             "All Merchants"
         ],
         "img_path": "img/user/breadtalk-poster-small.jpg"
+    },
+    {
+        "id": "4",
+        "name": "20Fit Free 2 Week",
+        "alt": "20Fit Free",
+        "desc": "Voucher untuk fitness di pusat kebugaran tersedia pusat mal terdekat.",
+        "amount": "1000",
+        "redeemed": "500",
+        "remaining": "500",
+        "tags": "150",
+        "merchants": [
+            "Pondok Indah Mall",
+            "Puri Indah Mall",
+            "Central Park",
+            "Grand Indonesia",
+            "Citiwalk"
+        ],
+        "img_path": "img/user/20fit-voucher-small.png"
+    },
+    {
+        "id": "5",
+        "name": "MAP F&B Gift Voucher",
+        "alt": "MAP F&B Gift Voucher",
+        "desc": "Voucher makan bersama keluarga di pusat mal terdekat.",
+        "amount": "1000",
+        "redeemed": "500",
+        "remaining": "500",
+        "tags": "150",
+        "merchants": [
+            "AEON Mall Jakarta",
+            "Bella Terra",
+            "Bellagio Boutique Mall",
+            "Blok M Plaza",
+            "Central Park",
+            "Cibubur Junction",
+            "Daan Mogot Baru",
+            "Duren Sawit",
+            "Gandaria City"
+        ],
+        "img_path": "img/user/map-gift-voucher-small.jpg"
+    },
+    {
+        "id": "6",
+        "name": "Paket Makan Berdua di hari Sabtu dan Minggu",
+        "alt": "MAP F&B Gift Voucher",
+        "desc": "Voucher makan berdua di hari sabtu dan minggu di semua cabang.",
+        "amount": "1000",
+        "redeemed": "500",
+        "remaining": "500",
+        "tags": "150",
+        "merchants": [
+            "Platinum",
+            "Rice Bowl",
+            "Carls Js",
+            "Shuan Thai"
+        ],
+        "img_path": "img/user/fishco-voucher-poster-small.png"
+    },
+    {
+        "id": "7",
+        "name": "Voucher 200k Transmart",
+        "alt": "MAP F&B Gift Voucher",
+        "desc": "Voucher berbelanja di semua cabang.",
+        "amount": "500",
+        "redeemed": "300",
+        "remaining": "200",
+        "tags": "150",
+        "merchants": [
+            "All Merchant"
+        ],
+        "img_path": "img/user/transmart-voucher-poster-small.png"
+    },
+    {
+        "id": "8",
+        "name": "Paket Menu Steak Berdua di Pepper Lunch",
+        "alt": "MAP F&B Gift Voucher",
+        "desc": "Voucher makan berdua di hari sabtu dan minggu di semua cabang.",
+        "amount": "1000",
+        "redeemed": "500",
+        "remaining": "500",
+        "tags": "150",
+        "merchants": [
+            "Pepper Lunch",
+            "Rice Bowl",
+            "Carls Js",
+            "Shuan Thai"
+        ],
+        "img_path": "img/user/pepper-lunch-voucher-poster-small.png"
     }
 ]
+

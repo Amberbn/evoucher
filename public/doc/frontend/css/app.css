@@ -392,6 +392,15 @@ img {
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
+#main-content .content-area__main2 {
+  padding: 32px 51px;
+  margin-bottom: 0;
+  background-color: #fff;
+  -webkit-box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
 #main-content .content-area.content-area__client-detail {
   padding-left: 25px;
   padding-right: 0;
