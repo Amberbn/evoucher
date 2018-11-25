@@ -1,0 +1,290 @@
+{
+	"id": "acdc35f2-98d3-46c2-981e-245741f76934",
+	"name": "Evoucher",
+	"description": null,
+	"auth": null,
+	"events": null,
+	"variables": null,
+	"order": [],
+	"folders_order": [
+		"0bcaa946-5fe7-4335-8f83-e14b04cb13c1",
+		"341213ee-3155-4e05-8957-3d10d300fd3e",
+		"a1d009a0-26de-4bba-890d-fec0185c5de1"
+	],
+	"folders": [
+		{
+			"id": "0bcaa946-5fe7-4335-8f83-e14b04cb13c1",
+			"name": "Client",
+			"description": null,
+			"auth": null,
+			"events": null,
+			"collection": "acdc35f2-98d3-46c2-981e-245741f76934",
+			"folder": null,
+			"order": [
+				"35af4439-b10d-4d85-ae15-846ee4892188",
+				"75e36d22-96fd-4525-96f4-b34cf5b4fd4b",
+				"c96e19ae-e08b-4b15-92a3-3d7ee7095714",
+				"68002d2d-9f51-4a98-ac16-c7ac2d707ab2",
+				"4de81916-52c8-4c30-8c93-835ed4ea857e"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "a1d009a0-26de-4bba-890d-fec0185c5de1",
+			"name": "Role",
+			"description": null,
+			"auth": null,
+			"events": null,
+			"collection": "acdc35f2-98d3-46c2-981e-245741f76934",
+			"folder": null,
+			"order": [
+				"eb493c29-2eb6-4b86-a69d-6e94031a8b4b"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "341213ee-3155-4e05-8957-3d10d300fd3e",
+			"name": "User",
+			"description": null,
+			"auth": null,
+			"events": null,
+			"collection": "acdc35f2-98d3-46c2-981e-245741f76934",
+			"folder": null,
+			"order": [
+				"f3315849-cf4b-4c9b-b123-366e8e5dbc01",
+				"a69374ec-ab31-4882-9c78-09ff42fe5080"
+			],
+			"folders_order": []
+		}
+	],
+	"requests": [
+		{
+			"id": "35af4439-b10d-4d85-ae15-846ee4892188",
+			"name": "Get All",
+			"url": "http://evoucher.test:8090/api/v1/client",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXZvdWNoZXIudGVzdDo4MDkwL2FwaS92MS9sb2dpbiIsImlhdCI6MTUyNTk3Njc3MSwiZXhwIjoxNTI1OTgwMzcxLCJuYmYiOjE1MjU5NzY3NzEsImp0aSI6Ind3c3lUM0JpTmV4NmVNOWciLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Ng-J7cvgjItE93C4FXBaUxWs2p9JQ44uKAPyX00ChKE"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": "0bcaa946-5fe7-4335-8f83-e14b04cb13c1",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "4de81916-52c8-4c30-8c93-835ed4ea857e",
+			"name": "Soft Delete",
+			"url": "http://evoucher.test:8090/api/v1/client/delete/gojek",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXZvdWNoZXIudGVzdDo4MDkwL2FwaS92MS9sb2dpbiIsImlhdCI6MTUyNTk3Njc3MSwiZXhwIjoxNTI1OTgwMzcxLCJuYmYiOjE1MjU5NzY3NzEsImp0aSI6Ind3c3lUM0JpTmV4NmVNOWciLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Ng-J7cvgjItE93C4FXBaUxWs2p9JQ44uKAPyX00ChKE"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": "0bcaa946-5fe7-4335-8f83-e14b04cb13c1",
+			"rawModeData": "",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "68002d2d-9f51-4a98-ac16-c7ac2d707ab2",
+			"name": "Update",
+			"url": "http://evoucher.test:8090/api/v1/client/update/gojek",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXZvdWNoZXIudGVzdDo4MDkwL2FwaS92MS9sb2dpbiIsImlhdCI6MTUyNTk3Njc3MSwiZXhwIjoxNTI1OTgwMzcxLCJuYmYiOjE1MjU5NzY3NzEsImp0aSI6Ind3c3lUM0JpTmV4NmVNOWciLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Ng-J7cvgjItE93C4FXBaUxWs2p9JQ44uKAPyX00ChKE"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": "0bcaa946-5fe7-4335-8f83-e14b04cb13c1",
+			"rawModeData": "{\r\n\t\"client_category_pid\": 141,\r\n\t\"client_is_also_merchant\": false,\r\n\t\"client_allow_postpaid\": false,\r\n\t\"client_name\": \"PT gojek Cipta Solusi\",\r\n\t\"client_tax_no\": null,\r\n\t\"client_billing_address_line_1\": \"kokas 88\",\r\n\t\"client_billing_address_line_2\": \"simatupang 89\",\r\n\t\"client_billing_address_state_province_pid\": 7,\r\n\t\"client_billing_address_city_pid\": 50,\r\n\t\"client_billing_address_postal_code\": 555,\r\n\t\"client_industry_category_pid\": 139,\r\n\t\"client_employee_size_category_pid\": 147,\r\n\t\"client_outstanding_limit\": 0.0000,\r\n\t\"isactive\": true,\r\n\t\"isdelete\": false\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "75e36d22-96fd-4525-96f4-b34cf5b4fd4b",
+			"name": "Save Client",
+			"url": "http://evoucher.test:8090/api/v1/client/store",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"enabled": true
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXZvdWNoZXIudGVzdDo4MDkwL2FwaS92MS9sb2dpbiIsImlhdCI6MTUyNTk3MzkzNiwiZXhwIjoxNTI1OTc3NTM2LCJuYmYiOjE1MjU5NzM5MzYsImp0aSI6Ik9XZmt4cXlTUWNlRWtCdjkiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Aa00Fwxi1Qt2Cb7eSxAwAEmHdzMmBOHcK7Ozg0SAqWk"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f569d2f-98ec-4394-8407-a3621a072350",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"folder": "0bcaa946-5fe7-4335-8f83-e14b04cb13c1",
+			"rawModeData": "{\r\n\r\n\t\"client_is_also_merchant\": \"ll\",\r\n\t\"client_allow_postpaid\": false,\r\n\t\"client_name\": \"PT Ebiz Cipta Solusi\",\r\n\t\"client_tax_no\": null,\r\n\t\"client_billing_address_line_1\": \"kokas 88\",\r\n\t\"client_billing_address_line_2\": \"simatupang 89\",\r\n\t\"client_billing_address_state_province_pid\": 7,\r\n\t\"client_billing_address_city_pid\": 50,\r\n\t\"client_billing_address_postal_code\": 555,\r\n\t\"client_industry_category_pid\": 139,\r\n\t\"client_employee_size_category_pid\": 147,\r\n\t\"client_outstanding_limit\": 0.0000,\r\n\t\"isactive\": true,\r\n\t\"isdelete\": false\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "a69374ec-ab31-4882-9c78-09ff42fe5080",
+			"name": "Profile",
+			"url": "http://evoucher.test:8090/api/v1/me",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXZvdWNoZXIudGVzdDo4MDkwL2FwaS92MS9sb2dpbiIsImlhdCI6MTUyNTk2NjU3NiwiZXhwIjoxNTI1OTcwMTc2LCJuYmYiOjE1MjU5NjY1NzYsImp0aSI6IndXY2ZhTmEwdHdtMnRpd04iLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.-zwQQ5-lIB5wpG9GcI1reQbYm2uxiuKltzpssmHdxbw"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": "341213ee-3155-4e05-8957-3d10d300fd3e",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "c96e19ae-e08b-4b15-92a3-3d7ee7095714",
+			"name": "Client Detail",
+			"url": "http://evoucher.test:8090/api/v1/clients/gojek",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXZvdWNoZXIudGVzdDo4MDkwL2FwaS92MS9sb2dpbiIsImlhdCI6MTUyNTk3MDIyNywiZXhwIjoxNTI1OTczODI3LCJuYmYiOjE1MjU5NzAyMjcsImp0aSI6Ikk4OFVudzNtSE9wYVRGNkQiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.sU7V-OQvOFzH-t1_DL7Y2amUMCJ3ta-YTrbQ8JQwtMs"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": "0bcaa946-5fe7-4335-8f83-e14b04cb13c1",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "eb493c29-2eb6-4b86-a69d-6e94031a8b4b",
+			"name": "Get Role",
+			"url": "http://evoucher.test:8090/api/v1/role",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXZvdWNoZXIudGVzdDo4MDkwL2FwaS92MS9sb2dpbiIsImlhdCI6MTUyNTk4MDA5MSwiZXhwIjoxNTI1OTgzNjkxLCJuYmYiOjE1MjU5ODAwOTEsImp0aSI6Ikc5WXlxMTNCUWRZajJvNDkiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.DylliV4Vj977FrJXzB_9O4q6p_frHQVWH891TnZrqI0"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": "a1d009a0-26de-4bba-890d-fec0185c5de1",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "f3315849-cf4b-4c9b-b123-366e8e5dbc01",
+			"name": "Login",
+			"url": "http://evoucher.test:8090/api/v1/login",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "341213ee-3155-4e05-8957-3d10d300fd3e",
+			"rawModeData": "{\n\t\"user_name\" : \"anang@gmail.com\",\n\t\"password\" : \"password\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		}
+	]
+}

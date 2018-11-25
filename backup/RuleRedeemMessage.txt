@@ -1,0 +1,58 @@
+1. Redeem SUKSES 
+	Cek Kondisi:
+		redeem_status_code = 001 
+	Result Message :
+		Success! voucher <voucher_generated_no> has been redeemed on <redeem_request_date>! Please inform customer.
+	Contoh Message:
+		Success! voucher [31287367782] has been redeemed [2018-08-13 12:27:52]! Please inform customer.
+
+2. Redeem GAGAL karena nomor voucher salah atau outlet code salah
+	Cek Kondisi:
+		redeem_status_code = 000 AND redeem_failure_code = INV
+	Result Message :
+		Oops! unknown voucher number or invalid store code, redeem failed. 
+	Contoh Message:
+		Oops! unknown voucher number or invalid store code, redeem failed. 
+
+2. Redeem GAGAL karena voucher sudah pernah di REDEEM!
+	Cek Kondisi:
+		redeem_status_code = 000 AND redeem_failure_code = RF01
+	Result Message :
+		Oops! voucher <voucher_generated_no> has been redeemed before! Please inform customer. 
+	Contoh Message:
+		Oops! voucher [31287367782] has been redeemed before! Please inform customer. 
+
+3. Redeem GAGAL karena campaign atau voucher BELUM VALID (waktu nya belum dimulai)
+	Cek Kondisi:
+		redeem_status_code = 000 AND redeem_failure_code = RF02
+	Result Message :
+		Oops! voucher <voucher_generated_no> or it's related campaign has not been started yet! Please inform customer. 
+	Contoh Message:
+		Oops! voucher [31287367782] or it's related campaign has not been started yet! Please inform customer. 
+
+4. Redeem GAGAL karena campaign atau voucher EXPIRED
+	Cek Kondisi:
+		redeem_status_code = 000 AND redeem_failure_code = RF03  
+	Result Message :
+		Oops! voucher <voucher_generated_no> or it's related campaign has expired! Please inform customer. 
+	Contoh Message:
+		Oops! voucher [31287367782] or related it's related campaign has expired! Please inform customer. 
+
+5. Redeem GAGAL karena kode outlet tidak ter mapping pada voucher!
+	Cek Kondisi:
+		redeem_status_code = 000 AND redeem_failure_code = RF04
+	Result Message :
+		Oops! Invalid store code for voucher <voucher_generated_no>, redeem failed! Please inform customer. 
+	Contoh Message:
+		Oops! Invalid store code for voucher [31287367782], redeem failed! Please inform customer. 
+
+6. Redeem GAGAL karena voucher dikunci akibat terlalu banyak percobaan redeem gagal!
+	Cek Kondisi:
+		redeem_status_code = 000 AND redeem_failure_code = 'Locked for <LockedMinutes> min.' (contoh :'Locked for 10 min.', lo bikin pake like/consist aja)
+	Result Message :
+		Oops! there's too many failed redeem attempt for voucher <voucher_generated_no>, redeem access <redeem_failure_code>.
+	Contoh Message:
+		Oops! there's too many failed redeem attempt for voucher [31287367782], redeem access locked for 10 min.
+
+7. Redeem GAGAL karena exception selain poin2 diatas (error back end, dsb)
+	Lempar ke 404
