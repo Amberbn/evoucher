@@ -31,9 +31,9 @@ class SendEmailChangePasswordJob implements ShouldQueue
      */
     public function handle()
     {
-        $voucher = $this->user;
+        $user = $this->user;
 
-        \Log::info('send sms email outside voucher for email ' . $voucher->user_name . ' is running on ' . date('Y-m-d H:i:s'));
+        \Log::info('send sms email outside voucher for email ' . $user->user_name . ' is running on ' . date('Y-m-d H:i:s'));
 
         $email = new SendEmailNotification($user);
         Mail::to($user->email)->send($email);

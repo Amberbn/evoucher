@@ -37,7 +37,7 @@ class SendEmailChangePassword extends Mailable
     public function build()
     {
         // $user = $this->userRepository->getAllUser();
-        $voucher = $this->voucher;
+        $user = $this->user;
 
         // $userName =  $user->user_name
         // $password = $user->password;
